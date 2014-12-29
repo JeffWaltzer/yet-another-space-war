@@ -4,60 +4,41 @@ angular.module('svgToy', [])
 			  [125, 85],
 			  [150, 100],
 			  [125, 50]];
-
-	var left_down= false;
-	var right_down= false;
-	var update_interval= 20.0; // ms
-	var angular_speed= 360.0;   // degrees / s
+	var keys_down= [];
+	var update_interval= 10.0; // ms
+	var angular_speed= 180.0;  // degrees / s
 	var angular_update = angular_speed * update_interval / 1000.0;
 
-
-	$scope.ship_angle= 0;
-	$scope.ship_center_x= 125;
-	$scope.ship_center_y= 83.3;
+	var is_key_down= function(keycode) {return function() {return keys_down[keycode];};};
+	var left_down=  is_key_down(37);
+	var right_down=  is_key_down(39);
 
 	var ship_angular_velocity= function() {
-	    if (left_down && !right_down)
+	    if (left_down() && !right_down())
 		return -angular_update;
-	    if (right_down && !left_down)
+	    if (right_down() && !left_down())
 		return angular_update;
 	    return 0;
 	};
 
-	var rotate_ship= function() {
+	var update_ship= function() {
 	    $scope.ship_angle= ($scope.ship_angle + ship_angular_velocity()) % 360;
 	}
 
-        $scope.svg_width= 800;
-        $scope.svg_height= 600;
-
-	$scope.ship_points_string= function() {
-	    return _.map(ship_points,
-			 function(value) { return value.join(); })
-		.join(' ');
-	};
-
 	$scope.onKeyDown= function(e) {
-	    if (e.keyCode === 37) {
-		left_down= true;
-	    }
-	    else if (e.keyCode === 39) {
-		right_down= true;
-	    }
+	    keys_down[e.keyCode]= true;
 	};
 
 	$scope.onKeyUp= function(e) {
-	    if (e.keyCode === 37) {
-		left_down= false;
-	    }
-	    else if (e.keyCode === 39) {
-		right_down= false;
-	    }
+	    keys_down[e.keyCode]= false;
 	};
 
-        // $scope.center_x= 100;
-        // $scope.center_y= 100;
-        // $scope.radius= 10;
+	$scope.ship_angle= 0;
+        $scope.svg_width= 800;
+        $scope.svg_height= 600;
+	$scope.ship_center_x= _.reduce(ship_points, function(sum_x, p) {return sum_x+p[0];}, 0) / _.size(ship_points);
+	$scope.ship_center_y= _.reduce(ship_points, function(sum_y, p) {return sum_y+p[1];}, 0) / _.size(ship_points);
+	$scope.ship_points_string= _.map(ship_points, function(value) {return value.join(',');}).join(' ');
 
-        $interval(rotate_ship, update_interval);
+        $interval(update_ship, update_interval);
     }]);
