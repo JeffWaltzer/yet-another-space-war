@@ -4,8 +4,9 @@ module.exports = function(config) {
                 'node_modules/angular/angular.js',
                 'node_modules/angular-mocks/angular-mocks.js',
                 'lib/**/*.js',
-                'src/svg.js',
+                'src/yasw.js',
                 'src/ship_command_controller.js',
+                'src/game_server_service.js',
                 'spec/**/*.js'
             ],
             frameworks: ['jasmine'],

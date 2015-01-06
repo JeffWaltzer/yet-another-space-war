@@ -2,13 +2,14 @@ describe('ShipCommandController', function() {
 
     beforeEach(module('YASW'));
 
-    var scope, $location, createController;
-    beforeEach(inject(function($rootScope, $controller, _$location_) {
+    var scope, $location, createController, game_server;
+    beforeEach(inject(function($rootScope, $controller, _$location_, _game_server_) {
         $location = _$location_;
         scope = $rootScope.$new();
         createController = function() {
             return $controller('ShipCommandController', {'$scope': scope});
         };
+        game_server= _game_server_;
     }));
 
     sent_tests=  [
@@ -41,27 +42,27 @@ describe('ShipCommandController', function() {
 
             beforeEach(function(){
                 controller= createController();
-                controller.left_key= test_conditions.left_key;
-                spyOn(server, 'send');
+                scope.left_key= test_conditions.left_key;
+                spyOn(game_server, 'send');
             });
 
             describe(' and right key is ' + test_conditions.right_key, function() {
                 beforeEach(function(){
-                    controller.right_key= test_conditions.right_key;
+                    scope.right_key= test_conditions.right_key;
                 });
 
                 describe(' and we receive ' + test_conditions.event, function(){
                     beforeEach(function(){
-                        controller.onKeyEvent(test_conditions.event);
+                        scope.onKeyEvent(test_conditions.event);
                     });
 
                     if(test_conditions.expected_sent){
                       it('sends ' + test_conditions.expected_sent , function() {
-                          expect(server.send).toHaveBeenCalledWith(test_conditions.expected_sent);
+                          expect(game_server.send).toHaveBeenCalledWith(test_conditions.expected_sent);
                       })
                     }   else {
                         it('does not send' , function() {
-                            expect(server.send).not.toHaveBeenCalled();
+                            expect(game_server.send).not.toHaveBeenCalled();
                         })
                     }
                 })
