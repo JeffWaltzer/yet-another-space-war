@@ -70,7 +70,25 @@ describe('ShipCommandController', function() {
         } );
     });
 
-//    state_tests= [{left_key: up, right_key: up, event: left_down, expected_left_key_state: down, expected_right_key_state: up}]
+//    state_tests= [{left_key: up,   right_key: up,   event: left_down,  expected_left_key_state: down, expected_right_key_state: up}]
+//    state_tests= [{left_key: up,   right_key: up,   event: left_up,    expected_left_key_state: up,   expected_right_key_state: up}]
+//    state_tests= [{left_key: up,   right_key: up,   event: right_down, expected_left_key_state: up,   expected_right_key_state: down}]
+//    state_tests= [{left_key: up,   right_key: up,   event: right_up,   expected_left_key_state: up,   expected_right_key_state: up}]
+
+//    state_tests= [{left_key: up,   right_key: down, event: left_down,  expected_left_key_state: down, expected_right_key_state: down}]
+//    state_tests= [{left_key: up,   right_key: down, event: left_up,    expected_left_key_state:   up, expected_right_key_state: down}]
+//    state_tests= [{left_key: up,   right_key: down, event: right_down, expected_left_key_state:   up, expected_right_key_state: down}]
+//    state_tests= [{left_key: up,   right_key: down, event: right_up,   expected_left_key_state:   up, expected_right_key_state: up}]
+
+//    state_tests= [{left_key: down, right_key: up,   event: left_down,  expected_left_key_state: down, expected_right_key_state: up}]
+//    state_tests= [{left_key: down, right_key: up,   event: left_up,    expected_left_key_state:   up, expected_right_key_state: up}]
+//    state_tests= [{left_key: down, right_key: up,   event: right_down, expected_left_key_state: down, expected_right_key_state: down}]
+//    state_tests= [{left_key: down, right_key: up,   event: right_up,   expected_left_key_state: down, expected_right_key_state: up}]
+
+//    state_tests= [{left_key: down, right_key: down, event: left_down,  expected_left_key_state: down, expected_right_key_state: down}]
+//    state_tests= [{left_key: down, right_key: down, event: left_up,    expected_left_key_state:   up, expected_right_key_state: down}]
+//    state_tests= [{left_key: down, right_key: down, event: right_down, expected_left_key_state: down, expected_right_key_state: down}]
+//    state_tests= [{left_key: down, right_key: down, event: right_up,   expected_left_key_state: down, expected_right_key_state: up}]
 
     describe("left key is up and right key is up", function() {
         describe ("receives a left key down", function() {
