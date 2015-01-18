@@ -12,6 +12,21 @@ describe('ShipCommandController', function() {
         game_server= _game_server_;
     }));
 
+    describe('Initial key states', function() {
+        var controller;
+
+        beforeEach(function(){
+            controller= createController();
+        });
+
+        it('start left up', function() {
+            expect(scope.left_key).toBe('up');
+        })
+        it('start right up', function() {
+            expect(scope.right_key).toBe('up');
+        })
+    })
+
     var sent_tests=  [
         {left_key: 'up',   right_key: 'up',   event: 'left_down',  expected_sent: 'rotate_left'},
         {left_key: 'down', right_key: 'down', event: 'right_up',   expected_sent: 'rotate_left'},

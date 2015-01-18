@@ -4,6 +4,9 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   var right_key_up= function() {return $scope.right_key === 'up';}
   var right_key_down= function() {return $scope.right_key === 'down';}
 
+  $scope.left_key='up';
+  $scope.right_key='up';
+
   $scope.onKeyEvent= function(event) {
     switch (event) {
     case 'left_down':
