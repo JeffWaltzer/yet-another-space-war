@@ -11,24 +11,28 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
         game_server.send('rotate_left');
       else if (left_key_up() && right_key_down())
         game_server.send('rotate_stop');
+      $scope.left_key='down';
       break;
     case 'left_up':
       if (left_key_down() && right_key_down())
         game_server.send('rotate_right');
       else if (left_key_down() && right_key_up())
         game_server.send('rotate_stop');
+      $scope.left_key='up';
       break;
     case 'right_down':
       if (left_key_up() && right_key_up())
         game_server.send('rotate_right');
       else if (left_key_down() && right_key_up())
         game_server.send('rotate_stop');
+      $scope.right_key='down';
       break;
     case 'right_up':
       if (left_key_down() && right_key_down())
         game_server.send('rotate_left');
       else if (left_key_up() && right_key_down())
         game_server.send('rotate_stop');
+      $scope.right_key='up';
       break;
     };
   };

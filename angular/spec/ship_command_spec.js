@@ -12,7 +12,7 @@ describe('ShipCommandController', function() {
         game_server= _game_server_;
     }));
 
-    sent_tests=  [
+    var sent_tests=  [
         {left_key: 'up',   right_key: 'up',   event: 'left_down',  expected_sent: 'rotate_left'},
         {left_key: 'down', right_key: 'down', event: 'right_up',   expected_sent: 'rotate_left'},
 
@@ -70,83 +70,51 @@ describe('ShipCommandController', function() {
         } );
     });
 
-//    state_tests= [{left_key: up,   right_key: up,   event: left_down,  expected_left_key_state: down, expected_right_key_state: up}]
-//    state_tests= [{left_key: up,   right_key: up,   event: left_up,    expected_left_key_state: up,   expected_right_key_state: up}]
-//    state_tests= [{left_key: up,   right_key: up,   event: right_down, expected_left_key_state: up,   expected_right_key_state: down}]
-//    state_tests= [{left_key: up,   right_key: up,   event: right_up,   expected_left_key_state: up,   expected_right_key_state: up}]
+    var state_tests = [
+        {left_key: 'up', right_key: 'up', event: 'left_down', expected_left_key_state: 'down', expected_right_key_state: 'up' },
+        {left_key: 'up', right_key: 'up', event: 'left_up', expected_left_key_state: 'up', expected_right_key_state: 'up' },
+        {left_key: 'up', right_key: 'up', event: 'right_down', expected_left_key_state: 'up', expected_right_key_state: 'down' },
+        {left_key: 'up', right_key: 'up', event: 'right_up', expected_left_key_state: 'up', expected_right_key_state: 'up' },
+        {left_key: 'up', right_key: 'down', event: 'left_down', expected_left_key_state: 'down', expected_right_key_state: 'down' },
+        {left_key: 'up', right_key: 'down', event: 'left_up', expected_left_key_state: 'up', expected_right_key_state: 'down' },
+        {left_key: 'up', right_key: 'down', event: 'right_down', expected_left_key_state: 'up', expected_right_key_state: 'down' },
+        {left_key: 'up', right_key: 'down', event: 'right_up', expected_left_key_state: 'up', expected_right_key_state: 'up' },
+        {left_key: 'down', right_key: 'up', event: 'left_down', expected_left_key_state: 'down', expected_right_key_state: 'up' },
+        {left_key: 'down', right_key: 'up', event: 'left_up', expected_left_key_state: 'up', expected_right_key_state: 'up' },
+        {left_key: 'down', right_key: 'up', event: 'right_down', expected_left_key_state: 'down', expected_right_key_state: 'down' },
+        {left_key: 'down', right_key: 'up', event: 'right_up', expected_left_key_state: 'down', expected_right_key_state: 'up' },
+        {left_key: 'down', right_key: 'down', event: 'left_down', expected_left_key_state: 'down', expected_right_key_state: 'down' },
+        {left_key: 'down', right_key: 'down', event: 'left_up', expected_left_key_state: 'up', expected_right_key_state: 'down' },
+        {left_key: 'down', right_key: 'down', event: 'right_down', expected_left_key_state: 'down', expected_right_key_state: 'down' },
+        {left_key: 'down', right_key: 'down', event: 'right_up', expected_left_key_state: 'down', expected_right_key_state: 'up' }
+    ];
+    _.each(state_tests, function(test_conditions) {
+        describe( 'When left key is ' + test_conditions.left_key, function() {
+            var controller;
 
-//    state_tests= [{left_key: up,   right_key: down, event: left_down,  expected_left_key_state: down, expected_right_key_state: down}]
-//    state_tests= [{left_key: up,   right_key: down, event: left_up,    expected_left_key_state:   up, expected_right_key_state: down}]
-//    state_tests= [{left_key: up,   right_key: down, event: right_down, expected_left_key_state:   up, expected_right_key_state: down}]
-//    state_tests= [{left_key: up,   right_key: down, event: right_up,   expected_left_key_state:   up, expected_right_key_state: up}]
+            beforeEach(function(){
+                controller= createController();
+                scope.left_key= test_conditions.left_key;
+            });
 
-//    state_tests= [{left_key: down, right_key: up,   event: left_down,  expected_left_key_state: down, expected_right_key_state: up}]
-//    state_tests= [{left_key: down, right_key: up,   event: left_up,    expected_left_key_state:   up, expected_right_key_state: up}]
-//    state_tests= [{left_key: down, right_key: up,   event: right_down, expected_left_key_state: down, expected_right_key_state: down}]
-//    state_tests= [{left_key: down, right_key: up,   event: right_up,   expected_left_key_state: down, expected_right_key_state: up}]
+            describe(' and right key is ' + test_conditions.right_key, function() {
+                beforeEach(function(){
+                    scope.right_key= test_conditions.right_key;
+                });
 
-//    state_tests= [{left_key: down, right_key: down, event: left_down,  expected_left_key_state: down, expected_right_key_state: down}]
-//    state_tests= [{left_key: down, right_key: down, event: left_up,    expected_left_key_state:   up, expected_right_key_state: down}]
-//    state_tests= [{left_key: down, right_key: down, event: right_down, expected_left_key_state: down, expected_right_key_state: down}]
-//    state_tests= [{left_key: down, right_key: down, event: right_up,   expected_left_key_state: down, expected_right_key_state: up}]
-
-    describe("left key is up and right key is up", function() {
-        describe ("receives a left key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a right key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
+                describe(' and we receive ' + test_conditions.event, function(){
+                    beforeEach(function(){
+                        scope.onKeyEvent(test_conditions.event);
+                    });
+                    it('right key is ' + test_conditions.expected_right_key_state , function() {
+                        expect(scope.right_key).toEqual(test_conditions.expected_right_key_state);
+                    })
+                    it('left key is ' + test_conditions.expected_left_key_state , function() {
+                        expect(scope.left_key).toEqual(test_conditions.expected_left_key_state);
+                    })
+                })
+            })
+        } )
     });
 
-    describe("left key is up and right key is down", function() {
-        describe ("receives a left key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a right key up", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a right key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-    });
-
-    describe("left key is down and right key is up", function() {
-        describe ("receives a left key up", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a left key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a right key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-    });
-
-    describe("left key is down and right key is down", function() {
-        describe ("receives a left key up", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a left key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a right key up", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-        describe ("receives a right key down", function() {
-            xit('is in the correct state', function() {});
-            xit('sends the correct thing to the server', function() {});
-        });
-    });
 });
