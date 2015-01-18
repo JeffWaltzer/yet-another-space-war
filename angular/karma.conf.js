@@ -7,7 +7,7 @@ module.exports = function(config) {
                 'src/yasw.js',
                 'src/controllers/*.js',
                 'src/services/*.js',
-                'spec/**/*.js'
+                'spec/obj/*.js'
             ],
             frameworks: ['jasmine'],
             browsers: ['PhantomJS'],
