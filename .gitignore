@@ -1,4 +1,3 @@
 *~
 node_modules
-jasmine
-spec/obj
+angular/spec/obj
