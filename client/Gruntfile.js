@@ -13,13 +13,6 @@ module.exports = function(grunt) {
             },
 
             coffee: {
-//                compile: {
-//                    files: {
-//                        'spec/obj/*.js': 'spec/*.coffee'
-//                        'spec/obj/ship_command_spec.js': 'spec/ship_command_spec.coffee',
-//                        'spec/obj/polygon_spec.js': 'spec/polygon_spec.coffee'
-//                    }
-//                }
                 glob_to_multiple: {
                     expand: true,
                     flatten: true,
@@ -41,7 +34,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-karma');
 
-    grunt.registerTask('default', ['coffee', 'karma']);
+    grunt.registerTask('default', ['coffee', 'jshint','karma']);
 
 
 };
