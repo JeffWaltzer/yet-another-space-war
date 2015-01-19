@@ -13,12 +13,21 @@ module.exports = function(grunt) {
             },
 
             coffee: {
-                compile: {
-                    files: {
-                        'spec/obj/ship_command_spec.js': 'spec/ship_command_spec.coffee',
-                        'spec/obj/polygon_spec.js': 'spec/polygon_spec.coffee'
-                    },
-                },
+//                compile: {
+//                    files: {
+//                        'spec/obj/*.js': 'spec/*.coffee'
+//                        'spec/obj/ship_command_spec.js': 'spec/ship_command_spec.coffee',
+//                        'spec/obj/polygon_spec.js': 'spec/polygon_spec.coffee'
+//                    }
+//                }
+                glob_to_multiple: {
+                    expand: true,
+                    flatten: true,
+                    cwd: "spec",
+                    src: ['*.coffee'],
+                    dest: 'spec/obj',
+                    ext: '.js'
+                }
             },
 
             karma: {
