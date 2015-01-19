@@ -15,7 +15,8 @@ module.exports = function(grunt) {
             coffee: {
                 compile: {
                     files: {
-                        'spec/obj/ship_command_spec.js': 'spec/ship_command_spec.coffee'
+                        'spec/obj/ship_command_spec.js': 'spec/ship_command_spec.coffee',
+                        'spec/obj/polygon_spec.js': 'spec/polygon_spec.coffee'
                     },
                 },
             },
