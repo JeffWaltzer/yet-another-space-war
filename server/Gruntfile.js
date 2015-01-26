@@ -9,13 +9,24 @@ module.exports = function(grunt) {
                     extensions: 'js',
                     specNameMatcher: 'spec',
                     jUnit: {
-                        report: true,
+                        report: false,
                         savePath: "./build/reports/jasmine/",
                         useDotNotation: true,
                         consolidate: true
                     }
                 },
                 all: ['spec/']
+            },
+
+            coffee: {
+                glob_to_multiple: {
+                    expand: true,
+                    flatten: true,
+                    cwd: "spec",
+                    src: ['*.coffee'],
+                    dest: 'spec/obj',
+                    ext: '.js'
+                }
             },
 
             jshint: {
@@ -32,5 +43,6 @@ module.exports = function(grunt) {
     );
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jasmine-node');
-    grunt.registerTask('default', ['jshint','jasmine_node']);
+    grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.registerTask('default', ['coffee', 'jshint','jasmine_node']);
 };
