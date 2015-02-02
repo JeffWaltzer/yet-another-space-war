@@ -7,9 +7,7 @@ exports.createServer= function() {
     yasw_server.listen= function(port) {
 
         http_server= http.createServer(function(request, response) {
-            response.writeHead(200, {"Content-Type": "text/json"});
-            response.write('[[100, 100], [125, 85], [150, 100], [125, 50]]');
-            response.end();
+            yasw_server.landing_page(response);
         });
 
         var listener = http_server.listen(port);
@@ -22,6 +20,12 @@ exports.createServer= function() {
     yasw_server.shutdown= function() {
         http_server.close();
         http_server= null;
+    };
+
+    yasw_server.landing_page= function(response) {
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.write('Welcome to Space War.');
+        response.end();
     };
 
     return yasw_server;
