@@ -10,27 +10,20 @@ describe 'the server, when asked for ship data ', ->
     server.listen(3000)
 
   it 'should respond with ship data', (done) ->
+    self = this
     socket = engine_client('ws://localhost:3000')
     message = undefined
-    socket.on 'open', ->
-      console.log "open!"
     socket.on 'message', (data)->
       message = data
       console.log "message is:" ,data
       expect(message).toEqual('[[10,10],[15,10],[10,15]]')
       done()
-    socket.on 'error', ->
-      console.log "error is:"
+    socket.on 'error',(e) ->
+      self.fail(e)
       done()
-    socket.on 'upgradeError', ->
-      console.log "upgradeError is:"
+    socket.on 'upgradeError', (e)->
+      self.fail("upgradeError is #{e}")
       done()
-    socket.on 'upgrade', ->
-      console.log "upgrade is:"
-    socket.on 'close', ->
-      console.log "closed!!!"
-      done()
-
 
   afterEach ->
     server.shutdown()

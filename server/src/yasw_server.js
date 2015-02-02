@@ -12,13 +12,9 @@ exports.createServer= function() {
             response.end();
         });
 
-
-
-
         var listener = http_server.listen(port);
         var engine_server = engine_io.attach(listener);
         engine_server.on('connection', function(socket) {
-            console.log('service with pleasure');
             socket.send("[[10,10],[15,10],[10,15]]");
         });
     };
