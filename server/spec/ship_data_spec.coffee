@@ -9,10 +9,13 @@ describe 'the server, when asked for ship data ', ->
     server= yasw.createServer()
     server.listen(3000)
 
-  it 'should respond with a landing page', (done) ->
+  it 'should call the landing page function', (done) ->
     spyOn(server, 'landing_page').andCallThrough();
     request 'http://localhost:3000', (error, response, body) ->
-      expect(server.landing_page).toHaveBeenCalled()
+      done()
+
+  it 'should respond with a landing page', (done) ->
+    request 'http://localhost:3000', (error, response, body) ->
       expect(error).toBeNull();
       expect(body).toMatch /Space War/
       done()
