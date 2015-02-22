@@ -1,0 +1,3 @@
+Make server return correct content type header.
+extract utility method from landing_page_spec.coffee
+Rename spec files.
