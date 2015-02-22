@@ -28,8 +28,16 @@ exports.createServer= function() {
   };
 
   yasw_server.static_page= function(page, response) {
-    response.writeHead(200, {"Content-Type": "text/html"});
-    fs.createReadStream("html" + page).pipe(response);
+    var filename= "html" + page;
+    var read_stream= fs.createReadStream(filename);
+    read_stream.on('open', function() {
+      response.writeHead(200, {"Content-Type": "text/html"});
+      read_stream.pipe(response);
+    });
+    read_stream.on('error', function() {
+      response.writeHead(404);
+      response.end();
+    });
   };
 
   return yasw_server;

@@ -9,7 +9,7 @@ describe 'the server, when asked for ship data ', ->
     server= yasw.createServer()
     server.listen(3000)
 
-  it 'should call the landing page function', (done) ->
+  it 'should call the static page function', (done) ->
     spyOn(server, 'static_page').andCallFake (filename, response) ->
       expect(filename).toEqual("/index.html");
       done()
@@ -18,7 +18,7 @@ describe 'the server, when asked for ship data ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
-  it 'should call the landing page function', (done) ->
+  it 'should call the static page function', (done) ->
     spyOn(server, 'static_page').andCallFake (filename, response) ->
       expect(filename).toEqual("/index.html");
       done()
@@ -27,7 +27,7 @@ describe 'the server, when asked for ship data ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
-  it 'should call the landing page function', (done) ->
+  it 'should call the static page function', (done) ->
     spyOn(server, 'static_page').andCallFake (filename, response) ->
       expect(filename).toEqual("/ship.js");
       done()
@@ -36,7 +36,7 @@ describe 'the server, when asked for ship data ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
-  it 'should respond with a landing page', (done) ->
+  it 'should respond with a static page', (done) ->
     request 'http://localhost:3000', (error, response, body) ->
       expect(error).toBeNull();
       expect(body).toMatch /Space War/
