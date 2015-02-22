@@ -10,9 +10,30 @@ describe 'the server, when asked for ship data ', ->
     server.listen(3000)
 
   it 'should call the landing page function', (done) ->
-    spyOn(server, 'landing_page').andCallThrough();
+    spyOn(server, 'static_page').andCallFake (filename, response) ->
+      expect(filename).toEqual("/index.html");
+      done()
+
     request 'http://localhost:3000', (error, response, body) ->
-      expect(server.landing_page).toHaveBeenCalled()
+      expect(server.static_page).toHaveBeenCalled 
+      done()
+
+  it 'should call the landing page function', (done) ->
+    spyOn(server, 'static_page').andCallFake (filename, response) ->
+      expect(filename).toEqual("/index.html");
+      done()
+
+    request 'http://localhost:3000/index.html', (error, response, body) ->
+      expect(server.static_page).toHaveBeenCalled 
+      done()
+
+  it 'should call the landing page function', (done) ->
+    spyOn(server, 'static_page').andCallFake (filename, response) ->
+      expect(filename).toEqual("/ship.js");
+      done()
+
+    request 'http://localhost:3000/ship.js', (error, response, body) ->
+      expect(server.static_page).toHaveBeenCalled 
       done()
 
   it 'should respond with a landing page', (done) ->

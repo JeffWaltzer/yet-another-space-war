@@ -1,6 +1,7 @@
 var http = require("http");
 var engine_io = require('engine.io');
 var fs= require('fs');
+var url= require('url');
 
 exports.createServer= function() {
   var yasw_server= {};
@@ -8,9 +9,12 @@ exports.createServer= function() {
   yasw_server.listen= function(port) {
 
     http_server= http.createServer(function(request, response) {
-      yasw_server.landing_page(response);
+      filename= url.parse(request.url).pathname;
+      if (filename == '/')
+        filename= "/index.html";
+      yasw_server.static_page(filename, response);
     });
-
+    
     var listener = http_server.listen(port);
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', function(socket) {
@@ -23,9 +27,9 @@ exports.createServer= function() {
     http_server= null;
   };
 
-  yasw_server.landing_page= function(response) {
+  yasw_server.static_page= function(page, response) {
     response.writeHead(200, {"Content-Type": "text/html"});
-    fs.createReadStream("html/index.html").pipe(response);
+    fs.createReadStream("html" + page).pipe(response);
   };
 
   return yasw_server;
