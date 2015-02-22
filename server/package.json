@@ -6,6 +6,7 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-jasmine-node": "^0.2.1",
     "jasmine": "^2.1.1",
+    "node-mocks-http": "^1.2.4",
     "request": "^2.51.0"
   },
   "dependencies": {

@@ -12,6 +12,7 @@ describe 'the server, when asked for ship data ', ->
   it 'should call the landing page function', (done) ->
     spyOn(server, 'landing_page').andCallThrough();
     request 'http://localhost:3000', (error, response, body) ->
+      expect(server.landing_page).toHaveBeenCalled()
       done()
 
   it 'should respond with a landing page', (done) ->
