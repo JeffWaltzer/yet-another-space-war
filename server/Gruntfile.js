@@ -44,5 +44,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-contrib-coffee');
-    grunt.registerTask('default', ['coffee', 'jshint','jasmine_node']);
+
+    grunt.registerTask('clean',function () {
+        grunt.file.expand('spec/obj/*').forEach(function(file) {
+            grunt.file.delete(file);
+        })
+    });
+
+    grunt.registerTask('default', ['clean','coffee', 'jshint','jasmine_node']);
 };
