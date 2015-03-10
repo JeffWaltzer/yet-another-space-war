@@ -18,6 +18,18 @@ describe 'the server, when asked for the default page ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
+  it 'should respond with a static page', (done) ->
+    request 'http://localhost:3000', (error, response, body) ->
+      expect(error).toBeNull();
+      expect(body).toMatch /Space War/
+      done()
+
+  it 'should respond with content type html', (done) ->
+    request 'http://localhost:3000', (error, response, body) ->
+      expect(error).toBeNull();
+      expect(response.headers['content-type']).toEqual('text/html')
+      done()
+
   afterEach ->
     server.shutdown()
 
@@ -36,10 +48,16 @@ describe 'the server, when asked for /index.html ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
+  it 'should respond with content type html', (done) ->
+    request 'http://localhost:3000', (error, response, body) ->
+      expect(error).toBeNull();
+      expect(response.headers['content-type']).toEqual('text/html')
+      done()
+
   afterEach ->
     server.shutdown()
 
-describe 'the server, when asked for ship.js ', ->
+describe 'the server, when asked for /ship.js ', ->
   server= undefined
   beforeEach ->
     server= yasw.createServer()
@@ -52,27 +70,6 @@ describe 'the server, when asked for ship.js ', ->
 
     request 'http://localhost:3000/ship.js', (error, response, body) ->
       expect(server.static_page).toHaveBeenCalled 
-      done()
-
-  afterEach ->
-    server.shutdown()
-
-describe 'the server, when asked for the default page ', ->
-  server= undefined
-  beforeEach ->
-    server= yasw.createServer()
-    server.listen(3000)
-
-  it 'should respond with a static page', (done) ->
-    request 'http://localhost:3000', (error, response, body) ->
-      expect(error).toBeNull();
-      expect(body).toMatch /Space War/
-      done()
-
-  it 'should respond with content type html', (done) ->
-    request 'http://localhost:3000', (error, response, body) ->
-      expect(error).toBeNull();
-      expect(response.headers['content-type']).toEqual('text/html')
       done()
 
   afterEach ->
