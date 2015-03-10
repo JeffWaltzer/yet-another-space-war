@@ -1,106 +1,54 @@
 request = require 'request'
 yasw = require './../../src/yasw_server'
 
-engine_client = require 'engine.io-client'
+#engine_client = require 'engine.io-client'
 
-describe 'the server, when asked for the default page ', ->
-  server= undefined
-  beforeEach ->
-    server= yasw.createServer()
-    server.listen(3000)
+check_request= (page_name, expected_file, expected_content_type) ->
+  describe "the server, when asked for #{page_name}", ->
+    server= undefined
+    beforeEach ->
+      server= yasw.createServer()
+      server.listen(3000)
 
-  it 'should call the static page function for /index.html', (done) ->
-    spyOn(server, 'static_page').andCallFake (filename, response) ->
-      expect(filename).toEqual("/index.html");
-      done()
+    it "should call the static page function for #{expected_file}", (done) ->
+      spyOn(server, 'static_page').andCallFake (filename, response) ->
+        expect(filename).toEqual(expected_file);
+        done()
 
-    request 'http://localhost:3000', (error, response, body) ->
-      expect(server.static_page).toHaveBeenCalled 
-      done()
+      request "http://localhost:3000#{page_name}", (error, response, body) ->
+        expect(server.static_page).toHaveBeenCalled 
+        done()
 
-  it 'should respond with a static page', (done) ->
-    request 'http://localhost:3000', (error, response, body) ->
-      expect(error).toBeNull();
-      expect(body).toMatch /Space War/
-      done()
+    it "should respond with content type #{expected_content_type}", (done) ->
+      request "http://localhost:3000#{page_name}", (error, response, body) ->
+        expect(error).toBeNull();
+        expect(response.headers['content-type']).toEqual(expected_content_type)
+        done()
 
-  it 'should respond with content type html', (done) ->
-    request 'http://localhost:3000', (error, response, body) ->
-      expect(error).toBeNull();
-      expect(response.headers['content-type']).toEqual('text/html')
-      done()
+    afterEach ->
+      server.shutdown()
 
-  afterEach ->
-    server.shutdown()
+check_content= (page_name, expected_content_regexp) ->
+  describe "the server, when asked for #{page_name}", ->
+    server= undefined
+    beforeEach ->
+      server= yasw.createServer()
+      server.listen(3000)
 
-describe 'the server, when asked for /index.html ', ->
-  server= undefined
-  beforeEach ->
-    server= yasw.createServer()
-    server.listen(3000)
+    it "should respond with a page matching", (done) ->
+      request 'http://localhost:3000', (error, response, body) ->
+        expect(error).toBeNull();
+        expect(body).toMatch expected_content_regexp
+        done()
 
-  it 'should call the static page function for /index.html', (done) ->
-    spyOn(server, 'static_page').andCallFake (filename, response) ->
-      expect(filename).toEqual("/index.html");
-      done()
+    afterEach ->
+      server.shutdown()
+  
 
-    request 'http://localhost:3000/index.html', (error, response, body) ->
-      expect(server.static_page).toHaveBeenCalled 
-      done()
+check_request("", "/index.html", "text/html")
+check_content("", /Space Wars/)
 
-  it 'should respond with content type html', (done) ->
-    request 'http://localhost:3000', (error, response, body) ->
-      expect(error).toBeNull();
-      expect(response.headers['content-type']).toEqual('text/html')
-      done()
+check_request("/index.html", "/index.html", "text/html")
+check_content("/index.html", /Space Wars/)
 
-  afterEach ->
-    server.shutdown()
-
-describe 'the server, when asked for /ship.js ', ->
-  server= undefined
-  beforeEach ->
-    server= yasw.createServer()
-    server.listen(3000)
-
-  it 'should call the static page function with /ship.js', (done) ->
-    spyOn(server, 'static_page').andCallFake (filename, response) ->
-      expect(filename).toEqual("/ship.js");
-      done()
-
-    request 'http://localhost:3000/ship.js', (error, response, body) ->
-      expect(server.static_page).toHaveBeenCalled 
-      done()
-
-  it 'should respond with content type text/javascript', (done) ->
-    request 'http://localhost:3000/ship.js', (error, response, body) ->
-      expect(error).toBeNull();
-      expect(response.headers['content-type']).toEqual('text/javascript')
-      done()
-
-  afterEach ->
-    server.shutdown()
-
-describe 'the server, when asked for ship data ', ->
-  server= undefined
-  beforeEach ->
-    server= yasw.createServer()
-    server.listen(3000)
-
-  it 'should respond with ship data', (done) ->
-    self = this
-    socket = engine_client('ws://localhost:3000')
-    message = undefined
-    socket.on 'message', (data)->
-      message = data
-      expect(message).toEqual('[[10,10],[15,10],[10,15]]')
-      done()
-    socket.on 'error',(e) ->
-      self.fail(e)
-      done()
-    socket.on 'upgradeError', (e)->
-      self.fail("upgradeError is #{e}")
-      done()
-
-  afterEach ->
-    server.shutdown()
+check_request("/ship.js", "/ship.js", "text/javascript")
