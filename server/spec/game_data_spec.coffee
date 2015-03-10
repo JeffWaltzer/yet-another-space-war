@@ -3,13 +3,13 @@ yasw = require './../../src/yasw_server'
 
 engine_client = require 'engine.io-client'
 
-describe 'the server, when asked for ship data ', ->
+describe 'the server, when asked for the default page ', ->
   server= undefined
   beforeEach ->
     server= yasw.createServer()
     server.listen(3000)
 
-  it 'should call the static page function', (done) ->
+  it 'should call the static page function for /index.html', (done) ->
     spyOn(server, 'static_page').andCallFake (filename, response) ->
       expect(filename).toEqual("/index.html");
       done()
@@ -18,7 +18,16 @@ describe 'the server, when asked for ship data ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
-  it 'should call the static page function', (done) ->
+  afterEach ->
+    server.shutdown()
+
+describe 'the server, when asked for /index.html ', ->
+  server= undefined
+  beforeEach ->
+    server= yasw.createServer()
+    server.listen(3000)
+
+  it 'should call the static page function for /index.html', (done) ->
     spyOn(server, 'static_page').andCallFake (filename, response) ->
       expect(filename).toEqual("/index.html");
       done()
@@ -27,7 +36,16 @@ describe 'the server, when asked for ship data ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
-  it 'should call the static page function', (done) ->
+  afterEach ->
+    server.shutdown()
+
+describe 'the server, when asked for ship.js ', ->
+  server= undefined
+  beforeEach ->
+    server= yasw.createServer()
+    server.listen(3000)
+
+  it 'should call the static page function with /ship.js', (done) ->
     spyOn(server, 'static_page').andCallFake (filename, response) ->
       expect(filename).toEqual("/ship.js");
       done()
@@ -35,6 +53,15 @@ describe 'the server, when asked for ship data ', ->
     request 'http://localhost:3000/ship.js', (error, response, body) ->
       expect(server.static_page).toHaveBeenCalled 
       done()
+
+  afterEach ->
+    server.shutdown()
+
+describe 'the server, when asked for the default page ', ->
+  server= undefined
+  beforeEach ->
+    server= yasw.createServer()
+    server.listen(3000)
 
   it 'should respond with a static page', (done) ->
     request 'http://localhost:3000', (error, response, body) ->
@@ -47,6 +74,15 @@ describe 'the server, when asked for ship data ', ->
       expect(error).toBeNull();
       expect(response.headers['content-type']).toEqual('text/html')
       done()
+
+  afterEach ->
+    server.shutdown()
+
+describe 'the server, when asked for ship data ', ->
+  server= undefined
+  beforeEach ->
+    server= yasw.createServer()
+    server.listen(3000)
 
   it 'should respond with ship data', (done) ->
     self = this
