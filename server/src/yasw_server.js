@@ -28,10 +28,14 @@ exports.createServer= function() {
   };
 
   yasw_server.static_page= function(page, response) {
-    var filename= "html" + page;
+    var filename= "public" + page;
+    var file_extension= page.split(".").pop();
     var read_stream= fs.createReadStream(filename);
     read_stream.on('open', function() {
-      response.writeHead(200, {"Content-Type": "text/html"});
+      if (file_extension === "js")
+        response.writeHead(200, {"Content-Type": "text/javascript"});
+      else
+        response.writeHead(200, {"Content-Type": "text/html"});
       read_stream.pipe(response);
     });
     read_stream.on('error', function() {

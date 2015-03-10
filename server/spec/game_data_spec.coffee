@@ -72,6 +72,12 @@ describe 'the server, when asked for /ship.js ', ->
       expect(server.static_page).toHaveBeenCalled 
       done()
 
+  it 'should respond with content type text/javascript', (done) ->
+    request 'http://localhost:3000/ship.js', (error, response, body) ->
+      expect(error).toBeNull();
+      expect(response.headers['content-type']).toEqual('text/javascript')
+      done()
+
   afterEach ->
     server.shutdown()
 
