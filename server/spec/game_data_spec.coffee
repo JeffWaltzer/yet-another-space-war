@@ -1,8 +1,6 @@
 request = require 'request'
 yasw = require './../../src/yasw_server'
 
-#engine_client = require 'engine.io-client'
-
 check_request= (page_name, expected_file, expected_content_type) ->
   describe "the server, when asked for #{page_name}", ->
     server= undefined
