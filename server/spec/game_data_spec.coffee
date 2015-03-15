@@ -2,7 +2,7 @@ request = require 'request'
 yasw = require './../../src/yasw_server'
 
 check_request= (page_name, expected_file, expected_content_type) ->
-  describe "the server, when asked for #{page_name}", ->
+  describe "the server, when asked for '#{page_name}'" , ->
     server= undefined
     beforeEach ->
       server= yasw.createServer()
@@ -27,7 +27,7 @@ check_request= (page_name, expected_file, expected_content_type) ->
       server.shutdown()
 
 check_content= (page_name, expected_content_regexp) ->
-  describe "the server, when asked for #{page_name}", ->
+  describe "the server, when asked for '#{page_name}'", ->
     server= undefined
     beforeEach ->
       server= yasw.createServer()
