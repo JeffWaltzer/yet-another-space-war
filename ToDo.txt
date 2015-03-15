@@ -1,3 +1,4 @@
-extract utility method from ship_data_spec.coffee
+Add YAWS app.
+make yasw/sbip accept ship data and display ship
 make grunt fail if lint or coffee compile fails.
 
