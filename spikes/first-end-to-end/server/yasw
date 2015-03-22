@@ -1,0 +1,2 @@
+yasw= require('./src/yasw_server.js');
+yasw.createServer().listen(3000);
