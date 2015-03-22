@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      deploy: {
+      release: {
         files: [
           {expand: true, cwd: 'src', src: ['**'],     dest: '../server/public', filter: 'isFile'},
           {expand: true,             src: ['lib/**'], dest: '../server/public', filter: 'isFile'},
@@ -39,13 +39,19 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      deploy: ['../server/public'],
+      release: {
+        options: {force: true},
+        src: ['../server/public'],
+      },
     },
   });
+
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-karma');
 
+  grunt.registerTask('release', ['clean:release', 'copy:release']);
   grunt.registerTask('default', ['coffee', 'jshint','karma']);
 };
