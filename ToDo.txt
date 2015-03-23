@@ -1,4 +1,4 @@
-Add YAWS app.
-make yasw/sbip accept ship data and display ship
+Add YASW app.
+make yasw/ship accept ship data and display ship
 make grunt fail if lint or coffee compile fails.
-Add grunt task to copy updated client code to server /public directory (or equivalent).
+Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
