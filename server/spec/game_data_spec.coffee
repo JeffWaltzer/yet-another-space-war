@@ -49,4 +49,4 @@ check_content("", /Space Wars/)
 check_request("/index.html", "/index.html", "text/html")
 check_content("/index.html", /Space Wars/)
 
-check_request("/ship.js", "/ship.js", "text/javascript")
+check_request("/controllers/ship_command.js", "/controllers/ship_command.js", "text/javascript")

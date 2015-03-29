@@ -32,8 +32,9 @@ module.exports = function(grunt) {
     copy: {
       release: {
         files: [
-          {expand: true, cwd: 'src', src: ['**'],     dest: '../server/public', filter: 'isFile'},
-          {expand: true,             src: ['lib/**'], dest: '../server/public', filter: 'isFile'},
+          {expand: true, cwd: 'src',    src: ['**'],     dest: '../server/public', filter: 'isFile'},
+          {expand: true, cwd: 'static', src: ['**'],     dest: '../server/public', filter: 'isFile'},
+          {expand: true,                src: ['lib/**'], dest: '../server/public', filter: 'isFile'},
         ],
       },
     },
