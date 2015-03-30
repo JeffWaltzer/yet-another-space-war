@@ -1,6 +1,7 @@
 module.exports = function(config) {
     config.set({
             files: [
+                'node_modules/engine.io-client/engine.io.js',
                 'node_modules/angular/angular.js',
                 'node_modules/angular-mocks/angular-mocks.js',
                 'lib/**/*.js',

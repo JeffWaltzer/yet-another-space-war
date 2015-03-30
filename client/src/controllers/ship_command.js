@@ -4,6 +4,18 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   var right_key_up= function() {return $scope.right_key === 'up';};
   var right_key_down= function() {return $scope.right_key === 'down';};
 
+  $scope.ships=[];
+
+  game_server.web_socket.on('message', function(data) {
+    var ship_data = JSON.parse(data);
+    var id = Object.keys(ship_data)[0];
+
+    if (!$scope.ships[id])
+      $scope.ships[id] = {};
+    $scope.ships[id].points = ship_data[id];
+  });
+
+
   $scope.left_key='up';
   $scope.right_key='up';
 

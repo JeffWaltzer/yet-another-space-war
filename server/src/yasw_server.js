@@ -18,7 +18,8 @@ exports.createServer= function() {
     var listener = http_server.listen(port);
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', function(socket) {
-      socket.send("[[10,10],[15,10],[10,15]]");
+      socket.send("0");
+      socket.send('{0: [[30,30], [20,30],[30,40] }');
     });
   };
 
