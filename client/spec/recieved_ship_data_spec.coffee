@@ -8,14 +8,19 @@ describe 'recieving shipdata', ->
     game_server= _game_server_
 
     scope = $rootScope.$new()
+    spyOn(scope, '$digest').and.callThrough();
 
     createController = (_socket_) ->
       $controller "ShipCommandController",
         $scope: scope
         socket: _socket_
+
+    createController()
+    game_server.web_socket.emit('message', '{"0": [[0,0],[1,1]]}')
   )
 
   it 'dispatches', ->
-    createController()
-    game_server.web_socket.emit('message', '{"0": [[0,0],[1,1]]}')
     expect(scope.ships[0].points).toEqual([[0,0],[1,1]])
+
+  it 'kicks off a digest cycle', ->
+    expect(scope.$digest).toHaveBeenCalled();

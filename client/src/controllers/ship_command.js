@@ -13,6 +13,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
     if (!$scope.ships[id])
       $scope.ships[id] = {};
     $scope.ships[id].points = ship_data[id];
+    $scope.$digest();
   });
 
 

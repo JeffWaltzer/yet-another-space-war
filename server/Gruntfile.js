@@ -39,17 +39,6 @@ module.exports = function(grunt) {
         devel: true
       }
     },
-    copy: {
-      release: {
-        files: [{
-          flatten: true,
-           expand: true,
-              src: ['node_modules/engine.io-client/engine.io.js'],
-             dest: 'public/lib',
-           filter: 'isFile'
-        }]
-      }
-    },
 
     clean: {
       release: {
@@ -63,7 +52,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jasmine-node');
   grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('clean', function() {
