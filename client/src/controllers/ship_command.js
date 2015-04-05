@@ -1,21 +1,31 @@
-angular.module('YASW').controller('ShipCommandController', function($scope, game_server) {
+angular.module('YASW').controller('ShipCommandController', function($scope, game_server, SVG) {
   var left_key_up= function() {return $scope.left_key === 'up';};
   var left_key_down= function() {return $scope.left_key === 'down';};
   var right_key_up= function() {return $scope.right_key === 'up';};
   var right_key_down= function() {return $scope.right_key === 'down';};
 
   $scope.ships=[];
+  $scope.protocol_version= null;
 
-  game_server.web_socket.on('message', function(data) {
-    var ship_data = JSON.parse(data);
-    var id = Object.keys(ship_data)[0];
+  game_server.web_socket.on('message', function(raw_data) {
+    if ($scope.protocol_version === null)
+      $scope.protocol_version= raw_data;
+    else {
+      var data = JSON.parse(raw_data);
+      var id = Object.keys(data)[0];
 
-    if (!$scope.ships[id])
-      $scope.ships[id] = {};
-    $scope.ships[id].points = ship_data[id];
+      if (!$scope.ships[id])
+        $scope.ships[id] = {};
+      $scope.ships[id].points = data[id];
+    }
     $scope.$digest();
   });
 
+  $scope.ship_points_string= function() {
+    if ($scope.ships.length > 0 && $scope.ships[0].points)
+      return SVG.polygon_string($scope.ships[0].points);
+    return '';
+  };
 
   $scope.left_key='up';
   $scope.right_key='up';

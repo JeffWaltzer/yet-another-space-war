@@ -19,7 +19,7 @@ exports.createServer= function() {
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', function(socket) {
       socket.send("0");
-      socket.send('{0: [[30,30], [20,30],[30,40] }');
+      socket.send('{"0": [[30,30], [20,30],[30,40]] }');
     });
   };
 

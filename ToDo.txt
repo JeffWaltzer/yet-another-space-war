@@ -2,3 +2,4 @@ Add YASW app.
 make yasw/ship accept ship data and display ship
 make grunt fail if lint or coffee compile fails.
 Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
+Add e2e test

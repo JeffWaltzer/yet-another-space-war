@@ -16,11 +16,18 @@ describe 'recieving shipdata', ->
         socket: _socket_
 
     createController()
+    game_server.web_socket.emit('message', '0')
     game_server.web_socket.emit('message', '{"0": [[0,0],[1,1]]}')
   )
 
-  it 'dispatches', ->
+  it 'dispatches the protocol version number', ->
+    expect(scope.protocol_version).toEqual('0')
+
+  it 'dispatches the ship coordinates', ->
     expect(scope.ships[0].points).toEqual([[0,0],[1,1]])
 
+  it 'dispatches the ship coordinates', ->
+    expect(scope.ship_points_string()).toEqual('0,0 1,1');
+
   it 'kicks off a digest cycle', ->
-    expect(scope.$digest).toHaveBeenCalled();
+    expect(scope.$digest).toHaveBeenCalled()
