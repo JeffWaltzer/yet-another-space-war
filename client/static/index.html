@@ -8,7 +8,9 @@
     <script src="services/game_server.js"></script>
     <script src="controllers/ship_command.js"></script>
   </head>
-  <body ng-app="YASW" ng-controller="ShipCommandController">
+  <body ng-app="YASW" ng-controller="ShipCommandController"
+	      ng-keydown="onKeyDown($event);"
+        ng-keyup="onKeyUp($event);">
     <svg ng-attr-width="{{800}}" ng-attr-height="{{600}}">
       <rect ng-attr-width="{{800}}" ng-attr-height="{{600}}" style="fill:rgb(0,0,0);stroke-width:0;stroke:rgb(255,0,0)"/>
       <polygon ng-attr-points="{{ship_points_string();}}"
