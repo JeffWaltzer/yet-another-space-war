@@ -6,6 +6,9 @@ var url= require('url');
 exports.createServer= function() {
   var yasw_server= {};
   var http_server;
+
+  yasw_server.ships=[{rotation: 0}];
+
   yasw_server.listen= function(port) {
 
     http_server= http.createServer(function(request, response) {
@@ -20,6 +23,20 @@ exports.createServer= function() {
     engine_server.on('connection', function(socket) {
       socket.send("0");
       socket.send('{"0": [[30,30], [20,30],[30,40]] }');
+      socket.on('message', function(data) {
+        console.log('on message data',data);
+        switch(data) {
+          case 'rotate_left':
+            yasw_server.ships[0].rotation = -1;
+            break;
+          case 'rotate_right':
+            yasw_server.ships[0].rotation = 1;
+            break;
+          case 'rotate_stop':
+            yasw_server.ships[0].rotation = 0;
+            break;
+        }
+      });
     });
   };
 
