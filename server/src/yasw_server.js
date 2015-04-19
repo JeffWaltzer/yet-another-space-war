@@ -13,6 +13,8 @@ exports.createServer= function() {
       yasw_server.ships.push(new ship.Ship(new_ship));
   };
 
+  yasw_server.tick= function() {};
+
   yasw_server.listen= function(port) {
 
     http_server= http.createServer(function(request, response) {
@@ -26,7 +28,7 @@ exports.createServer= function() {
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', function(socket) {
       socket.send("0");
-      socket.send("{\"0\": " + yasw_server.ships[0].outline() + " }");
+      socket.send("{\"0\": " + JSON.stringify(yasw_server.ships[0].outline()) + " }");
 
       socket.on('message', function(data) {
         console.log('on message data',data);

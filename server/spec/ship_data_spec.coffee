@@ -8,6 +8,7 @@ describe 'the server, when asked for ship data ', ->
     server.add_ship(
       rotation: 0,
       points: [[30,30], [20,30],[30,40]],
+      heading: 0
     )
     server.listen(3000)
 
