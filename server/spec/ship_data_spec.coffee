@@ -5,6 +5,10 @@ describe 'the server, when asked for ship data ', ->
   server= undefined
   beforeEach ->
     server= yasw.createServer()
+    server.add_ship(
+      rotation: 0,
+      points: [[30,30], [20,30],[30,40]],
+    )
     server.listen(3000)
 
   it 'should respond with ship data', (done) ->

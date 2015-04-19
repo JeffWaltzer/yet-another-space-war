@@ -2,17 +2,16 @@ var http = require("http");
 var engine_io = require('engine.io');
 var fs= require('fs');
 var url= require('url');
+var ship= require('./ship');
 
 exports.createServer= function() {
   var yasw_server= {};
   var http_server;
 
-  yasw_server.ships=[{rotation: 0,
-                      points: [[30,30], [20,30],[30,40]],
-                      outline: function() {
-                          return JSON.stringify(this.points);
-                      }
-                     }];
+  yasw_server.ships= [];
+  yasw_server.add_ship= function(new_ship) {
+      yasw_server.ships.push(new ship.Ship(new_ship));
+  };
 
   yasw_server.listen= function(port) {
 
