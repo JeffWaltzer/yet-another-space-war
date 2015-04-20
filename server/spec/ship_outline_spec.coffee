@@ -24,25 +24,24 @@ custom_matchers= {
       }
     }
 
-describe "server#game_tick" , ->
+describe "ship#outline" , ->
   server= undefined
   beforeEach ->
     this.addMatchers(custom_matchers)
 
     server= yasw.createServer()
     server.add_ship {heading: -Math.PI/2, points: [[10, 0]]}
-    server.add_ship {heading:          0, points: [[10, 0]]}
-    server.add_ship {heading:  Math.PI/2, points: [[10, 0]]}
-    server.tick()
+    server.add_ship {heading:          0, points: [[5, 0]]}
+    server.add_ship {heading:  Math.PI/2, points: [[3, 0]]}
 
   it "updates the ship position for heading -π/2", ->
     expect(server.ships[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
 
   it "doesn't change the ship position for heading 0", ->
-    expect(server.ships[1].outline()).toAproximatelyEqual([[10, 0]], 1e-6)
+    expect(server.ships[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
 
   it "doesn't change the ship position for heading π/2", ->
-    expect(server.ships[2].outline()).toAproximatelyEqual([[0, 10]], 1e-6)
+    expect(server.ships[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
 
   afterEach ->
     server= null
