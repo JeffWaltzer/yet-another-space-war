@@ -25,6 +25,26 @@ exports.createServer= function(parameters) {
   };
   setInterval(yasw_server.tick, 1000/yasw_server.tick_rate);
  
+  yasw_server.on_new_connection= function(socket) {
+    socket.send("0");
+    socket.send("{\"0\": " + JSON.stringify(yasw_server.ships[0].outline()) + " }");
+
+    socket.on('message', function(data) {
+      console.log('on message data',data);
+      switch(data) {
+      case 'rotate_left':
+        yasw_server.ships[0].rotation = -1;
+        break;
+      case 'rotate_right':
+        yasw_server.ships[0].rotation = 1;
+        break;
+      case 'rotate_stop':
+        yasw_server.ships[0].rotation = 0;
+        break;
+      }
+    });
+  };
+
   yasw_server.listen= function(port) {
 
     http_server= http.createServer(function(request, response) {
@@ -36,25 +56,7 @@ exports.createServer= function(parameters) {
     
     var listener = http_server.listen(port);
     var engine_server = engine_io.attach(listener);
-    engine_server.on('connection', function(socket) {
-      socket.send("0");
-      socket.send("{\"0\": " + JSON.stringify(yasw_server.ships[0].outline()) + " }");
-
-      socket.on('message', function(data) {
-        console.log('on message data',data);
-        switch(data) {
-          case 'rotate_left':
-            yasw_server.ships[0].rotation = -1;
-            break;
-          case 'rotate_right':
-            yasw_server.ships[0].rotation = 1;
-            break;
-          case 'rotate_stop':
-            yasw_server.ships[0].rotation = 0;
-            break;
-        }
-      });
-    });
+    engine_server.on('connection', yasw_server.on_new_connection);
   };
 
   yasw_server.shutdown= function() {
