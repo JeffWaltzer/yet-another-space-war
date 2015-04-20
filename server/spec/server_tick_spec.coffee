@@ -1,5 +1,14 @@
 yasw = require './../../src/yasw_server'
 
+describe "server initialization", ->
+  server= undefined
+
+  beforeEach ->
+    spyOn(global, 'setInterval');
+    server= yasw.createServer();
+
+  it "arranges for server#tick to be called periodically", ->
+    expect(setInterval).toHaveBeenCalledWith(server.tick, 1000 / server.tick_rate)
 
 describe "server#tick" , ->
   server= undefined

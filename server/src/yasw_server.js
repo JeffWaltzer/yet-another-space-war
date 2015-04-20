@@ -23,6 +23,7 @@ exports.createServer= function(parameters) {
              ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
            });
   };
+  setInterval(yasw_server.tick, 1000/yasw_server.tick_rate);
  
   yasw_server.listen= function(port) {
 
