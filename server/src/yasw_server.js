@@ -5,9 +5,12 @@ var url= require('url');
 var underscore= require('underscore');
 var ship= require('./ship');
 
-exports.createServer= function() {
+exports.createServer= function(parameters) {
   var yasw_server= {};
   var http_server;
+
+  yasw_server.ship_rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
+  yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
 
   yasw_server.ships= [];
   yasw_server.add_ship= function(new_ship) {
@@ -20,7 +23,7 @@ exports.createServer= function() {
              ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
            });
   };
-
+ 
   yasw_server.listen= function(port) {
 
     http_server= http.createServer(function(request, response) {
