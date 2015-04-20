@@ -2,6 +2,7 @@ var http = require("http");
 var engine_io = require('engine.io');
 var fs= require('fs');
 var url= require('url');
+var underscore= require('underscore');
 var ship= require('./ship');
 
 exports.createServer= function() {
@@ -13,12 +14,17 @@ exports.createServer= function() {
       yasw_server.ships.push(new ship.Ship(new_ship));
   };
 
-  yasw_server.tick= function() {};
+  yasw_server.tick= function() {
+    underscore.each(yasw_server.ships,
+           function(ship) {
+             ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
+           });
+  };
 
   yasw_server.listen= function(port) {
 
     http_server= http.createServer(function(request, response) {
-      filename= url.parse(request.url).pathname;
+      var filename= url.parse(request.url).pathname;
       if (filename == '/')
         filename= "/index.html";
       yasw_server.static_page(filename, response);
