@@ -5,7 +5,7 @@ describe "connecting to the server", ->
 
   beforeEach ->
     server= yasw.createServer();
-    spyOn(server, 'add_ship')
+    spyOn(server, 'add_ship').andCallThrough();
 
     fake_socket= {};
     fake_socket.send= ->

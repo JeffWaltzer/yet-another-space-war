@@ -27,10 +27,15 @@ exports.createServer= function(parameters) {
  
   yasw_server.on_new_connection= function(socket) {
     socket.send("0");
-    socket.send("{\"0\": " + JSON.stringify(yasw_server.ships[0].outline()) + " }");
+    yasw_server.add_ship(new ship.Ship({}));
+
+    var the_ship = yasw_server.ships[0];
+
+    var ship_outline = the_ship.outline();
+    socket.send("{\"0\": " + JSON.stringify(ship_outline) + " }");
 
     socket.on('message', function(data) {
-      console.log('on message data',data);
+
       switch(data) {
       case 'rotate_left':
         yasw_server.ships[0].rotation = -1;
