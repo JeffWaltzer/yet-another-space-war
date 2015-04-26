@@ -5,11 +5,6 @@ describe 'the server, when asked for ship data ', ->
   server= undefined
   beforeEach ->
     server= yasw.createServer()
-    server.add_ship(
-      rotation: 0,
-      points: [[30,30], [20,30],[30,40]],
-      heading: 0
-    )
     server.listen(3000)
 
   it 'should respond with ship data', (done) ->
@@ -23,7 +18,7 @@ describe 'the server, when asked for ship data ', ->
           expect(version).toEqual('0')
         else
           message = data
-          expect(message).toEqual('{"0": [[30,30],[20,30],[30,40]] }')
+          expect(message).toEqual('{"0": [[4,-2],[-7,-4],[3,6]] }')
           done()
       socket.on 'error',(e) ->
         console.log("Error: #{e}")

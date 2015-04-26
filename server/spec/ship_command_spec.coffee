@@ -20,7 +20,7 @@ describe 'the server, when asked for ship data ', ->
         done()
       if init_ship
         init_ship();
-      socket.send ship_command , ->
+      socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
           expect(server.ships[0].rotation).toEqual(expected_rotation)
           done()

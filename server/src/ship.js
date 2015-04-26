@@ -6,11 +6,13 @@ exports.Ship= function(initial_state) {
   self.rotation= initial_state.rotation;
   self.points= initial_state.points;
   self.heading= initial_state.heading;
+  self.socket = initial_state.socket;
   self.outline= function() {
-    return underscore.map(self.points,
-                          function(p) {
-                            return [Math.cos(self.heading) * p[0] - Math.sin(self.heading) * p[1],
-                                    Math.sin(self.heading) * p[0] + Math.cos(self.heading) * p[1]];
-                          });
+    return underscore.map(
+      self.points,
+      function(p) {
+        return [Math.cos(self.heading) * p[0] - Math.sin(self.heading) * p[1],
+                Math.sin(self.heading) * p[0] + Math.cos(self.heading) * p[1]];
+      });
   };
 };

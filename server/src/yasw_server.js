@@ -22,21 +22,37 @@ exports.createServer= function(parameters) {
            function(ship) {
              ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
            });
+
+    if(yasw_server.ships[0] ){
+      var the_ship = yasw_server.ships[0];
+      var ship_outline = the_ship.outline();
+      if (the_ship.socket) {
+        the_ship.socket.send("{\"0\": " + JSON.stringify(ship_outline) + " }");
+      }
+    }
   };
   setInterval(yasw_server.tick, 1000/yasw_server.tick_rate);
  
   yasw_server.on_new_connection= function(socket) {
+    console.log("websocket connect from " + socket.remoteAddress);
+
     socket.send("0");
-    yasw_server.add_ship(new ship.Ship({}));
+    yasw_server.add_ship(
+      new ship.Ship({
+        rotation: 0,
+        points: [[4,-2], [-7,-4],[3,6]],
+        heading: 0,
+        socket: socket
+      })
+    );
 
-    var the_ship = yasw_server.ships[0];
-
-    var ship_outline = the_ship.outline();
-    socket.send("{\"0\": " + JSON.stringify(ship_outline) + " }");
 
     socket.on('message', function(data) {
+      var message= JSON.parse(data);
 
-      switch(data) {
+      var ship= yasw_server.ships[0];
+
+      switch(message.command) {
       case 'rotate_left':
         yasw_server.ships[0].rotation = -1;
         break;
@@ -51,7 +67,6 @@ exports.createServer= function(parameters) {
   };
 
   yasw_server.listen= function(port) {
-
     http_server= http.createServer(function(request, response) {
       var filename= url.parse(request.url).pathname;
       if (filename == '/')
@@ -62,6 +77,7 @@ exports.createServer= function(parameters) {
     var listener = http_server.listen(port);
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', yasw_server.on_new_connection);
+    console.log('listen on port ' + port);
   };
 
   yasw_server.shutdown= function() {
