@@ -11,7 +11,7 @@ module.exports = function(config) {
                 'spec/obj/*.js'
             ],
             frameworks: ['jasmine'],
-            browsers: ['PhantomJS'],
+            browsers: ['Chrome'],
             autoWatch: false,
             singleRun: true
         }
