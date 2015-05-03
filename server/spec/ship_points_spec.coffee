@@ -19,7 +19,7 @@ describe "Rotation around the  origin", ->
   afterEach ->
     the_ship= null
 
-describe "Ship rotation around 1,0", ->
+describe "Rotation of 1,0 around itself", ->
   the_ship= null
   beforeEach ->
     the_ship= new ship.Ship({
@@ -34,6 +34,25 @@ describe "Ship rotation around 1,0", ->
 
   it 'rotates y', ->
     expect(the_ship.outline()[0][1]).toBeCloseTo(0)
+
+  afterEach ->
+    the_ship= null
+
+describe "Rotation of 1,0 around 2,2", ->
+  the_ship= null
+  beforeEach ->
+    the_ship= new ship.Ship({
+      rotation: 0,
+      points: [[1,0]],
+      heading: -Math.PI/2,
+      location: [2,2],
+    })
+
+  it 'rotates x', ->
+    expect(the_ship.outline()[0][0]).toBeCloseTo(0)
+
+  it 'rotates y', ->
+    expect(the_ship.outline()[0][1]).toBeCloseTo(3)
 
   afterEach ->
     the_ship= null
