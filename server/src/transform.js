@@ -28,3 +28,10 @@ exports.make_rotation= function(angle) {
     		  [Math.sin(angle),  Math.cos(angle), 0],
     		  [0, 0, 1]];
 };
+
+exports.identity= function() {
+  return [[1, 0, 0],
+          [0, 1, 0],
+          [0, 0, 1]];
+};
+

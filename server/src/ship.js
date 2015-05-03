@@ -14,10 +14,7 @@ exports.Ship= function(initial_state) {
   self.outline= function() {
     var translation_out=  transforms.make_translation(self.location[0], self.location[1]);
     var rotation=         transforms.make_rotation(self.heading);
-
-    var composite_transform= [[1, 0, 0],
-    				                  [0, 1, 0],
-    				                  [0, 0, 1]];
+    var composite_transform= transforms.identity();
 
 	  transforms.concatenate_transforms(composite_transform, translation_out, rotation);
 
