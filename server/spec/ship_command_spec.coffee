@@ -29,9 +29,6 @@ describe 'the server, when asked for ship data ', ->
   it 'starts with no ships', () ->
     expect(server.ships.length).toEqual(0)
 
-  xit 'starts with non-rotating ship', () ->
-   expect(something);
-
   it 'sets ship negative rotation on rotate_left', (done) ->
     check_rotation "rotate_left", -1, server, this, null, done
 
