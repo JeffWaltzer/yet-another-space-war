@@ -1,5 +1,4 @@
 var underscore= require('underscore');
-var matrix= require('matrixmath');
 
 var matrix_product= function(result, a, b) {
     for (var i= 0; i < 3; i++)

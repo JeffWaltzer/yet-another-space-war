@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "engine.io": "^1.5.1",
-    "matrixmath": "^2.2.0",
     "underscore": "^1.8.3"
   }
 }
