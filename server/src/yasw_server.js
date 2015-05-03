@@ -11,10 +11,17 @@ exports.createServer= function(parameters) {
 
   yasw_server.ship_rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
+  yasw_server.debug= (parameters && parameters.debug) || false;
 
   yasw_server.ships= [];
-  yasw_server.add_ship= function(new_ship) {
-      yasw_server.ships.push(new ship.Ship(new_ship));
+  yasw_server.add_ship= function(new_ship_data) {
+    var new_ship= new ship.Ship(new_ship_data);
+    // DEBUG
+    if (yasw_server.debug) {
+      console.log("server#new_ship:", new_ship);
+    }
+
+    yasw_server.ships.push(new_ship);
   };
 
   yasw_server.tick= function() {
@@ -40,9 +47,11 @@ exports.createServer= function(parameters) {
     yasw_server.add_ship(
       new ship.Ship({
         rotation: 0,
-        points: [[4,-2], [-7,-4],[3,6]],
+        points: [[4,-2], [-7,-4], [3,6]],
         heading: 0,
-        socket: socket
+        socket: socket,
+        location: [100,100],
+        debug: yasw_server.debug
       })
     );
 
