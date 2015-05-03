@@ -1,6 +1,7 @@
 Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
 Add e2e test for ship commands
-Move custom matcher out of ship_outline_spec.coffee
+Move custom matcher out of ship_transforms_spec.coffee
 Error handlers.
 Handle multiple connections.
 Run tests on a different port, so having the server running doesn't blow them up.
+Split server specs into e2e/unit directories.
