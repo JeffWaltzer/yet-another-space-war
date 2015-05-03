@@ -24,6 +24,9 @@ describe "ShipCommandController", ->
     it "start right up", ->
       expect(scope.right_key).toBe "up"
 
+    it "start down up", ->
+      expect(scope.down_key).toBe "up"
+
   up_sent_tests = [
     {left_key: "down", right_key: "down", event: "right",   expected_sent: "rotate_left"}
     {left_key: "down", right_key: "down", event: "left",    expected_sent: "rotate_right"}

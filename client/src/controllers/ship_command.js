@@ -27,8 +27,9 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
     return '';
   };
 
-  $scope.left_key='up';
-  $scope.right_key='up';
+  $scope.left_key= 'up';
+  $scope.right_key= 'up';
+  $scope.down_key= 'up';
 
 	$scope.onKeyDown= function(e) {
     switch (e.keyCode) {
