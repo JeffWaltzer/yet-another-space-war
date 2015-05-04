@@ -27,6 +27,54 @@ describe "ShipCommandController", ->
     it "start down up", ->
       expect(scope.down_key).toBe "up"
 
+  thrust_up_sent_tests = [
+    {down_key: "up",   expected_sent: null},
+    {down_key: "down", expected_sent: "thrust_off"}
+  ]
+
+  _.each thrust_up_sent_tests, (test_conditions) ->
+    describe "When down key is #{test_conditions.down_key}", ->
+      controller= undefined
+      beforeEach ->
+        controller = createController()
+        scope.down_key = test_conditions.down_key
+        spyOn game_server, "send"
+
+      describe " and we receive up", ->
+        beforeEach ->
+          scope.onKeyUp {keyCode: 40}
+
+        if test_conditions.expected_sent
+          it "sends #{test_conditions.expected_sent}", ->
+            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+        else
+          it "does not send", ->
+            expect(game_server.send).not.toHaveBeenCalled()
+
+  thrust_down_sent_tests = [
+    {down_key: "up",   expected_sent: "thrust_on"},
+    {down_key: "down", expected_sent: null}
+  ]
+
+  _.each thrust_down_sent_tests, (test_conditions) ->
+    describe "When down key is #{test_conditions.down_key}", ->
+      controller= undefined
+      beforeEach ->
+        controller = createController()
+        scope.down_key = test_conditions.down_key
+        spyOn game_server, "send"
+
+      describe " and we receive down", ->
+        beforeEach ->
+          scope.onKeyDown {keyCode: 40}
+
+        if test_conditions.expected_sent
+          it "sends #{test_conditions.expected_sent}", ->
+            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+        else
+          it "does not send", ->
+            expect(game_server.send).not.toHaveBeenCalled()
+
   up_sent_tests = [
     {left_key: "down", right_key: "down", event: "right",   expected_sent: "rotate_left"}
     {left_key: "down", right_key: "down", event: "left",    expected_sent: "rotate_right"}
