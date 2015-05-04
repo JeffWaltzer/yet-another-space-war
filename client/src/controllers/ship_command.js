@@ -54,6 +54,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
     case KEY_DOWN_ARROW:
       if (key_state('down', 'up'))
         game_server.send('thrust_on');
+      $scope.down_key= 'down';
       break;
     }
   };
@@ -77,6 +78,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
     case KEY_DOWN_ARROW:
       if (key_state('down', 'down'))
         game_server.send('thrust_off');
+      $scope.down_key= 'up';
       break;
     }
   };
