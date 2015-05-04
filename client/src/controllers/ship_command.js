@@ -1,7 +1,9 @@
 angular.module('YASW').controller('ShipCommandController', function($scope, game_server, SVG) {
-  var down_key_down= function() {return $scope.down_key === 'down';};
-
   var key_state= function(key, state) { return $scope[key + '_key'] === state; };
+  var rotation_keys_state= function(left, right) {
+    return key_state('left', left) && key_state('right', right);
+  };
+
 
   $scope.ships=[];
   $scope.protocol_version= null;
@@ -33,16 +35,16 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 	$scope.onKeyDown= function(e) {
     switch (e.keyCode) {
     case 37:
-      if (key_state('left', 'up') && key_state('right', 'up'))
+      if (rotation_keys_state('up', 'up'))
         game_server.send('rotate_left');
-      else if (key_state('left', 'up') && key_state('right', 'down'))
+      else if (rotation_keys_state('up', 'down'))
         game_server.send('rotate_stop');
       $scope.left_key='down';
       break;
     case 39:
-      if (key_state('left', 'up') && key_state('right', 'up'))
+      if (rotation_keys_state('up', 'up'))
         game_server.send('rotate_right');
-      else if (key_state('left', 'down') && key_state('right', 'up'))
+      else if (rotation_keys_state('down', 'up'))
         game_server.send('rotate_stop');
       $scope.right_key='down';
       break;
@@ -56,16 +58,16 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 	$scope.onKeyUp= function(e) {
     switch (e.keyCode) {
     case 37:
-      if (key_state('left', 'down') && key_state('right', 'down'))
+      if (rotation_keys_state('down', 'down'))
         game_server.send('rotate_right');
-      else if (key_state('left', 'down') && key_state('right', 'up'))
+      else if (rotation_keys_state('down', 'up'))
         game_server.send('rotate_stop');
       $scope.left_key='up';
       break;
     case 39:
-      if (key_state('left', 'down') && key_state('right', 'down'))
+      if (rotation_keys_state('down', 'down'))
         game_server.send('rotate_left');
-      else if (key_state('left', 'up') && key_state('right', 'down'))
+      else if (rotation_keys_state('up', 'down'))
         game_server.send('rotate_stop');
       $scope.right_key='up';
       break;
