@@ -4,6 +4,9 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
     return key_state('left', left) && key_state('right', right);
   };
 
+  var KEY_LEFT_ARROW= 37;
+  var KEY_RIGHT_ARROW= 39;
+  var KEY_DOWN_ARROW= 40;
 
   $scope.ships=[];
   $scope.protocol_version= null;
@@ -34,21 +37,21 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 
 	$scope.onKeyDown= function(e) {
     switch (e.keyCode) {
-    case 37:
+    case KEY_LEFT_ARROW:
       if (rotation_keys_state('up', 'up'))
         game_server.send('rotate_left');
       else if (rotation_keys_state('up', 'down'))
         game_server.send('rotate_stop');
       $scope.left_key='down';
       break;
-    case 39:
+    case KEY_RIGHT_ARROW:
       if (rotation_keys_state('up', 'up'))
         game_server.send('rotate_right');
       else if (rotation_keys_state('down', 'up'))
         game_server.send('rotate_stop');
       $scope.right_key='down';
       break;
-    case 40:
+    case KEY_DOWN_ARROW:
       if (key_state('down', 'up'))
         game_server.send('thrust_on');
       break;
@@ -57,21 +60,21 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 
 	$scope.onKeyUp= function(e) {
     switch (e.keyCode) {
-    case 37:
+    case KEY_LEFT_ARROW:
       if (rotation_keys_state('down', 'down'))
         game_server.send('rotate_right');
       else if (rotation_keys_state('down', 'up'))
         game_server.send('rotate_stop');
       $scope.left_key='up';
       break;
-    case 39:
+    case KEY_RIGHT_ARROW:
       if (rotation_keys_state('down', 'down'))
         game_server.send('rotate_left');
       else if (rotation_keys_state('up', 'down'))
         game_server.send('rotate_stop');
       $scope.right_key='up';
       break;
-    case 40:
+    case KEY_DOWN_ARROW:
       if (key_state('down', 'down'))
         game_server.send('thrust_off');
       break;
