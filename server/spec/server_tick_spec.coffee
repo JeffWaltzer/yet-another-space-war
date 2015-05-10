@@ -14,6 +14,7 @@ describe "server initialization", ->
 describe "server#tick" , ->
   server= undefined
   heading_change= undefined
+  sent_data = undefined
 
   beforeEach ->
     server= yasw.createServer({
@@ -25,6 +26,14 @@ describe "server#tick" , ->
     server.add_ship new ship.Ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]]})
     server.add_ship new ship.Ship({rotation:  1, heading:          0, points: [[5, 0]]})
     server.add_ship new ship.Ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]]})
+
+    fake_socket=
+      send: (data) ->
+        sent_data = data
+    viewing_ship = new ship.Ship({rotation:  0, heading:          0, points: [[5, 0]]})
+    viewing_ship.socket = fake_socket;
+
+    server.add_ship(viewing_ship);
     server.tick()
 
   it "doesn't change the first ship's heading", ->
@@ -38,6 +47,10 @@ describe "server#tick" , ->
 
   it "updates the fourth ship's heading", ->
     expect(server.ships[3].heading).toBeCloseTo(Math.PI/2 - heading_change, 6)
+
+  it 'shows ships', ->
+    outlines=JSON.parse(sent_data)
+    expect(Object.keys(outlines).length).toEqual(5)
 
   afterEach ->
     server= null

@@ -24,14 +24,22 @@ exports.createServer= function(parameters) {
              ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
            });
 
-    if(yasw_server.ships[0] ){
-      var the_ship = yasw_server.ships[0];
-      var ship_outline = the_ship.outline();
-      if (the_ship.socket) {
-        the_ship.socket.send("{\"0\": " + JSON.stringify(ship_outline) + " }");
-      }
-    }
+    ship_outlines = {};
+    underscore.each(yasw_server.ships,
+      function(ship,ship_id) {
+        ship_outlines[ship_id] = ship.outline();
+      });
+
+    game_board = JSON.stringify(ship_outlines);
+
+    underscore.each(yasw_server.ships,
+      function(ship) {
+        if (ship.socket) {
+          ship.socket.send(game_board);
+        }
+      });
   };
+
   setInterval(yasw_server.tick, 1000/yasw_server.tick_rate);
  
   yasw_server.on_new_connection= function(socket) {
