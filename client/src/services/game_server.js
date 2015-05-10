@@ -1,5 +1,5 @@
 
-angular.module('YASW').factory('game_server', function() {
+angular.module('YASW').factory('game_server', ["$location",function($location) {
   var service= {};
 
   service.send= function(e) {
@@ -8,7 +8,11 @@ angular.module('YASW').factory('game_server', function() {
   };
 
   service.web_socket =
-    eio('ws://localhost:3000', {transports: ['websocket']});
+    eio(
+      'ws://'+
+      $location.host() +
+        ':' + $location.port(),
+      {transports: ['websocket']});
 
   return service;
-});
+}]);
