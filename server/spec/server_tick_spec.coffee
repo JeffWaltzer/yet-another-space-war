@@ -1,4 +1,5 @@
 yasw = require './../../src/yasw_server'
+ship = require './../../src/ship'
 
 describe "server initialization", ->
   server= undefined
@@ -20,10 +21,10 @@ describe "server#tick" , ->
       tick_rate: 10,                 # ticks/s
     })
     heading_change= server.ship_rotation_rate/server.tick_rate;
-    server.add_ship {rotation:  0, heading:          0, points: [[5, 0]]}
-    server.add_ship {rotation:  0, heading:  Math.PI/2, points: [[3, 0]]}
-    server.add_ship {rotation:  1, heading:          0, points: [[5, 0]]}
-    server.add_ship {rotation: -1, heading:  Math.PI/2, points: [[3, 0]]}
+    server.add_ship new ship.Ship({rotation:  0, heading:          0, points: [[5, 0]]})
+    server.add_ship new ship.Ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]]})
+    server.add_ship new ship.Ship({rotation:  1, heading:          0, points: [[5, 0]]})
+    server.add_ship new ship.Ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]]})
     server.tick()
 
   it "doesn't change the first ship's heading", ->

@@ -14,13 +14,7 @@ exports.createServer= function(parameters) {
   yasw_server.debug= (parameters && parameters.debug) || false;
 
   yasw_server.ships= [];
-  yasw_server.add_ship= function(new_ship_data) {
-    var new_ship= new ship.Ship(new_ship_data);
-    // DEBUG
-    if (yasw_server.debug) {
-      console.log("server#new_ship:", new_ship);
-    }
-
+  yasw_server.add_ship= function(new_ship) {
     yasw_server.ships.push(new_ship);
   };
 
@@ -44,32 +38,33 @@ exports.createServer= function(parameters) {
     console.log("websocket connect from " + socket.remoteAddress);
 
     socket.send("0");
-    yasw_server.add_ship(
-      new ship.Ship({
-        rotation: 0,
-        points: [[4,-2], [-7,-4], [3,6]],
-        heading: 0,
-        socket: socket,
-        location: [100,100],
-        debug: yasw_server.debug
-      })
-    );
 
+    var new_ship = new ship.Ship({
+      rotation: 0,
+      points: [[4,-2], [-7,-4], [3,6]],
+      heading: 0,
+      socket: socket,
+      location: [100,100],
+      debug: yasw_server.debug
+    });
+
+    yasw_server.add_ship(new_ship);
+
+    socket.ship = new_ship;
 
     socket.on('message', function(data) {
       var message= JSON.parse(data);
-
-      var ship= yasw_server.ships[0];
+      var ship= socket.ship;
 
       switch(message.command) {
       case 'rotate_left':
-        yasw_server.ships[0].rotation = -1;
+        ship.rotation = -1;
         break;
       case 'rotate_right':
-        yasw_server.ships[0].rotation = 1;
+        ship.rotation = 1;
         break;
       case 'rotate_stop':
-        yasw_server.ships[0].rotation = 0;
+        ship.rotation = 0;
         break;
       }
     });

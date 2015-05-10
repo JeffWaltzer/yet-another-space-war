@@ -1,4 +1,5 @@
 yasw = require './../../src/yasw_server'
+ship = require './../../src/ship'
 
 custom_matchers= {
   toAproximatelyEqual: (util, customEqualityTesters) ->
@@ -30,9 +31,10 @@ describe "ship#outline" , ->
     this.addMatchers(custom_matchers)
 
     server= yasw.createServer()
-    server.add_ship {heading: -Math.PI/2, points: [[10, 0]]}
-    server.add_ship {heading:          0, points: [[5, 0]]}
-    server.add_ship {heading:  Math.PI/2, points: [[3, 0]]}
+
+    server.add_ship new ship.Ship({heading: -Math.PI/2, points: [[10, 0]]})
+    server.add_ship new ship.Ship({heading:          0, points: [[5, 0]]})
+    server.add_ship new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
 
   it "updates the ship position for heading -π/2", ->
     expect(server.ships[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
