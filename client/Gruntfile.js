@@ -39,7 +39,13 @@ module.exports = function(grunt) {
       },
     },
 
+
+
     clean: {
+      coffee: {
+        options: {force: true},
+        src: ['spec/obj'],
+      },
       release: {
         options: {force: true},
         src: ['../server/public'],
@@ -54,5 +60,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-karma');
 
   grunt.registerTask('release', ['clean:release', 'copy:release']);
-  grunt.registerTask('default', ['coffee', 'jshint','karma']);
+  grunt.registerTask('default', ['clean:coffee','coffee', 'jshint','karma']);
 };
