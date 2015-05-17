@@ -2,6 +2,8 @@
 angular.module('YASW').factory('game_server', ["$location",function($location) {
   var service= {};
 
+  service.ships= [];
+
   service.send= function(e) {
     var message= {command: e};
     service.web_socket.send(JSON.stringify(message));

@@ -8,8 +8,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   var KEY_RIGHT_ARROW= 39;
   var KEY_DOWN_ARROW= 40;
 
-  var ships=[];
-  $scope.ships= function() { return ships; };
+  $scope.ships= function() { return game_server.ships; };
   $scope.protocol_version= null;
 
   game_server.web_socket.on('message', function(raw_data) {

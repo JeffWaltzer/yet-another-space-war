@@ -24,13 +24,13 @@ exports.createServer= function(parameters) {
              ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
            });
 
-    ship_outlines = {};
+    var ship_outlines = {};
     underscore.each(yasw_server.ships,
       function(ship,ship_id) {
         ship_outlines[ship_id] = ship.outline();
       });
 
-    game_board = JSON.stringify(ship_outlines);
+    var game_board = JSON.stringify(ship_outlines);
 
     underscore.each(yasw_server.ships,
       function(ship) {
