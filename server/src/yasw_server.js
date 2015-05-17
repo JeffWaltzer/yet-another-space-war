@@ -74,6 +74,12 @@ exports.createServer= function(parameters) {
       case 'rotate_stop':
         ship.rotation = 0;
         break;
+      case 'thrust_on':
+        ship.acceleration= 1;
+        break;
+      case 'thrust_off':
+        ship.acceleration= 0;
+        break;
       }
     });
   };

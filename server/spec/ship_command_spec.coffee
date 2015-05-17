@@ -26,6 +26,25 @@ describe 'the server, when asked for ship data ', ->
           done()
         ),50
 
+  check_acceleration = (ship_command, expected_acceleration, server, test, init_ship, done) ->
+    socket = engine_client('ws://localhost:3000', transports: ['websocket'])
+    version = undefined
+    socket.on 'open', ->
+      socket.on 'error',(e) ->
+        console.log("Error: #{e}")
+        test.fail("Socket error: #{e}")
+        done()
+      socket.on 'upgradeError', (e)->
+        test.fail("Upgrade error: #{e}")
+        done()
+      if init_ship
+        init_ship();
+      socket.send JSON.stringify({'command': ship_command}) , ->
+        setTimeout (->
+          expect(server.ships[0].acceleration).toEqual(expected_acceleration)
+          done()
+        ),50
+
   it 'starts with no ships', () ->
     expect(server.ships.length).toEqual(0)
 
@@ -39,6 +58,14 @@ describe 'the server, when asked for ship data ', ->
     set_rotation = ->
       server.ships[0].rotation = 1
     check_rotation "rotate_stop", 0, server, this, set_rotation, done
+
+  it 'sets acceleration on thrust_on', (done) ->
+    check_acceleration "thrust_on", 1, server, this, null, done
+
+  it 'sets no acceleration on thrust_off', (done) ->
+    set_acceleration= ->
+      server.ships[0].acceleration= 1
+    check_acceleration "thrust_off", 0, server, this, set_acceleration, done
 
   afterEach ->
     server.shutdown()
