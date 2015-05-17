@@ -24,7 +24,7 @@ describe 'recieving shipdata', ->
     expect(scope.protocol_version).toEqual('0')
 
   it 'dispatches the ship coordinates', ->
-    expect(scope.ships[0].points).toEqual([[0,0],[1,1]])
+    expect(scope.ships()[0].points).toEqual([[0,0],[1,1]])
 
   it 'dispatches the ship coordinates', ->
     expect(scope.ship_points_string()).toEqual('0,0 1,1');

@@ -8,7 +8,8 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   var KEY_RIGHT_ARROW= 39;
   var KEY_DOWN_ARROW= 40;
 
-  $scope.ships=[];
+  var ships=[];
+  $scope.ships= function() { return ships; };
   $scope.protocol_version= null;
 
   game_server.web_socket.on('message', function(raw_data) {
@@ -18,16 +19,16 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
       var data = JSON.parse(raw_data);
       var id = Object.keys(data)[0];
 
-      if (!$scope.ships[id])
-        $scope.ships[id] = {};
-      $scope.ships[id].points = data[id];
+      if (!$scope.ships()[id])
+        $scope.ships()[id] = {};
+      $scope.ships()[id].points = data[id];
     }
     $scope.$digest();
   });
 
   $scope.ship_points_string= function() {
-    if ($scope.ships.length > 0 && $scope.ships[0].points)
-      return SVG.polygon_string($scope.ships[0].points);
+    if ($scope.ships().length > 0 && $scope.ships()[0].points)
+      return SVG.polygon_string($scope.ships()[0].points);
     return '';
   };
 
