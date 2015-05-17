@@ -11,17 +11,19 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   $scope.ships= function() { return game_server.ships; };
   $scope.protocol_version= null;
 
+  game_server.update_ship_outlines= function(data) {
+    _.each(data, function(value, id) {
+      if (!$scope.ships()[id])
+        $scope.ships()[id] = {};
+      $scope.ships()[id].points = value;
+    });
+  };
+
   game_server.on_message= function(raw_data) {
     if ($scope.protocol_version === null)
       $scope.protocol_version= raw_data;
-    else {
-      var data = JSON.parse(raw_data);
-      _.each(data, function(value, id) {
-        if (!$scope.ships()[id])
-          $scope.ships()[id] = {};
-        $scope.ships()[id].points = value;
-      });
-    }
+    else
+      game_server.update_ship_outlines(JSON.parse(raw_data));
     $scope.$digest();
   };
   game_server.web_socket.on('message', game_server.on_message);
