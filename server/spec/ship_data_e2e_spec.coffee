@@ -18,7 +18,7 @@ describe 'the server, when asked for ship data ', ->
           expect(version).toEqual('0')
         else
           message = data
-          expect(message).toEqual('{"0":[[104,98],[93,96],[103,106]]}')
+          expect(message).toEqual('{"0":[[90,90],[100,95],[110,90],[100,121]]}')
           done()
       socket.on 'error',(e) ->
         console.log("Error: #{e}")
