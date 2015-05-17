@@ -13,11 +13,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 
   game_server.update_ship_outlines= function(data) {
     _.each(data, function(value, id) {
-      if (!$scope.ships()[id])
-        $scope.ships()[id] = {};
-      $scope.ships()[id].points = value;
-      $scope.ships()[id].polygon_string= SVG.polygon_string(value);
-    });
+      $scope.ships()[id] = {polygon_string: SVG.polygon_string(value)}; });
   };
 
   game_server.on_message= function(raw_data) {
