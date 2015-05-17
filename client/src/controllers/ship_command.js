@@ -16,6 +16,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
       if (!$scope.ships()[id])
         $scope.ships()[id] = {};
       $scope.ships()[id].points = value;
+      $scope.ships()[id].polygon_string= SVG.polygon_string(value);
     });
   };
 
@@ -27,12 +28,6 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
     $scope.$digest();
   };
   game_server.web_socket.on('message', game_server.on_message);
-
-  $scope.ship_points_string= function() {
-    if ($scope.ships().length > 0 && $scope.ships()[0].points)
-      return SVG.polygon_string($scope.ships()[0].points);
-    return '';
-  };
 
   $scope.left_key= 'up';
   $scope.right_key= 'up';

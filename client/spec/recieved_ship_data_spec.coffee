@@ -30,8 +30,5 @@ describe 'recieving shipdata', ->
   it 'dispatches the ship 1 coordinates', ->
     expect(scope.ships()[1].points).toEqual([[2,2],[3,3]])
 
-  xit 'dispatches the ship coordinates', ->
-    expect(scope.ship_points_string()).toEqual('0,0 1,1');
-
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
