@@ -1,4 +1,4 @@
-angular.module('YASW').controller('ShipCommandController', function($scope, game_server, SVG) {
+angular.module('YASW').controller('ShipCommandController', function($scope, game_server) {
   var key_state= function(key, state) { return $scope[key + '_key'] === state; };
   var rotation_keys_state= function(left, right) {
     return key_state('left', left) && key_state('right', right);
@@ -10,11 +10,6 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 
   $scope.ships= function() { return game_server.ships; };
   $scope.protocol_version= null;
-
-  game_server.update_ship_outlines= function(data) {
-    _.each(data, function(value, id) {
-      $scope.ships()[id] = {polygon_string: SVG.polygon_string(value)}; });
-  };
 
   game_server.on_message= function(raw_data) {
     if ($scope.protocol_version === null)
