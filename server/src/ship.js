@@ -11,6 +11,7 @@ exports.Ship= function(initial_state) {
   self.location= initial_state.location || [0,0];
   self.debug= initial_state.debug || false;
   self.velocity= initial_state.velocity || [0,0];
+  self.acceleration= initial_state.acceleration || 0;
 
   self.outline= function() {
     var translation_out=  transforms.make_translation(self.location[0], self.location[1]);
@@ -54,8 +55,10 @@ exports.Ship= function(initial_state) {
     }
 
     self.heading += rotation_rate/tick_rate * self.rotation;
-    self.velocity[0] += acceleration_rate / tick_rate * Math.cos(self.heading);
-    self.velocity[1] += acceleration_rate / tick_rate * Math.sin(self.heading);
+    self.velocity[0] += self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading);
+    self.velocity[1] += self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading);
+    self.location[0] += self.velocity[0] / tick_rate;
+    self.location[1] += self.velocity[1] / tick_rate;
 
     //DEBUG
     if (self.debug) {

@@ -1,3 +1,4 @@
 yasw= require('./src/yasw_server.js');
 yasw.createServer({tick_rate: 20,
-                   ship_rotation_rate: Math.PI}).listen(3000);
+                   ship_rotation_rate: Math.PI,
+                   acceleration_rate: 20}).listen(3000);

@@ -11,6 +11,7 @@ exports.createServer= function(parameters) {
 
   yasw_server.ship_rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
+  yasw_server.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
   yasw_server.debug= (parameters && parameters.debug) || false;
 
   yasw_server.ships= [];
@@ -21,7 +22,7 @@ exports.createServer= function(parameters) {
   yasw_server.tick= function() {
     underscore.each(yasw_server.ships,
                     function(ship) {
-                      ship.update(yasw_server.ship_rotation_rate, yasw_server.tick_rate);
+                      ship.update(yasw_server.ship_rotation_rate, yasw_server.tick_rate, yasw_server.acceleration_rate);
                     });
 
     var ship_outlines = {};
