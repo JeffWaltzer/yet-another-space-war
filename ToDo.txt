@@ -6,3 +6,5 @@ Run tests on a different port, so having the server running doesn't blow them up
 Split server specs into e2e/unit directories.
 Figure out how to test generated SVG in client. (index.html)
 Handle websocket disconnects (end user's session?)
+Review tests for coverage and organization.
+
