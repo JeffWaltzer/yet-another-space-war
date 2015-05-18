@@ -4,12 +4,13 @@ var transforms= require('./transform');
 exports.Ship= function(initial_state) {
   var self= this;
 
-  self.rotation= initial_state.rotation;
+  self.rotation= initial_state.rotation || 0;
   self.points= initial_state.points;
   self.heading= initial_state.heading;
   self.socket = initial_state.socket;
   self.location= initial_state.location || [0,0];
   self.debug= initial_state.debug || false;
+  self.velocity= initial_state.velocity || [0,0];
 
   self.outline= function() {
     var translation_out=  transforms.make_translation(self.location[0], self.location[1]);
@@ -39,4 +40,32 @@ exports.Ship= function(initial_state) {
 
 	  return returned_points;
   };
+
+  self.update= function(rotation_rate, tick_rate, acceleration_rate) {
+    //DEBUG
+    if (self.debug) {
+      console.log("****************************************************************");
+      console.log("ship.update: rotation_rate: ", rotation_rate);
+      console.log("ship.update: tick_rate: ", tick_rate);
+      console.log("ship.update: acceleration_rate: ", acceleration_rate);
+      console.log("ship.update: velocity: ", self.velocity);
+      console.log("ship.update: heading: ", self.heading);
+      console.log("ship.update: rotation: ", self.rotation);
+    }
+
+    self.heading += rotation_rate/tick_rate * self.rotation;
+    self.velocity[0] += acceleration_rate / tick_rate * Math.cos(self.heading);
+    self.velocity[1] += acceleration_rate / tick_rate * Math.sin(self.heading);
+
+    //DEBUG
+    if (self.debug) {
+      console.log("================================================================");
+      console.log("ship.update: rotation_rate: ", rotation_rate);
+      console.log("ship.update: tick_rate: ", tick_rate);
+      console.log("ship.update: acceleration_rate: ", acceleration_rate);
+      console.log("ship.update: velocity: ", self.velocity);
+      console.log("ship.update: heading: ", self.heading);
+    }
+  };
+
 };

@@ -20,9 +20,9 @@ exports.createServer= function(parameters) {
 
   yasw_server.tick= function() {
     underscore.each(yasw_server.ships,
-           function(ship) {
-             ship.heading += yasw_server.ship_rotation_rate/yasw_server.tick_rate * ship.rotation;
-           });
+                    function(ship) {
+                      ship.update(yasw_server.ship_rotation_rate, yasw_server.tick_rate);
+                    });
 
     var ship_outlines = {};
     underscore.each(yasw_server.ships,
