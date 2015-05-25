@@ -48,7 +48,7 @@ exports.createServer= function(parameters) {
 
     var new_ship = new ship.Ship({
       rotation: 0,
-      points: [[-10,-10], [0,-5], [10,-10], [0,21]],
+      points: [[-10,10],[20, 0],[-10,-10],[0,0]],
       heading: 0,
       socket: socket,
       location: [100,100],
