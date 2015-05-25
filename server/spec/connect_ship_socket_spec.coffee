@@ -19,9 +19,6 @@ describe "ship#outline" , ->
     server.on_new_connection(fake_socket)
     on_message_callback(JSON.stringify({command: 'rotate_left'}));
 
-  it 'expects ship on socket', ->
-    expect(fake_socket.ship).toBeDefined()
-
   it 'rotates the correct ship', ->
     expect(fake_socket.ship.rotation).toEqual(-1)
 

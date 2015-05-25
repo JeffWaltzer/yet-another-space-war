@@ -46,8 +46,6 @@ exports.createServer= function(parameters) {
   yasw_server.on_new_connection= function(socket) {
     console.log("websocket connect from " + socket.remoteAddress);
 
-    socket.send("0");
-
     var new_ship = new ship.Ship({
       rotation: 0,
       points: [[-10,-10], [0,-5], [10,-10], [0,21]],

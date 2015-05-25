@@ -7,19 +7,21 @@ describe 'the server, when asked for ship data ', ->
     server= yasw.createServer()
     server.listen(3000)
 
+  setup_ship = (socket, init_ship, test, done) ->
+    socket.on 'error', (e) ->
+      console.log("Error: #{e}")
+      test.fail("Socket error: #{e}")
+      done()
+    socket.on 'upgradeError', (e)->
+      test.fail("Upgrade error: #{e}")
+      done()
+    if init_ship
+      init_ship();
+
   check_rotation = (ship_command, expected_rotation, server, test, init_ship, done) ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
-    version = undefined
     socket.on 'open', ->
-      socket.on 'error',(e) ->
-        console.log("Error: #{e}")
-        test.fail("Socket error: #{e}")
-        done()
-      socket.on 'upgradeError', (e)->
-        test.fail("Upgrade error: #{e}")
-        done()
-      if init_ship
-        init_ship();
+      setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
           expect(server.ships[0].rotation).toEqual(expected_rotation)
@@ -28,17 +30,8 @@ describe 'the server, when asked for ship data ', ->
 
   check_acceleration = (ship_command, expected_acceleration, server, test, init_ship, done) ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
-    version = undefined
     socket.on 'open', ->
-      socket.on 'error',(e) ->
-        console.log("Error: #{e}")
-        test.fail("Socket error: #{e}")
-        done()
-      socket.on 'upgradeError', (e)->
-        test.fail("Upgrade error: #{e}")
-        done()
-      if init_ship
-        init_ship();
+      setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
           expect(server.ships[0].acceleration).toEqual(expected_acceleration)
