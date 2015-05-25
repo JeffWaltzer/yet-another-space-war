@@ -8,3 +8,7 @@ Figure out how to test generated SVG in client. (index.html)
 Handle websocket disconnects (end user's session?)
 Review tests for coverage and organization.
 Refactor out magic numbers for keycodes.
+Move toAproximatelyEqual out of ship_outline_spec into helper, and use generally.
+Create vector/position class and use in server-side ship.
+Create ship position class and move logic from yasw_server to it.
+Move static web page code out to its own class.
