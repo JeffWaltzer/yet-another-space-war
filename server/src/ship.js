@@ -17,6 +17,30 @@ exports.Ship= function(initial_state) {
     right_edge: 800
   };
 
+  if (self.socket) {
+    self.socket.on('message', function(json_message) {
+      var message = JSON.parse(json_message);
+
+      switch (message.command) {
+        case 'rotate_left':
+          self.rotation = -1;
+          break;
+        case 'rotate_right':
+          self.rotation = 1;
+          break;
+        case 'rotate_stop':
+          self.rotation = 0;
+          break;
+        case 'thrust_on':
+          self.acceleration = 1;
+          break;
+        case 'thrust_off':
+          self.acceleration = 0;
+          break;
+      }
+    });
+  }
+
   self.outline= function() {
     var translation_out=  transforms.make_translation(self.location[0], self.location[1]);
     var rotation=         transforms.make_rotation(self.heading);

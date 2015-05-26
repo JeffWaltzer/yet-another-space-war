@@ -24,7 +24,7 @@ describe 'the server, when asked for ship data ', ->
       setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.ships[0].rotation).toEqual(expected_rotation)
+          expect(server.game.ships[0].rotation).toEqual(expected_rotation)
           done()
         ),50
 
@@ -34,12 +34,12 @@ describe 'the server, when asked for ship data ', ->
       setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.ships[0].acceleration).toEqual(expected_acceleration)
+          expect(server.game.ships[0].acceleration).toEqual(expected_acceleration)
           done()
         ),50
 
   it 'starts with no ships', () ->
-    expect(server.ships.length).toEqual(0)
+    expect(server.game.ships.length).toEqual(0)
 
   it 'sets ship negative rotation on rotate_left', (done) ->
     check_rotation "rotate_left", -1, server, this, null, done
@@ -49,7 +49,7 @@ describe 'the server, when asked for ship data ', ->
 
   it 'sets ship no rotation on rotate_stop', (done) ->
     set_rotation = ->
-      server.ships[0].rotation = 1
+      server.game.ships[0].rotation = 1
     check_rotation "rotate_stop", 0, server, this, set_rotation, done
 
   it 'sets acceleration on thrust_on', (done) ->
@@ -57,7 +57,7 @@ describe 'the server, when asked for ship data ', ->
 
   it 'sets no acceleration on thrust_off', (done) ->
     set_acceleration= ->
-      server.ships[0].acceleration= 1
+      server.game.ships[0].acceleration= 1
     check_acceleration "thrust_off", 0, server, this, set_acceleration, done
 
   afterEach ->

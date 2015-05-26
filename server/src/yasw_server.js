@@ -4,10 +4,13 @@ var fs= require('fs');
 var url= require('url');
 var underscore= require('underscore');
 var ship= require('./ship');
+var game= require('./game');
 
 exports.createServer= function(parameters) {
   var yasw_server= {};
   var http_server;
+  var the_game;
+  the_game = new game.Game();
 
   yasw_server.ship_rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
@@ -16,13 +19,15 @@ exports.createServer= function(parameters) {
   yasw_server.top_edge= (parameters && parameters.top_edge) || 600;
   yasw_server.right_edge= (parameters && parameters.right_edge) || 800;
 
-  yasw_server.ships= [];
+  the_game.ships= [];
+  yasw_server.game= the_game;
+
   yasw_server.add_ship= function(new_ship) {
-    yasw_server.ships.push(new_ship);
+    the_game.ships.push(new_ship);
   };
 
   yasw_server.tick= function() {
-    underscore.each(yasw_server.ships,
+    underscore.each(the_game.ships,
                     function(ship) {
                       ship.update(
                         yasw_server.ship_rotation_rate,
@@ -31,14 +36,14 @@ exports.createServer= function(parameters) {
                     });
 
     var ship_outlines = {};
-    underscore.each(yasw_server.ships,
+    underscore.each(the_game.ships,
       function(ship,ship_id) {
         ship_outlines[ship_id] = ship.outline();
       });
 
     var game_board = JSON.stringify(ship_outlines);
 
-    underscore.each(yasw_server.ships,
+    underscore.each(the_game.ships,
       function(ship) {
         if (ship.socket) {
           ship.socket.send(game_board);

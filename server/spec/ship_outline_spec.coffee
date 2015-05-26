@@ -37,13 +37,13 @@ describe "ship#outline" , ->
     server.add_ship new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
 
   it "updates the ship position for heading -π/2", ->
-    expect(server.ships[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
+    expect(server.game.ships[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
 
   it "doesn't change the ship position for heading 0", ->
-    expect(server.ships[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
+    expect(server.game.ships[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
 
   it "doesn't change the ship position for heading π/2", ->
-    expect(server.ships[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
+    expect(server.game.ships[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
 
   afterEach ->
     server= null

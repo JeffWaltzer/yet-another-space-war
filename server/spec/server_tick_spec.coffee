@@ -37,16 +37,16 @@ describe "server#tick" , ->
     server.tick()
 
   it "doesn't change the first ship's heading", ->
-    expect(server.ships[0].heading).toBeCloseTo(0, 6)
+    expect(server.game.ships[0].heading).toBeCloseTo(0, 6)
 
   it "doesn't change the second ship's heading", ->
-    expect(server.ships[1].heading).toBeCloseTo(Math.PI/2, 6)
+    expect(server.game.ships[1].heading).toBeCloseTo(Math.PI/2, 6)
 
   it "updates the third ship's heading", ->
-    expect(server.ships[2].heading).toBeCloseTo(heading_change, 6)
+    expect(server.game.ships[2].heading).toBeCloseTo(heading_change, 6)
 
   it "updates the fourth ship's heading", ->
-    expect(server.ships[3].heading).toBeCloseTo(Math.PI/2 - heading_change, 6)
+    expect(server.game.ships[3].heading).toBeCloseTo(Math.PI/2 - heading_change, 6)
 
   it 'shows ships', ->
     outlines=JSON.parse(sent_data)
