@@ -14,3 +14,4 @@ Create ship position class and move logic from yasw_server to it.
 Move static web page code out to its own class.
 Re-arrange project structure to have the client under the server directory
 Remove default pseudo-game from ship constructor.
+Change all server.game references to be just game

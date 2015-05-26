@@ -6,7 +6,7 @@ describe "connecting to the server", ->
   fake_socket = undefined
   beforeEach ->
     server= yasw.createServer();
-    spyOn(server, 'add_ship').andCallThrough();
+    spyOn(server.game, 'add_ship').andCallThrough();
 
     fake_socket= {};
     fake_socket.send= ->
@@ -14,7 +14,7 @@ describe "connecting to the server", ->
     server.on_new_connection(fake_socket)
 
   it "calls server#add_ship", ->
-    expect(server.add_ship).toHaveBeenCalled()
+    expect(server.game.add_ship).toHaveBeenCalled()
 
   it 'associates ship with socket' , ->
     expect(fake_socket.ship).toBeDefined();

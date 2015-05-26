@@ -9,9 +9,7 @@ var game= require('./game');
 exports.createServer= function(parameters) {
   var yasw_server= {};
   var http_server;
-  var the_game;
-  the_game = new game.Game();
-
+  var the_game = new game.Game();
   yasw_server.ship_rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
   yasw_server.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
@@ -19,12 +17,7 @@ exports.createServer= function(parameters) {
   yasw_server.top_edge= (parameters && parameters.top_edge) || 600;
   yasw_server.right_edge= (parameters && parameters.right_edge) || 800;
 
-  the_game.ships= [];
   yasw_server.game= the_game;
-
-  yasw_server.add_ship= function(new_ship) {
-    the_game.ships.push(new_ship);
-  };
 
   yasw_server.tick= function() {
     underscore.each(the_game.ships,
@@ -65,7 +58,7 @@ exports.createServer= function(parameters) {
       debug: yasw_server.debug
     });
 
-    yasw_server.add_ship(new_ship);
+    the_game.add_ship(new_ship);
 
     socket.ship = new_ship;
 
