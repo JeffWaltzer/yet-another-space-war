@@ -18,6 +18,7 @@ exports.Ship= function(initial_state) {
   };
 
   if (self.socket) {
+    self.socket.ship = self;
     self.socket.on('message', function(json_message) {
       var message = JSON.parse(json_message);
 

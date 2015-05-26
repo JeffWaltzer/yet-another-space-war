@@ -19,45 +19,10 @@ exports.createServer= function(parameters) {
   var the_game = new game.Game(yasw_server);
   yasw_server.game= the_game;
 
-  yasw_server.on_new_connection= function(socket) {
-    console.log("websocket connect from " + socket.remoteAddress);
 
-    var new_ship = new ship.Ship({
-      rotation: 0,
-      points: [[-10,10],[20, 0],[-10,-10],[0,0]],
-      heading: 0,
-      socket: socket,
-      location: [100,100],
-      debug: yasw_server.debug
-    });
 
-    the_game.add_ship(new_ship);
 
-    socket.ship = new_ship;
-
-    socket.on('message', function(data) {
-      var message= JSON.parse(data);
-      var ship= socket.ship;
-
-      switch(message.command) {
-      case 'rotate_left':
-        ship.rotation = -1;
-        break;
-      case 'rotate_right':
-        ship.rotation = 1;
-        break;
-      case 'rotate_stop':
-        ship.rotation = 0;
-        break;
-      case 'thrust_on':
-        ship.acceleration= 1;
-        break;
-      case 'thrust_off':
-        ship.acceleration= 0;
-        break;
-      }
-    });
-  };
+  yasw_server.on_new_connection= the_game.add_player;
 
   yasw_server.listen= function(port) {
     http_server= http.createServer(function(request, response) {

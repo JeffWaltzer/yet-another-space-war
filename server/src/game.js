@@ -1,4 +1,5 @@
 var underscore= require('underscore');
+var ship=require('./ship');
 
 exports.Game=function(server) {
    var self = this;
@@ -6,6 +7,20 @@ exports.Game=function(server) {
       self.ships.push(new_ship);
    };
 
+  self.add_player = function(socket) {
+    console.log("websocket connect from " + socket.remoteAddress);
+
+    var new_ship = new ship.Ship({
+      rotation: 0,
+      points: [[-10,10],[20, 0],[-10,-10],[0,0]],
+      heading: 0,
+      socket: socket,
+      location: [100,100]
+    });
+
+    self.add_ship(new_ship);
+
+  };
 
    self.tick= function() {
       underscore.each(self.ships,
