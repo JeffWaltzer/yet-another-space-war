@@ -8,10 +8,10 @@ describe "server initialization", ->
     spyOn(global, 'setInterval');
     server= yasw.createServer();
 
-  it "arranges for server#tick to be called periodically", ->
-    expect(setInterval).toHaveBeenCalledWith(server.tick, 1000 / server.tick_rate)
+  it "arranges for game#tick to be called periodically", ->
+    expect(setInterval).toHaveBeenCalledWith(server.game.tick, 1000 / server.tick_rate)
 
-describe "server#tick" , ->
+describe "game#tick" , ->
   server= undefined
   heading_change= undefined
   sent_data = undefined
@@ -34,7 +34,7 @@ describe "server#tick" , ->
     viewing_ship.socket = fake_socket;
 
     server.game.add_ship(viewing_ship);
-    server.tick()
+    server.game.tick()
 
   it "doesn't change the first ship's heading", ->
     expect(server.game.ships[0].heading).toBeCloseTo(0, 6)
