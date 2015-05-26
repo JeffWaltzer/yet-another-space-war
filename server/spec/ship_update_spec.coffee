@@ -1,4 +1,5 @@
 ship= require '../../src/ship'
+yasw= require '../../src/yasw_server'
 
 describe "Ship#update", ->
   describe "when there's no thrust", ->
@@ -33,3 +34,28 @@ describe "Ship#update", ->
       expect(the_ship.location[1]).toBeCloseTo(25 + 2/2)
 
     
+  describe 'when going off the screen', ->
+    server= undefined
+    beforeEach ->
+      server=yasw.createServer({})
+
+    it 'top', ->
+      the_ship= new ship.Ship({velocity: [0,1], location: [0, server.top_edge - 1], heading: Math.PI})
+      the_ship.update(0, 1, 0)
+      expect(the_ship.location[1]).toBeCloseTo(0)
+
+    it 'bottom', ->
+      the_ship= new ship.Ship({velocity: [0,-1], location: [0, 0], heading: Math.PI})
+      the_ship.update(0, 1, 0)
+      expect(the_ship.location[1]).toBeCloseTo(server.top_edge - 1)
+
+    it 'right', ->
+      the_ship= new ship.Ship({debug: true, velocity: [1,0], location: [server.right_edge - 1,0], heading: Math.PI})
+      the_ship.update(0, 1, 0)
+      expect(the_ship.location[0]).toBeCloseTo(0)
+
+    it 'left', ->
+      the_ship= new ship.Ship({debug: true, velocity: [-1,0], location: [0,0], heading: Math.PI})
+      the_ship.update(0, 1, 0)
+      expect(the_ship.location[0]).toBeCloseTo(server.right_edge - 1)
+

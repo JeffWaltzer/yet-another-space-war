@@ -12,6 +12,10 @@ exports.Ship= function(initial_state) {
   self.debug= initial_state.debug || false;
   self.velocity= initial_state.velocity || [0,0];
   self.acceleration= initial_state.acceleration || 0;
+  self.game = initial_state.game || {
+    top_edge: 600,
+    right_edge: 800
+  };
 
   self.outline= function() {
     var translation_out=  transforms.make_translation(self.location[0], self.location[1]);
@@ -31,10 +35,20 @@ exports.Ship= function(initial_state) {
 
   self.update= function(rotation_rate, tick_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
+
     self.velocity[0] += self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading);
     self.velocity[1] += self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading);
+
     self.location[0] += self.velocity[0] / tick_rate;
     self.location[1] += self.velocity[1] / tick_rate;
+
+
+    self.location[0] = self.location[0] % self.game.right_edge;
+    if (self.location[0] < 0) self.location[0] += self.game.right_edge;
+
+    self.location[1] = self.location[1] % self.game.top_edge;
+    if (self.location[1] < 0) self.location[1] += self.game.top_edge;
+
   };
 
 };
