@@ -17,4 +17,9 @@ exports.Vector= function(coordinates) {
     self.y(self.y() + v.y());
     return self;
   };
+
+  self.divide= function(s) {
+    return new exports.Vector([self.x() / s,
+                               self.y() / s]);
+  };
 };

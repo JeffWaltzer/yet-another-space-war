@@ -62,18 +62,16 @@ exports.Ship= function(initial_state) {
   self.update= function(rotation_rate, tick_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
 
-    self.velocity.x(self.velocity.x() + self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading));
-    self.velocity.y(self.velocity.y() + self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading));
+    self.velocity.add_to(new vector.Vector([self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading),
+                                            self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading)])) ;
 
-    self.location.add_to(new vector.Vector([self.velocity.x() / tick_rate,
-                                            self.velocity.y() / tick_rate]));
+    self.location.add_to(self.velocity.divide(tick_rate));
 
     self.location.x(self.location.x() % self.game.right_edge);
     if (self.location.x() < 0) self.location.x(self.location.x() + self.game.right_edge);
 
     self.location.y(self.location.y() % self.game.top_edge);
     if (self.location.y() < 0) self.location.y(self.location.y() + self.game.top_edge);
-
   };
 
 };
