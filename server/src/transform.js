@@ -17,9 +17,9 @@ exports.apply_transform= function(result, a, v) {
   return result;
 };
 
-exports.make_translation= function(x_offset, y_offset) {
-  return [[1, 0, x_offset],
-    			[0, 1, y_offset],
+exports.make_translation= function(v) {
+  return [[1, 0, v.x()],
+    			[0, 1, v.y()],
     			[0, 0, 1]];
 };
 

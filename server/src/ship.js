@@ -14,8 +14,7 @@ exports.Ship= function(initial_state) {
   self.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   self.acceleration= initial_state.acceleration || 0;
   self.game = initial_state.game || {
-    top_edge: 600,
-    right_edge: 800
+    field_size: new vector.Vector([800,600])
   };
 
   if (self.socket) {
@@ -44,8 +43,8 @@ exports.Ship= function(initial_state) {
   }
 
   self.outline= function() {
-    var translation_out=  transforms.make_translation(self.location.x(), self.location.y());
-    var rotation=         transforms.make_rotation(self.heading);
+    var translation_out=     transforms.make_translation(self.location);
+    var rotation=            transforms.make_rotation(self.heading);
     var composite_transform= transforms.identity();
 
 	  transforms.concatenate_transforms(composite_transform, translation_out, rotation);
@@ -62,16 +61,10 @@ exports.Ship= function(initial_state) {
   self.update= function(rotation_rate, tick_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
 
-    self.velocity.add_to(new vector.Vector([self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading),
-                                            self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading)])) ;
+    self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
+                                            heading: self.heading}));
 
     self.location.add_to(self.velocity.divide(tick_rate));
-
-    self.location.x(self.location.x() % self.game.right_edge);
-    if (self.location.x() < 0) self.location.x(self.location.x() + self.game.right_edge);
-
-    self.location.y(self.location.y() % self.game.top_edge);
-    if (self.location.y() < 0) self.location.y(self.location.y() + self.game.top_edge);
+    self.location.clip_to(self.game.field_size);
   };
-
 };
