@@ -11,7 +11,7 @@ exports.Ship= function(initial_state) {
   self.socket = initial_state.socket;
   self.location= new vector.Vector(initial_state.location || [0,0]);
   self.debug= initial_state.debug || false;
-  self.velocity= initial_state.velocity || [0,0];
+  self.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   self.acceleration= initial_state.acceleration || 0;
   self.game = initial_state.game || {
     top_edge: 600,
@@ -44,7 +44,7 @@ exports.Ship= function(initial_state) {
   }
 
   self.outline= function() {
-    var translation_out=  transforms.make_translation(self.location.x, self.location.y);
+    var translation_out=  transforms.make_translation(self.location.x(), self.location.y());
     var rotation=         transforms.make_rotation(self.heading);
     var composite_transform= transforms.identity();
 
@@ -62,17 +62,17 @@ exports.Ship= function(initial_state) {
   self.update= function(rotation_rate, tick_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
 
-    self.velocity[0] += self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading);
-    self.velocity[1] += self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading);
+    self.velocity.x(self.velocity.x() + self.acceleration * acceleration_rate / tick_rate * Math.cos(self.heading));
+    self.velocity.y(self.velocity.y() + self.acceleration * acceleration_rate / tick_rate * Math.sin(self.heading));
 
-    self.location.x += self.velocity[0] / tick_rate;
-    self.location.y += self.velocity[1] / tick_rate;
+    self.location.add_to(new vector.Vector([self.velocity.x() / tick_rate,
+                                            self.velocity.y() / tick_rate]));
 
-    self.location.x = self.location.x % self.game.right_edge;
-    if (self.location.x < 0) self.location.x += self.game.right_edge;
+    self.location.x(self.location.x() % self.game.right_edge);
+    if (self.location.x() < 0) self.location.x(self.location.x() + self.game.right_edge);
 
-    self.location.y = self.location.y % self.game.top_edge;
-    if (self.location.y < 0) self.location.y += self.game.top_edge;
+    self.location.y(self.location.y() % self.game.top_edge);
+    if (self.location.y() < 0) self.location.y(self.location.y() + self.game.top_edge);
 
   };
 
