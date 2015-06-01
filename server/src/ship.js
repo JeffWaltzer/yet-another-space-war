@@ -67,7 +67,6 @@ exports.Ship= function(initial_state) {
     self.location[0] += self.velocity[0] / tick_rate;
     self.location[1] += self.velocity[1] / tick_rate;
 
-
     self.location[0] = self.location[0] % self.game.right_edge;
     if (self.location[0] < 0) self.location[0] += self.game.right_edge;
 
