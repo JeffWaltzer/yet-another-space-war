@@ -9,8 +9,8 @@ Handle websocket disconnects (end user's session?)
 Review tests for coverage and organization.
 Refactor out magic numbers for keycodes.
 Move toAproximatelyEqual out of ship_outline_spec into helper, and use generally.
-Create vector/position class and use in server-side ship.
 Move static web page code out to its own class.
 Re-arrange project structure to have the client under the server directory
 Remove default pseudo-game from ship constructor.
 Change all server.game references to be just game
+Should have same ship after page reload.
