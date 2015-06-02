@@ -12,17 +12,16 @@ exports.Vector= function(coordinates) {
     }
   }
 
-  self.x= function(new_value) {
-    if (typeof new_value !== 'undefined')
-      self.coordinates[0]= new_value;
-    return self.coordinates[0];
+  var make_coordinate_accessor= function(i) {
+    return function(new_value) {
+      if (typeof new_value !== 'undefined')
+        self.coordinates[i]= new_value;
+      return self.coordinates[i];
+    };
   };
 
-  self.y= function(new_value) {
-    if (typeof new_value !== 'undefined')
-      self.coordinates[1]= new_value;
-    return self.coordinates[1];
-  };
+  self.x= make_coordinate_accessor(0);
+  self.y= make_coordinate_accessor(1);
 
   self.add_to= function(v) {
     self.x(self.x() + v.x());
