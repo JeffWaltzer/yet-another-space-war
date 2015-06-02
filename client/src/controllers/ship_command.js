@@ -7,6 +7,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   var KEY_LEFT_ARROW= 37;
   var KEY_RIGHT_ARROW= 39;
   var KEY_DOWN_ARROW= 40;
+  var KEY_SPACE= 32;
 
   $scope.ships= function() { return game_server.ships; };
 
@@ -19,6 +20,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   $scope.left_key= 'up';
   $scope.right_key= 'up';
   $scope.down_key= 'up';
+  $scope.fire_key= 'up';
 
 
   $scope.onKeyDown= function(e) {
@@ -31,6 +33,9 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
         break;
       case KEY_DOWN_ARROW:
         on_down_arrow_down();
+        break;
+      case KEY_SPACE:
+        on_fire_down();
         break;
     }
   };
@@ -46,10 +51,23 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
       case KEY_DOWN_ARROW:
         on_down_arrow_up();
         break;
+      case KEY_SPACE:
+        on_fire_up();
+        break;
     }
   };
 
 //--------------------------------------------------------------
+
+  var on_fire_down= function() {
+    if (key_in_state('fire', 'up'))
+      game_server.send('fire');
+    $scope.fire_key= 'down';
+  };
+
+  var on_fire_up= function() {
+    $scope.fire_key= 'up';
+  };
 
   var on_down_arrow_down = function() {
     if (key_in_state('down', 'up'))

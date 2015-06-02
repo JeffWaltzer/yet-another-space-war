@@ -27,22 +27,25 @@ describe "ShipCommandController", ->
     it "start down up", ->
       expect(scope.down_key).toBe "up"
 
-  thrust_up_sent_tests = [
-    {down_key: "up",   expected_sent: null},
-    {down_key: "down", expected_sent: "thrust_off"}
+    it "start fire up", ->
+      expect(scope.fire_key).toBe "up"
+
+  fire_up_sent_tests = [
+    {fire_key: "up",   expected_sent: null},
+    {fire_key: "down", expected_sent: null}
   ]
 
-  _.each thrust_up_sent_tests, (test_conditions) ->
-    describe "When down key is #{test_conditions.down_key}", ->
+  _.each fire_up_sent_tests, (test_conditions) ->
+    describe "When fire key is #{test_conditions.fire_key}", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.down_key = test_conditions.down_key
+        scope.fire_key = test_conditions.fire_key
         spyOn game_server, "send"
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.onKeyUp {keyCode: 40}
+          scope.onKeyUp {keyCode: 32}
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
@@ -51,22 +54,22 @@ describe "ShipCommandController", ->
           it "does not send", ->
             expect(game_server.send).not.toHaveBeenCalled()
 
-  thrust_down_sent_tests = [
-    {down_key: "up",   expected_sent: "thrust_on"},
-    {down_key: "down", expected_sent: null}
+  fire_down_sent_tests = [
+    {fire_key: "up",   expected_sent: 'fire'},
+    {fire_key: "down", expected_sent: null}
   ]
 
-  _.each thrust_down_sent_tests, (test_conditions) ->
-    describe "When down key is #{test_conditions.down_key}", ->
+  _.each fire_down_sent_tests, (test_conditions) ->
+    describe "When fire key is #{test_conditions.fire_key}", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.down_key = test_conditions.down_key
+        scope.fire_key = test_conditions.fire_key
         spyOn game_server, "send"
 
       describe " and we receive down", ->
         beforeEach ->
-          scope.onKeyDown {keyCode: 40}
+          scope.onKeyDown {keyCode: 32}
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
@@ -75,41 +78,41 @@ describe "ShipCommandController", ->
           it "does not send", ->
             expect(game_server.send).not.toHaveBeenCalled()
 
-  thrust_up_state_tests = [
-    {down_key: "up",   expected_state: "up"},
-    {down_key: "down", expected_state: "up"}
+  fire_up_state_tests = [
+    {fire_key: "up",   expected_state: "up"},
+    {fire_key: "down", expected_state: "up"}
   ]
 
-  _.each thrust_up_state_tests, (test_conditions) ->
-    describe "When down key is #{test_conditions.down_key}", ->
+  _.each fire_up_state_tests, (test_conditions) ->
+    describe "When fire key is #{test_conditions.fire_key}", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.down_key = test_conditions.down_key
+        scope.fire_key = test_conditions.fire_key
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.onKeyUp {keyCode: 40}
-        it "down key is #{test_conditions.expected_state}", ->
-            expect(scope.down_key).toEqual test_conditions.expected_state
+          scope.onKeyUp {keyCode: 32}
+        it "fire key is #{test_conditions.expected_state}", ->
+            expect(scope.fire_key).toEqual test_conditions.expected_state
 
-  thrust_down_state_tests = [
-    {down_key: "up",   expected_state: "down"},
-    {down_key: "down", expected_state: "down"}
+  fire_down_state_tests = [
+    {fire_key: "up",   expected_state: "down"},
+    {fire_key: "down", expected_state: "down"}
   ]
 
-  _.each thrust_down_state_tests, (test_conditions) ->
-    describe "When down key is #{test_conditions.down_key}", ->
+  _.each fire_down_state_tests, (test_conditions) ->
+    describe "When fire key is #{test_conditions.fire_key}", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.down_key = test_conditions.down_key
+        scope.fire_key = test_conditions.fire_key
 
       describe " and we receive key_down", ->
         beforeEach ->
-          scope.onKeyDown {keyCode: 40}
-        it "down key is #{test_conditions.expected_state}", ->
-            expect(scope.down_key).toEqual test_conditions.expected_state
+          scope.onKeyDown {keyCode: 32}
+        it "fire key is #{test_conditions.expected_state}", ->
+            expect(scope.fire_key).toEqual test_conditions.expected_state
 
   up_sent_tests = [
     {left_key: "down", right_key: "down", event: "right",   expected_sent: "rotate_left"}
