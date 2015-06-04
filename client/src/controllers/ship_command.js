@@ -12,75 +12,76 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   };
   game_server.web_socket.on('message', game_server.on_message);
 
-  $scope.left_key= 'up';
-  $scope.right_key= 'up';
-  $scope.down_key= 'up';
-  $scope.fire_key= 'up';
-
   var key_handlers= {};
 
+  function send_event(e) {
+    if (e !== null)
+      game_server.send(e);
+  }
+
   function add_simple_key_handler(keycode, key_name, down_event, up_event) {
-    var key_in_state= function(state) { return $scope[key_name + '_key'] === state; };
+    var key_in_state= function(state) { return $scope[key_name] === state; };
+
+    $scope[key_name]= 'up';
 
     key_handlers[keycode]= {
       up: function() {
-	if (key_in_state('down') && up_event !== null)
-	  game_server.send(up_event);
-	$scope[key_name + '_key']= 'up';
+	if (key_in_state('down'))
+	  send_event(up_event);
+	$scope[key_name]= 'up';
       },
       down: function() {
-	if (key_in_state('up') && down_event !== null)
-	  game_server.send(down_event);
-	$scope[key_name + '_key']= 'down';
+	if (key_in_state('up'))
+	  send_event(down_event);
+	$scope[key_name]= 'down';
       }
     };
   }
 
-  function add_opposition_key_pair_handler(left_keycode, left_key_name, right_keycode, right_key_name,
-					   left_down_event, left_up_event, right_down_event, right_up_event) {
+  function add_opposition_key_pair_handler(left_keycode, left_key_name, left_down_event, left_up_event,
+					   right_keycode, right_key_name, right_down_event, right_up_event) {
 
-    var left_key_in_state= function(state) { return $scope[left_key_name + '_key'] === state; };
-    var right_key_in_state= function(state) { return $scope[right_key_name + '_key'] === state; };
-    var keys_in_state= function(left, right) { return left_key_in_state(left) && right_key_in_state(right); };
+    var left_key_in_state= function(state) { return $scope[left_key_name] === state; };
+    var right_key_in_state= function(state) { return $scope[right_key_name] === state; };
+    var keys_in_state= function(left_state, right_state) { return left_key_in_state(left_state) && right_key_in_state(right_state); };
+
+    $scope[left_key_name]= 'up';
+    $scope[right_key_name]= 'up';
 
     key_handlers[left_keycode]= {
       up: function() {
 	if (keys_in_state('down', 'down'))
-	  game_server.send('rotate_right');
+	  send_event(right_down_event);
 	else if (keys_in_state('down', 'up'))
-	  game_server.send('rotate_stop');
-	$scope.left_key = 'up';
+	  send_event(left_up_event);
+	$scope[left_key_name] = 'up';
       },
       down: function() {
 	if (keys_in_state('up', 'up'))
-	  game_server.send('rotate_left');
+	  send_event(left_down_event);
 	else if (keys_in_state('up', 'down'))
-	  game_server.send('rotate_stop');
-	$scope.left_key='down';
+	  send_event(right_up_event);
+	$scope[left_key_name]='down';
       }
     };
 
     key_handlers[right_keycode]= {
       up: function() {
 	if (keys_in_state('down', 'down'))
-	  game_server.send('rotate_left');
+	  send_event(left_down_event);
 	else if (keys_in_state('up', 'down'))
-	  game_server.send('rotate_stop');
-	$scope.right_key='up';
+	  send_event(right_up_event);
+	$scope[right_key_name]='up';
       },
       down: function() {
 	if (keys_in_state('up', 'up'))
-	  game_server.send('rotate_right');
+	  send_event(right_down_event);
 	else if (keys_in_state('down', 'up'))
-	  game_server.send('rotate_stop');
-	$scope.right_key = 'down';
+	  send_event(left_up_event);
+	$scope[right_key_name] = 'down';
       }
     };
   }
-
-  add_simple_key_handler(KEY_SPACE, 'fire', 'fire', null);
-  add_opposition_key_pair_handler(KEY_LEFT_ARROW, 'left', KEY_RIGHT_ARROW, 'right',
-				  'rotate_left', 'rotate_stop', 'rotate_right', 'rotate_stop');
 
   function handler_for(key_code) {
     var handler= key_handlers[key_code];
@@ -95,5 +96,8 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   $scope.onKeyDown= function(e) { handler_for(e.keyCode).down(e); };
   $scope.onKeyUp= function(e) { handler_for(e.keyCode).up(e); };
 
+  add_simple_key_handler(         KEY_SPACE,       'fire_key',   'fire',         null);
+  add_simple_key_handler(         KEY_DOWN_ARROW,  'thrust_key', 'thrust_on',    'thrust_off');
+  add_opposition_key_pair_handler(KEY_LEFT_ARROW,  'left_key',   'rotate_left',  'rotate_stop',
+				  KEY_RIGHT_ARROW, 'right_key',  'rotate_right', 'rotate_stop');
 });
-  
