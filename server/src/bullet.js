@@ -9,9 +9,14 @@ exports.Bullet = function(parameters) {
     self.position = new vector.Vector(
       parameters.position);
   }
+
   if (parameters.velocity) {
     self.velocity = new vector.Vector(
       parameters.velocity);
+  }
+
+  if (parameters.ship) {
+    self.ship = parameters.ship;
   }
 
 };
