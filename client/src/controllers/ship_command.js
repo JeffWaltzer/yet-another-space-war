@@ -19,7 +19,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
 
   $scope.left_key= 'up';
   $scope.right_key= 'up';
-  $scope.down_key= 'up';
+  $scope.thrust_key= 'up';
   $scope.fire_key= 'up';
 
 
@@ -70,15 +70,15 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   };
 
   var on_down_arrow_down = function() {
-    if (key_in_state('down', 'up'))
+    if (key_in_state('thrust', 'up'))
       game_server.send('thrust_on');
-    $scope.down_key = 'down';
+    $scope.thrust_key = 'down';
   };
 
   var on_down_arrow_up = function() {
-    if (key_in_state('down', 'down'))
+    if (key_in_state('thrust', 'down'))
       game_server.send('thrust_off');
-    $scope.down_key = 'up';
+    $scope.thrust_key = 'up';
   };
 
 
