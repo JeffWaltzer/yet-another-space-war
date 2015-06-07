@@ -1,6 +1,7 @@
 var underscore= require('underscore');
-var transforms= require('./transform');
 var vector= require('./vector');
+var screen_object = require('./screen_object');
+var util = require('util');
 
 exports.Ship= function(initial_state) {
   var self= this;
@@ -45,21 +46,6 @@ exports.Ship= function(initial_state) {
     });
   }
 
-  self.outline= function() {
-    var translation_out=     transforms.make_translation(self.location);
-    var rotation=            transforms.make_rotation(self.heading);
-    var composite_transform= transforms.identity();
-
-	  transforms.concatenate_transforms(composite_transform, translation_out, rotation);
-
-    var returned_points= underscore.map(self.points,
-    					                          function(p) {
-    						                          var rv= [0, 0, 0];
-    						                          transforms.apply_transform(rv, composite_transform, p);
-						                              return [rv[0]/rv[2], rv[1]/rv[2]];
-    					                          });
-	  return returned_points;
-  };
 
   self.update= function(rotation_rate, tick_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
@@ -73,3 +59,5 @@ exports.Ship= function(initial_state) {
 
   self.fire= function(){};
 };
+
+util.inherits(exports.Ship, screen_object.ScreenObject);
