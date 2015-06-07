@@ -57,7 +57,9 @@ exports.Ship= function(initial_state) {
     self.location.clip_to(self.game.field_size);
   };
 
-  self.fire= function(){};
+  self.fire= function(){
+    self.game.add_bullet();
+  };
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);

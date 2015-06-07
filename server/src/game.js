@@ -22,7 +22,9 @@ exports.Game=function(server) {
 
   };
 
-  self.add_bullet=function(){};
+  self.add_bullet=function(){
+    self.game.add_bullet();
+  };
 
    self.tick= function() {
       underscore.each(self.ships,

@@ -8,8 +8,9 @@ describe "Ship#update", ->
       server=yasw.createServer({})
       game = server.game
       spyOn(game,'add_bullet')
-      the_ship= new ship.Ship({velocity: [1,1], heading: Math.PI/3, acceleration: 0});
+      the_ship= new ship.Ship({game: game, velocity: [1,1], heading: Math.PI/3, acceleration: 0});
       the_ship.fire()
+      expect(game.add_bullet).toHaveBeenCalled()
 
   describe "when there's no thrust", ->
     it "doesn't change the velocity", ->
