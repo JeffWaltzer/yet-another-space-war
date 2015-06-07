@@ -1,7 +1,16 @@
-ship= require '../../src/ship'
-yasw= require '../../src/yasw_server'
+ship = require '../../src/ship'
+yasw = require '../../src/yasw_server'
+game = require '../../src/game'
 
 describe "Ship#update", ->
+  describe "when ship fires", ->
+    it "asks game to create a bullet", ->
+      server=yasw.createServer({})
+      game = server.game
+      spyOn(game,'add_bullet')
+      the_ship= new ship.Ship({velocity: [1,1], heading: Math.PI/3, acceleration: 0});
+      the_ship.fire()
+
   describe "when there's no thrust", ->
     it "doesn't change the velocity", ->
       the_ship= new ship.Ship({velocity: [1,1], heading: Math.PI/3, acceleration: 0});

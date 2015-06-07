@@ -22,6 +22,8 @@ exports.Game=function(server) {
 
   };
 
+  self.add_bullet=function(){};
+
    self.tick= function() {
       underscore.each(self.ships,
         function(ship) {
