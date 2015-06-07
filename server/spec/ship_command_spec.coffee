@@ -38,6 +38,17 @@ describe 'the server, when asked for ship data ', ->
           done()
         ),50
 
+  check_fire = (ship_command,  server, test, init_ship, done) ->
+    socket = engine_client('ws://localhost:3000', transports: ['websocket'])
+    socket.on 'open', ->
+      setup_ship(socket, init_ship, test, done)
+      spyOn(server.game.ships[0],'fire')
+      socket.send JSON.stringify({'command': ship_command}) , ->
+        setTimeout (->
+          expect(server.game.ships[0].fire).toHaveBeenCalled()
+          done()
+        ),50
+
   it 'starts with no ships', () ->
     expect(server.game.ships.length).toEqual(0)
 
@@ -59,6 +70,10 @@ describe 'the server, when asked for ship data ', ->
     set_acceleration= ->
       server.game.ships[0].acceleration= 1
     check_acceleration "thrust_off", 0, server, this, set_acceleration, done
+
+  it 'fires a bullet on command', (done) ->
+    check_fire('fire',server,this,null, done)
+
 
   afterEach ->
     server.shutdown()

@@ -38,6 +38,9 @@ exports.Ship= function(initial_state) {
         case 'thrust_off':
           self.acceleration = 0;
           break;
+        case 'fire':
+          self.fire();
+          break;
       }
     });
   }
@@ -67,4 +70,6 @@ exports.Ship= function(initial_state) {
     self.location.add_to(self.velocity.divide(tick_rate));
     self.location.clip_to(self.game.field_size);
   };
+
+  self.fire= function(){};
 };
