@@ -1,7 +1,7 @@
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
 
-custom_matchers= {
+custom_matchers=
   toAproximatelyEqual: (util, customEqualityTesters) ->
     return {
       compare: (actual, expected) ->
@@ -13,19 +13,17 @@ custom_matchers= {
           result.message= "arrays are not the same size: expected: #{expected.length}; actual: #{actual.length}";
           return result;
 
-        _.each(_.zip(actual, expected), (point_pair) ->
+        _.each _.zip(actual, expected), (point_pair) ->
           expected_value= point_pair[0]
           actual_value= point_pair[1]
           if Math.abs(actual[0] - expected[0]) > 1e-6
             result.pass= false;
           if Math.abs(actual[1] - expected[1]) > 1e-6
             result.pass= false;
-          )
-        result;
+        result
       }
-    }
 
-describe "ship#outline" , ->
+describe "ship#outline", ->
   server= undefined
   beforeEach ->
     this.addMatchers(custom_matchers)

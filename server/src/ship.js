@@ -60,6 +60,10 @@ exports.Ship= function(initial_state) {
   self.fire= function(){
     return self.game.add_bullet();
   };
+
+  self.gun_point=function() {
+    return new vector.Vector([0,0]);
+  };
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);
