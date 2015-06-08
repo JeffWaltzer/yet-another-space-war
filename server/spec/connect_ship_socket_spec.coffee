@@ -13,9 +13,9 @@ describe "ship#outline" , ->
         on_message_callback = callback
 
     server= yasw.createServer()
-    server.game.add_ship new ship.Ship({heading: -Math.PI/2, points: [[10, 0]]})
-    server.game.add_ship new ship.Ship({heading:          0, points: [[5, 0]]})
-    server.game.add_ship new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
+    server.game.add_screen_object new ship.Ship({heading: -Math.PI/2, points: [[10, 0]]})
+    server.game.add_screen_object new ship.Ship({heading:          0, points: [[5, 0]]})
+    server.game.add_screen_object new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
     server.on_new_connection(fake_socket)
     on_message_callback(JSON.stringify({command: 'rotate_left'}));
 

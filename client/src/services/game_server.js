@@ -2,7 +2,7 @@
 angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($location, SVG) {
   var service= {};
 
-  service.ships= [];
+  service.screen_objects= [];
 
   service.send= function(e) {
     var message= {command: e};
@@ -18,7 +18,7 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
 
   service.update_ship_outlines= function(ship_outlines) {
     _.each(ship_outlines, function(an_outline, id) {
-      service.ships[id] = {polygon_string: SVG.polygon_string(an_outline)}; });
+      service.screen_objects[id] = {polygon_string: SVG.polygon_string(an_outline)}; });
   };
 
   return service;

@@ -19,7 +19,7 @@ describe 'updating the ship outlines', ->
   )
 
   it 'dispatches the ship 0 coordinates', ->
-    expect(scope.ships()[0].polygon_string).toEqual('0,0 1,1')
+    expect(scope.screen_objects()[0].polygon_string).toEqual('0,0 1,1')
 
   it 'dispatches the ship 1 coordinates', ->
-    expect(scope.ships()[1].polygon_string).toEqual('2,2 3,3')
+    expect(scope.screen_objects()[1].polygon_string).toEqual('2,2 3,3')

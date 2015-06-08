@@ -32,18 +32,18 @@ describe "ship#outline" , ->
 
     server= yasw.createServer()
 
-    server.game.add_ship new ship.Ship({heading: -Math.PI/2, points: [[10, 0]]})
-    server.game.add_ship new ship.Ship({heading:          0, points: [[5, 0]]})
-    server.game.add_ship new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
+    server.game.add_screen_object new ship.Ship({heading: -Math.PI/2, points: [[10, 0]]})
+    server.game.add_screen_object new ship.Ship({heading:          0, points: [[5, 0]]})
+    server.game.add_screen_object new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
 
   it "updates the ship position for heading -π/2", ->
-    expect(server.game.ships[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
+    expect(server.game.screen_objects[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
 
   it "doesn't change the ship position for heading 0", ->
-    expect(server.game.ships[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
+    expect(server.game.screen_objects[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
 
   it "doesn't change the ship position for heading π/2", ->
-    expect(server.game.ships[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
+    expect(server.game.screen_objects[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
 
   afterEach ->
     server= null

@@ -9,7 +9,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   var KEY_DOWN_ARROW= 40;
   var KEY_SPACE= 32;
 
-  $scope.ships= function() { return game_server.ships; };
+  $scope.screen_objects= function() { return game_server.screen_objects; };
 
   game_server.on_message= function(raw_data) {
     game_server.update_ship_outlines(JSON.parse(raw_data));

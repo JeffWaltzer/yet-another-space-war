@@ -4,8 +4,8 @@ var bullet=require('./bullet');
 
 exports.Game=function(server) {
    var self = this;
-   self.add_ship= function(new_ship) {
-      self.ships.push(new_ship);
+   self.add_screen_object= function(new_ship) {
+      self.screen_objects.push(new_ship);
    };
 
   self.add_player = function(socket) {
@@ -19,18 +19,18 @@ exports.Game=function(server) {
       location: [100,100]
     });
 
-    self.add_ship(new_ship);
+    self.add_screen_object(new_ship);
 
   };
 
   self.add_bullet=function(){
     var new_bullet = new bullet.Bullet({});
-    self.ships.push( new_bullet);
+    self.add_screen_object( new_bullet);
     return new_bullet;
   };
 
    self.tick= function() {
-      underscore.each(self.ships,
+      underscore.each(self.screen_objects,
         function(ship) {
            ship.update(
              server.ship_rotation_rate,
@@ -39,14 +39,14 @@ exports.Game=function(server) {
         });
 
       var ship_outlines = {};
-      underscore.each(self.ships,
+      underscore.each(self.screen_objects,
         function(ship,ship_id) {
            ship_outlines[ship_id] = ship.outline();
         });
 
       var game_board = JSON.stringify(ship_outlines);
 
-      underscore.each(self.ships,
+      underscore.each(self.screen_objects,
         function(ship) {
            if (ship.socket) {
               ship.socket.send(game_board);
@@ -57,5 +57,5 @@ exports.Game=function(server) {
    if (server.tick_rate!==0)
      setInterval(self.tick, 1000/server.tick_rate);
 
-   self.ships=[];
+   self.screen_objects=[];
 };

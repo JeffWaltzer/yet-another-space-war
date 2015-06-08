@@ -11,6 +11,6 @@ describe 'game shoots bullet for ship', ->
       location: [100,100]
       game: game
     })
-    game.add_ship(new_ship)
+    game.add_screen_object(new_ship)
     new_bullet= new_ship.fire()
-    expect(game.ships[1]).toEqual(new_bullet)
+    expect(game.screen_objects[1]).toEqual(new_bullet)
