@@ -17,6 +17,7 @@ exports.Ship= function(initial_state) {
   self.game = initial_state.game || {
     field_size: new vector.Vector([800,600])
   };
+  self.gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
   if (self.socket) {
     self.socket.ship = self;
@@ -58,12 +59,9 @@ exports.Ship= function(initial_state) {
   };
 
   self.fire= function(){
-    return self.game.add_bullet();
+    return self.game.add_bullet({position: self.gun_point.coordinates});
   };
 
-  self.gun_point=function() {
-    return new vector.Vector([0,0]);
-  };
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);

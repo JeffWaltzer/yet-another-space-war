@@ -23,8 +23,8 @@ exports.Game=function(server) {
 
   };
 
-  self.add_bullet=function(){
-    var new_bullet = new bullet.Bullet({});
+  self.add_bullet=function(parameters){
+    var new_bullet = new bullet.Bullet(parameters);
     self.add_screen_object( new_bullet);
     return new_bullet;
   };

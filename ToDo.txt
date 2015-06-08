@@ -14,3 +14,5 @@ Re-arrange project structure to have the client under the server directory
 Remove default pseudo-game from ship constructor.
 Change all server.game references to be just game
 Should have same ship after page reload.
+
+Change ship#gun_point to be a function.

@@ -23,5 +23,5 @@ describe 'game shoots bullet for ship', ->
     expect(the_game.screen_objects[1]).toEqual(new_bullet)
 
   it 'starts bullet in correct position', ->
-    expect(new_bullet.position.x()).toEqual(new_ship.gun_point().x())
-    expect(new_bullet.position.y()).toEqual((new_ship.gun_point().y()))
+    expect(new_bullet.position.x()).toEqual(new_ship.gun_point.x())
+    expect(new_bullet.position.y()).toEqual((new_ship.gun_point.y()))
