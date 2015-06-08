@@ -58,7 +58,7 @@ exports.Ship= function(initial_state) {
   };
 
   self.fire= function(){
-    self.game.add_bullet();
+    return self.game.add_bullet();
   };
 };
 

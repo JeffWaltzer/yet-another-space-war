@@ -1,5 +1,6 @@
 var underscore= require('underscore');
 var ship=require('./ship');
+var bullet=require('./bullet');
 
 exports.Game=function(server) {
    var self = this;
@@ -23,7 +24,9 @@ exports.Game=function(server) {
   };
 
   self.add_bullet=function(){
-    self.game.add_bullet();
+    var new_bullet = new bullet.Bullet({});
+    self.ships.push( new_bullet);
+    return new_bullet;
   };
 
    self.tick= function() {
@@ -51,8 +54,8 @@ exports.Game=function(server) {
         });
    };
 
-   setInterval(self.tick, 1000/server.tick_rate);
-
+   if (server.tick_rate!==0)
+     setInterval(self.tick, 1000/server.tick_rate);
 
    self.ships=[];
 };
