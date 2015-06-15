@@ -11,8 +11,8 @@ exports.concatenate_transforms= function(result, a, b) {
 exports.apply_transform= function(result, a, v) {
   for (var i= 0; i < 3; i++)
 	  result[i]= a[i][0] * v[0] +
-		a[i][1] * v[1] +
-		a[i][2];
+               a[i][1] * v[1] +
+               a[i][2];
 
   return result;
 };

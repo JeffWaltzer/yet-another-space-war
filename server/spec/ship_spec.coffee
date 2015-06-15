@@ -50,17 +50,18 @@ describe "ship#gun_point", ->
   server= undefined
   beforeEach ->
     this.addMatchers(custom_matchers)
-
     server= yasw.createServer()
-
-    server.game.add_screen_object new ship.Ship({heading: 0, gun_point: [1, 2]})
-#    server.game.add_screen_object new ship.Ship({heading: -Math.PI/2, points: [[10, 0]]})
-#    server.game.add_screen_object new ship.Ship({heading:          0, points: [[5, 0]]})
-#    server.game.add_screen_object new ship.Ship({heading:  Math.PI/2, points: [[3, 0]]})
+    server.game.add_screen_object new ship.Ship({heading: 0,         gun_point: [1, 2]})
+    server.game.add_screen_object new ship.Ship({heading: Math.PI/2, gun_point: [1, 2]})
 
   it "expect correct gun_point for unrotated ship", ->
-    expect(server.game.screen_objects[0].gun_point.x()).toEqual(1)
-    expect(server.game.screen_objects[0].gun_point.y()).toEqual(2)
+    expect(server.game.screen_objects[0].gun_point().x()).toEqual(1)
+    expect(server.game.screen_objects[0].gun_point().y()).toEqual(2)
+
+  it "expect correct gun_point for rotated ship", ->
+    expect(server.game.screen_objects[1].gun_point().x()).toBeCloseTo(-2, 1e-6)
+    expect(server.game.screen_objects[1].gun_point().y()).toBeCloseTo(1,  1e-6)
 
   afterEach ->
     server= null
+

@@ -1,5 +1,6 @@
 var underscore= require('underscore');
 var vector= require('./vector');
+var transform= require('./transform');
 var screen_object = require('./screen_object');
 var util = require('util');
 
@@ -17,7 +18,7 @@ exports.Ship= function(initial_state) {
   self.game = initial_state.game || {
     field_size: new vector.Vector([800,600])
   };
-  self.gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
+  self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
   if (self.socket) {
     self.socket.ship = self;
@@ -59,9 +60,14 @@ exports.Ship= function(initial_state) {
   };
 
   self.fire= function(){
-    return self.game.add_bullet({position: self.gun_point.coordinates});
+    return self.game.add_bullet({position: self.gun_point().coordinates});
   };
 
+  self.gun_point= function() {
+    var transformed_point= [0,0];
+    transform.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
+    return new vector.Vector(transformed_point);
+  };
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);
