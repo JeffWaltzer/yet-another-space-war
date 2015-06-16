@@ -46,8 +46,9 @@ describe "ship#outline", ->
   afterEach ->
     server= null
 
-describe "ship#gun_point", ->
+describe "Ship#gun_point", ->
   server= undefined
+
   beforeEach ->
     this.addMatchers(custom_matchers)
     server= yasw.createServer()
@@ -70,3 +71,20 @@ describe "ship#gun_point", ->
   afterEach ->
     server= null
 
+describe "Ship#fire", ->
+  the_game= {}
+  the_ship= undefined
+  
+  beforeEach ->
+    the_server= yasw.createServer()
+    the_game= the_server.game
+    the_ship= new ship.Ship({game: the_game})
+    the_game.add_screen_object(the_ship)
+    the_ship.fire()
+
+  it "adds a bullet", ->
+    expect(the_game.screen_objects.length).toEqual(2)
+
+  afterEach ->
+    the_game= null
+    the_ship= null
