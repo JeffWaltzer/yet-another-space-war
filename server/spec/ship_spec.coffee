@@ -53,6 +53,7 @@ describe "ship#gun_point", ->
     server= yasw.createServer()
     server.game.add_screen_object new ship.Ship({heading: 0,         gun_point: [1, 2]})
     server.game.add_screen_object new ship.Ship({heading: Math.PI/2, gun_point: [1, 2]})
+    server.game.add_screen_object new ship.Ship({heading: Math.PI,   gun_point: [1, 2], location: [10, 10]})
 
   it "expect correct gun_point for unrotated ship", ->
     expect(server.game.screen_objects[0].gun_point().x()).toEqual(1)
@@ -61,6 +62,10 @@ describe "ship#gun_point", ->
   it "expect correct gun_point for rotated ship", ->
     expect(server.game.screen_objects[1].gun_point().x()).toBeCloseTo(-2, 1e-6)
     expect(server.game.screen_objects[1].gun_point().y()).toBeCloseTo(1,  1e-6)
+
+  it "expect correct gun_point for rotated and translated ship", ->
+    expect(server.game.screen_objects[2].gun_point().x()).toBeCloseTo(9, 1e-6)
+    expect(server.game.screen_objects[2].gun_point().y()).toBeCloseTo(8, 1e-6)
 
   afterEach ->
     server= null
