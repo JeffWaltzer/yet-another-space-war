@@ -4,7 +4,7 @@ var transform= require('./transform');
 var screen_object = require('./screen_object');
 var util = require('util');
 
-exports.Ship_to_be= function(initial_state) {
+exports.Ship= function(initial_state) {
   var self= this;
 
   self.rotation= initial_state.rotation || 0;
@@ -68,4 +68,4 @@ exports.Ship_to_be= function(initial_state) {
   };
 };
 
-util.inherits(exports.Ship_to_be, screen_object.ScreenObject);
+util.inherits(exports.Ship, screen_object.ScreenObject);

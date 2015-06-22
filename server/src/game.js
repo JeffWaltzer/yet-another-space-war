@@ -25,7 +25,7 @@ exports.Game=function(server) {
     if (parameters !== undefined)
       underscore.extend(defaultState ,parameters);
 
-    var new_ship = new ship.Ship_to_be(defaultState);
+    var new_ship = new ship.Ship(defaultState);
 
     self.add_screen_object(new_ship);
     return new_ship;
