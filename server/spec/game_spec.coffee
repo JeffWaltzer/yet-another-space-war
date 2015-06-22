@@ -8,7 +8,7 @@ describe 'game shoots bullet for ship', ->
 
   beforeEach ->
     the_game = new game.Game({tick_rate: 0})
-    new_ship = new ship.Ship({
+    new_ship = the_game.add_ship({
       rotation: 0
       points: [[-10,10],[20, 0],[-10,-10],[0,0]]
       heading: 0
@@ -16,8 +16,7 @@ describe 'game shoots bullet for ship', ->
       game: the_game
       gun_point: [21,0]
     })
-    the_game.add_screen_object(new_ship)
-    new_bullet= new_ship.fire()
+    new_bullet = new_ship.fire()
 
   it 'starts bullet in correct position', ->
     expect(the_game.screen_objects[1]).toEqual(new_bullet)

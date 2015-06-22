@@ -19,7 +19,10 @@ exports.createServer= function(parameters) {
 
   yasw_server.game= new game.Game(yasw_server);
 
-  yasw_server.on_new_connection= yasw_server.game.add_player;
+  yasw_server.on_new_connection= function(socket) {
+    console.log("websocket connect from " + socket.remoteAddress);
+    return yasw_server.game.add_ship({socket: socket});
+  };
 
 
   yasw_server.listen= function(port) {

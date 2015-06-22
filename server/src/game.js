@@ -1,6 +1,7 @@
 var underscore= require('underscore');
 var ship=require('./ship');
 var bullet=require('./bullet');
+var vector=require('./vector');
 
 exports.Game=function(server) {
    var self = this;
@@ -8,19 +9,26 @@ exports.Game=function(server) {
       self.screen_objects.push(new_ship);
    };
 
-  self.add_player = function(socket) {
-    console.log("websocket connect from " + socket.remoteAddress);
 
-    var new_ship = new ship.Ship({
+  self.field_size = new vector.Vector([800,600]);
+
+  self.add_ship = function(parameters) {
+
+    var defaultState = {
+      game: self,
       rotation: 0,
-      points: [[-10,10],[20, 0],[-10,-10],[0,0]],
+      points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
       heading: 0,
-      socket: socket,
-      location: [100,100]
-    });
+      location: [0, 0]
+    };
+
+    if (parameters !== undefined)
+      underscore.extend(defaultState ,parameters);
+
+    var new_ship = new ship.Ship_to_be(defaultState);
 
     self.add_screen_object(new_ship);
-
+    return new_ship;
   };
 
   self.add_bullet=function(parameters){
@@ -29,8 +37,8 @@ exports.Game=function(server) {
     return new_bullet;
   };
 
-   self.tick= function() {
-      underscore.each(self.screen_objects,
+  self.tick= function() {
+    underscore.each(self.screen_objects,
         function(ship) {
            ship.update(
              server.ship_rotation_rate,

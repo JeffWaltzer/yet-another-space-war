@@ -1,9 +1,12 @@
 ship = require './../../src/ship'
+game = require './../../src/game'
 
 describe "A ship not at the origin, but not rotated", ->
   the_ship= null
   beforeEach ->
-    the_ship= new ship.Ship({
+    the_game = new game.Game({})
+    the_ship= the_game.add_ship({
+      game: the_game,
       rotation: 0,
       points: [[1,0]],
       heading: 0,
@@ -22,7 +25,9 @@ describe "A ship not at the origin, but not rotated", ->
 describe "Rotation around the  origin", ->
   the_ship= null
   beforeEach ->
-    the_ship= new ship.Ship({
+    the_game = new game.Game({})
+    the_ship= the_game.add_ship({
+      game: the_game,
       rotation: 0,
       points: [[1,0]],
       heading: Math.PI/2,
@@ -41,7 +46,9 @@ describe "Rotation around the  origin", ->
 describe "Rotation of 1,0 around itself", ->
   the_ship= null
   beforeEach ->
-    the_ship= new ship.Ship({
+    the_game = new game.Game({})
+    the_ship= the_game.add_ship({
+      game: the_game,
       rotation: 0,
       points: [[1,0]],
       heading: Math.PI/2,
@@ -60,7 +67,8 @@ describe "Rotation of 1,0 around itself", ->
 describe "Rotation of 1,0 around 2,2", ->
   the_ship= null
   beforeEach ->
-    the_ship= new ship.Ship({
+    the_game = new game.Game({})
+    the_ship= the_game.add_ship({
       rotation: 0,
       points: [[1,0]],
       heading: -Math.PI/2,

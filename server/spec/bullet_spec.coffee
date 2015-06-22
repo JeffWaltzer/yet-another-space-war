@@ -1,5 +1,6 @@
 bullet = require './../../src/bullet'
 ship = require './../../src/ship'
+game = require './../../src/game'
 
 describe "bullet", ->
   the_bullet = undefined
@@ -24,7 +25,8 @@ describe "bullet with explicit values", ->
   fake_ship = undefined
 
   beforeEach ->
-    fake_ship = new ship.Ship({})
+    the_game = new game.Game({})
+    fake_ship =  the_game.add_ship();
     the_bullet = new bullet.Bullet {
       position: [3, 4]
       velocity: [5, 6]

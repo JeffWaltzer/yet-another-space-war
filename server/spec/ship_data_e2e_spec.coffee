@@ -13,7 +13,7 @@ describe 'the server, when asked for ship data ', ->
 
     socket.on 'open', ->
       socket.on 'message', (message)->
-        expect(message).toEqual('{"0":[[90,110],[120,100],[90,90],[100,100]]}')
+        expect(message).toEqual('{"0":[[-10,10],[20,0],[-10,-10],[0,0]]}')
         done()
       socket.on 'error',(e) ->
         console.log("Error: #{e}")

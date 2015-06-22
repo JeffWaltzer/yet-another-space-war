@@ -4,7 +4,7 @@ var transform= require('./transform');
 var screen_object = require('./screen_object');
 var util = require('util');
 
-exports.Ship= function(initial_state) {
+exports.Ship_to_be= function(initial_state) {
   var self= this;
 
   self.rotation= initial_state.rotation || 0;
@@ -15,12 +15,10 @@ exports.Ship= function(initial_state) {
   self.debug= initial_state.debug || false;
   self.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   self.acceleration= initial_state.acceleration || 0;
-  self.game = initial_state.game || {
-    field_size: new vector.Vector([800,600])
-  };
+  self.game = initial_state.game;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
-  if (self.socket) {
+  if (self.socket !== undefined && self.socket.on !== undefined) {
     self.socket.ship = self;
     self.socket.on('message', function(json_message) {
       var message = JSON.parse(json_message);
@@ -70,4 +68,4 @@ exports.Ship= function(initial_state) {
   };
 };
 
-util.inherits(exports.Ship, screen_object.ScreenObject);
+util.inherits(exports.Ship_to_be, screen_object.ScreenObject);
