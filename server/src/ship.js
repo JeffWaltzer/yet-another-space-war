@@ -74,7 +74,7 @@ exports.Ship= function(initial_state) {
   };
 
   self.gun_point= function() {
-    var transformed_point= [0,0];
+    var transformed_point= [0,0,1];
     transforms.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
     return new vector.Vector(transformed_point);
   };
