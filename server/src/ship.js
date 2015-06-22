@@ -13,11 +13,9 @@ exports.Ship= function(initial_state) {
   self.points= initial_state.points;
   self.heading= initial_state.heading;
   self.socket = initial_state.socket;
-  self.position= new vector.Vector(initial_state.position || [0,0]);
   self.debug= initial_state.debug || false;
   self.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   self.acceleration= initial_state.acceleration || 0;
-  self.game = initial_state.game;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
   if (self.socket !== undefined && self.socket.on !== undefined) {
