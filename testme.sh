@@ -1,1 +1,1 @@
-cd client && grunt && grunt release && cd ../server && grunt && cd ..
+cd client && grunt --stack && grunt release && cd ../server && grunt --stack && cd ..
