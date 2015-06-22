@@ -10,11 +10,8 @@ exports.Ship= function(initial_state) {
   var self= this;
 
   self.rotation= initial_state.rotation || 0;
-  self.points= initial_state.points;
   self.heading= initial_state.heading;
   self.socket = initial_state.socket;
-  self.debug= initial_state.debug || false;
-  self.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
@@ -46,10 +43,8 @@ exports.Ship= function(initial_state) {
     });
   }
 
-
   self.update= function(rotation_rate, tick_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
-
     self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
                                             heading: self.heading}));
     exports.Ship.super_.prototype.update.call(this, tick_rate);
