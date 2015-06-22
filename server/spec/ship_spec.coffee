@@ -30,9 +30,9 @@ describe "ship#outline", ->
 
     server= yasw.createServer()
 
-    server.game.add_ship({game: server.game,heading: -Math.PI/2, points: [[10, 0]]})
-    server.game.add_ship({game: server.game,heading:          0, points: [[5, 0]]})
-    server.game.add_ship({game: server.game,heading:  Math.PI/2, points: [[3, 0]]})
+    server.game.add_ship({heading: -Math.PI/2, points: [[10, 0]]})
+    server.game.add_ship({heading:          0, points: [[5, 0]]})
+    server.game.add_ship({heading:  Math.PI/2, points: [[3, 0]]})
 
   it "updates the ship position for heading -π/2", ->
     expect(server.game.screen_objects[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
@@ -52,9 +52,9 @@ describe "Ship#gun_point", ->
   beforeEach ->
     this.addMatchers(custom_matchers)
     server= yasw.createServer()
-    server.game.add_ship({game: server.game,heading: 0,         gun_point: [1, 2]})
-    server.game.add_ship({game: server.game,heading: Math.PI/2, gun_point: [1, 2]})
-    server.game.add_ship({game: server.game,heading: Math.PI,   gun_point: [1, 2], location: [10, 10]})
+    server.game.add_ship({heading: 0,         gun_point: [1, 2]})
+    server.game.add_ship({heading: Math.PI/2, gun_point: [1, 2]})
+    server.game.add_ship({heading: Math.PI,   gun_point: [1, 2], location: [10, 10]})
 
   it "expect correct gun_point for unrotated ship", ->
     expect(server.game.screen_objects[0].gun_point().x()).toEqual(1)
@@ -78,7 +78,7 @@ describe "Ship#fire", ->
   beforeEach ->
     the_server= yasw.createServer()
     the_game= the_server.game
-    the_ship= the_game.add_ship({game: the_game})
+    the_ship= the_game.add_ship()
     the_ship.fire()
 
   it "adds a bullet", ->

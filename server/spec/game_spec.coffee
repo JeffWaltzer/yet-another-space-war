@@ -13,7 +13,6 @@ describe 'game shoots bullet for ship', ->
       points: [[-10,10],[20, 0],[-10,-10],[0,0]]
       heading: 0
       location: [100,100]
-      game: the_game
       gun_point: [21,0]
     })
     new_bullet = new_ship.fire()

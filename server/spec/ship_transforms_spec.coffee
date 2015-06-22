@@ -6,7 +6,6 @@ describe "A ship not at the origin, but not rotated", ->
   beforeEach ->
     the_game = new game.Game({})
     the_ship= the_game.add_ship({
-      game: the_game,
       rotation: 0,
       points: [[1,0]],
       heading: 0,
@@ -27,7 +26,6 @@ describe "Rotation around the  origin", ->
   beforeEach ->
     the_game = new game.Game({})
     the_ship= the_game.add_ship({
-      game: the_game,
       rotation: 0,
       points: [[1,0]],
       heading: Math.PI/2,
@@ -48,7 +46,6 @@ describe "Rotation of 1,0 around itself", ->
   beforeEach ->
     the_game = new game.Game({})
     the_ship= the_game.add_ship({
-      game: the_game,
       rotation: 0,
       points: [[1,0]],
       heading: Math.PI/2,
