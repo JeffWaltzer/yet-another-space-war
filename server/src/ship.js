@@ -54,9 +54,7 @@ exports.Ship= function(initial_state) {
 
     self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
                                             heading: self.heading}));
-
-    self.position.add_to(self.velocity.divide(tick_rate));
-    self.position.clip_to(self.game.field_size);
+    exports.Ship.super_.prototype.update.call(this, tick_rate);
   };
 
   self.fire= function(){
