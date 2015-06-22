@@ -18,7 +18,7 @@ exports.Game=function(server) {
       rotation: 0,
       points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
       heading: 0,
-      location: [0, 0]
+      position: [0, 0]
     };
 
     if (parameters !== undefined)

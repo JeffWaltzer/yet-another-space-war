@@ -1,17 +1,19 @@
 var underscore= require('underscore');
 var vector= require('./vector');
-var transform= require('./transform');
+var transforms= require('./transform');
 var screen_object = require('./screen_object');
 var util = require('util');
 
 exports.Ship= function(initial_state) {
+  screen_object.ScreenObject.call(this, initial_state);
+
   var self= this;
 
   self.rotation= initial_state.rotation || 0;
   self.points= initial_state.points;
   self.heading= initial_state.heading;
   self.socket = initial_state.socket;
-  self.location= new vector.Vector(initial_state.location || [0,0]);
+  self.position= new vector.Vector(initial_state.position || [0,0]);
   self.debug= initial_state.debug || false;
   self.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   self.acceleration= initial_state.acceleration || 0;
@@ -53,17 +55,27 @@ exports.Ship= function(initial_state) {
     self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
                                             heading: self.heading}));
 
-    self.location.add_to(self.velocity.divide(tick_rate));
-    self.location.clip_to(self.game.field_size);
+    self.position.add_to(self.velocity.divide(tick_rate));
+    self.position.clip_to(self.game.field_size);
   };
 
   self.fire= function(){
     return self.game.add_bullet({position: self.gun_point().coordinates});
   };
 
+  self.ship_to_game_transform= function() {
+    var rotation=            transforms.make_rotation(this.heading);
+    var composite_transform= transforms.identity();
+    var super_transform= screen_object.ScreenObject.prototype.ship_to_game_transform.call(this);
+    
+    return transforms.concatenate_transforms(composite_transform,
+                                             super_transform,
+                                             rotation);
+  };
+
   self.gun_point= function() {
     var transformed_point= [0,0];
-    transform.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
+    transforms.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
     return new vector.Vector(transformed_point);
   };
 };

@@ -54,7 +54,7 @@ describe "Ship#gun_point", ->
     server= yasw.createServer()
     server.game.add_ship({heading: 0,         gun_point: [1, 2]})
     server.game.add_ship({heading: Math.PI/2, gun_point: [1, 2]})
-    server.game.add_ship({heading: Math.PI,   gun_point: [1, 2], location: [10, 10]})
+    server.game.add_ship({heading: Math.PI,   gun_point: [1, 2], position: [10, 10]})
 
   it "expect correct gun_point for unrotated ship", ->
     expect(server.game.screen_objects[0].gun_point().x()).toEqual(1)

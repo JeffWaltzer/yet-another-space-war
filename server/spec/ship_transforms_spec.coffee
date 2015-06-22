@@ -9,7 +9,7 @@ describe "A ship not at the origin, but not rotated", ->
       rotation: 0,
       points: [[1,0]],
       heading: 0,
-      location: [10,20],
+      position: [10,20],
     })
 
   it 'translates x', ->
@@ -29,7 +29,7 @@ describe "Rotation around the  origin", ->
       rotation: 0,
       points: [[1,0]],
       heading: Math.PI/2,
-      location: [0,0],
+      position: [0,0],
     })
 
   it 'rotates x', ->
@@ -49,7 +49,7 @@ describe "Rotation of 1,0 around itself", ->
       rotation: 0,
       points: [[1,0]],
       heading: Math.PI/2,
-      location: [1,0],
+      position: [1,0],
     })
 
   it 'rotates x', ->
@@ -69,7 +69,7 @@ describe "Rotation of 1,0 around 2,2", ->
       rotation: 0,
       points: [[1,0]],
       heading: -Math.PI/2,
-      location: [2,2],
+      position: [2,2],
     })
 
   it 'rotates x', ->
