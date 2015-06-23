@@ -27,8 +27,19 @@ exports.Game=function(server) {
     return self.add_screen_object(new ship.Ship(defaultState));
   };
 
-  self.add_bullet=function(parameters){
-    return self.add_screen_object(new bullet.Bullet(parameters));
+  self.add_bullet= function(parameters){
+    var defaultState = {
+      game: self,
+      rotation: 0,
+      points: [[-1, -1], [-1, 1], [1, 1], [1, -1]],
+      heading: 0,
+      position: [0, 0]
+    };
+
+    if (parameters !== undefined)
+      underscore.extend(defaultState ,parameters);
+
+    return self.add_screen_object(new bullet.Bullet(defaultState));
   };
 
   function each_screen_object(callback_function) {
