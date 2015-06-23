@@ -16,6 +16,5 @@ Should have same ship after page reload.
 Unit tests for Vector
 Change ship#gun_point to be a function.
 
-start ship somewhere besides 0,0
 handle fire when we aren't pointing forward
 make ship gun_point not 0,0
