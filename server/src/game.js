@@ -32,7 +32,6 @@ exports.Game=function(server) {
       game: self,
       rotation: 0,
       points: [[-1, -1], [-1, 1], [1, 1], [1, -1]],
-      heading: 0,
       position: [0, 0]
     };
 
