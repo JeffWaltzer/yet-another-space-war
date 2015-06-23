@@ -9,6 +9,7 @@ describe 'Ship fires a bullet', ->
       tick_rate: 1
       acceleration_rate: 1
       field_size: new vector.Vector([900,900])
+      bullet_speed: 10
 
     the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI/4})
     bullet = the_ship.fire()

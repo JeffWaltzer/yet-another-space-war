@@ -3,14 +3,15 @@ var ship=require('./ship');
 var bullet=require('./bullet');
 var vector=require('./vector');
 
-exports.Game=function(server) {
+exports.Game=function(initial_state) {
   var self = this;
+  self.field_size = new vector.Vector([800,600]);
+  self.bullet_speed= initial_state.bullet_speed || 7;
+
   self.add_screen_object= function(new_screen_object) {
     self.screen_objects.push(new_screen_object);
     return new_screen_object;
   };
-
-  self.field_size = new vector.Vector([800,600]);
 
   self.add_ship = function(parameters) {
     var defaultState = {
@@ -49,9 +50,9 @@ exports.Game=function(server) {
     each_screen_object(
       function(screen_object) {
         screen_object.update(
-          server.ship_rotation_rate,
-          server.tick_rate,
-          server.acceleration_rate);
+          initial_state.ship_rotation_rate,
+          initial_state.tick_rate,
+          initial_state.acceleration_rate);
       });
   }
 
@@ -74,8 +75,8 @@ exports.Game=function(server) {
     send_game_board(game_board());
   };
 
-  if (server.tick_rate!==0)
-    setInterval(self.tick, 1000/server.tick_rate);
+  if (initial_state.tick_rate!==0)
+    setInterval(self.tick, 1000/initial_state.tick_rate);
 
   self.screen_objects=[];
 };

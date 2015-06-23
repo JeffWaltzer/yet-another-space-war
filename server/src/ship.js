@@ -51,7 +51,7 @@ exports.Ship= function(initial_state) {
   };
 
   self.fire= function(){
-    var bullet_speed= 10;
+    var bullet_speed= self.game.bullet_speed;
     var bullet_parameters= {
       position: self.gun_point().coordinates,
       velocity: [self.velocity.x() + bullet_speed * Math.cos(self.heading),
