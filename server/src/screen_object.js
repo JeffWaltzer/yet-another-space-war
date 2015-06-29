@@ -31,3 +31,16 @@ exports.ScreenObject.prototype.update= function(tick_rate) {
   this.position.add_to(this.velocity.divide(tick_rate));
   this.position.clip_to(this.game.field_size);
 };
+
+
+exports.ScreenObject.prototype.lines=function () {
+  var result = [];
+  for(var i = 0; i< this.points.length; i++) {
+    result.push([
+      this.points[i],
+      this.points[(i+1) % this.points.length]
+    ]);
+  }
+  return result;
+};
+

@@ -81,3 +81,37 @@ exports.Game=function(initial_state) {
 
   self.screen_objects=[];
 };
+
+exports.collided =  function(object1, object2) {
+  var result= false;
+  underscore.each(object1.lines(),function(line1){
+    underscore.each(object2.lines(),function(line2){
+      if( intersect(line1,line2))
+        result= true;
+    });
+  });
+  return result;
+};
+
+function vector_subtract(a, b) {
+  return [a[0]-b[0], a[1]-b[1]];
+}
+
+function vector_cross(a, b) {
+  return a[0]*b[1] - a[1]*b[0];
+}
+
+function intersect(line1, line2) {
+  var p= line1[0];
+  var q= line2[0];
+  var r= vector_subtract(line1[1], line1[0]);
+  var s= vector_subtract(line2[1], line2[0]);
+
+  var line1_t= vector_cross(vector_subtract(q,p), s) /
+    vector_cross(r, s);
+  var line2_t= vector_cross(vector_subtract(p,q), r) /
+    vector_cross(s, r);
+
+  return line1_t >= 0 && line1_t <= 1 &&
+         line2_t >= 0 && line2_t <= 1;
+}
