@@ -10,8 +10,6 @@ exports.ScreenObject= function(initial_state){
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
 };
 
-exports.ScreenObject.prototype.update= function() {};
-
 exports.ScreenObject.prototype.ship_to_game_transform= function() {
   return transforms.make_translation(this.position);
 };

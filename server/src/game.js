@@ -51,8 +51,8 @@ exports.Game=function(initial_state) {
     each_screen_object(
       function(screen_object) {
         screen_object.update(
-          initial_state.ship_rotation_rate,
           initial_state.tick_rate,
+          initial_state.ship_rotation_rate,
           initial_state.acceleration_rate);
       });
   }

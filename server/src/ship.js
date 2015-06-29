@@ -43,7 +43,7 @@ exports.Ship= function(initial_state) {
     });
   }
 
-  self.update= function(rotation_rate, tick_rate, acceleration_rate) {
+  self.update= function(tick_rate, rotation_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
     self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
                                             heading: self.heading}));
