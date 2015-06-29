@@ -82,6 +82,19 @@ exports.Game=function(initial_state) {
   self.screen_objects=[];
 };
 
+function point_inside(object1,object2) {
+  var big_line= [object1.lines()[0][0], [-10000, -10000]];
+  var intersection_count= 0;
+
+  underscore.each(object2.lines(), function(object_line) {
+
+    if (intersect(big_line, object_line))
+      intersection_count++;
+  });
+
+  return (intersection_count % 2) == 1;
+}
+
 exports.collided =  function(object1, object2) {
   var result= false;
   underscore.each(object1.lines(),function(line1){
@@ -89,6 +102,7 @@ exports.collided =  function(object1, object2) {
       if( intersect(line1,line2))
         result= true;
     });
+    result = result || point_inside(object1,object2) || point_inside(object2,object1);
   });
   return result;
 };

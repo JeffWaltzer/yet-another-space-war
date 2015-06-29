@@ -35,10 +35,11 @@ exports.ScreenObject.prototype.update= function(tick_rate) {
 
 exports.ScreenObject.prototype.lines=function () {
   var result = [];
-  for(var i = 0; i< this.points.length; i++) {
+  var transform_points = this.outline();
+  for(var i = 0; i< transform_points.length; i++) {
     result.push([
-      this.points[i],
-      this.points[(i+1) % this.points.length]
+      transform_points[i],
+      transform_points[(i+1) % transform_points.length]
     ]);
   }
   return result;
