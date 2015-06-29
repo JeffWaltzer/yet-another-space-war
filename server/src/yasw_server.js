@@ -16,6 +16,7 @@ exports.createServer= function(parameters) {
   yasw_server.debug= (parameters && parameters.debug) || false;
   yasw_server.top_edge= (parameters && parameters.top_edge) || 600;
   yasw_server.right_edge= (parameters && parameters.right_edge) || 800;
+  yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
 
   yasw_server.game= new game.Game(yasw_server);
 
