@@ -36,3 +36,8 @@ describe 'bullet and ship', ->
       position: [10, 20]
     }
     expect(game.collided(the_ship, the_bullet)).toBeFalsy()
+
+  it 'other', ->
+    the_ship = the_game.add_ship(  {points: [[1, 1],[5,1],[5,5],[1,5]]})
+    the_bullet = the_game.add_bullet({points: [[1, 1],[3,1],[3,3],[1,3]]})
+    expect(game.collided(the_ship, the_bullet)).toBeTruthy()

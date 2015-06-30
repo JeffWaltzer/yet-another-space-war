@@ -47,6 +47,30 @@ exports.Game=function(initial_state) {
     underscore.each(self.screen_objects, callback_function);
   }
 
+  function handle_collisions() {
+    var to_remove=[];
+    for(var i = 0; i< self.screen_objects.length; i++) {
+      var screenObject1 = self.screen_objects[i];
+      for(var j = i+1; j< self.screen_objects.length; j++) {
+        var screenObject2 = self.screen_objects[j];
+
+        var collided = exports.collided(screenObject1, screenObject2);
+        console.log("ship1: %d ship2: %d collision: %j", i,j,collided);
+        if(collided) {
+          to_remove.push(screenObject1);
+          to_remove.push(screenObject2);
+        }
+      }
+    }
+    //DEBUG
+
+    if (to_remove.length>0)
+      console.log("screen objects: %j  to remove: %j", self.screen_objects.length, to_remove.length);
+    self.screenObjects = underscore.difference(self.screen_objects,to_remove);
+    // DEBUG
+    console.log("self.screenObjects: %j",self.screenObjects.length);
+  }
+
   function update_screen_objects() {
     each_screen_object(
       function(screen_object) {
@@ -55,6 +79,8 @@ exports.Game=function(initial_state) {
           initial_state.ship_rotation_rate,
           initial_state.acceleration_rate);
       });
+
+    handle_collisions();
   }
 
   function game_board() {
@@ -97,9 +123,15 @@ function point_inside(object1,object2) {
 
 exports.collided =  function(object1, object2) {
   var result= false;
+  // DEBUG
+  console.log("object1.lines: %j", object1.lines());
+  console.log("object2.lines: %j", object2.lines());
+
   underscore.each(object1.lines(),function(line1){
     underscore.each(object2.lines(),function(line2){
-      if( intersect(line1,line2))
+      // DEBUG
+      console.log("line1: %j; line2: %j; intersect(): %j", line1, line2, intersect(line1,line2));
+      if (intersect(line1,line2))
         result= true;
     });
     result = result || point_inside(object1,object2) || point_inside(object2,object1);

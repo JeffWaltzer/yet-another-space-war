@@ -10,7 +10,7 @@ exports.Ship= function(initial_state) {
   var self= this;
 
   self.rotation= initial_state.rotation || 0;
-  self.heading= initial_state.heading || 0;
+  self.heading= initial_state.heading ||0;
   self.socket = initial_state.socket;
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);

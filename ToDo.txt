@@ -17,3 +17,5 @@ Unit tests for Vector
 Change ship#gun_point to be a function.
 Review code for consistent usage of function over var
 Check for consistency of use of self vs this
+Bullets should die!
+We need spec to check if two parallel lines intersect.
