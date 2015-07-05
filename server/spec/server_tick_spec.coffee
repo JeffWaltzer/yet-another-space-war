@@ -22,15 +22,15 @@ describe "game#tick" , ->
       tick_rate: 10,                 # ticks/s
     })
     heading_change= server.ship_rotation_rate/server.tick_rate;
-    server.game.add_ship({rotation:  0, heading:          0, points: [[5, 0]]})
-    server.game.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]]})
-    server.game.add_ship({rotation:  1, heading:          0, points: [[5, 0]]})
-    server.game.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]]})
+    server.game.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]})
+    server.game.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]})
+    server.game.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]})
+    server.game.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]})
 
     fake_socket=
       send: (data) ->
         sent_data = data
-    viewing_ship = server.game.add_ship({rotation:  0, heading:          0, points: [[5, 0]]})
+    viewing_ship = server.game.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position:[50,60]})
     viewing_ship.socket = fake_socket;
 
     server.game.tick()

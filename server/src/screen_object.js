@@ -17,10 +17,6 @@ exports.ScreenObject.prototype.ship_to_game_transform= function() {
 exports.ScreenObject.prototype.outline= function() {
   //TODO is there a better way to do 'this'.
   var composite_transform= this.ship_to_game_transform();
-  // DEBUG
-  console.log("this.points: %j", this.points);
-  console.log("composite_transform: %j", composite_transform);
-
   var returned_points= underscore.map(this.points,
     function(p) {
       var rv= [0, 0, 0];
@@ -39,9 +35,6 @@ exports.ScreenObject.prototype.update= function(tick_rate) {
 exports.ScreenObject.prototype.lines=function () {
   var result = [];
   var transform_points = this.outline();
-  // DEBUG
-  console.log("lines(): transform_points: %j", transform_points);
-
   for(var i = 0; i< transform_points.length; i++) {
     result.push([
       transform_points[i],
