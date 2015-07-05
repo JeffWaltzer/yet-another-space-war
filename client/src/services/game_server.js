@@ -17,6 +17,7 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
       {transports: ['websocket']});
 
   service.update_ship_outlines= function(ship_outlines) {
+    service.screen_objects= [];
     _.each(ship_outlines, function(an_outline, id) {
       service.screen_objects[id] = {polygon_string: SVG.polygon_string(an_outline)}; });
   };
