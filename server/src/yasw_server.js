@@ -15,11 +15,12 @@ exports.createServer= function(parameters) {
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
   yasw_server.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
   yasw_server.debug= (parameters && parameters.debug) || false;
-  yasw_server.top_edge= (parameters && parameters.top_edge) || 600;
-  yasw_server.right_edge= (parameters && parameters.right_edge) || 800;
   yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
 
-  yasw_server.field_size= new vector.Vector([yasw_server.right_edge, yasw_server.top_edge]);
+  var top_edge= (parameters && parameters.top_edge) || 600;
+  var right_edge= (parameters && parameters.right_edge) || 800;
+
+  yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
   yasw_server.game= new game.Game(yasw_server);
 
   yasw_server.on_new_connection= function(socket) {
