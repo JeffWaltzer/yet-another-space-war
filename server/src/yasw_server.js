@@ -5,6 +5,7 @@ var url= require('url');
 var underscore= require('underscore');
 var ship= require('./ship');
 var game= require('./game');
+var vector= require('./vector');
 
 exports.createServer= function(parameters) {
   var yasw_server= {};
@@ -18,6 +19,7 @@ exports.createServer= function(parameters) {
   yasw_server.right_edge= (parameters && parameters.right_edge) || 800;
   yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
 
+  yasw_server.field_size= new vector.Vector([yasw_server.right_edge, yasw_server.top_edge]);
   yasw_server.game= new game.Game(yasw_server);
 
   yasw_server.on_new_connection= function(socket) {

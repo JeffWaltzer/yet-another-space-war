@@ -5,7 +5,7 @@ var vector=require('./vector');
 
 exports.Game=function(initial_state) {
   var self = this;
-  self.field_size = new vector.Vector([800,600]);
+  self.field_size = initial_state.field_size || new vector.Vector([800,600]);
   self.bullet_speed= initial_state.bullet_speed || 7;
 
   self.add_screen_object= function(new_screen_object) {
