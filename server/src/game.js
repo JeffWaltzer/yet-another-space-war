@@ -49,6 +49,12 @@ exports.Game=function(initial_state) {
     underscore.each(self.screen_objects, callback_function);
   }
 
+  function remove_dead_objects() {
+    self.screen_objects= underscore.filter(self.screen_objects,function(screen_object){
+      return !screen_object.dead();
+    });
+  }
+
   function handle_collisions() {
     var to_remove=[];
     for(var i = 0; i< self.screen_objects.length; i++) {
@@ -76,6 +82,8 @@ exports.Game=function(initial_state) {
       });
 
     handle_collisions();
+
+    remove_dead_objects();
   }
 
   function game_board() {

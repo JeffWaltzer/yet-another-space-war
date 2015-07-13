@@ -31,6 +31,9 @@ exports.Bullet = function(initial_state) {
     exports.Bullet.super_.prototype.update.call(this, tick_rate);
   };
 
+  self.dead = function() {
+    return self.life_left <= 0;
+  };
 };
 
 util.inherits(exports.Bullet, screen_object.ScreenObject);

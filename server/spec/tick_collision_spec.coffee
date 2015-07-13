@@ -5,7 +5,6 @@ describe "game#tick when ship and bullet collide" , ->
   the_game = undefined
 
   beforeEach ->
-    console.log "------------------------------"
     the_game= new game.Game({
       tick_rate: 20,
       ship_rotation_rate: 10,

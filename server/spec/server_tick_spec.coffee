@@ -1,3 +1,4 @@
+underscore = require('underscore')
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
 
@@ -17,6 +18,7 @@ describe "game#tick" , ->
   sent_data = undefined
   ships = undefined
   bullet = undefined
+  dead_bullet = undefined
 
   beforeEach ->
     server= yasw.createServer({
@@ -30,7 +32,11 @@ describe "game#tick" , ->
     ships.push server.game.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]})
     ships.push server.game.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]})
     ships.push server.game.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]})
+
     bullet = ships[0].fire()
+    dead_bullet= ships[1].fire()
+    dead_bullet.life_left = 0
+
     fake_socket=
       send: (data) ->
         sent_data = data
@@ -58,6 +64,8 @@ describe "game#tick" , ->
   it 'updates bullets', ->
     expect(bullet.life_left).toBeCloseTo(20 - 1/server.tick_rate, 6)
 
+  it 'has no dead bullets', ->
+    expect(server.game.screen_objects).not.toContain(dead_bullet)
 
   afterEach ->
     server= null

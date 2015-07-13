@@ -31,6 +31,9 @@ exports.ScreenObject.prototype.update= function(tick_rate) {
   this.position.clip_to(this.game.field_size);
 };
 
+exports.ScreenObject.prototype.dead = function() {
+  return false;
+};
 
 exports.ScreenObject.prototype.lines=function () {
   var result = [];
