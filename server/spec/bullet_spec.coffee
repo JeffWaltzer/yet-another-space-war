@@ -15,6 +15,8 @@ describe "bullet", ->
     expect(the_bullet.position.x()).toEqual(0)
     expect(the_bullet.position.y()).toEqual(0)
 
+  it 'has default age', ->
+    expect(the_bullet.life_left).toEqual(0)
 
   it 'has default velocity', ->
     expect(the_bullet.velocity.x()).toEqual(0)
