@@ -71,7 +71,10 @@ describe 'Ship fires a bullet', ->
     new_ship=undefined
 
     beforeEach ->
-      the_game = new game.Game({tick_rate: 0})
+      the_game = new game.Game({
+        tick_rate: 0
+        bullet_life_time: 6
+      })
       new_ship = the_game.add_ship({
         rotation: 0
         points: [[-10,10],[20, 0],[-10,-10],[0,0]]
@@ -87,3 +90,6 @@ describe 'Ship fires a bullet', ->
     it 'starts bullet in correct position', ->
       expect(new_bullet.position.x()).toEqual(new_ship.gun_point().x())
       expect(new_bullet.position.y()).toEqual((new_ship.gun_point().y()))
+
+    it 'starts bullet with correct life time', ->
+      expect(new_bullet.life_left).toEqual(6)
