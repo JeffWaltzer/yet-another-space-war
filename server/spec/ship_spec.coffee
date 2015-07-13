@@ -61,12 +61,12 @@ describe "Ship#gun_point", ->
     expect(server.game.screen_objects[0].gun_point().y()).toEqual(2)
 
   it "expect correct gun_point for rotated ship", ->
-    expect(server.game.screen_objects[1].gun_point().x()).toBeCloseTo(-2, 1e-6)
-    expect(server.game.screen_objects[1].gun_point().y()).toBeCloseTo(1,  1e-6)
+    expect(server.game.screen_objects[1].gun_point().x()).toBeCloseTo(-2, 6)
+    expect(server.game.screen_objects[1].gun_point().y()).toBeCloseTo(1,  6)
 
   it "expect correct gun_point for rotated and translated ship", ->
-    expect(server.game.screen_objects[2].gun_point().x()).toBeCloseTo(9, 1e-6)
-    expect(server.game.screen_objects[2].gun_point().y()).toBeCloseTo(8, 1e-6)
+    expect(server.game.screen_objects[2].gun_point().x()).toBeCloseTo(9, 6)
+    expect(server.game.screen_objects[2].gun_point().y()).toBeCloseTo(8, 6)
 
   afterEach ->
     server= null

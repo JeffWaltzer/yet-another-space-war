@@ -21,7 +21,7 @@ exports.createServer= function(parameters) {
   var right_edge= (parameters && parameters.right_edge) || 800;
 
   yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
-  yasw_server.bullet_life_time = 4;
+  yasw_server.bullet_life_time = (parameters && parameters.bullet_life_time) || 4;
 
   yasw_server.game= new game.Game(yasw_server);
 

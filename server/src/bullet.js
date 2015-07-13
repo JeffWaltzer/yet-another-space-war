@@ -25,6 +25,12 @@ exports.Bullet = function(initial_state) {
   if (initial_state.ship) {
     self.ship = initial_state.ship;
   }
+
+  self.update= function(tick_rate, rotation_rate, acceleration_rate) {
+    self.life_left -= 1 / tick_rate;
+    exports.Bullet.super_.prototype.update.call(this, tick_rate);
+  };
+
 };
 
 util.inherits(exports.Bullet, screen_object.ScreenObject);

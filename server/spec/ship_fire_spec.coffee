@@ -15,8 +15,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI/4})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 1e-6)
-      expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 1e-6)
+      expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
+      expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
 
 
   describe "bullet fired from stationary ship heading PI/4", ->
@@ -31,8 +31,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/4})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 1e-6)
-      expect(bullet.velocity.y()).toBeCloseTo( 10/Math.sqrt(2), 1e-6)
+      expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 6)
+      expect(bullet.velocity.y()).toBeCloseTo( 10/Math.sqrt(2), 6)
 
   describe "bullet fired from stationary ship heading PI/2", ->
     it 'creates a bullet heading PI/2', ->
@@ -46,8 +46,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/2})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo( 0, 1e-6)
-      expect(bullet.velocity.y()).toBeCloseTo( 10, 1e-6)
+      expect(bullet.velocity.x()).toBeCloseTo( 0, 6)
+      expect(bullet.velocity.y()).toBeCloseTo( 10, 6)
 
 
   describe "when moving perpindicular to the direction it's pointed", ->
@@ -62,8 +62,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI*3/4})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 1e-6)
-      expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 1e-6)
+      expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
+      expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
 
   describe 'with correct position', ->
     the_game=undefined
