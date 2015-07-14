@@ -18,13 +18,28 @@ exports.ScreenObject.prototype.ship_to_game_transform= function() {
 };
 
 exports.ScreenObject.prototype.generate_outline = function() {
-//TODO is there a better way to do 'this'.
+  var self = this;
+
+  this.bounding_box = false;
+
   var composite_transform = this.ship_to_game_transform();
   var returned_points = underscore.map(this.points,
     function(p) {
       var rv = [0, 0, 0];
       transforms.apply_transform(rv, composite_transform, p);
-      return [rv[0] / rv[2], rv[1] / rv[2]];
+      var x = (rv[0] / rv[2]);
+      var y = (rv[1] / rv[2]);
+      if (self.bounding_box) {
+        if (x > self.bounding_box.right )  self.bounding_box.right = x;
+        if (x < self.bounding_box.left )  self.bounding_box.left = x;
+        if (y > self.bounding_box.top )  self.bounding_box.top = y;
+        if (y < self.bounding_box.bottom )  self.bounding_box.bottom = y;
+      } else {
+        self.bounding_box = {};
+        self.bounding_box.left = self.bounding_box.right = x;
+        self.bounding_box.top = self.bounding_box.bottom = y;
+      }
+      return [x, y];
     });
   return returned_points;
 };
