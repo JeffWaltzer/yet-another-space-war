@@ -125,6 +125,10 @@ function point_inside(object1,object2) {
 }
 
 exports.collided =  function(object1, object2) {
+  if (!exports.bounding_boxes_intersect(object1.bounding_box,
+                                        object2.bounding_box))
+    return false;
+
   var result= false;
   underscore.each(object1.lines(),function(line1){
     underscore.each(object2.lines(),function(line2){
@@ -134,6 +138,31 @@ exports.collided =  function(object1, object2) {
     result = result || point_inside(object1,object2) || point_inside(object2,object1);
   });
   return result;
+};
+
+exports.bounding_boxes_intersect = function(box1, box2) {
+  function check_one_way(box1, box2) {
+    var top_edge_in = (box1.top <= box2.top && box1.top >= box2.bottom);
+    var bottom_edge_in = (box1.bottom <= box2.top && box1.bottom >= box2.bottom);
+    var left_edge_in = (box1.left >= box2.left && box1.left <= box2.right);
+    var right_edge_in = (box1.right >= box2.left && box1.right <= box2.right);
+
+    if (top_edge_in && left_edge_in)
+      return true;
+
+    if (top_edge_in && right_edge_in)
+      return true;
+
+    if (bottom_edge_in && left_edge_in)
+      return true;
+
+    if (bottom_edge_in && right_edge_in)
+      return true;
+
+    return false;
+  }
+
+  return check_one_way(box1, box2) || check_one_way(box2, box1);
 };
 
 function vector_subtract(a, b) {
