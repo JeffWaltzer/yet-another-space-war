@@ -117,7 +117,7 @@ function point_inside(object1,object2) {
 
   underscore.each(object2.lines(), function(object_line) {
 
-    if (intersect(big_line, object_line))
+    if (exports.intersect(big_line, object_line))
       intersection_count++;
   });
 
@@ -132,7 +132,7 @@ exports.collided =  function(object1, object2) {
   var result= false;
   underscore.each(object1.lines(),function(line1){
     underscore.each(object2.lines(),function(line2){
-      if (intersect(line1,line2))
+      if (exports.intersect(line1,line2))
         result= true;
     });
     result = result || point_inside(object1,object2) || point_inside(object2,object1);
@@ -173,7 +173,7 @@ function vector_cross(a, b) {
   return a[0]*b[1] - a[1]*b[0];
 }
 
-function intersect(line1, line2) {
+exports. intersect= function(line1, line2) {
   var p= line1[0];
   var q= line2[0];
   var r= vector_subtract(line1[1], line1[0]);
@@ -186,4 +186,4 @@ function intersect(line1, line2) {
 
   return line1_t >= 0 && line1_t <= 1 &&
          line2_t >= 0 && line2_t <= 1;
-}
+};
