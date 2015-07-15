@@ -1,21 +1,28 @@
-Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
 Add e2e test for ship commands
 Move custom matcher out of ship_transforms_spec.coffee
 Error handlers.
 Run tests on a different port, so having the server running doesn't blow them up.
 Split server specs into e2e/unit directories.
 Figure out how to test generated SVG in client. (index.html)
-Handle websocket disconnects (end user's session?)
 Review tests for coverage and organization.
 Refactor out magic numbers for keycodes.
 Move toAproximatelyEqual out of ship_outline_spec into helper, and use generally.
 Move static web page code out to its own class.
-Re-arrange project structure to have the client under the server directory
 Change all server.game references to be just game
-Should have same ship after page reload.
 Unit tests for Vector
 Change ship#gun_point to be a function.
 Review code for consistent usage of function over var
 Check for consistency of use of self vs this
-Bullets should die!
 We need spec to check if two parallel lines intersect.
+
+Session Managment
+    Handle websocket disconnects (end user's session?)
+    Should have same ship after page reload.
+
+Before Release
+    Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
+    Re-arrange project structure to have the client under the server directory
+    Scoring
+    Explosions
+    Smarter starting location
+    Indication of own ship
