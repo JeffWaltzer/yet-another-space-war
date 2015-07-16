@@ -24,5 +24,4 @@ Before Release
     Re-arrange project structure to have the client under the server directory
     Scoring
     Explosions
-    Smarter starting location
     Indication of own ship

@@ -12,8 +12,10 @@ describe 'the server, when asked for ship data ', ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
 
     socket.on 'open', ->
-      socket.on 'message', (message)->
-        expect(message).toEqual('{"0":[[90,160],[120,150],[90,140],[100,150]]}')
+      socket.on 'message', (json_message)->
+        message= JSON.parse(json_message)
+        expect(Object.keys(message)).toEqual(['0'])
+        expect(message['0'].length).toEqual(4)
         done()
       socket.on 'error',(e) ->
         console.log("Error: #{e}")

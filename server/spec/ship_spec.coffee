@@ -52,8 +52,8 @@ describe "Ship#gun_point", ->
   beforeEach ->
     this.addMatchers(custom_matchers)
     server= yasw.createServer()
-    server.game.add_ship({heading: 0,         gun_point: [1, 2]})
-    server.game.add_ship({heading: Math.PI/2, gun_point: [1, 2]})
+    server.game.add_ship({position: [0, 0], heading: 0,         gun_point: [1, 2]})
+    server.game.add_ship({position: [0, 0], heading: Math.PI/2, gun_point: [1, 2]})
     server.game.add_ship({heading: Math.PI,   gun_point: [1, 2], position: [10, 10]})
 
   it "expect correct gun_point for unrotated ship", ->

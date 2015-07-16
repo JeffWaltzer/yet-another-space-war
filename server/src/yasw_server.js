@@ -27,7 +27,7 @@ exports.createServer= function(parameters) {
 
   yasw_server.on_new_connection= function(socket) {
     console.log("websocket connect from " + socket.remoteAddress);
-    return yasw_server.game.add_ship({socket: socket, position: [100,150]});
+    return yasw_server.game.add_ship({socket: socket});
   };
 
 
