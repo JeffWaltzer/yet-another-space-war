@@ -25,3 +25,5 @@ Before Release
     Scoring
     Explosions
     Indication of own ship
+    When we're creating a new screen object do a single pass through the exiting ones and make sure they don't collide with it
+    
