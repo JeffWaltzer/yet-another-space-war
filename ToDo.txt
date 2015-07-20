@@ -14,6 +14,9 @@ Change ship#gun_point to be a function.
 Review code for consistent usage of function over var
 Check for consistency of use of self vs this
 Check node API for error call backs that we should implement.
+To avoid DOS attack limit number random ship position retries.
+Seperate game coordinates from client coordinates
+Scale game field to window size (client)
 
 Session Managment
     Handle websocket disconnects (end user's session?)
@@ -27,4 +30,4 @@ Before Release
     Should have same ship after page reload.
     Indication of own ship.
     Explosions.
-    Install for checking test coveragen(Time boxed).
+    Install for checking test coverage(Time boxed).
