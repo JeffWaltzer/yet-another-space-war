@@ -12,8 +12,8 @@ describe "bullet", ->
     expect(the_bullet).toBeDefined()
 
   it 'has default position', ->
-    expect(the_bullet.position.x()).toEqual(0)
-    expect(the_bullet.position.y()).toEqual(0)
+    expect(the_bullet.position().x()).toEqual(0)
+    expect(the_bullet.position().y()).toEqual(0)
 
   it 'has default age', ->
     expect(the_bullet.life_left).toEqual(0)
@@ -36,8 +36,8 @@ describe "bullet with explicit values", ->
     }
 
   it 'has correct position' , ->
-    expect(the_bullet.position.x()).toEqual(3)
-    expect(the_bullet.position.y()).toEqual(4)
+    expect(the_bullet.position().x()).toEqual(3)
+    expect(the_bullet.position().y()).toEqual(4)
 
   it 'has correct velocity' , ->
     expect(the_bullet.velocity.x()).toEqual(5)

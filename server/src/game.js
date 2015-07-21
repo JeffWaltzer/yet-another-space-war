@@ -15,6 +15,13 @@ exports.Game=function(initial_state) {
     return new_screen_object;
   };
 
+  self.random_position = function() {
+    return [
+      self.field_size.x() * Math.random(),
+      self.field_size.y() * Math.random()
+    ];
+  };
+
   self.add_ship = function(parameters) {
     var defaultState = {
       game: self,
@@ -22,14 +29,24 @@ exports.Game=function(initial_state) {
       points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
       gun_point: [21,0],
       heading: 0,
-      position: [self.field_size.x() * Math.random(),
-                 self.field_size.y() * Math.random()]
+      position: self.random_position()
     };
 
     if (parameters !== undefined)
       underscore.extend(defaultState ,parameters);
 
-    return self.add_screen_object(new ship.Ship(defaultState));
+    var new_ship = self.add_screen_object(new ship.Ship(defaultState));
+
+    var position_parameter_passed = (parameters && parameters.position);
+
+    var number_collided = self.collisions_with(new_ship, 0).length;
+
+    while (!position_parameter_passed && number_collided > 0) {
+      new_ship.position( new vector.Vector(self.random_position()));
+      number_collided = self.collisions_with(new_ship, 0).length;
+    }
+
+    return new_ship;
   };
 
   self.add_bullet= function(parameters){
@@ -56,19 +73,33 @@ exports.Game=function(initial_state) {
     });
   }
 
+  self.collisions_with =function(screenObject,start_index) {
+    var to_remove = [];
+
+    for(var j = start_index; j< self.screen_objects.length; j++) {
+      var screenObject2 = self.screen_objects[j];
+
+      if (screenObject2 === screenObject)
+        continue;
+
+      var collided = exports.collided(screenObject, screenObject2);
+      if(collided) {
+        to_remove.push(screenObject2);
+      }
+    }
+    return to_remove;
+  };
+
   function handle_collisions() {
     var to_remove=[];
     for(var i = 0; i< self.screen_objects.length; i++) {
-      var screenObject1 = self.screen_objects[i];
-      for(var j = i+1; j< self.screen_objects.length; j++) {
-        var screenObject2 = self.screen_objects[j];
+      var screenObject = self.screen_objects[i];
+      var objects_collided_with = self.collisions_with(screenObject, i + 1);
 
-        var collided = exports.collided(screenObject1, screenObject2);
-        if(collided) {
-          to_remove.push(screenObject1);
-          to_remove.push(screenObject2);
-        }
-      }
+      if (objects_collided_with.length>0)
+        to_remove.push(screenObject);
+
+      to_remove = to_remove.concat(objects_collided_with);
     }
     self.screen_objects = underscore.difference(self.screen_objects,to_remove);
   }

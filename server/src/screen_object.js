@@ -2,19 +2,27 @@ var underscore= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 
-exports.ScreenObject= function(initial_state){
+exports.ScreenObject = function(initial_state) {
   this.game= initial_state.game;
   this.points= initial_state.points;
-  this.position= new vector.Vector(initial_state.position || [0,0]);
+  this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.debug= initial_state.debug || false;
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
 
   this.update_outline();
 
+  this.position = function(new_value) {
+    if (typeof new_value !== 'undefined') {
+      this._position = new_value;
+      this.update_outline();
+    }
+    return this._position;
+  };
+
 };
 
 exports.ScreenObject.prototype.ship_to_game_transform= function() {
-  return transforms.make_translation(this.position);
+  return transforms.make_translation(this._position);
 };
 
 exports.ScreenObject.prototype.generate_outline = function() {
@@ -53,14 +61,15 @@ exports.ScreenObject.prototype.outline= function() {
 };
 
 exports.ScreenObject.prototype.update= function(tick_rate) {
-  this.position.add_to(this.velocity.divide(tick_rate));
-  this.position.clip_to(this.game.field_size);
+  this._position.add_to(this.velocity.divide(tick_rate));
+  this._position.clip_to(this.game.field_size);
   this.update_outline();
 };
 
 exports.ScreenObject.prototype.dead = function() {
   return false;
 };
+
 
 exports.ScreenObject.prototype.lines=function () {
   var result = [];
