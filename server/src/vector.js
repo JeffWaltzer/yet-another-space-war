@@ -2,14 +2,33 @@ exports.Vector= function(coordinates) {
   var self= this;
   self.coordinates= [0,0];
 
-  if (typeof coordinates === 'object') {
-    if (Array.isArray(coordinates)) {
-      self.coordinates= coordinates;
+  if (coordinates !== undefined) {
+    if (typeof coordinates === 'object') {
+      if (Array.isArray(coordinates)) {
+        if (coordinates.length === 2)
+          self.coordinates= coordinates;
+        else if (coordinates.length === 3)
+          self.coordinates= [
+            coordinates[0]/coordinates[2],
+            coordinates[1]/coordinates[2]
+          ];
+        else
+          throw("wrong size array while initalizing Vector");
+      }
+      else {
+        if (coordinates.magnitude === undefined)
+          throw("invalid argument for new Vector: missing magnitude");
+        if (coordinates.heading === undefined)
+          throw("invalid argument for new Vector: missing heading");
+
+        self.coordinates= [
+          coordinates.magnitude * Math.cos(coordinates.heading),
+          coordinates.magnitude * Math.sin(coordinates.heading)
+        ];
+      }
     }
-    else {
-      self.coordinates= [coordinates.magnitude * Math.cos(coordinates.heading),
-                         coordinates.magnitude * Math.sin(coordinates.heading)];
-    }
+    else
+      throw("invalid argument for new Vector");
   }
 
   var make_coordinate_accessor= function(i) {
