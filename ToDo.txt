@@ -17,6 +17,7 @@ Check node API for error call backs that we should implement.
 To avoid DOS attack limit number random ship position retries.
 Seperate game coordinates from client coordinates
 Scale game field to window size (client)
+Create style guide
 
 Session Managment
     Handle websocket disconnects (end user's session?)
