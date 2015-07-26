@@ -19,17 +19,16 @@ Seperate game coordinates from client coordinates
 Scale game field to window size (client)
 Create style guide
 Handle bullet initialization without initial state. Or does this even make sense? 
+Add code coverage tool for client side code.
 
 Session Managment
     Handle websocket disconnects (end user's session?)
     Handle errors on socket connect
 
 Before Release
-    When we're creating a new screen object do a single pass through the exiting ones and make sure they don't collide with it
     Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
     Re-arrange project structure to have the client under the server directory
     Scoring
     Should have same ship after page reload.
     Indication of own ship.
     Explosions.
-    Install for checking test coverage(Time boxed).
