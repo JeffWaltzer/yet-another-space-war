@@ -18,6 +18,7 @@ To avoid DOS attack limit number random ship position retries.
 Seperate game coordinates from client coordinates
 Scale game field to window size (client)
 Create style guide
+Handle bullet initialization without initial state. Or does this even make sense? 
 
 Session Managment
     Handle websocket disconnects (end user's session?)
