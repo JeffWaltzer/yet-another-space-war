@@ -4,3 +4,4 @@ node_modules
 client/spec/obj
 server/spec/obj
 server/public/*
+server/coverage
