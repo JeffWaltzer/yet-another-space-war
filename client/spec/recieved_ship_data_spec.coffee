@@ -16,8 +16,11 @@ describe 'recieving shipdata', ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"screen_objects": {"0": [[0,0],[1,1]], "1": [[2,2],[3,3]]}}')
+    game_server.web_socket.emit('message', '{"you": "1", "screen_objects": {"0": [[0,0],[1,1]], "1": [[2,2],[3,3]]}}')
   )
+
+  it 'kicks off a digest cycle', ->
+    expect(scope.$digest).toHaveBeenCalled()
 
   it 'dispatches the ship 0 coordinates', ->
     expect(scope.screen_objects()[0].polygon_string).toEqual('0,0 1,1')
@@ -25,8 +28,11 @@ describe 'recieving shipdata', ->
   it 'dispatches the ship 1 coordinates', ->
     expect(scope.screen_objects()[1].polygon_string).toEqual('2,2 3,3')
 
-  it 'kicks off a digest cycle', ->
-    expect(scope.$digest).toHaveBeenCalled()
+  it "sets the correct color for our ship", ->
+    expect(scope.screen_objects()[1].color).toEqual('green')
+
+  it "sets the correct color for the other ship", ->
+    expect(scope.screen_objects()[0].color).toEqual('white')
 
 
 describe "removing a dead ship's data", ->

@@ -16,10 +16,13 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
         ':' + $location.port(),
       {transports: ['websocket']});
 
-  service.update_ship_outlines= function(ship_outlines) {
+  service.update_ship_outlines= function(ship_outlines, my_ship_id) {
     service.screen_objects= [];
     _.each(ship_outlines, function(an_outline, id) {
-      service.screen_objects.push({polygon_string: SVG.polygon_string(an_outline)});
+      service.screen_objects.push({
+        color: ((id === my_ship_id) ? 'green' : 'white'),
+        polygon_string: SVG.polygon_string(an_outline)
+      });
     });
   };
 
