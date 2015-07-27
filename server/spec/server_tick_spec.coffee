@@ -58,7 +58,8 @@ describe "game#tick" , ->
     expect(ships[3].heading).toBeCloseTo(Math.PI/2 - heading_change, 6)
 
   it 'shows ships', ->
-    outlines=JSON.parse(sent_data)
+    message= JSON.parse(sent_data)
+    outlines= message.screen_objects
     expect(Object.keys(outlines).length).toEqual(6)
 
   it 'updates bullets', ->

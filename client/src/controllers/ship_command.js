@@ -12,7 +12,8 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   $scope.screen_objects= function() { return game_server.screen_objects; };
 
   game_server.on_message= function(raw_data) {
-    game_server.update_ship_outlines(JSON.parse(raw_data));
+    var message= JSON.parse(raw_data);
+    game_server.update_ship_outlines(message.screen_objects);
     $scope.$digest();
   };
   game_server.web_socket.on('message', game_server.on_message);

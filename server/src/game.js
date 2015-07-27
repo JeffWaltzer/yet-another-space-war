@@ -124,12 +124,20 @@ exports.Game=function(initial_state) {
       function(screen_object, id) {
         outlines[id] = screen_object.outline();
       });
-    return JSON.stringify(outlines);
+    return outlines;
   }
 
   function send_game_board(new_board) {
     each_screen_object(
-      function(ship) { if (ship.socket) ship.socket.send(new_board); });
+      function(ship) {
+        if (ship.socket) {
+          var message= {
+            you: 'junk',
+            screen_objects: new_board
+          };
+          ship.socket.send(JSON.stringify(message));
+        }
+      });
   }
 
   self.tick= function() {

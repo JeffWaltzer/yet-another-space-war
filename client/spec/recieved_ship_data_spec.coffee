@@ -16,7 +16,7 @@ describe 'recieving shipdata', ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"0": [[0,0],[1,1]], "1": [[2,2],[3,3]]}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"0": [[0,0],[1,1]], "1": [[2,2],[3,3]]}}')
   )
 
   it 'dispatches the ship 0 coordinates', ->
@@ -45,8 +45,8 @@ describe "removing a dead ship's data", ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"3248": [[0,0],[1,1]], "31416": [[2,2],[3,3]]}')
-    game_server.web_socket.emit('message', '{"31416": [[2,2],[3,3]]}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"3248": [[0,0],[1,1]], "31416": [[2,2],[3,3]]}}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"31416": [[2,2],[3,3]]}}')
   )
 
   it 'deletes a ship', ->
