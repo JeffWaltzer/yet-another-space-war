@@ -122,17 +122,17 @@ exports.Game=function(initial_state) {
     var outlines = {};
     each_screen_object(
       function(screen_object, id) {
-        outlines[id] = screen_object.outline();
+        outlines[id.toString()] = screen_object.outline();
       });
     return outlines;
   }
 
   function send_game_board(new_board) {
     each_screen_object(
-      function(ship) {
+      function(ship, id) {
         if (ship.socket) {
           var message= {
-            you: 'junk',
+            you: id.toString(),
             screen_objects: new_board
           };
           ship.socket.send(JSON.stringify(message));

@@ -16,6 +16,7 @@ describe 'the server, when asked for ship data ', ->
         message= JSON.parse(json_message)
         expect(Object.keys(message)).toEqual(['you', 'screen_objects'])
         expect(message.screen_objects['0'].length).toEqual(4)
+        expect(message.you).toEqual('0')
         done()
       socket.on 'error',(e) ->
         console.log("Error: #{e}")
