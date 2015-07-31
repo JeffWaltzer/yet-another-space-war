@@ -6,6 +6,7 @@ var underscore= require('underscore');
 var ship= require('./ship');
 var game= require('./game');
 var vector= require('./vector');
+var Cookies = require('cookies');
 
 exports.createServer= function(parameters) {
   var yasw_server= {};
@@ -31,13 +32,20 @@ exports.createServer= function(parameters) {
   };
 
 
+  yasw_server.on_connect= function(request, response) {
+
+    var cookies= new Cookies(request,response);
+
+    cookies.set('yasw_game_id', '1');
+
+    var filename = url.parse(request.url).pathname;
+    if (filename == '/')
+      filename = "/index.html";
+    yasw_server.static_page(filename, response);
+  };
+
   yasw_server.listen= function(port) {
-    http_server= http.createServer(function(request, response) {
-      var filename= url.parse(request.url).pathname;
-      if (filename == '/')
-        filename= "/index.html";
-      yasw_server.static_page(filename, response);
-    });
+    http_server= http.createServer(yasw_server.on_connect);
     
     var listener = http_server.listen(port);
     var engine_server = engine_io.attach(listener);
