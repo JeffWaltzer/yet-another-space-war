@@ -31,7 +31,7 @@ exports.createServer= function(parameters) {
   };
 
 
-  yasw_server.listen= function(port) {
+  yasw_server.listen= function(port, done) {
     http_server= http.createServer(function(request, response) {
       var filename= url.parse(request.url).pathname;
       if (filename == '/')
@@ -39,14 +39,15 @@ exports.createServer= function(parameters) {
       yasw_server.static_page(filename, response);
     });
     
-    var listener = http_server.listen(port);
+    var listener = http_server.listen(port, function() {if (done) done();});
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', yasw_server.on_new_connection);
     console.log('listen on port ' + port);
   };
 
-  yasw_server.shutdown= function() {
-    http_server.close();
+  yasw_server.shutdown= function(done) {
+    var self= this;
+    http_server.close(function() {if (done) done(); });
     http_server= null;
   };
 

@@ -4,17 +4,18 @@ yasw = require './../../src/yasw_server'
 check_request= (page_name, expected_file, expected_content_type) ->
   describe "the server, when asked for '#{page_name}'" , ->
     server= undefined
-    beforeEach ->
+    beforeEach (done) ->
       server= yasw.createServer()
-      server.listen(3000)
+      server.listen(3000, ->
+        done())
 
     it "should call the static page function for #{expected_file}", (done) ->
       spyOn(server, 'static_page').andCallFake (filename, response) ->
         expect(filename).toEqual(expected_file);
-        done()
+        response.end()
 
       request "http://localhost:3000#{page_name}", (error, response, body) ->
-        expect(server.static_page).toHaveBeenCalled 
+        expect(server.static_page).toHaveBeenCalled()
         done()
 
     it "should respond with content type #{expected_content_type}", (done) ->
@@ -23,8 +24,8 @@ check_request= (page_name, expected_file, expected_content_type) ->
         expect(response.headers['content-type']).toEqual(expected_content_type)
         done()
 
-    afterEach ->
-      server.shutdown()
+    afterEach (done) ->
+      server.shutdown(-> done())
 
 check_content= (page_name, expected_content_regexp) ->
   describe "the server, when asked for '#{page_name}'", ->
