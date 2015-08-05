@@ -61,6 +61,6 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('default', ['clean', 'coffee', 'jshint', 'jasmine_node']);
-  grunt.registerTask('quick', ['clean', 'coffee', 'jshint', 'jasmine_node:quick']);
+  grunt.registerTask('default', ['clean', 'coffee', 'jshint', 'jasmine_node:all']);
+  grunt.registerTask('quick',   ['clean', 'coffee', 'jshint', 'jasmine_node:quick']);
 };
