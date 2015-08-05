@@ -24,6 +24,8 @@ exports.createServer= function(parameters) {
   yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
   yasw_server.bullet_life_time = (parameters && parameters.bullet_life_time) || 4;
 
+  yasw_server.sessions= {};
+
   yasw_server.game= new game.Game(yasw_server);
 
   yasw_server.on_new_connection= function(socket) {
@@ -34,6 +36,7 @@ exports.createServer= function(parameters) {
   yasw_server.on_connect= function(request, response) {
     var cookies= new Cookies(request,response);
     cookies.set('yasw_game_id', '1');
+    this.sessions[1]= {};
   };
 
   yasw_server.listen= function(port, done) {
