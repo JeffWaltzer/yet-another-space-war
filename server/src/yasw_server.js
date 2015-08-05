@@ -6,6 +6,7 @@ var underscore= require('underscore');
 var ship= require('./ship');
 var game= require('./game');
 var vector= require('./vector');
+var Cookies = require('cookies');
 
 exports.createServer= function(parameters) {
   var yasw_server= {};
@@ -30,6 +31,10 @@ exports.createServer= function(parameters) {
     return yasw_server.game.add_ship({socket: socket});
   };
 
+  yasw_server.on_connect= function(request, response) {
+    var cookies= new Cookies(request,response);
+    cookies.set('yasw_game_id', '1');
+  };
 
   yasw_server.listen= function(port, done) {
     http_server= http.createServer(function(request, response) {
