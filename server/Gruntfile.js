@@ -15,7 +15,8 @@ module.exports = function(grunt) {
           consolidate: true
         }
       },
-      all: ['spec/']
+      all: ['spec/'],
+      quick: {specNamMatcher: 'game_data_spec'}
     },
 
     coffee: {
@@ -57,8 +58,9 @@ module.exports = function(grunt) {
   grunt.registerTask('clean', function() {
     grunt.file.expand('spec/obj/*').forEach(function(file) {
       grunt.file.delete(file);
-    })
+    });
   });
 
   grunt.registerTask('default', ['clean', 'coffee', 'jshint', 'jasmine_node']);
+  grunt.registerTask('quick', ['clean', 'coffee', 'jshint', 'jasmine_node:quick']);
 };
