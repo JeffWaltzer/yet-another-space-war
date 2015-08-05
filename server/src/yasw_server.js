@@ -46,6 +46,7 @@ exports.createServer= function(parameters) {
 
   yasw_server.listen= function(port) {
     http_server= http.createServer(yasw_server.on_connect);
+    http_server.on('close', _.bind(function() {this.emit('close');}, this));
     
     var listener = http_server.listen(port);
     var engine_server = engine_io.attach(listener);
