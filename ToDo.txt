@@ -20,6 +20,7 @@ Scale game field to window size (client)
 Create style guide
 Handle bullet initialization without initial state. Or does this even make sense? 
 Add code coverage tool for client side code.
+Add logging package (mostly so test runs don't natter so much :-) )
 
 Session Managment
     Handle websocket disconnects (end user's session?)
