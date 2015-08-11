@@ -21,6 +21,7 @@ Create style guide
 Handle bullet initialization without initial state. Or does this even make sense? 
 Add code coverage tool for client side code.
 Add logging package (mostly so test runs don't natter so much :-) )
+Add html5 gamepad support
 
 Session Managment
     Handle websocket disconnects (end user's session?)
