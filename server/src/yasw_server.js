@@ -37,7 +37,7 @@ exports.createServer= function(parameters) {
     var cookies= new Cookies(request,response);
     var session_id= cookies.get('yasw_game_id');
     if (!session_id || !this.sessions[session_id]) {
-      session_id= Math.random(0, 100000);
+      session_id= Math.random();
       cookies.set('yasw_game_id', session_id);
       this.sessions[session_id]= {};
     }

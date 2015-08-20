@@ -88,9 +88,9 @@ describe 'session management', ->
       set_cookie = headers && headers['set-cookie']
       the_cookie = set_cookie && set_cookie[0].split(';')[0]
 
-    it 'sets the specified cookie', () ->
+    it 'sets a new cookie', () ->
       expect(the_cookie).toEqual('yasw_game_id=1')
 
-    it 'creates a session entry for the cookie', () ->
+    it 'creates a new session entry for the cookie', () ->
       the_cookie_value= the_cookie && the_cookie.split('=')[1]
       expect(server.sessions[the_cookie_value]).toBeDefined()
