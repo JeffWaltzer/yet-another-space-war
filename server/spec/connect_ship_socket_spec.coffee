@@ -16,7 +16,7 @@ describe "ship#outline" , ->
     server.game.add_ship({heading: -Math.PI/2, points: [[10, 0]]})
     server.game.add_ship({heading:          0, points: [[5, 0]]})
     server.game.add_ship({heading:  Math.PI/2, points: [[3, 0]]})
-    server.on_new_connection(fake_socket)
+    server.on_new_websocket(fake_socket)
     on_message_callback(JSON.stringify({command: 'rotate_left'}));
 
   it 'rotates the correct ship', ->

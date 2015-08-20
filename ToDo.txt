@@ -27,6 +27,17 @@ Session Managment
     Handle websocket disconnects (end user's session?)
     Handle errors on socket connect
 
+    when a connection comes in
+         if there's a session cookie
+            if there's a matching session
+               reach into the session for the ship
+               close out the ship's old socket
+               assign the new socket to the ship
+            else /* no matching session */
+                treat as if there were no session cookie
+         else
+             create a new session
+
 Before Release
     Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
     Re-arrange project structure to have the client under the server directory
@@ -34,3 +45,4 @@ Before Release
     Should have same ship after page reload.
     Indication of own ship.
     Explosions.
+
