@@ -35,8 +35,12 @@ exports.createServer= function(parameters) {
 
   yasw_server.on_connect= function(request, response) {
     var cookies= new Cookies(request,response);
-    cookies.set('yasw_game_id', '1');
-    this.sessions[1]= {};
+    var session_id= cookies.get('yasw_game_id');
+    if (!session_id || !this.sessions[session_id]) {
+      session_id= Math.random(0, 100000);
+      cookies.set('yasw_game_id', session_id);
+      this.sessions[session_id]= {};
+    }
   };
 
   yasw_server.listen= function(port, done) {

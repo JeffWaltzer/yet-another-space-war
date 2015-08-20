@@ -1,3 +1,5 @@
+inject_random_numbers= require('./inject_random_numbers')
+
 game= require '../../src/game'
 vector= require '../../src/vector'
 
@@ -9,13 +11,8 @@ describe 'creating a ship', ->
 
   describe 'without specifying the starting position', ->
     the_ship= undefined
-    fake_random_values= []
-    fake_random= ->
-      fake_random_values.shift()
-
     beforeEach ->
-      fake_random_values= [0.5, 0.75]
-      spyOn(Math, 'random').andCallFake(fake_random)
+      inject_random_numbers([0.5, 0.75])
       the_ship= the_game.add_ship()
 
     it 'puts the ship at a random position', ->
