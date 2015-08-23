@@ -1,21 +1,10 @@
+<!DOCTYPE html>
 <html>
-  <head>
+<head lang="en">
+    <meta charset="UTF-8">
     <title>Space Wars</title>
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/underscore.js"></script>
-    <script src="lib/engine.io.js"></script>
-    <script src="yasw.js"></script>
-    <script src="services/game_server.js"></script>
-    <script src="services/svg.js"></script>
-    <script src="controllers/ship_command.js"></script>
-  </head>
-  <body ng-app="YASW" ng-controller="ShipCommandController"
-	      ng-keydown="onKeyDown($event);"
-        ng-keyup="onKeyUp($event);">
-    <svg ng-attr-width="{{800}}" ng-attr-height="{{600}}">
-      <rect ng-attr-width="{{800}}" ng-attr-height="{{600}}" style="fill:rgb(0,0,0);stroke-width:0;stroke:rgb(255,0,0)"/>
-      <polygon ng-repeat="ship in screen_objects()" ng-attr-points="{{ship.polygon_string}}"
-               ng-attr-stroke="{{ship.color}}" stroke-width="2" fill="none"/>
-    </svg>
-  </body>
+</head>
+<body>
+
+</body>
 </html>

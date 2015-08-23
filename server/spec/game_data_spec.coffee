@@ -35,7 +35,7 @@ check_content= (page_name, expected_content_regexp) ->
       server.listen(3000)
 
     it "should respond with a page matching", (done) ->
-      request 'http://localhost:3000', (error, response, body) ->
+      request 'http://localhost:3000' + page_name, (error, response, body) ->
         expect(error).toBeNull();
         expect(body).toMatch expected_content_regexp
         done()
@@ -47,7 +47,7 @@ check_content= (page_name, expected_content_regexp) ->
 check_request("", "/index.html", "text/html")
 check_content("", /Space Wars/)
 
-check_request("/index.html", "/index.html", "text/html")
-check_content("/index.html", /Space Wars/)
+check_request("/game.html", "/game.html", "text/html")
+check_content("/game.html", /Space Wars/)
 
 check_request("/controllers/ship_command.js", "/controllers/ship_command.js", "text/javascript")
