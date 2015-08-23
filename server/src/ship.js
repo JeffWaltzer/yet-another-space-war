@@ -1,4 +1,4 @@
-var underscore= require('underscore');
+var underscore = require('underscore');
 var vector= require('./vector');
 var transforms= require('./transform');
 var screen_object = require('./screen_object');
@@ -17,30 +17,7 @@ exports.Ship= function(initial_state) {
 
   if (self.socket !== undefined && self.socket.on !== undefined) {
     self.socket.ship = self;
-    self.socket.on('message', function(json_message) {
-      var message = JSON.parse(json_message);
-
-      switch (message.command) {
-        case 'rotate_left':
-          self.rotation = -1;
-          break;
-        case 'rotate_right':
-          self.rotation = 1;
-          break;
-        case 'rotate_stop':
-          self.rotation = 0;
-          break;
-        case 'thrust_on':
-          self.acceleration = 1;
-          break;
-        case 'thrust_off':
-          self.acceleration = 0;
-          break;
-        case 'fire':
-          self.fire();
-          break;
-      }
-    });
+    self.socket.on('message', underscore.bind(self.on_message,self));
   }
 
   self.update= function(tick_rate, rotation_rate, acceleration_rate) {
@@ -79,3 +56,29 @@ exports.Ship= function(initial_state) {
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);
+
+exports.Ship.prototype.on_message = function(json_message) {
+  var self=this;
+  var message = JSON.parse(json_message);
+
+  switch (message.command) {
+    case 'rotate_left':
+      self.rotation = -1;
+      break;
+    case 'rotate_right':
+      self.rotation = 1;
+      break;
+    case 'rotate_stop':
+      self.rotation = 0;
+      break;
+    case 'thrust_on':
+      self.acceleration = 1;
+      break;
+    case 'thrust_off':
+      self.acceleration = 0;
+      break;
+    case 'fire':
+      self.fire();
+      break;
+  }
+};
