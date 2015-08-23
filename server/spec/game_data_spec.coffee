@@ -42,10 +42,45 @@ check_content= (page_name, expected_content_regexp) ->
 
     afterEach ->
       server.shutdown()
-  
+
+check_status= (page_name, expected_status) ->
+  describe "the server, when asked for '#{page_name}'", ->
+    server= undefined
+    beforeEach ->
+      server= yasw.createServer()
+      server.listen(3000)
+
+    it "should respond with a status of #{expected_status}", (done) ->
+      request 'http://localhost:3000' + page_name, (error, response, body) ->
+        expect(error).toBeNull();
+        expect(response.statusCode).toMatch expected_status
+        done()
+
+    afterEach ->
+      server.shutdown()
+
+
+check_header= (page_name, header_name, expected_header_value) ->
+  describe "the server, when asked for '#{page_name}'", ->
+    server= undefined
+    beforeEach ->
+      server= yasw.createServer()
+      server.listen(3000)
+
+    it "should respond with a status of #{expected_status}", (done) ->
+      request 'http://localhost:3000' + page_name, (error, response, body) ->
+        expect(error).toBeNull();
+        expect(response.headers[header_name]).toEqual expected_header_value
+        done()
+
+    afterEach ->
+      server.shutdown()
+
 
 check_request("", "/index.html", "text/html")
 check_content("", /Space Wars/)
+check_status("", 302);
+#check_header("", "location", "/game.html");
 
 check_request("/game.html", "/game.html", "text/html")
 check_content("/game.html", /Space Wars/)

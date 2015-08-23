@@ -48,7 +48,8 @@ exports.createServer= function(parameters) {
       var filename= url.parse(request.url).pathname;
       if (filename == '/')
         filename= "/index.html";
-      yasw_server.static_page(filename, response);
+      var status= (filename === "/index.html") ? 302 : 200;
+      yasw_server.static_page(filename, response, status);
     });
     
     var listener = http_server.listen(port, function() {if (done) done();});
@@ -63,15 +64,17 @@ exports.createServer= function(parameters) {
     http_server= null;
   };
 
-  yasw_server.static_page= function(page, response) {
+  yasw_server.static_page= function(page, response, status) {
     var filename= "public" + page;
     var file_extension= page.split(".").pop();
     var read_stream= fs.createReadStream(filename);
+    if (!status)
+      status= 200;
     read_stream.on('open', function() {
       if (file_extension === "js")
-        response.writeHead(200, {"Content-Type": "text/javascript"});
+        response.writeHead(status, {"Content-Type": "text/javascript"});
       else
-        response.writeHead(200, {"Content-Type": "text/html"});
+        response.writeHead(status, {"Content-Type": "text/html"});
       read_stream.pipe(response);
     });
     read_stream.on('error', function() {
