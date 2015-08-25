@@ -29,59 +29,90 @@ check_request= (page_name, expected_file, expected_content_type) ->
 check_content= (page_name, expected_content_regexp) ->
   describe "the server, when asked for '#{page_name}'", ->
     server= undefined
-    beforeEach (done) ->
+    beforeEach ->
       server= yasw.createServer()
-      server.listen(3000, done)
 
     it "should respond with a page matching", (done) ->
-      request 'http://localhost:3000' + page_name, (error, response, body) ->
-        expect(error).toBeNull();
-        expect(body).toMatch expected_content_regexp
-        done()
+      got_body= []
+      fake_request= {
+        url: "http://www.example.com"
+        once: ->
+      }
+      fake_response= {
+        setHeader: ->
+        on: ->
+        once: ->
+        emit: ->
+        write: (data) -> got_body.push(data)
+        end: (data) ->
+          if (data)
+            got_body.push(data)
+          got_body= Buffer.concat(got_body)
+          expect(got_body.toString()).toMatch(expected_content_regexp)
+          done()
+      }
 
-    afterEach(done) ->
-      server.shutdown(done)
+      server.on_request(fake_request, fake_response)
 
 check_status= (page_name, expected_status) ->
   describe "the server, when asked for '#{page_name}'", ->
     server= undefined
-    beforeEach (done) ->
+    beforeEach ->
       server= yasw.createServer()
-      server.listen(3000, done)
 
     it "should respond with a status of #{expected_status}", (done) ->
-      request 'http://localhost:3000' + page_name, (error, response, body) ->
-        expect(error).toBeNull();
-        expect(response.statusCode).toMatch expected_status
-        done()
+      fake_request= {
+        url: "http://www.example.com/#{page_name}"
+        once: ->
+      }
+      fake_response= {
+        setHeader: ->
+        on: ->
+        once: ->
+        emit: ->
+        write: ->
+        end: ->
+      }
 
-    afterEach(done) ->
-      server.shutdown(done)
+      server.on_request(fake_request, fake_response, ->
+        expect(fake_response.statusCode).toMatch expected_status
+        done())
 
 
 check_header= (page_name, header_name, expected_header_value) ->
   describe "the server, when asked for '#{page_name}'", ->
     server= undefined
-    beforeEach (done) ->
+
+    beforeEach ->
       server= yasw.createServer()
-      server.listen(3000, done)
 
-    it "should respond with a status of #{expected_status}", (done) ->
-      request 'http://localhost:3000' + page_name, (error, response, body) ->
-        expect(error).toBeNull();
-        expect(response.headers[header_name]).toEqual expected_header_value
-        done()
+    it "should respond with the '#{header_name}' header set to '#{expected_header_value}'", (done) ->
+      fake_request= {
+        url: "http://www.example.com/#{page_name}"
+        once: ->
+      }
 
-    afterEach(done) ->
-      server.shutdown(done)
+      got_headers= {}
+      fake_response= {
+        setHeader: (key, value) -> got_headers[key]= value
+        on: ->
+        once: ->
+        emit: ->
+        write: ->
+        end: ->
+      }
+
+      server.on_request(fake_request, fake_response, ->
+        expect(got_headers[header_name]).toEqual expected_header_value
+        done())
 
 
 check_request("", "/index.html", "text/html")
-# check_content("", /Space Wars/)
-# check_status("", 302);
-# check_header("", "location", "/game.html");
+check_content("", /Space Wars/)
+check_status("", 302);
+check_header("", "location", "/game.html");
 
 check_request("/game.html", "/game.html", "text/html")
-# check_content("/game.html", /Space Wars/)
+check_content("/game.html", /Space Wars/)
 
 check_request("/controllers/ship_command.js", "/controllers/ship_command.js", "text/javascript")

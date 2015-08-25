@@ -43,14 +43,20 @@ exports.createServer= function(parameters) {
     }
   };
 
+  yasw_server.on_request= function(request, response, on_response_headers_written) {
+    var filename= url.parse(request.url).pathname;
+    if (filename == '/')
+      filename= "/index.html";
+    var status= 200;
+    if (filename === "/index.html") {
+      status= 302;
+      response.setHeader("location", "/game.html");
+    }
+    yasw_server.static_page(filename, response, status, on_response_headers_written);
+  };
+
   yasw_server.listen= function(port, done) {
-    http_server= http.createServer(function(request, response) {
-      var filename= url.parse(request.url).pathname;
-      if (filename == '/')
-        filename= "/index.html";
-      var status= (filename === "/index.html") ? 302 : 200;
-      yasw_server.static_page(filename, response, status);
-    });
+    http_server= http.createServer(yasw_server.on_request);
     
     var listener = http_server.listen(port, function() {if (done) done();});
     var engine_server = engine_io.attach(listener);
@@ -64,7 +70,7 @@ exports.createServer= function(parameters) {
     http_server= null;
   };
 
-  yasw_server.static_page= function(page, response, status) {
+  yasw_server.static_page= function(page, response, status, on_headers_written) {
     var filename= "public" + page;
     var file_extension= page.split(".").pop();
     var read_stream= fs.createReadStream(filename);
@@ -72,10 +78,13 @@ exports.createServer= function(parameters) {
       status= 200;
     read_stream.on('open', function() {
       if (file_extension === "js")
-        response.writeHead(status, {"Content-Type": "text/javascript"});
+        response.setHeader("Content-Type", "text/javascript");
       else
-        response.writeHead(status, {"Content-Type": "text/html"});
+        response.setHeader("Content-Type", "text/html");
+      response.statusCode= status;
       read_stream.pipe(response);
+      if (on_headers_written)
+        on_headers_written();
     });
     read_stream.on('error', function() {
       response.writeHead(404);
