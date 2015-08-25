@@ -111,6 +111,7 @@ check_request("", "/index.html", "text/html")
 check_content("", /Space Wars/)
 check_status("", 302);
 check_header("", "location", "/game.html");
+check_header("", "cookie", "foo=bar;baz=wik");
 
 check_request("/game.html", "/game.html", "text/html")
 check_content("/game.html", /Space Wars/)
