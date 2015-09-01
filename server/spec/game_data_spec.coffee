@@ -79,7 +79,7 @@ check_status= (page_name, expected_status) ->
         done())
 
 
-check_header= (page_name, header_name, expected_header_value) ->
+check_header= (page_name, header_name, expected_header_value, server_callback) ->
   describe "the server, when asked for '#{page_name}'", ->
     server= undefined
 
@@ -89,12 +89,15 @@ check_header= (page_name, header_name, expected_header_value) ->
     it "should respond with the '#{header_name}' header set to '#{expected_header_value}'", (done) ->
       fake_request= {
         url: "http://www.example.com/#{page_name}"
+        headers: {}
+        connection: {encrypted: false}
         once: ->
       }
 
       got_headers= {}
       fake_response= {
         setHeader: (key, value) -> got_headers[key]= value
+        getHeader: ->
         on: ->
         once: ->
         emit: ->
@@ -102,16 +105,49 @@ check_header= (page_name, header_name, expected_header_value) ->
         end: ->
       }
 
-      server.on_request(fake_request, fake_response, ->
+      server[server_callback](fake_request, fake_response, ->
+        console.log("DEBUG-JLW: %j[#{header_name}]", got_headers)
         expect(got_headers[header_name]).toEqual expected_header_value
         done())
+
+describe "the server, when asked for a page", ->
+  server= undefined
+
+  beforeEach ->
+    server= yasw.createServer()
+
+  it "should respond with the 'Set-Cookie' header set to a session id cookie", (done) ->
+    fake_request= {
+      url: "http://www.example.com"
+      headers: {}
+      connection: {encrypted: false}
+      once: ->
+    }
+
+    got_headers= {}
+    fake_response= {
+      setHeader: (key, value) -> got_headers[key]= value
+      getHeader: ->
+      on: ->
+      once: ->
+      emit: ->
+      write: ->
+      end: ->
+    }
+
+    server.on_connect(fake_request, fake_response, ->
+      expect(got_headers['Set-Cookie'][0]).toMatch /yasw_game_id=.*/
+      done())
+
+
+
 
 
 check_request("", "/index.html", "text/html")
 check_content("", /Space Wars/)
 check_status("", 302);
-check_header("", "location", "/game.html");
-check_header("", "cookie", "foo=bar;baz=wik");
+
+check_header("", "location", "/game.html", 'on_request');
 
 check_request("/game.html", "/game.html", "text/html")
 check_content("/game.html", /Space Wars/)

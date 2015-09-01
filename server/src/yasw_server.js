@@ -33,7 +33,7 @@ exports.createServer= function(parameters) {
     return yasw_server.game.add_ship({socket: socket});
   };
 
-  yasw_server.on_connect= function(request, response) {
+  yasw_server.on_connect= function(request, response, done) {
     var cookies= new Cookies(request,response);
     var session_id= cookies.get('yasw_game_id');
     if (!session_id || !this.sessions[session_id]) {
@@ -41,6 +41,7 @@ exports.createServer= function(parameters) {
       cookies.set('yasw_game_id', session_id);
       this.sessions[session_id]= {};
     }
+    if (done) done();
   };
 
   yasw_server.on_request= function(request, response, on_response_headers_written) {
