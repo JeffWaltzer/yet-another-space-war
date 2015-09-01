@@ -106,7 +106,6 @@ check_header= (page_name, header_name, expected_header_value, server_callback) -
       }
 
       server[server_callback](fake_request, fake_response, ->
-        console.log("DEBUG-JLW: %j[#{header_name}]", got_headers)
         expect(got_headers[header_name]).toEqual expected_header_value
         done())
 
@@ -138,9 +137,6 @@ describe "the server, when asked for a page", ->
     server.on_connect(fake_request, fake_response, ->
       expect(got_headers['Set-Cookie'][0]).toMatch /yasw_game_id=.*/
       done())
-
-
-
 
 
 check_request("", "/index.html", "text/html")

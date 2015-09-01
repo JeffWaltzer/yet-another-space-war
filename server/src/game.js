@@ -36,6 +36,10 @@ exports.Game=function(initial_state) {
       underscore.extend(defaultState ,parameters);
 
     var new_ship = self.add_screen_object(new ship.Ship(defaultState));
+    var socket = defaultState.socket;
+    if (socket !== undefined && socket.on !== undefined) {
+      socket.on('message', underscore.bind(new_ship.on_message,new_ship));
+    }
 
     var position_parameter_passed = (parameters && parameters.position);
 
@@ -128,6 +132,18 @@ exports.Game=function(initial_state) {
   }
 
   function send_game_board(new_board) {
+
+    underscore.each(this.sessions, function(a_session) {
+
+      var message= {
+        you: id.toString(),
+        screen_objects: new_board
+      };
+      a_session.socket.send(JSON.stringify(message));
+
+    });
+
+
     each_screen_object(
       function(ship, id) {
         if (ship.socket) {

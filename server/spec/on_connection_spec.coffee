@@ -15,6 +15,3 @@ describe "connecting to the server", ->
 
   it "calls server#add_screen_object", ->
     expect(server.game.add_screen_object).toHaveBeenCalled()
-
-  it 'associates ship with socket' , ->
-    expect(fake_socket.ship).toBeDefined();
