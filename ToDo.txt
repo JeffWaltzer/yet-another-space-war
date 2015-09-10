@@ -43,6 +43,5 @@ Before Release
     Re-arrange project structure to have the client under the server directory
     Scoring
     Should have same ship after page reload.
-    Indication of own ship.
     Explosions.
 
