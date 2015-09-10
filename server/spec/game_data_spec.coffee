@@ -37,9 +37,11 @@ check_content= (page_name, expected_content_regexp) ->
       fake_request= {
         url: "http://www.example.com"
         once: ->
+        connection: {encrypted: false}
       }
       fake_response= {
         setHeader: ->
+        getHeader: ->
         on: ->
         once: ->
         emit: ->
@@ -64,9 +66,11 @@ check_status= (page_name, expected_status) ->
       fake_request= {
         url: "http://www.example.com/#{page_name}"
         once: ->
+        connection: {encrypted: false}
       }
       fake_response= {
         setHeader: ->
+        getHeader: ->
         on: ->
         once: ->
         emit: ->
@@ -85,16 +89,20 @@ check_header= (page_name, header_name, expected_header_value) ->
 
     beforeEach ->
       server= yasw.createServer()
+      spyOn(server, 'make_session_id').andReturn('foo');
 
     it "should respond with the '#{header_name}' header set to '#{expected_header_value}'", (done) ->
       fake_request= {
         url: "http://www.example.com/#{page_name}"
-        once: ->
+        once: ->,
+        connection: {encrypted: false}
+        headers: {},
       }
 
       got_headers= {}
       fake_response= {
         setHeader: (key, value) -> got_headers[key]= value
+        getHeader: (key) -> got_headers[key]
         on: ->
         once: ->
         emit: ->
@@ -111,7 +119,8 @@ check_request("", "/index.html", "text/html")
 check_content("", /Space Wars/)
 check_status("", 302);
 check_header("", "location", "/game.html");
-check_header("", "cookie", "foo=bar;baz=wik");
+
+check_header("", "Set-Cookie", ['yasw_game_id=foo; path=/; httponly']);
 
 check_request("/game.html", "/game.html", "text/html")
 check_content("/game.html", /Space Wars/)

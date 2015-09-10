@@ -33,11 +33,16 @@ exports.createServer= function(parameters) {
     return yasw_server.game.add_ship({socket: socket});
   };
 
+  yasw_server.make_session_id= function() {
+    return Math.random();
+  };
+
   yasw_server.on_connect= function(request, response) {
     var cookies= new Cookies(request,response);
     var session_id= cookies.get('yasw_game_id');
+    
     if (!session_id || !this.sessions[session_id]) {
-      session_id= Math.random();
+      session_id= yasw_server.make_session_id();
       cookies.set('yasw_game_id', session_id);
       this.sessions[session_id]= {};
     }
@@ -52,6 +57,8 @@ exports.createServer= function(parameters) {
       status= 302;
       response.setHeader("location", "/game.html");
     }
+
+    yasw_server.on_connect(request, response);
     yasw_server.static_page(filename, response, status, on_response_headers_written);
   };
 
