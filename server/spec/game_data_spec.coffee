@@ -37,7 +37,8 @@ check_content= (page_name, expected_content_regexp) ->
       fake_request= {
         url: "http://www.example.com"
         once: ->
-        connection: {encrypted: false}
+        connection: {encrypted: false},
+        headers: {},
       }
       fake_response= {
         setHeader: ->
@@ -66,7 +67,8 @@ check_status= (page_name, expected_status) ->
       fake_request= {
         url: "http://www.example.com/#{page_name}"
         once: ->
-        connection: {encrypted: false}
+        connection: {encrypted: false},
+        headers: {}
       }
       fake_response= {
         setHeader: ->
