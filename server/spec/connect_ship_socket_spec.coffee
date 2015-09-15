@@ -11,6 +11,7 @@ describe "ship#outline" , ->
       send: ->
       on: (message, callback) ->
         on_message_callback = callback
+      request: {headers: {}}
 
     server= yasw.createServer()
     server.game.add_ship({heading: -Math.PI/2, points: [[10, 0]]})

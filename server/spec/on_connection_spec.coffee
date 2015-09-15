@@ -11,6 +11,9 @@ describe "connecting to the server", ->
     fake_socket= {};
     fake_socket.send= ->
     fake_socket.on= ->
+    fake_socket.request =
+      headers: {"cookie": "yasw_game_id=0.5468260888010263" }
+    server.sessions[0.5468260888010263]= {}
     server.on_new_websocket(fake_socket)
 
   it "calls server#add_screen_object", ->
@@ -18,3 +21,6 @@ describe "connecting to the server", ->
 
   it 'associates ship with socket' , ->
     expect(fake_socket.ship).toBeDefined();
+
+  it 'creates a session', ->
+    expect(server.sessions['0.5468260888010263'].socket).toEqual fake_socket

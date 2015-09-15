@@ -30,6 +30,13 @@ exports.createServer= function(parameters) {
 
   yasw_server.on_new_websocket= function(socket) {
     console.log("websocket connect from " + socket.remoteAddress);
+    var cookies = socket.request.headers.cookie;
+    var session_id;
+    if(cookies) {
+      session_id = cookies.split('=')[1];
+      if(session_id)
+        yasw_server.sessions[session_id].socket = socket;
+    }
     return yasw_server.game.add_ship({socket: socket});
   };
 
