@@ -1,1 +1,11 @@
 Actually reach into old sessions and update new one (ship & socket).
+
+New Architecture:
+    Split tick into two functions
+        update game board
+        send game board
+            change each_screen_object for send game board to each_session in server
+    Each session has a game
+    Refactor calls to ship.socket
+
+Make sure we handle multiple cookies correctly.
