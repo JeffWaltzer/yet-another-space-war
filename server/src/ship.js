@@ -15,11 +15,6 @@ exports.Ship= function(initial_state) {
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
-  if (self.socket !== undefined && self.socket.on !== undefined) {
-    self.socket.ship = self;
-    self.socket.on('message', underscore.bind(self.on_message,self));
-  }
-
   self.update= function(tick_rate, rotation_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;
     self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,

@@ -37,7 +37,13 @@ exports.createServer= function(parameters) {
       if(session_id)
         yasw_server.sessions[session_id].socket = socket;
     }
-    return yasw_server.game.add_ship({socket: socket});
+
+    var new_ship = yasw_server.game.add_ship({socket: socket});
+
+    socket.ship = new_ship;
+    socket.on('message', underscore.bind(new_ship.on_message,new_ship));
+
+    return new_ship;
   };
 
   yasw_server.make_session_id= function() {
