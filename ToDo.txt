@@ -22,6 +22,8 @@ Handle bullet initialization without initial state. Or does this even make sense
 Add code coverage tool for client side code.
 Add logging package (mostly so test runs don't natter so much :-) )
 Add html5 gamepad support
+Call underscore 'underscore' everywhere (some places it's currently '_')
+Switch requires to return constructor directly.
 
 Session Managment
     Handle websocket disconnects (end user's session?)
