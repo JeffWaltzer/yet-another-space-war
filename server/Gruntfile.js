@@ -15,8 +15,8 @@ module.exports = function(grunt) {
           consolidate: true
         }
       },
-      all: ['spec/'],
-      quick: {specNamMatcher: 'game_data_spec'}
+      all: ['spec/obj'],
+      quick: {specNamMatcher: 'send_game_board_spec'}
     },
 
     coffee: {

@@ -40,8 +40,12 @@ describe "game#tick" , ->
     fake_socket=
       send: (data) ->
         sent_data = data
+
+    session= server.game.add_session('session_id');
+    session.socket= fake_socket;
+
     viewing_ship = server.game.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position:[50,60]})
-    viewing_ship.socket = fake_socket;
+    session.ship= viewing_ship;
 
     server.game.tick()
 

@@ -5,6 +5,9 @@ var vector=require('./vector');
 
 exports.Game=function(initial_state) {
   var self = this;
+  if (!initial_state)
+    initial_state= {};
+
   self.field_size = initial_state.field_size || new vector.Vector([800,600]);
   self.bullet_speed= initial_state.bullet_speed || 7;
 
@@ -13,7 +16,9 @@ exports.Game=function(initial_state) {
   self.sessions= {};
 
   self.add_session= function(session_id) {
-      this.sessions[session_id]= {};
+    var new_session= {};
+    this.sessions[session_id]= new_session;
+    return new_session;
   };
 
   self.connect_socket= function(session_id, socket) {
@@ -21,6 +26,7 @@ exports.Game=function(initial_state) {
   };
 
   self.add_screen_object= function(new_screen_object) {
+    new_screen_object.id= self.screen_objects.length;
     self.screen_objects.push(new_screen_object);
     return new_screen_object;
   };
@@ -75,6 +81,10 @@ exports.Game=function(initial_state) {
 
   function each_screen_object(callback_function) {
     underscore.each(self.screen_objects, callback_function);
+  }
+
+  function each_session(callback_function) {
+    underscore.each(self.sessions, callback_function);
   }
 
   function remove_dead_objects() {
@@ -137,22 +147,26 @@ exports.Game=function(initial_state) {
     return outlines;
   }
 
-  function send_game_board(new_board) {
-    each_screen_object(
-      function(ship, id) {
-        if (ship.socket) {
-          var message= {
-            you: id.toString(),
-            screen_objects: new_board
-          };
-          ship.socket.send(JSON.stringify(message));
-        }
-      });
-  }
+  function send_game_board_to_session(board, session) {
+    if (!session.socket)
+      return;
+
+    var message= {
+      screen_objects: board
+    };
+    if (session.ship)
+      message.you= session.ship.id.toString();
+
+    session.socket.send(JSON.stringify(message));
+  }    
+
+  self.send_game_board= function(new_board) {
+    each_session(underscore.bind(send_game_board_to_session, this, new_board));
+  };
 
   self.tick= function() {
     update_screen_objects();
-    send_game_board(game_board());
+    self.send_game_board(game_board());
   };
 
   if (initial_state.tick_rate!==0)
