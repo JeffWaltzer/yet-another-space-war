@@ -41,7 +41,7 @@ describe 'session management', ->
 
     it 'creates a session entry for the cookie', () ->
       the_cookie_value= the_cookie.split('=')[1]
-      expect(server.sessions[the_cookie_value]).toBeDefined()
+      expect(server.game.sessions[the_cookie_value]).toBeDefined()
 
 
   describe 'when we do have a cookie and matching session', ->
@@ -56,7 +56,7 @@ describe 'session management', ->
         encrypted: false
       }
 
-      server.sessions['Mike']={}
+      server.game.sessions['Mike']={}
 
       server.on_connect(fake_request, fake_response)
       headers= fake_response._headers;
@@ -66,7 +66,7 @@ describe 'session management', ->
       expect(set_cookie).toBeUndefined()
 
     it 'keeps existing session', ->
-      expect(server.sessions['Mike']).toBeDefined()
+      expect(server.game.sessions['Mike']).toBeDefined()
 
 
   describe 'when we do have a cookie and no matching session', ->
@@ -93,4 +93,4 @@ describe 'session management', ->
 
     it 'creates a new session entry for the cookie', () ->
       the_cookie_value= the_cookie && the_cookie.split('=')[1]
-      expect(server.sessions[the_cookie_value]).toBeDefined()
+      expect(server.game.sessions[the_cookie_value]).toBeDefined()

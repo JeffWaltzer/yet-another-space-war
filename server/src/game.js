@@ -10,6 +10,16 @@ exports.Game=function(initial_state) {
 
   self.bullet_life_time = initial_state.bullet_life_time || 3;
 
+  self.sessions= {};
+
+  self.add_session= function(session_id) {
+      this.sessions[session_id]= {};
+  };
+
+  self.connect_socket= function(session_id, socket) {
+    this.sessions[session_id].socket = socket;
+  };
+
   self.add_screen_object= function(new_screen_object) {
     self.screen_objects.push(new_screen_object);
     return new_screen_object;

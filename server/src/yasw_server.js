@@ -24,8 +24,6 @@ exports.createServer= function(parameters) {
   yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
   yasw_server.bullet_life_time = (parameters && parameters.bullet_life_time) || 4;
 
-  yasw_server.sessions= {};
-
   yasw_server.game= new game.Game(yasw_server);
 
   yasw_server.on_new_websocket= function(socket) {
@@ -35,7 +33,7 @@ exports.createServer= function(parameters) {
     if(cookies) {
       session_id = cookies.split('=')[1];
       if(session_id)
-        yasw_server.sessions[session_id].socket = socket;
+        yasw_server.game.connect_socket(session_id, socket);
     }
 
     var new_ship = yasw_server.game.add_ship({socket: socket});
@@ -54,10 +52,10 @@ exports.createServer= function(parameters) {
     var cookies= new Cookies(request,response);
     var session_id= cookies.get('yasw_game_id');
     
-    if (!session_id || !this.sessions[session_id]) {
+    if (!session_id || !this.game.sessions[session_id]) {
       session_id= yasw_server.make_session_id();
       cookies.set('yasw_game_id', session_id);
-      this.sessions[session_id]= {};
+      this.game.add_session(session_id);
     }
   };
 
