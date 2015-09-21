@@ -24,6 +24,8 @@ Add logging package (mostly so test runs don't natter so much :-) )
 Add html5 gamepad support
 Call underscore 'underscore' everywhere (some places it's currently '_')
 Switch requires to return constructor directly.
+Actually reach into old sessions and update new one (ship & socket).
+Make sure we handle multiple cookies correctly.
 
 Session Managment
     Handle websocket disconnects (end user's session?)
