@@ -2,26 +2,29 @@ yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
 
 describe "ship#outline" , ->
-  server= undefined
-  on_message_callback = undefined
-  fake_socket = undefined
+  server= null
+  on_message_callback = null
+  fake_socket = null
+  ship= null
 
   beforeEach ->
     fake_socket =
       send: ->
       on: (message, callback) ->
         on_message_callback = callback
-      request: {headers: {}}
+      request: {headers: {cookie: "yasw_session_id=1"}}
 
     server= yasw.createServer()
+    server.game.add_session('1');
+
     server.game.add_ship({heading: -Math.PI/2, points: [[10, 0]]})
     server.game.add_ship({heading:          0, points: [[5, 0]]})
     server.game.add_ship({heading:  Math.PI/2, points: [[3, 0]]})
-    server.on_new_websocket(fake_socket)
+    ship= server.on_new_websocket(fake_socket)
     on_message_callback(JSON.stringify({command: 'rotate_left'}));
 
   it 'rotates the correct ship', ->
-    expect(fake_socket.ship.rotation).toEqual(-1)
+    expect(ship.rotation).toEqual(-1)
 
   afterEach ->
     server= null
