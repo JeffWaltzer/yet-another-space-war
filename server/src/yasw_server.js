@@ -37,7 +37,7 @@ exports.createServer= function(parameters) {
       session_id = cookies.split('=')[1];
       if(session_id) {
         yasw_server.game.connect_socket(session_id, socket);
-        yasw_server.game.sessions[session_id].ship= new_ship;
+        yasw_server.game.connect_ship(session_id, new_ship);
       }
     }
 

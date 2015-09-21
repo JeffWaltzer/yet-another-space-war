@@ -14,6 +14,7 @@ exports.Game=function(initial_state) {
   self.bullet_life_time = initial_state.bullet_life_time || 3;
 
   self.sessions= {};
+  self.screen_objects=[];
 
   self.add_session= function(session_id) {
     var new_session= {};
@@ -23,6 +24,10 @@ exports.Game=function(initial_state) {
 
   self.connect_socket= function(session_id, socket) {
     this.sessions[session_id].socket = socket;
+  };
+
+  self.connect_ship= function(session_id, ship) {
+    this.sessions[session_id].ship= ship;
   };
 
   self.add_screen_object= function(new_screen_object) {
@@ -53,16 +58,18 @@ exports.Game=function(initial_state) {
 
     var new_ship = self.add_screen_object(new ship.Ship(defaultState));
 
-    var position_parameter_passed = (parameters && parameters.position);
-
-    var number_collided = self.collisions_with(new_ship, 0).length;
-
-    while (!position_parameter_passed && number_collided > 0) {
-      new_ship.position( new vector.Vector(self.random_position()));
-      number_collided = self.collisions_with(new_ship, 0).length;
-    }
+    if (!parameters || !parameters.position)
+      self.place_ship(new_ship);
 
     return new_ship;
+  };
+
+  self.place_ship= function(ship) {    
+    var number_collided = self.collisions_with(ship, 0).length;
+    while (number_collided > 0) {
+      ship.position( new vector.Vector(self.random_position()));
+      number_collided = self.collisions_with(ship, 0).length;
+    }
   };
 
   self.add_bullet= function(parameters){
@@ -93,7 +100,7 @@ exports.Game=function(initial_state) {
     });
   }
 
-  self.collisions_with =function(screenObject,start_index) {
+  self.collisions_with= function(screenObject,start_index) {
     var to_remove = [];
 
     for(var j = start_index; j< self.screen_objects.length; j++) {
@@ -151,9 +158,8 @@ exports.Game=function(initial_state) {
     if (!session.socket)
       return;
 
-    var message= {
-      screen_objects: board
-    };
+    var message= { screen_objects: board };
+
     if (session.ship)
       message.you= session.ship.id.toString();
 
@@ -171,8 +177,6 @@ exports.Game=function(initial_state) {
 
   if (initial_state.tick_rate!==0)
     setInterval(self.tick, 1000/initial_state.tick_rate);
-
-  self.screen_objects=[];
 };
 
 function point_inside(object1,object2) {
@@ -190,8 +194,9 @@ function point_inside(object1,object2) {
 
 exports.collided =  function(object1, object2) {
   if (!exports.bounding_boxes_intersect(object1.bounding_box,
-                                        object2.bounding_box))
+                                        object2.bounding_box)) {
     return false;
+  }
 
   var result= false;
   underscore.each(object1.lines(),function(line1){
