@@ -16,9 +16,13 @@ describe 'recieving shipdata', ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"you": "1", "screen_objects": {"0": [[0,0],[1,1]], "1": [[2,2],[3,3]]}}')
+    game_server.web_socket.emit('message',
+      JSON.stringify
+        you: "1",
+        screen_objects:
+          0: {outline: [[0,0],[1,1]]}
+          1: {outline: [[2,2],[3,3]]})
   )
-
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
 
@@ -33,7 +37,6 @@ describe 'recieving shipdata', ->
 
   it "sets the correct color for the other ship", ->
     expect(scope.screen_objects()[0].color).toEqual('white')
-
 
 describe "removing a dead ship's data", ->
   beforeEach module('YASW')
@@ -51,12 +54,12 @@ describe "removing a dead ship's data", ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"screen_objects": {"3248": [[0,0],[1,1]], "31416": [[2,2],[3,3]]}}')
-    game_server.web_socket.emit('message', '{"screen_objects": {"31416": [[2,2],[3,3]]}}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"3248": {"outline": [[0,0],[1,1]]}, "31416": {"outline": [[2,2],[3,3]]}}}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"31416": {"outline": [[2,2],[3,3]]}}}')
   )
-
   it 'deletes a ship', ->
     expect(scope.screen_objects().length).toEqual(1)
 
   it 'keeps the correct ship (judged by coordinates)', ->
     expect(scope.screen_objects()[0].polygon_string).toEqual('2,2 3,3')
+

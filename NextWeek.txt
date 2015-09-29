@@ -1,2 +1,3 @@
 Give bullet an owner.
 Scoring.
+Add ng-if to not score non-ships

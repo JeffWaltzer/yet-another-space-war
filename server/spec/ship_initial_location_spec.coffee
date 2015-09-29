@@ -36,7 +36,7 @@ describe 'creating a ship', ->
       expect(second_ship.position().x()).toEqual(Math.round(0.1  * the_game.field_size.x()))
       expect(second_ship.position().y()).toEqual(Math.round(0.2 * the_game.field_size.y()))
 
-  describe 'at a specified loaction', ->
+  describe 'at a specified location', ->
     the_ship= undefined
 
     beforeEach ->
