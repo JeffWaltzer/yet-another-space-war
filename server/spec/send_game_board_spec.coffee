@@ -18,3 +18,6 @@ describe "sending a game board when our session doesn't have a ship", ->
 
   it "doesn't send a 'you' item in the message", ->
     expect(sent_data.you).not.toBeDefined();
+
+  it "has screen objects", ->
+    expect(sent_data.screen_objects).toEqual([]);

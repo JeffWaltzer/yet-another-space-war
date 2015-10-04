@@ -145,14 +145,14 @@ exports.Game=function(initial_state) {
     remove_dead_objects();
   }
 
-  function game_board() {
+  self.game_board= function() {
     var outlines = {};
     each_screen_object(
       function(screen_object, id) {
-        outlines[id.toString()] = screen_object.outline();
+        outlines[id.toString()] = {outline: screen_object.outline()};
       });
     return outlines;
-  }
+  };
 
   function send_game_board_to_session(board, session) {
     if (!session.socket)
@@ -172,7 +172,7 @@ exports.Game=function(initial_state) {
 
   self.tick= function() {
     update_screen_objects();
-    self.send_game_board(game_board());
+    self.send_game_board(self.game_board());
   };
 
   if (initial_state.tick_rate!==0)
