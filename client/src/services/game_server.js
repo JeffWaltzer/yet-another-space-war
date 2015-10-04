@@ -22,7 +22,7 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
         color: ((id === my_ship_id) ? 'green' : 'white'),
         polygon_string: SVG.polygon_string(a_screen_object.outline),
         score: a_screen_object.score,
-        position: a_screen_object.outline[1]
+        position: a_screen_object.position
       });
     });
   };

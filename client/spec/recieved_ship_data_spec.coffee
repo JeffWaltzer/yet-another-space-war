@@ -20,8 +20,8 @@ describe 'recieving shipdata', ->
       JSON.stringify
         you: "1",
         screen_objects:
-          0: {outline: [[0,0],[1,1]]}
-          1: {outline: [[2,2],[3,3]]})
+          0: {score: 23, position: [0,0],      outline: [[0,0],[1,1]]}
+          1: {score: 42, position: [200, 400], outline: [[202,402],[203,403]]})
   )
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
@@ -29,8 +29,20 @@ describe 'recieving shipdata', ->
   it 'dispatches the ship 0 coordinates', ->
     expect(scope.screen_objects()[0].polygon_string).toEqual('0,0 1,1')
 
+  it 'dispatches the ship 0 score', ->
+    expect(scope.screen_objects()[0].score).toEqual(23)
+
+  it 'dispatches the ship 0 position', ->
+    expect(scope.screen_objects()[0].position).toEqual([0, 0])
+
   it 'dispatches the ship 1 coordinates', ->
-    expect(scope.screen_objects()[1].polygon_string).toEqual('2,2 3,3')
+    expect(scope.screen_objects()[1].polygon_string).toEqual('202,402 203,403')
+
+  it 'dispatches the ship 1 score', ->
+    expect(scope.screen_objects()[1].score).toEqual(42)
+
+  it 'dispatches the ship 1 position', ->
+    expect(scope.screen_objects()[1].position).toEqual([200, 400])
 
   it "sets the correct color for our ship", ->
     expect(scope.screen_objects()[1].color).toEqual('green')
