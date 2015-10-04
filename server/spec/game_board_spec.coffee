@@ -16,7 +16,7 @@ describe "generating a game board", ->
       game.add_screen_object(new Ship({game: game, points: [[0, 1], [2, 3]]}))
 
     it "creates the correct game board", ->
-      expect(game.game_board()).toEqual 0: {outline: [[0,1], [2,3]]}
+      expect(game.game_board()).toEqual 0: {score: 0, outline: [[0,1], [2,3]]}
 
   afterEach ->
     game= null

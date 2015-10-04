@@ -87,7 +87,7 @@ exports.Game=function(initial_state) {
   };
 
   function each_screen_object(callback_function) {
-    underscore.each(self.screen_objects, callback_function);
+    return underscore.map(self.screen_objects, callback_function);
   }
 
   function each_session(callback_function) {
@@ -145,12 +145,19 @@ exports.Game=function(initial_state) {
     remove_dead_objects();
   }
 
+  function game_board_ship(screen_object, id) {
+    var ship= {outline: screen_object.outline()};
+    if (underscore.has(screen_object, 'score'))
+      ship.score= screen_object.score;
+    return ship;
+  } 
+
   self.game_board= function() {
-    var outlines = {};
-    each_screen_object(
-      function(screen_object, id) {
-        outlines[id.toString()] = {outline: screen_object.outline()};
-      });
+    var outline_array= each_screen_object(underscore.bind(game_board_ship, self));
+    var outlines= {};
+    underscore.each(outline_array, function(outline, index) {
+      outlines[index]= outline;
+    });
     return outlines;
   };
 
