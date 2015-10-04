@@ -15,7 +15,7 @@ describe 'updating the ship outlines', ->
         socket: _socket_
 
     createController()
-    game_server.update_ship_outlines({"0": [[0,0],[1,1]], "1": [[2,2],[3,3]]});
+    game_server.update_ship_outlines({"0": {"outline": [[0,0],[1,1]]}, "1": {"outline": [[2,2],[3,3]]}});
   )
 
   it 'dispatches the ship 0 coordinates', ->

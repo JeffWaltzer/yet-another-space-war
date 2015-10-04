@@ -10,4 +10,4 @@ describe "svg.polygon_string function", ->
 
     it "generates the correct string for other points", ->
       points = [[11, 12], [15, 20], [5, 20], [11, 5]]
-      expect(svg.polygon_string(points)).toEqual("11,12 15,20 5,20 11,5")
+      expect(svg.polygon_string(points)).toEqual "11,12 15,20 5,20 11,5"
