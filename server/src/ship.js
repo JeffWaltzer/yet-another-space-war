@@ -28,7 +28,8 @@ exports.Ship= function(initial_state) {
       life_left: self.game.bullet_life_time,
       position: self.gun_point().coordinates,
       velocity: [self.velocity.x() + bullet_speed * Math.cos(self.heading),
-                 self.velocity.y() + bullet_speed * Math.sin(self.heading)]
+                 self.velocity.y() + bullet_speed * Math.sin(self.heading)],
+      ship: self
     };
     return self.game.add_bullet(bullet_parameters);
   };
