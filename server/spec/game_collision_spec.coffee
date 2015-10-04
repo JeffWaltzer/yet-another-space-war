@@ -76,3 +76,23 @@ describe 'single ship collides with', ->
     ship2 = the_game.add_ship()
     ship2.position(new vector.Vector([400,450]))
     expect(the_game.collisions_with(ship1,0)).toEqual([ship2])
+
+describe "A bullet fired from ship A colliding with ship B", ->
+  the_game= null
+  ship_a= null
+  ship_b= null
+  the_bullet= null
+
+  beforeEach ->
+    the_game= new game.Game({})
+    ship_a= the_game.add_ship()
+    ship_b= the_game.add_ship()
+    the_bullet= ship_a.fire()
+    the_bullet.position(ship_b.position())
+    the_game.handle_collisions()
+
+  it "increments ship A's score", ->
+    expect(ship_a.score).toEqual(1)
+
+  it "doesn't increment ship B's score", ->
+    expect(ship_b.score).toEqual(0)

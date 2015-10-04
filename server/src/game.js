@@ -117,7 +117,7 @@ exports.Game=function(initial_state) {
     return to_remove;
   };
 
-  function handle_collisions() {
+  self.handle_collisions= function() {
     var to_remove=[];
     for(var i = 0; i< self.screen_objects.length; i++) {
       var screenObject = self.screen_objects[i];
@@ -128,8 +128,13 @@ exports.Game=function(initial_state) {
 
       to_remove = to_remove.concat(objects_collided_with);
     }
+    underscore.each(to_remove, function(screen_object) {
+      if (screen_object.ship)
+        screen_object.ship.score++;
+    });
+
     self.screen_objects = underscore.difference(self.screen_objects,to_remove);
-  }
+  };
 
   function update_screen_objects() {
     each_screen_object(
@@ -140,7 +145,7 @@ exports.Game=function(initial_state) {
           initial_state.acceleration_rate);
       });
 
-    handle_collisions();
+    self.handle_collisions();
 
     remove_dead_objects();
   }
