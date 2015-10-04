@@ -22,14 +22,12 @@
                stroke-width="2"
                fill="none"/>
 
-      <g ng-repeat="ship in screen_objects()">
-        <text ng-show="{{ship.score}}"
-              ng-attr-x="{{ship.position[0]}}"
-              ng-attr-y="{{ship.position[1]}}"
-              ng-attr-fill="{{ship.color}}">
-          {{ship.score}}
-        </text>
-      </g>
+      <text ng-repeat="ship in screen_objects()"
+        ng-attr-x="{{ship.position[0]}}"
+        ng-attr-y="{{ship.position[1]}}"
+        ng-attr-fill="{{ship.color}}">
+        {{ship.score}}
+      </text>
 
     </svg>
   </body>

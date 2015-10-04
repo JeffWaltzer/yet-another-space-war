@@ -1,4 +1,3 @@
-
 angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($location, SVG) {
   var service= {};
 
@@ -21,7 +20,9 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
     _.each(screen_objects, function(a_screen_object, id) {
       service.screen_objects.push({
         color: ((id === my_ship_id) ? 'green' : 'white'),
-        polygon_string: SVG.polygon_string(a_screen_object.outline)
+        polygon_string: SVG.polygon_string(a_screen_object.outline),
+        score: a_screen_object.score,
+        position: a_screen_object.outline[1]
       });
     });
   };
