@@ -146,7 +146,8 @@ exports.Game=function(initial_state) {
   }
 
   function game_board_ship(screen_object, id) {
-    var ship= {outline: screen_object.outline()};
+    var ship= {outline: screen_object.outline(),
+               position: [screen_object.position().x(), screen_object.position().y()]};
     if (underscore.has(screen_object, 'score'))
       ship.score= screen_object.score;
     return ship;
@@ -249,7 +250,7 @@ function vector_cross(a, b) {
   return a[0]*b[1] - a[1]*b[0];
 }
 
-exports. intersect= function(line1, line2) {
+exports.intersect= function(line1, line2) {
   var p= line1[0];
   var q= line2[0];
   var r= vector_subtract(line1[1], line1[0]);
