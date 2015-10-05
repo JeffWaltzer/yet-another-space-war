@@ -53,10 +53,10 @@ exports.createServer= function(parameters) {
     var cookies= new Cookies(request,response);
     var session_id= cookies.get('yasw_game_id');
     
-    if (!session_id || !this.game.sessions[session_id]) {
+    if (!session_id || !this.game.players[session_id]) {
       session_id= yasw_server.make_session_id();
       cookies.set('yasw_game_id', session_id);
-      this.game.add_session(session_id);
+      this.game.add_player(session_id);
     }
   };
 

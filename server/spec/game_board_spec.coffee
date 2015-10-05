@@ -19,7 +19,7 @@ describe "generating a game board", ->
     beforeEach ->
       expected_x= 100
       expected_y= 200
-      session= game.add_session('session_id')
+      session= game.add_player('session_id')
       ship= game.add_ship(
         game: game,
         session: session,

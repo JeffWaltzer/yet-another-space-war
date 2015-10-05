@@ -12,7 +12,7 @@ describe "sending a game board when our session doesn't have a ship", ->
         sent_data= JSON.parse(data)
 
     game= new Game()
-    the_session= game.add_session('session_id')
+    the_session= game.add_player('session_id')
     the_session.socket= fake_socket;
     game.send_game_board({})
 

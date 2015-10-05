@@ -15,9 +15,9 @@ exports.Ship= function(initial_state) {
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
   self.score= function() {
-    if (!self.session)
+    if (!self.player)
       return null;
-    return self.session._score;
+    return self.player._score;
   };
 
   self.update= function(tick_rate, rotation_rate, acceleration_rate) {

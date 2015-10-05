@@ -2,6 +2,7 @@ var underscore= require('underscore');
 var ship=require('./ship');
 var bullet=require('./bullet');
 var vector=require('./vector');
+var Player= require('./player').Player;
 
 exports.Game=function(initial_state) {
   var self = this;
@@ -13,23 +14,23 @@ exports.Game=function(initial_state) {
 
   self.bullet_life_time = initial_state.bullet_life_time || 3;
 
-  self.sessions= {};
+  self.players= {};
   self.screen_objects=[];
 
-  self.add_session= function(session_id) {
-    var new_session= {_score: 0};
-    this.sessions[session_id]= new_session;
-    return new_session;
+  self.add_player= function(player_id) {
+    var new_player= new Player();
+    this.players[player_id]= new_player;
+    return new_player;
   };
 
-  self.connect_socket= function(session_id, socket) {
-    this.sessions[session_id].socket = socket;
+  self.connect_socket= function(player_id, socket) {
+    this.players[player_id].socket = socket;
   };
 
-  self.connect_ship= function(session_id, ship) {
-    var the_session= this.sessions[session_id];
-    the_session.ship= ship;
-    ship.session= the_session;
+  self.connect_ship= function(player_id, ship) {
+    var the_player= this.players[player_id];
+    the_player.ship= ship;
+    ship.player= the_player;
   };
 
   self.add_screen_object= function(new_screen_object) {
@@ -92,8 +93,8 @@ exports.Game=function(initial_state) {
     return underscore.map(self.screen_objects, callback_function);
   }
 
-  function each_session(callback_function) {
-    underscore.each(self.sessions, callback_function);
+  function each_player(callback_function) {
+    underscore.each(self.players, callback_function);
   }
 
   function remove_dead_objects() {
@@ -132,7 +133,7 @@ exports.Game=function(initial_state) {
     }
     underscore.each(to_remove, function(screen_object) {
       if (screen_object.ship)
-        screen_object.ship.session._score= screen_object.ship.session._score + 1;
+        screen_object.ship.player.bump_score();
     });
 
     self.screen_objects = underscore.difference(self.screen_objects,to_remove);
@@ -152,7 +153,7 @@ exports.Game=function(initial_state) {
     remove_dead_objects();
   }
 
-  function game_board_ship(screen_object, id) {
+  function make_game_piece(screen_object, id) {
     var return_value= {outline: screen_object.outline(),
                        position: [screen_object.position().x(), screen_object.position().y()]};
     if (underscore.has(screen_object, 'score'))
@@ -161,7 +162,7 @@ exports.Game=function(initial_state) {
   } 
 
   self.game_board= function() {
-    var outline_array= each_screen_object(underscore.bind(game_board_ship, self));
+    var outline_array= each_screen_object(make_game_piece);
     var outlines= {};
     underscore.each(outline_array, function(outline, index) {
       outlines[index]= outline;
@@ -169,20 +170,20 @@ exports.Game=function(initial_state) {
     return outlines;
   };
 
-  function send_game_board_to_session(board, session) {
-    if (!session.socket)
+  function send_game_board_to_player(board, player) {
+    if (!player.socket)
       return;
 
     var message= { screen_objects: board };
 
-    if (session.ship)
-      message.you= session.ship.id.toString();
+    if (player.ship)
+      message.you= player.ship.id.toString();
 
-    session.socket.send(JSON.stringify(message));
+    player.socket.send(JSON.stringify(message));
   }    
 
   self.send_game_board= function(new_board) {
-    each_session(underscore.bind(send_game_board_to_session, this, new_board));
+    each_player(underscore.bind(send_game_board_to_player, this, new_board));
   };
 
   self.tick= function() {

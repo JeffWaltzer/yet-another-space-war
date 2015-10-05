@@ -15,7 +15,7 @@ describe "ship#outline" , ->
       request: {headers: {cookie: "yasw_session_id=1"}}
 
     server= yasw.createServer()
-    server.game.add_session('1');
+    server.game.add_player('1');
 
     server.game.add_ship({heading: -Math.PI/2, points: [[10, 0]]})
     server.game.add_ship({heading:          0, points: [[5, 0]]})

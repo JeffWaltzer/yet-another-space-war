@@ -88,12 +88,12 @@ describe "A bullet fired from ship A colliding with ship B", ->
   beforeEach ->
     the_game= new game.Game({})
 
-    a_session= the_game.add_session('a')
+    a_session= the_game.add_player('a')
     ship_a= the_game.add_ship()
     the_game.connect_ship('a', ship_a)
 
     ship_b= the_game.add_ship()
-    b_session= the_game.add_session('b')
+    b_session= the_game.add_player('b')
     the_game.connect_ship('b', ship_b)
 
     the_bullet= ship_a.fire()
@@ -102,7 +102,7 @@ describe "A bullet fired from ship A colliding with ship B", ->
     the_game.handle_collisions()
 
   it "increments ship A's score", ->
-    expect(ship_a.score()).toEqual(1)
+    expect(a_session._score).toEqual(1)
 
   it "doesn't increment ship B's score", ->
-    expect(ship_b.score()).toEqual(0)
+    expect(b_session._score).toEqual(0)
