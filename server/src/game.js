@@ -132,7 +132,7 @@ exports.Game=function(initial_state) {
     }
     underscore.each(to_remove, function(screen_object) {
       if (screen_object.ship)
-        screen_object.ship.score(screen_object.ship.score() + 1);
+        screen_object.ship.session._score= screen_object.ship.session._score + 1;
     });
 
     self.screen_objects = underscore.difference(self.screen_objects,to_remove);
