@@ -13,7 +13,15 @@ exports.Ship= function(initial_state) {
   self.heading= initial_state.heading ||0;
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
-  self.score= 0;
+
+  self.score= function(new_value) {
+    if (!self.session)
+      return null;
+
+    if (new_value)
+      self.session._score= new_value;
+    return self.session._score;
+  };
 
   self.update= function(tick_rate, rotation_rate, acceleration_rate) {
     self.heading += rotation_rate/tick_rate * self.rotation;

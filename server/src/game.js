@@ -17,7 +17,7 @@ exports.Game=function(initial_state) {
   self.screen_objects=[];
 
   self.add_session= function(session_id) {
-    var new_session= {};
+    var new_session= {_score: 0};
     this.sessions[session_id]= new_session;
     return new_session;
   };
@@ -27,7 +27,9 @@ exports.Game=function(initial_state) {
   };
 
   self.connect_ship= function(session_id, ship) {
-    this.sessions[session_id].ship= ship;
+    var the_session= this.sessions[session_id];
+    the_session.ship= ship;
+    ship.session= the_session;
   };
 
   self.add_screen_object= function(new_screen_object) {
@@ -130,7 +132,7 @@ exports.Game=function(initial_state) {
     }
     underscore.each(to_remove, function(screen_object) {
       if (screen_object.ship)
-        screen_object.ship.score++;
+        screen_object.ship.score(screen_object.ship.score() + 1);
     });
 
     self.screen_objects = underscore.difference(self.screen_objects,to_remove);
@@ -151,11 +153,11 @@ exports.Game=function(initial_state) {
   }
 
   function game_board_ship(screen_object, id) {
-    var ship= {outline: screen_object.outline(),
-               position: [screen_object.position().x(), screen_object.position().y()]};
+    var return_value= {outline: screen_object.outline(),
+                       position: [screen_object.position().x(), screen_object.position().y()]};
     if (underscore.has(screen_object, 'score'))
-      ship.score= screen_object.score;
-    return ship;
+      return_value.score= screen_object.score();
+    return return_value;
   } 
 
   self.game_board= function() {
