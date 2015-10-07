@@ -8,7 +8,6 @@ Review tests for coverage and organization.
 Refactor out magic numbers for keycodes.
 Move toAproximatelyEqual out of ship_outline_spec into helper, and use generally.
 Move static web page code out to its own class.
-Change all server.game references to be just game
 Unit tests for Vector
 Change ship#gun_point to be a function.
 Review code for consistent usage of function over var
@@ -22,11 +21,8 @@ Handle bullet initialization without initial state. Or does this even make sense
 Add code coverage tool for client side code.
 Add logging package (mostly so test runs don't natter so much :-) )
 Add html5 gamepad support
-Call underscore 'underscore' everywhere (some places it's currently '_')
-Switch requires to return constructor directly.
 Actually reach into old sessions and update new one (ship & socket).
 Make sure we handle multiple cookies correctly.
-Add favicon.
 Force focus to gamefield on reload.
 Add visual indication of focus on gamefield.
 
@@ -46,9 +42,12 @@ Session Managment
              create a new session
 
 Before Release
+    Add favicon.
+    Consistent code style
+        Switch requires to return constructor directly.
+        Call underscore 'underscore' everywhere (some places it's currently '_')
     Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
     Re-arrange project structure to have the client under the server directory
-    Scoring
     Should have same ship after page reload.
     Explosions.
 
