@@ -25,6 +25,8 @@ exports.createServer= function(parameters) {
   yasw_server.bullet_life_time = (parameters && parameters.bullet_life_time) || 4;
 
   yasw_server.game= new game.Game(yasw_server);
+  yasw_server.game.start_ticking(yasw_server.tick_rate);
+
 
   yasw_server.on_new_websocket= function(socket) {
     console.log("websocket connect from " + socket.remoteAddress);

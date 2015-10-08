@@ -16,6 +16,7 @@ exports.Game=function(initial_state) {
 
   self.players= {};
   self.screen_objects=[];
+  self.next_id = 0;
 
   self.add_player= function(player_id) {
     var new_player= new Player();
@@ -34,7 +35,7 @@ exports.Game=function(initial_state) {
   };
 
   self.add_screen_object= function(new_screen_object) {
-    new_screen_object.id= self.screen_objects.length;
+    new_screen_object.id=  (self.next_id++).toString();
     self.screen_objects.push(new_screen_object);
     return new_screen_object;
   };
@@ -155,7 +156,9 @@ exports.Game=function(initial_state) {
 
   function make_game_piece(screen_object, id) {
     var return_value= {outline: screen_object.outline(),
-                       position: [screen_object.position().x(), screen_object.position().y()]};
+                            id: screen_object.id,
+                      position: [screen_object.position().x(),
+                                 screen_object.position().y()]};
     if (underscore.has(screen_object, 'score'))
       return_value.score= screen_object.score();
     return return_value;
@@ -165,7 +168,7 @@ exports.Game=function(initial_state) {
     var outline_array= each_screen_object(make_game_piece);
     var outlines= {};
     underscore.each(outline_array, function(outline, index) {
-      outlines[index]= outline;
+      outlines[outline.id]= outline;
     });
     return outlines;
   };
@@ -177,7 +180,7 @@ exports.Game=function(initial_state) {
     var message= { screen_objects: board };
 
     if (player.ship)
-      message.you= player.ship.id.toString();
+      message.you= player.ship.id;
 
     player.socket.send(JSON.stringify(message));
   }    
@@ -191,8 +194,11 @@ exports.Game=function(initial_state) {
     self.send_game_board(self.game_board());
   };
 
-  if (initial_state.tick_rate!==0)
-    setInterval(self.tick, 1000/initial_state.tick_rate);
+  self.start_ticking= function(tick_rate) {
+    if (tick_rate!==0)
+      setInterval(self.tick, 1000/tick_rate);
+  };
+
 };
 
 function point_inside(object1,object2) {
