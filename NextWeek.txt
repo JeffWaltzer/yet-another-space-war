@@ -1,0 +1,3 @@
+Fix bullet on bullet adding to score.
+Fix you ship color.
+Fix ship persistence (^R)
