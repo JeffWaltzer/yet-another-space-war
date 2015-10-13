@@ -28,7 +28,7 @@ describe "generating a game board", ->
       game.connect_ship('session_id', ship)
 
     it "creates the correct game board", ->
-      expect(game.game_board()).toEqual 0: {score: 0, position: [expected_x, expected_y], outline: [[100,201], [102,203]]}
+      expect(game.game_board()).toEqual [{id: '0', score: 0, position: [expected_x, expected_y], outline: [[100,201], [102,203]]}]
 
   afterEach ->
     game= null

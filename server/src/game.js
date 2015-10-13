@@ -166,9 +166,9 @@ exports.Game=function(initial_state) {
 
   self.game_board= function() {
     var outline_array= each_screen_object(make_game_piece);
-    var outlines= {};
+    var outlines= [];
     underscore.each(outline_array, function(outline, index) {
-      outlines[outline.id]= outline;
+      outlines.push(outline);
     });
     return outlines;
   };

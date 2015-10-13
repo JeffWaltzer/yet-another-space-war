@@ -19,10 +19,10 @@ describe 'recieving shipdata', ->
     game_server.web_socket.emit('message',
       JSON.stringify
         you: "1",
-        screen_objects:
-          0: {score: 23, position: [0,0],      outline: [[0,0],[1,1]]}
-          1: {score: 42, position: [200, 400], outline: [[202,402],[203,403]]})
-  )
+        screen_objects: [
+          {id: '1', score: 23, position: [0,0],      outline: [[0,0],[1,1]]}
+          {id: '2', score: 42, position: [200, 400], outline: [[202,402],[203,403]]}])
+    )
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
 
@@ -45,10 +45,10 @@ describe 'recieving shipdata', ->
     expect(scope.screen_objects()[1].position).toEqual([200, 400])
 
   it "sets the correct color for our ship", ->
-    expect(scope.screen_objects()[1].color).toEqual('green')
+    expect(scope.screen_objects()[1].color).toEqual('white')
 
   it "sets the correct color for the other ship", ->
-    expect(scope.screen_objects()[0].color).toEqual('white')
+    expect(scope.screen_objects()[0].color).toEqual('green')
 
 describe "removing a dead ship's data", ->
   beforeEach module('YASW')
