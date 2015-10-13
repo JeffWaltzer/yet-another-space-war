@@ -122,22 +122,24 @@ exports.Game=function(initial_state) {
   };
 
   self.handle_collisions= function() {
+    var maybe_bump_score= function(screen_object, o) {
+      if (screen_object.ship && !o.ship  ||  !screen_object.ship && o.ship)
+        o.ship.player.bump_score();
+    };
+
     var to_remove=[];
     for(var i = 0; i< self.screen_objects.length; i++) {
-      var screenObject = self.screen_objects[i];
-      var objects_collided_with = self.collisions_with(screenObject, i + 1);
+      var screen_object = self.screen_objects[i];
+      var objects_collided_with = self.collisions_with(screen_object, i+1);
 
-      if (objects_collided_with.length>0)
-        to_remove.push(screenObject);
-
+      if (objects_collided_with.length>0) {
+        underscore.each(objects_collided_with, underscore.bind(maybe_bump_score, this, screen_object));
+        to_remove.push(screen_object);
+      }
       to_remove = to_remove.concat(objects_collided_with);
     }
-    underscore.each(to_remove, function(screen_object) {
-      if (screen_object.ship)
-        screen_object.ship.player.bump_score();
-    });
 
-    self.screen_objects = underscore.difference(self.screen_objects,to_remove);
+    self.screen_objects = underscore.difference(self.screen_objects, to_remove);
   };
 
   function update_screen_objects() {
