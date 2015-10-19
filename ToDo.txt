@@ -50,4 +50,6 @@ Before Release
     Re-arrange project structure to have the client under the server directory
     Should have same ship after page reload.
     Explosions.
-
+    Handle multiple bullets hitting a ship.
+    Add cookies to server/spec/ship_command_spec.coffee
+      Remove cookie guard to yasw server.
