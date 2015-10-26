@@ -31,32 +31,28 @@ exports.createServer= function(parameters) {
   yasw_server.on_new_websocket= function(socket) {
     console.log("websocket connect from " + socket.remoteAddress);
 
-//    var new_ship = yasw_server.game.add_ship();
-    var new_ship;
-
+    var ship;
     var cookies = socket.request.headers.cookie;
+    var game= yasw_server.game;
     var session_id;
     if(cookies) {
       session_id = cookies.split('=')[1];
       if(session_id) {
-        yasw_server.game.connect_socket(session_id, socket);
-        if (yasw_server.game.players[session_id].ship)
-          new_ship= yasw_server.game.players[session_id].ship;
-        else {
-          new_ship = yasw_server.game.add_ship();
-          yasw_server.game.connect_ship(session_id, new_ship);
-        }
+        game.connect_socket(session_id, socket);
+        ship= game.players[session_id].ship
+           || game.add_ship();
+        game.connect_ship(session_id, ship);
       }
       else {
-        new_ship = yasw_server.game.add_ship();
+        ship = game.add_ship();
       }
     }
     else {
-      new_ship = yasw_server.game.add_ship();
+      ship = game.add_ship();
     }
 
-    socket.on('message', underscore.bind(new_ship.on_message, new_ship));
-    return new_ship;
+    socket.on('message', underscore.bind(ship.on_message, ship));
+    return ship;
   };
 
   yasw_server.make_session_id= function() {
