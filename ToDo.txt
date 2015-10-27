@@ -25,6 +25,10 @@ Actually reach into old sessions and update new one (ship & socket).
 Make sure we handle multiple cookies correctly.
 Force focus to gamefield on reload.
 Add visual indication of focus on gamefield.
+Simplify fire client specs to not pay attention to key state.
+Simplify fire server specs.
+
+
 
 Session Managment
     Handle websocket disconnects (end user's session?)
@@ -53,3 +57,12 @@ Before Release
     Handle multiple bullets hitting a ship.
     Add cookies to server/spec/ship_command_spec.coffee
       Remove cookie guard to yasw server.
+    Under load, the following error occasionally happens. Why?
+        TypeError: Cannot read property 'player' of undefined
+            at maybe_bump_score (/home/jmax/projects/yasw/server/src/game.js:127:15)
+            at Function._.each._.forEach (/home/jmax/projects/yasw/server/node_modules/underscore/underscore.js:153:9)
+            at self.handle_collisions (/home/jmax/projects/yasw/server/src/game.js:136:20)
+            at update_screen_objects (/home/jmax/projects/yasw/server/src/game.js:159:10)
+            at self.tick (/home/jmax/projects/yasw/server/src/game.js:200:5)
+            at wrapper [as _onTimeout] (timers.js:258:14)
+            at Timer.listOnTimeout [as ontimeout] (timers.js:110:15)
