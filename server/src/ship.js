@@ -54,6 +54,10 @@ exports.Ship= function(initial_state) {
     transforms.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
     return new vector.Vector(transformed_point);
   };
+
+  self.clone= function() {
+    self.game.add_ship();
+  };
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);
@@ -63,23 +67,25 @@ exports.Ship.prototype.on_message = function(json_message) {
   var message = JSON.parse(json_message);
 
   switch (message.command) {
-    case 'rotate_left':
-      self.rotation = -1;
-      break;
-    case 'rotate_right':
-      self.rotation = 1;
-      break;
-    case 'rotate_stop':
-      self.rotation = 0;
-      break;
-    case 'thrust_on':
-      self.acceleration = 1;
-      break;
-    case 'thrust_off':
-      self.acceleration = 0;
-      break;
-    case 'fire':
-      self.fire();
-      break;
+  case 'rotate_left':
+    self.rotation = -1;
+    break;
+  case 'rotate_right':
+    self.rotation = 1;
+    break;
+  case 'rotate_stop':
+    self.rotation = 0;
+    break;
+  case 'thrust_on':
+    self.acceleration = 1;
+    break;
+  case 'thrust_off':
+    self.acceleration = 0;
+    break;
+  case 'fire':
+    self.fire();
+    break;
+  case 'clone':
+    self.clone();
   }
 };

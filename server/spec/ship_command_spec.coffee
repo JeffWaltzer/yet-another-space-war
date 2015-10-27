@@ -49,6 +49,16 @@ describe 'the server, when asked for ship data ', ->
           done()
         ),50
 
+  check_clone = (server, test, done) ->
+    socket = engine_client('ws://localhost:3000', transports: ['websocket'])
+    socket.on 'open', ->
+      setup_ship(socket, null, test, done)
+      socket.send JSON.stringify({'command': 'clone'}) , ->
+        setTimeout (->
+          expect(server.game.screen_objects.length).toEqual(2)
+          done()
+        ),50
+
   it 'starts with no ships', () ->
     expect(server.game.screen_objects.length).toEqual(0)
 
@@ -74,6 +84,8 @@ describe 'the server, when asked for ship data ', ->
   it 'fires a bullet on command', (done) ->
     check_fire('fire',server,this,null, done)
 
+  it 'clones the ship on command', (done) ->
+    check_clone(server, this, done)
 
   afterEach ->
     server.shutdown()

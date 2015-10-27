@@ -87,3 +87,21 @@ describe "Ship#fire", ->
   afterEach ->
     the_game= null
     the_ship= null
+
+
+describe "Ship#clone", ->
+  the_game= {}
+  the_ship= undefined
+  
+  beforeEach ->
+    the_server= yasw.createServer()
+    the_game= the_server.game
+    the_ship= the_game.add_ship()
+    the_ship.clone()
+
+  it "adds a ship", ->
+    expect(the_game.screen_objects.length).toEqual(2)
+
+  afterEach ->
+    the_game= null
+    the_ship= null

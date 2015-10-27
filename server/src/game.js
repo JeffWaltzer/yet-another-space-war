@@ -140,6 +140,11 @@ exports.Game=function(initial_state) {
     }
 
     self.screen_objects = underscore.difference(self.screen_objects, to_remove);
+
+    underscore.each(to_remove, function(screen_object) {
+       if (screen_object.player)
+         screen_object.player.ship= null;
+    });
   };
 
   function update_screen_objects() {
