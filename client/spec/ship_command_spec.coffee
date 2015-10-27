@@ -349,3 +349,13 @@ describe "ShipCommandController", ->
 
           it "left key is #{test_conditions.expected_left_key_state}", ->
             expect(scope.left_key).toEqual test_conditions.expected_left_key_state
+
+  describe "we receive clone_key_down", ->
+    controller= undefined
+    beforeEach ->
+      controller = createController()
+      spyOn game_server, "send"
+      scope.onKeyDown {keyCode: 82}
+
+    it "sends 'clone'", ->
+      expect(game_server.send).toHaveBeenCalledWith 'clone'
