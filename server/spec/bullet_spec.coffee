@@ -44,4 +44,4 @@ describe "bullet with explicit values", ->
     expect(the_bullet.velocity.y()).toEqual(6)
 
   it 'has correct ship', ->
-    expect(the_bullet.ship).toEqual(fake_ship)
+    expect(the_bullet.ship()).toEqual(fake_ship)

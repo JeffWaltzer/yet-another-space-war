@@ -123,16 +123,18 @@ exports.Game=function(initial_state) {
 
   self.handle_collisions= function() {
     var maybe_bump_score= function(screen_object, o) {
-      if (screen_object.ship && !o.ship  ||  !screen_object.ship && o.ship)
-        o.ship.player.bump_score();
+      if (screen_object.is_bullet() && !o.is_bullet() && screen_object.player())
+        screen_object.player().bump_score();
+      else if (o.is_bullet() && !screen_object.is_bullet() && o.player())
+        o.player().bump_score();
     };
 
-    var to_remove=[];
-    for(var i = 0; i< self.screen_objects.length; i++) {
+    var to_remove = [];
+    for (var i = 0; i < self.screen_objects.length; i++) {
       var screen_object = self.screen_objects[i];
-      var objects_collided_with = self.collisions_with(screen_object, i+1);
+      var objects_collided_with = self.collisions_with(screen_object, i + 1);
 
-      if (objects_collided_with.length>0) {
+      if (objects_collided_with.length > 0) {
         underscore.each(objects_collided_with, underscore.bind(maybe_bump_score, this, screen_object));
         to_remove.push(screen_object);
       }
@@ -142,8 +144,8 @@ exports.Game=function(initial_state) {
     self.screen_objects = underscore.difference(self.screen_objects, to_remove);
 
     underscore.each(to_remove, function(screen_object) {
-       if (screen_object.player)
-         screen_object.player.ship= null;
+      if (screen_object.player)
+        screen_object.player.ship = null;
     });
   };
 

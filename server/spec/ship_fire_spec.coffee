@@ -17,7 +17,7 @@ describe 'Ship fires a bullet', ->
 
       expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
       expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
-      expect(bullet.ship).toEqual(the_ship)
+      expect(bullet.ship()).toEqual(the_ship)
 
   describe "bullet fired from stationary ship heading PI/4", ->
     it 'creates a bullet heading PI/4', ->
@@ -33,7 +33,7 @@ describe 'Ship fires a bullet', ->
 
       expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 6)
       expect(bullet.velocity.y()).toBeCloseTo( 10/Math.sqrt(2), 6)
-      expect(bullet.ship).toEqual(the_ship)
+      expect(bullet.ship()).toEqual(the_ship)
 
   describe "bullet fired from stationary ship heading PI/2", ->
     it 'creates a bullet heading PI/2', ->
@@ -49,7 +49,7 @@ describe 'Ship fires a bullet', ->
 
       expect(bullet.velocity.x()).toBeCloseTo( 0, 6)
       expect(bullet.velocity.y()).toBeCloseTo( 10, 6)
-      expect(bullet.ship).toEqual(the_ship)
+      expect(bullet.ship()).toEqual(the_ship)
 
 
   describe "when moving perpindicular to the direction it's pointed", ->
@@ -66,7 +66,7 @@ describe 'Ship fires a bullet', ->
 
       expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
       expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
-      expect(bullet.ship).toEqual(the_ship)
+      expect(bullet.ship()).toEqual(the_ship)
 
   describe 'with correct position', ->
     the_game=undefined

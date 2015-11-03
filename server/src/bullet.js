@@ -16,8 +16,23 @@ exports.Bullet = function(initial_state) {
       initial_state.velocity);
   }
 
+  self.ship=function(new_value) {
+    if(new_value) {
+      self._ship = new_value;
+    }
+    return self._ship;
+  };
+
+  self.player = function() {
+    return self.ship() && self.ship().player;
+  };
+
+  self.is_bullet = function() {
+    return true;
+  };
+
   if (initial_state.ship) {
-    self.ship = initial_state.ship;
+    self.ship( initial_state.ship);
   }
 
   self.update= function(tick_rate, rotation_rate, acceleration_rate) {

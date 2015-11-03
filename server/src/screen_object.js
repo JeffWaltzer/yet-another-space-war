@@ -56,6 +56,10 @@ exports.ScreenObject.prototype.update_outline = function() {
   this.outline_cache = this.generate_outline();
 };
 
+exports.ScreenObject.prototype.is_bullet = function () {
+  return false;
+};
+
 exports.ScreenObject.prototype.outline= function() {
   return this.outline_cache;
 };
