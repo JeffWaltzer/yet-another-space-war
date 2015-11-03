@@ -37,8 +37,9 @@ describe "sending a game board when our session has a ship", ->
     game= new Game()
     the_player= game.add_player('session_id')
     the_player.socket= fake_socket;
-    the_player.ship = game.add_ship()
-    game.send_game_board({})
+    the_player.ship = game.add_ship(position: [201,303])
+
+    game.send_game_board(game.game_board())
 
   it "sends a 'you' item as a string", ->
     expect(typeof sent_data.you).toBe 'string'
@@ -46,5 +47,23 @@ describe "sending a game board when our session has a ship", ->
   it "sends a 'you' item in the message", ->
     expect(sent_data.you).toEqual(the_player.ship.id)
 
-  xit "has screen objects", ->
-    expect(sent_data.screen_objects).toEqual(['xyzzy']);
+  it "has one screen object"  , ->
+    expect(sent_data.screen_objects.length).toEqual 1
+
+  describe "the first screen object",  ->
+    screen_object = null
+    beforeEach ->
+      screen_object = sent_data.screen_objects[0]
+
+    it "has outline", ->
+      expect(screen_object.outline).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
+
+    it "has id", ->
+      expect(screen_object.id).toEqual '0'
+
+    it "has position", ->
+      expect(screen_object.position).toEqual [ 201, 303 ]
+
+    it "has score", ->
+      expect(screen_object.score).toBeNull()
+
