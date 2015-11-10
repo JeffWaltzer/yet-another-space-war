@@ -29,8 +29,6 @@ exports.createServer= function(parameters) {
 
 
   yasw_server.on_new_websocket= function(socket) {
-    console.log("websocket connect from " + socket.remoteAddress);
-
     var ship;
     var cookies = socket.request.headers.cookie;
     var game= yasw_server.game;
@@ -89,7 +87,6 @@ exports.createServer= function(parameters) {
     var listener = http_server.listen(port, function() {if (done) done();});
     var engine_server = engine_io.attach(listener);
     engine_server.on('connection', yasw_server.on_new_websocket);
-    console.log('listen on port ' + port);
   };
 
   yasw_server.shutdown= function(done) {
