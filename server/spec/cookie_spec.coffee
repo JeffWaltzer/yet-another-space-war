@@ -19,6 +19,7 @@ describe 'session management', ->
   beforeEach ->
     server = yasw.createServer()
     fake_response = new http_mocks.createResponse()
+    fake_response._headerNames= {}
 
 
   describe 'When we do not have a session',  ->
