@@ -58,6 +58,8 @@ Before Release
     Add cookies to server/spec/ship_command_spec.coffee
       Remove cookie guard to yasw server.
     Clone should give new ship random heading and velocity.
+
+*** Probably Fixed ***
     Under load, the following error occasionally happens. Why?
         TypeError: Cannot read property 'player' of undefined
             at maybe_bump_score (/home/jmax/projects/yasw/server/src/game.js:127:15)
