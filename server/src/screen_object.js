@@ -74,6 +74,9 @@ exports.ScreenObject.prototype.dead = function() {
   return false;
 };
 
+exports.ScreenObject.prototype.score = function() {
+  return 0;
+};
 
 exports.ScreenObject.prototype.lines=function () {
   var result = [];

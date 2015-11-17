@@ -14,50 +14,16 @@ exports.Ship= function(initial_state) {
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
-  self.score= function() {
-    if (!self.player)
-      return null;
-    return self.player._score;
-  };
-
-  self.update= function(tick_rate, rotation_rate, acceleration_rate) {
-    self.heading += rotation_rate/tick_rate * self.rotation;
-    self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
-                                            heading: self.heading}));
-    exports.Ship.super_.prototype.update.call(this, tick_rate);
-  };
-
-  self.fire= function(){
-    var bullet_speed= self.game.bullet_speed;
-    var bullet_parameters= {
-      life_left: self.game.bullet_life_time,
-      position: self.gun_point().coordinates,
-      velocity: [self.velocity.x() + bullet_speed * Math.cos(self.heading),
-                 self.velocity.y() + bullet_speed * Math.sin(self.heading)],
-      ship: self
-    };
-    return self.game.add_bullet(bullet_parameters);
-  };
-
   self.ship_to_game_transform= function() {
     var rotation=            transforms.make_rotation(this.heading);
     var composite_transform= transforms.identity();
     var super_transform= screen_object.ScreenObject.prototype.ship_to_game_transform.call(this);
-    
+
     return transforms.concatenate_transforms(composite_transform,
                                              super_transform,
                                              rotation);
   };
 
-  self.gun_point= function() {
-    var transformed_point= [0,0,1];
-    transforms.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
-    return new vector.Vector(transformed_point);
-  };
-
-  self.clone= function() {
-    self.game.add_ship();
-  };
 };
 
 util.inherits(exports.Ship, screen_object.ScreenObject);
@@ -88,4 +54,48 @@ exports.Ship.prototype.on_message = function(json_message) {
   case 'clone':
     self.clone();
   }
+};
+
+
+exports.Ship.prototype.update= function(tick_rate, rotation_rate, acceleration_rate) {
+  var self = this;
+  self.heading += rotation_rate/tick_rate * self.rotation;
+  self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
+    heading: self.heading}));
+  exports.Ship.super_.prototype.update.call(this, tick_rate);
+};
+
+
+
+exports.Ship.prototype.gun_point= function() {
+  var self = this;
+  var transformed_point= [0,0,1];
+  transforms.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
+  return new vector.Vector(transformed_point);
+};
+
+
+exports.Ship.prototype.fire= function(){
+  var self=this;
+  var bullet_speed= self.game.bullet_speed;
+  var bullet_parameters= {
+    life_left: self.game.bullet_life_time,
+    position: self.gun_point().coordinates,
+    velocity: [self.velocity.x() + bullet_speed * Math.cos(self.heading),
+      self.velocity.y() + bullet_speed * Math.sin(self.heading)],
+    ship: self
+  };
+  return self.game.add_bullet(bullet_parameters);
+};
+
+exports.Ship.prototype.clone= function() {
+  this.game.add_ship();
+};
+
+
+
+this.score= function() {
+  if (!this.player)
+    return null;
+  return this.player._score;
 };

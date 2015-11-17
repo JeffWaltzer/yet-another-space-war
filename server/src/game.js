@@ -164,14 +164,17 @@ exports.Game=function(initial_state) {
   }
 
   function make_game_piece(screen_object, id) {
-    var return_value= {outline: screen_object.outline(),
-                            id: screen_object.id,
-                      position: [screen_object.position().x(),
-                                 screen_object.position().y()]};
-    if (underscore.has(screen_object, 'score'))
-      return_value.score= screen_object.score();
-    return return_value;
-  } 
+    return {
+      outline: screen_object.outline(),
+      id: screen_object.id,
+      score: screen_object.score(),
+      position: [
+        screen_object.position().x(),
+        screen_object.position().y()
+      ]
+    };
+
+  }
 
   self.game_board= function() {
     var outline_array= each_screen_object(make_game_piece);

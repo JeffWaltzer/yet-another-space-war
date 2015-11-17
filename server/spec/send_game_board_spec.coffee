@@ -65,5 +65,5 @@ describe "sending a game board when our session has a ship", ->
       expect(screen_object.position).toEqual [ 201, 303 ]
 
     it "has score", ->
-      expect(screen_object.score).toBeNull()
+      expect(screen_object.score).toEqual(0)
 
