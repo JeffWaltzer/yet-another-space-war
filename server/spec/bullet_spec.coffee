@@ -25,14 +25,17 @@ describe "bullet", ->
 describe "bullet with explicit values", ->
   the_bullet = undefined
   fake_ship = undefined
+  fake_player = undefined
 
   beforeEach ->
     the_game = new game.Game({})
+    fake_player = the_game.add_player('Britany Spears')
     fake_ship =  the_game.add_ship();
     the_bullet = new bullet.Bullet {
       position: [3, 4]
       velocity: [5, 6]
       ship: fake_ship
+      player: fake_player
     }
 
   it 'has correct position' , ->
@@ -43,5 +46,5 @@ describe "bullet with explicit values", ->
     expect(the_bullet.velocity.x()).toEqual(5)
     expect(the_bullet.velocity.y()).toEqual(6)
 
-  it 'has correct ship', ->
-    expect(the_bullet.ship()).toEqual(fake_ship)
+  it 'has correct player', ->
+    expect(the_bullet.player()).toEqual(fake_player)

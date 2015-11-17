@@ -12,12 +12,17 @@ describe 'Ship fires a bullet', ->
         field_size: new vector.Vector([900,900])
         bullet_speed: 10
 
-      the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI/4})
+      the_player =the_game.add_player('Frank Zappa')
+      the_ship = the_game.add_ship({
+        velocity: [50, 50],
+        heading: Math.PI/4,
+        player: the_player
+      })
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
       expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
-      expect(bullet.ship()).toEqual(the_ship)
+      expect(bullet.player()).toEqual(the_player)
 
   describe "bullet fired from stationary ship heading PI/4", ->
     it 'creates a bullet heading PI/4', ->
@@ -28,12 +33,14 @@ describe 'Ship fires a bullet', ->
         field_size: new vector.Vector([900,900])
         bullet_speed: 10
 
-      the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/4})
+      the_player =the_game.add_player('Frank Zappa')
+
+      the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/4, player: the_player})
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 6)
       expect(bullet.velocity.y()).toBeCloseTo( 10/Math.sqrt(2), 6)
-      expect(bullet.ship()).toEqual(the_ship)
+      expect(bullet.player()).toEqual(the_player)
 
   describe "bullet fired from stationary ship heading PI/2", ->
     it 'creates a bullet heading PI/2', ->
@@ -44,12 +51,14 @@ describe 'Ship fires a bullet', ->
         field_size: new vector.Vector([900,900])
         bullet_speed: 10
 
-      the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/2})
+      the_player =the_game.add_player('Frank Zappa')
+
+      the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/2,  player: the_player})
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo( 0, 6)
       expect(bullet.velocity.y()).toBeCloseTo( 10, 6)
-      expect(bullet.ship()).toEqual(the_ship)
+      expect(bullet.player()).toEqual(the_player)
 
 
   describe "when moving perpindicular to the direction it's pointed", ->
@@ -61,12 +70,14 @@ describe 'Ship fires a bullet', ->
         field_size: new vector.Vector([900,900])
         bullet_speed: 10
 
-      the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI*3/4})
+      the_player =the_game.add_player('Frank Zappa')
+
+      the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI*3/4,  player: the_player})
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
       expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
-      expect(bullet.ship()).toEqual(the_ship)
+      expect(bullet.player()).toEqual(the_player)
 
   describe 'with correct position', ->
     the_game=undefined
@@ -78,12 +89,16 @@ describe 'Ship fires a bullet', ->
         tick_rate: 0
         bullet_life_time: 6
       })
+
+      the_player =the_game.add_player('Frank Zappa')
+
       new_ship = the_game.add_ship({
         rotation: 0
         points: [[-10,10],[20, 0],[-10,-10],[0,0]]
         heading: 0
         position: [100,100]
-        gun_point: [21,0]
+        gun_point: [21,0],
+        player: the_player,
       })
       new_bullet = new_ship.fire()
 
