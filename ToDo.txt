@@ -28,7 +28,7 @@ Add visual indication of focus on gamefield.
 Simplify fire client specs to not pay attention to key state.
 Simplify fire server specs.
 Prevent ship from receiving commands after death
-
+Stop losing track of player's ship on screen object removal (not sure of trigger condition).
 
 Session Managment
     Handle websocket disconnects (end user's session?)
