@@ -31,7 +31,7 @@ exports.Game=function(initial_state) {
   self.connect_ship= function(player_id, ship) {
     var the_player= this.players[player_id];
     the_player.ship= ship;
-    ship.player= the_player;
+    ship.player(the_player);
   };
 
   self.add_screen_object= function(new_screen_object) {
@@ -144,8 +144,8 @@ exports.Game=function(initial_state) {
     self.screen_objects = underscore.difference(self.screen_objects, to_remove);
 
     underscore.each(to_remove, function(screen_object) {
-      if (screen_object.player)
-        screen_object.player.ship = null;
+      if (screen_object.player())
+        screen_object.player().ship = null;
     });
   };
 

@@ -11,6 +11,11 @@ exports.Bullet = function(initial_state) {
 
   self.life_left = initial_state.life_left || 0;
 
+  self._player= initial_state.player;
+  self.player= function() {
+    return self._player;
+  };
+
   if (initial_state.velocity) {
     self.velocity = new vector.Vector(
       initial_state.velocity);
@@ -21,10 +26,6 @@ exports.Bullet = function(initial_state) {
       self._ship = new_value;
     }
     return self._ship;
-  };
-
-  self.player = function() {
-    return self.ship() && self.ship().player;
   };
 
   self.is_bullet = function() {

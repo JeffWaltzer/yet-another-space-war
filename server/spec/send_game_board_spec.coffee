@@ -37,7 +37,10 @@ describe "sending a game board when our session has a ship", ->
     game= new Game()
     the_player= game.add_player('session_id')
     the_player.socket= fake_socket;
-    the_player.ship = game.add_ship(position: [201,303])
+    the_player.ship = game.add_ship(
+      player: the_player,
+      position: [201,303]
+    )
 
     game.send_game_board(game.game_board())
 
