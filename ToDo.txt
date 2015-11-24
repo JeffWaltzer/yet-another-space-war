@@ -27,7 +27,7 @@ Force focus to gamefield on reload.
 Add visual indication of focus on gamefield.
 Simplify fire client specs to not pay attention to key state.
 Simplify fire server specs.
-
+Prevent ship from receiving commands after death
 
 
 Session Managment
