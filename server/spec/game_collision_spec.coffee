@@ -109,3 +109,6 @@ describe "A bullet fired from ship A colliding with ship B", ->
 
   it "removes the ship from player B", ->
     expect(player_b.ship).toBeNull()
+
+  it "removes player B from the ship", ->
+    expect(ship_b.player()).toBeNull()
