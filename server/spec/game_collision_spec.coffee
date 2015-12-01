@@ -101,11 +101,17 @@ describe "A bullet fired from ship A colliding with ship B", ->
 
     the_game.handle_collisions()
 
-  it "increments ship A's score", ->
+  it "increments player A's score", ->
     expect(player_a._score).toEqual(1)
 
-  it "doesn't increment ship B's score", ->
+  it "doesn't increment player B's score", ->
     expect(player_b._score).toEqual(0)
+
+  it "doesn't remove the ship from player A", ->
+    expect(player_a.ship).not.toBeNull()
+
+  it "doesn't remove player A from the ship", ->
+    expect(ship_a.player()).not.toBeNull()
 
   it "removes the ship from player B", ->
     expect(player_b.ship).toBeNull()

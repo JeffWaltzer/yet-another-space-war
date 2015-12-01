@@ -146,8 +146,10 @@ exports.Game=function(initial_state) {
     underscore.each(to_remove, function(screen_object) {
       if (screen_object.player()) {
         var the_player= screen_object.player();
-        the_player.ship= null;
-        screen_object.player(null);
+        if (screen_object === the_player.ship) {
+          the_player.ship = null;
+          screen_object.player(null);
+        }
       }
     });
   };
@@ -166,7 +168,7 @@ exports.Game=function(initial_state) {
     remove_dead_objects();
   }
 
-  function make_game_piece(screen_object, id) {
+  function make_game_piece(screen_object) {
     return {
       outline: screen_object.outline(),
       id: screen_object.id,
