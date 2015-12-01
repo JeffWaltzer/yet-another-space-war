@@ -13,7 +13,6 @@ exports.Ship= function(initial_state) {
   self.heading= initial_state.heading ||0;
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
-  self._player= initial_state.player;
 
   self.ship_to_game_transform= function() {
     var rotation=            transforms.make_rotation(this.heading);
@@ -92,12 +91,6 @@ exports.Ship.prototype.fire= function(){
 
 exports.Ship.prototype.clone= function() {
   this.game.add_ship();
-};
-
-exports.Ship.prototype.player= function(new_value) {
-  if (new_value !== undefined)
-    this._player= new_value;
-  return this._player;
 };
 
 exports.Ship.prototype.score= function() {

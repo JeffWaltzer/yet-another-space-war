@@ -8,6 +8,8 @@ exports.ScreenObject = function(initial_state) {
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.debug= initial_state.debug || false;
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
+  this._player= initial_state.player;
+
 
   this.update_outline();
 
@@ -90,3 +92,8 @@ exports.ScreenObject.prototype.lines=function () {
   return result;
 };
 
+exports.ScreenObject.prototype.player= function(new_value) {
+  if (new_value !== undefined)
+    this._player= new_value;
+  return this._player;
+};
