@@ -30,6 +30,7 @@ exports.createServer= function(parameters) {
 
   yasw_server.on_new_websocket= function(socket) {
     var ship;
+    var player;
     var cookies = socket.request.headers.cookie;
     var game= yasw_server.game;
     var session_id;
@@ -37,7 +38,8 @@ exports.createServer= function(parameters) {
       session_id = cookies.split('=')[1];
       if(session_id) {
         game.connect_socket(session_id, socket);
-        ship= game.players[session_id].ship  ||  game.add_ship();
+        player = game.players[session_id];
+        ship = player.ship  ||  game.add_ship();
         game.connect_ship(session_id, ship);
       }
       else {
@@ -47,8 +49,8 @@ exports.createServer= function(parameters) {
     else {
       ship = game.add_ship();
     }
-
-    socket.on('message', underscore.bind(ship.on_message, ship));
+    if (player)
+      socket.on('message', underscore.bind(player.on_message, player));
     return ship;
   };
 
