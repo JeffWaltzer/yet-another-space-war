@@ -27,28 +27,22 @@ exports.createServer= function(parameters) {
   yasw_server.game= new game.Game(yasw_server);
   yasw_server.game.start_ticking(yasw_server.tick_rate);
 
+  yasw_server.socket_cookies= function(socket) {
+    return socket.request.headers.cookie;
+  };
 
   yasw_server.on_new_websocket= function(socket) {
     var ship;
-    var cookies = socket.request.headers.cookie;
+    var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
     var session_id;
-    if(cookies) {
-      session_id = cookies.split('=')[1];
-      if(session_id) {
-        game.connect_socket(session_id, socket);
-        ship= game.players[session_id].ship  ||  game.add_ship();
-        game.connect_ship(session_id, ship);
-      }
-      else {
-        ship = game.add_ship();
-      }
-    }
-    else {
-      ship = game.add_ship();
-    }
+    session_id = cookies.split('=')[1];
+    game.connect_socket(session_id, socket);
+    ship= game.players[session_id].ship  ||  game.add_ship();
+    game.connect_ship(session_id, ship);
 
     socket.on('message', underscore.bind(ship.on_message, ship));
+
     return ship;
   };
 
@@ -119,3 +113,4 @@ exports.createServer= function(parameters) {
 
   return yasw_server;
 };
+
