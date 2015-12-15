@@ -38,10 +38,12 @@ exports.createServer= function(parameters) {
     var session_id;
     session_id = cookies.split('=')[1];
     game.connect_socket(session_id, socket);
-    ship= game.players[session_id].ship  ||  game.add_ship();
+    var player = game.players[session_id];
+
+    ship= player.ship  ||  game.add_ship();
     game.connect_ship(session_id, ship);
 
-    socket.on('message', underscore.bind(ship.on_message, ship));
+    socket.on('message', underscore.bind(player.on_message, player));
 
     return ship;
   };

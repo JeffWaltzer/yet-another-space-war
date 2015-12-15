@@ -1,5 +1,6 @@
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
+player = require './../../src/player'
 
 describe "connecting to the server", ->
   server= undefined
@@ -13,7 +14,7 @@ describe "connecting to the server", ->
     fake_socket.on= ->
     fake_socket.request =
       headers: {"cookie": "yasw_game_id=0.5468260888010263" }
-    server.game.players['0.5468260888010263']= {}
+    server.game.players['0.5468260888010263']= new player.Player();
     server.on_new_websocket(fake_socket)
 
   it "calls server#add_screen_object", ->
@@ -45,7 +46,7 @@ describe "connecting to the server twice", ->
       server.on_new_websocket(fake_socket)
       fake_socket
 
-    server.game.players['0.5468260888010263'] = {}
+    server.game.players['0.5468260888010263'] = new player.Player();
     socket1=create_fake_socket()
     socket2=create_fake_socket()
 
