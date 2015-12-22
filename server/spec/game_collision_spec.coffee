@@ -2,6 +2,7 @@ bullet = require './../../src/bullet'
 ship = require './../../src/ship'
 game = require './../../src/game'
 vector = require './../../src/vector'
+math_util= require './../../src/math_util'
 
 describe 'bullet and ship', ->
   the_ship = null
@@ -18,7 +19,7 @@ describe 'bullet and ship', ->
     the_bullet = the_game.add_bullet {
       position: [-10, 10]
     }
-    expect(game.collided(the_ship, the_bullet)).toBeTruthy()
+    expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
   it 'collide if bullet completely inside ship', ->
     the_ship =  the_game.add_ship(
@@ -27,7 +28,7 @@ describe 'bullet and ship', ->
     the_bullet = the_game.add_bullet {
       position: [5, 0]
     }
-    expect(game.collided(the_ship, the_bullet)).toBeTruthy()
+    expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
   it 'do not collide if at different points', ->
     the_ship =  the_game.add_ship(
@@ -36,12 +37,12 @@ describe 'bullet and ship', ->
     the_bullet = the_game.add_bullet {
       position: [10, 20]
     }
-    expect(game.collided(the_ship, the_bullet)).toBeFalsy()
+    expect(math_util.collided(the_ship, the_bullet)).toBeFalsy()
 
   it 'other', ->
     the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
     the_bullet = the_game.add_bullet({points: [[1, 1],[3,1],[3,3],[1,3]]})
-    expect(game.collided(the_ship, the_bullet)).toBeTruthy()
+    expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
 describe 'single ship collides with', ->
   the_ship = null
