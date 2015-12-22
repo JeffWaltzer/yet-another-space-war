@@ -35,31 +35,31 @@ exports.createServer= function(parameters) {
     var ship;
     var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
-    var session_id;
-    session_id = cookies.split('=')[1];
-    game.connect_socket(session_id, socket);
-    var player = game.players[session_id];
+    var player_id;
+    player_id = cookies.split('=')[1];
+    game.connect_socket(player_id, socket);
+    var player = game.players[player_id];
 
     ship= player.ship  ||  game.add_ship();
-    game.connect_ship(session_id, ship);
+    game.connect_ship(player_id, ship);
 
     socket.on('message', underscore.bind(player.on_message, player));
 
     return ship;
   };
 
-  yasw_server.make_session_id= function() {
+  yasw_server.make_player_id= function() {
     return Math.random();
   };
 
   yasw_server.on_connect= function(request, response) {
     var cookies= new Cookies(request,response);
-    var session_id= cookies.get('yasw_game_id');
+    var player_id= cookies.get('yasw_game_id');
     
-    if (!session_id || !this.game.players[session_id]) {
-      session_id= yasw_server.make_session_id();
-      cookies.set('yasw_game_id', session_id);
-      this.game.add_player(session_id);
+    if (!player_id || !this.game.players[player_id]) {
+      player_id= yasw_server.make_player_id();
+      cookies.set('yasw_game_id', player_id);
+      this.game.add_player(player_id);
     }
   };
 

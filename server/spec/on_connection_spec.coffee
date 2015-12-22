@@ -23,7 +23,7 @@ describe "connecting to the server", ->
   it 'associates ship with socket' , ->
     expect(server.game.players['0.5468260888010263'].ship).toBeDefined();
 
-  it 'creates a session', ->
+  it 'creates a player', ->
     expect(server.game.players['0.5468260888010263'].socket).toEqual fake_socket
 
 
@@ -59,5 +59,5 @@ describe "connecting to the server twice", ->
   it 'associates ship with socket' , ->
     expect(server.game.players['0.5468260888010263'].ship).toBeDefined();
 
-  it 'creates a session', ->
+  it 'creates a player', ->
     expect(server.game.players['0.5468260888010263'].socket).toEqual socket2

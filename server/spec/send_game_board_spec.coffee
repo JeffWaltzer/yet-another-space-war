@@ -1,6 +1,6 @@
 Game= require('../../src/game').Game
 
-describe "sending a game board when our session doesn't have a ship", ->
+describe "sending a game board when our player doesn't have a ship", ->
   message= null
   game= null
   fake_socket= null
@@ -12,8 +12,8 @@ describe "sending a game board when our session doesn't have a ship", ->
         sent_data= JSON.parse(data)
 
     game= new Game()
-    the_session= game.add_player('session_id')
-    the_session.socket= fake_socket;
+    the_player= game.add_player('player_id')
+    the_player.socket= fake_socket;
     game.send_game_board({})
 
   it "doesn't send a 'you' item in the message", ->
@@ -22,7 +22,7 @@ describe "sending a game board when our session doesn't have a ship", ->
   it "has screen objects", ->
     expect(sent_data.screen_objects).toEqual([]);
 
-describe "sending a game board when our session has a ship", ->
+describe "sending a game board when our player has a ship", ->
   message= null
   game= null
   fake_socket= null
@@ -35,7 +35,7 @@ describe "sending a game board when our session has a ship", ->
         sent_data= JSON.parse(data)
 
     game= new Game()
-    the_player= game.add_player('session_id')
+    the_player= game.add_player('player_id')
     the_player.socket= fake_socket;
     the_player.ship = game.add_ship(
       player: the_player,

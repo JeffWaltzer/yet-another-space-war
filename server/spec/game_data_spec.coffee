@@ -91,7 +91,7 @@ check_header= (page_name, header_name, expected_header_value) ->
 
     beforeEach ->
       server= yasw.createServer()
-      spyOn(server, 'make_session_id').andReturn('foo');
+      spyOn(server, 'make_player_id').andReturn('foo');
 
     it "should respond with the '#{header_name}' header set to '#{expected_header_value}'", (done) ->
       fake_request= {
