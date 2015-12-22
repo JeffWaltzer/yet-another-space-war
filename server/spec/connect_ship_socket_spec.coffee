@@ -12,7 +12,7 @@ describe "ship#outline" , ->
       send: ->
       on: (message, callback) ->
         on_message_callback = callback
-      request: {headers: {cookie: "yasw_session_id=1"}}
+      request: {headers: {cookie: "yasw_player_id=1"}}
 
     server= yasw.createServer()
     server.game.add_player('1');
