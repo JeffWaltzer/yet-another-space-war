@@ -7,7 +7,6 @@ describe 'default game settings', ->
   game = undefined
   settings=[
     'bullet_life_time'
-    'field_size'
     'bullet_speed'
   ]
 
@@ -18,3 +17,6 @@ describe 'default game settings', ->
   _(settings).each (parameter) ->
     it "gets #{parameter} from the server", ->
       expect(game[parameter]).toEqual(yasw_server[parameter])
+
+  it "gets field_size from the server", ->
+    expect(game.field_size()).toEqual(yasw_server.field_size)

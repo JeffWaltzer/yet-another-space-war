@@ -16,8 +16,8 @@ describe 'creating a ship', ->
       the_ship= the_game.add_ship()
 
     it 'puts the ship at a random position', ->
-      expect(the_ship.position().x()).toEqual(Math.round(0.5  * the_game.field_size.x()))
-      expect(the_ship.position().y()).toEqual(Math.round(0.75 * the_game.field_size.y()))
+      expect(the_ship.position().x()).toEqual(Math.round(0.5  * the_game.field_size().x()))
+      expect(the_ship.position().y()).toEqual(Math.round(0.75 * the_game.field_size().y()))
 
   describe 'does not place a new ship on top of an existing ship', ->
     first_ship= undefined
@@ -33,8 +33,8 @@ describe 'creating a ship', ->
       second_ship= the_game.add_ship()
 
     it 'puts the ship at a third position', ->
-      expect(second_ship.position().x()).toEqual(Math.round(0.1  * the_game.field_size.x()))
-      expect(second_ship.position().y()).toEqual(Math.round(0.2 * the_game.field_size.y()))
+      expect(second_ship.position().x()).toEqual(Math.round(0.1  * the_game.field_size().x()))
+      expect(second_ship.position().y()).toEqual(Math.round(0.2 * the_game.field_size().y()))
 
   describe 'at a specified location', ->
     the_ship= undefined

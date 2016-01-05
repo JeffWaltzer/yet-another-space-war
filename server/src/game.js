@@ -4,13 +4,14 @@ var bullet=require('./bullet');
 var vector=require('./vector');
 var Player= require('./player').Player;
 var MathUtil= require('./math_util');
+var GameField = require('./game_field').GameField;
 
 exports.Game=function(initial_state) {
   var self = this;
   if (!initial_state)
     initial_state= {};
 
-  self.field_size = initial_state.field_size || new vector.Vector([800,600]);
+  self._field_size = initial_state.field_size || new vector.Vector([800,600]);
   self.bullet_speed= initial_state.bullet_speed || 7;
 
   self.bullet_life_time = initial_state.bullet_life_time || 3;
@@ -169,10 +170,14 @@ exports.Game.prototype.add_screen_object= function(new_screen_object) {
   return new_screen_object;
 };
 
+exports.Game.prototype.field_size = function() {
+  return this._field_size;
+};
+
 exports.Game.prototype.random_position = function() {
   return [
-    this.field_size.x() * Math.random(),
-    this.field_size.y() * Math.random()
+    this.field_size().x() * Math.random(),
+    this.field_size().y() * Math.random()
   ];
 };
 
