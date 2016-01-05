@@ -11,7 +11,7 @@ exports.Game=function(initial_state) {
   if (!initial_state)
     initial_state= {};
 
-  self._field_size = initial_state.field_size || new vector.Vector([800,600]);
+  self.game_field= new GameField(initial_state);
   self.bullet_speed= initial_state.bullet_speed || 7;
 
   self.bullet_life_time = initial_state.bullet_life_time || 3;
@@ -171,7 +171,7 @@ exports.Game.prototype.add_screen_object= function(new_screen_object) {
 };
 
 exports.Game.prototype.field_size = function() {
-  return this._field_size;
+  return this.game_field.field_size();
 };
 
 exports.Game.prototype.random_position = function() {
