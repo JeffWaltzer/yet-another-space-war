@@ -15,23 +15,16 @@ exports.Game=function(initial_state) {
   self.bullet_speed= initial_state.bullet_speed || 7;
 
   self.bullet_life_time = initial_state.bullet_life_time || 3;
+  self.tick_rate= initial_state.tick_rate;
+
+  self.ship_rotation_rate= initial_state.ship_rotation_rate;
+  self.acceleration_rate= initial_state.acceleration_rate;
 
   self.players= {};
   self.next_id = 0;
 
-  function each_screen_object(callback_function) {
-    return underscore.map(self.screen_objects(), callback_function);
-  }
-
   function each_player(callback_function) {
     underscore.each(self.players, callback_function);
-  }
-
-  function remove_dead_objects() {
-    self.screen_objects(underscore.filter(self.screen_objects(),
-                                          function(screen_object){
-                                            return !screen_object.dead();
-                                          }));
   }
 
   self.collisions_with= function(screenObject,start_index) {
@@ -84,20 +77,6 @@ exports.Game=function(initial_state) {
     });
   };
 
-  function update_screen_objects() {
-    each_screen_object(
-      function(screen_object) {
-        screen_object.update(
-          initial_state.tick_rate,
-          initial_state.ship_rotation_rate,
-          initial_state.acceleration_rate);
-      });
-
-    self.handle_collisions();
-
-    remove_dead_objects();
-  }
-
   function make_game_piece(screen_object) {
     return {
       outline: screen_object.outline(),
@@ -112,7 +91,7 @@ exports.Game=function(initial_state) {
   }
 
   self.game_board= function() {
-    var outline_array= each_screen_object(make_game_piece);
+    var outline_array= self.each_screen_object(make_game_piece);
     var outlines= [];
     underscore.each(outline_array, function(outline, index) {
       outlines.push(outline);
@@ -137,7 +116,7 @@ exports.Game=function(initial_state) {
   };
 
   self.tick= function() {
-    update_screen_objects();
+    self.update_screen_objects();
     self.send_game_board(self.game_board());
   };
 
@@ -145,8 +124,33 @@ exports.Game=function(initial_state) {
     if (tick_rate!==0)
       setInterval(self.tick, 1000/tick_rate);
   };
-
 };
+
+exports.Game.prototype.remove_dead_objects= function() {
+    this.screen_objects(underscore.filter(this.screen_objects(),
+                                          function(screen_object){
+                                            return !screen_object.dead();
+                                          }));
+};
+
+exports.Game.prototype.each_screen_object= function(callback_function) {
+    return underscore.map(this.screen_objects(), callback_function);
+};
+
+exports.Game.prototype.update_screen_objects= function() {
+  var self= this;
+
+  this.each_screen_object(
+      function(screen_object) {
+        screen_object.update(
+          self.tick_rate,
+          self.ship_rotation_rate,
+          self.acceleration_rate);
+      });
+
+    this.handle_collisions();
+    this.remove_dead_objects();
+  };
 
 exports.Game.prototype.screen_objects= function(new_value) {
   return this.game_field.screen_objects(new_value);
