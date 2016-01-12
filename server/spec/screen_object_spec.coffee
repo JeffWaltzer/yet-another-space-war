@@ -12,7 +12,7 @@ describe 'screen object', ->
   it 'that was deleted does not get its id reused',->
     game= new Game()
     screen_object1 = game.add_screen_object {update: ->}
-    game.screen_objects=[]
+    game.screen_objects([])
     screen_object2 = game.add_screen_object {update: ->}
 
     expect(screen_object1.id).not.toEqual(screen_object2.id)

@@ -103,7 +103,7 @@ describe 'Ship fires a bullet', ->
       new_bullet = new_ship.fire()
 
     it 'starts bullet in correct position', ->
-      expect(the_game.screen_objects[1]).toEqual(new_bullet)
+      expect(the_game.screen_objects()[1]).toEqual(new_bullet)
 
     it 'starts bullet in correct position', ->
       expect(new_bullet.position().x()).toEqual(new_ship.gun_point().x())

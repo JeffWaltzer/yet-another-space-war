@@ -70,7 +70,7 @@ describe "game#tick" , ->
     expect(bullet.life_left).toBeCloseTo(20 - 1/server.tick_rate, 6)
 
   it 'has no dead bullets', ->
-    expect(server.game.screen_objects).not.toContain(dead_bullet)
+    expect(server.game.screen_objects()).not.toContain(dead_bullet)
 
   afterEach ->
     server= null

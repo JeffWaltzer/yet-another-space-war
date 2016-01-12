@@ -17,11 +17,11 @@ exports.Game=function(initial_state) {
   self.bullet_life_time = initial_state.bullet_life_time || 3;
 
   self.players= {};
-  self.screen_objects=[];
+  self._screen_objects=[];
   self.next_id = 0;
 
   function each_screen_object(callback_function) {
-    return underscore.map(self.screen_objects, callback_function);
+    return underscore.map(self.screen_objects(), callback_function);
   }
 
   function each_player(callback_function) {
@@ -29,16 +29,17 @@ exports.Game=function(initial_state) {
   }
 
   function remove_dead_objects() {
-    self.screen_objects= underscore.filter(self.screen_objects,function(screen_object){
-      return !screen_object.dead();
-    });
+    self.screen_objects(underscore.filter(self.screen_objects(),
+                                          function(screen_object){
+                                            return !screen_object.dead();
+                                          }));
   }
 
   self.collisions_with= function(screenObject,start_index) {
     var to_remove = [];
 
-    for(var j = start_index; j< self.screen_objects.length; j++) {
-      var screenObject2 = self.screen_objects[j];
+    for(var j = start_index; j< self.screen_objects().length; j++) {
+      var screenObject2 = self.screen_objects()[j];
 
       if (screenObject2 === screenObject)
         continue;
@@ -60,8 +61,8 @@ exports.Game=function(initial_state) {
     };
 
     var to_remove = [];
-    for (var i = 0; i < self.screen_objects.length; i++) {
-      var screen_object = self.screen_objects[i];
+    for (var i = 0; i < self.screen_objects().length; i++) {
+      var screen_object = self.screen_objects()[i];
       var objects_collided_with = self.collisions_with(screen_object, i + 1);
 
       if (objects_collided_with.length > 0) {
@@ -71,7 +72,7 @@ exports.Game=function(initial_state) {
       to_remove = to_remove.concat(objects_collided_with);
     }
 
-    self.screen_objects = underscore.difference(self.screen_objects, to_remove);
+    self.screen_objects(underscore.difference(self.screen_objects(), to_remove));
 
     underscore.each(to_remove, function(screen_object) {
       if (screen_object.player()) {
@@ -148,6 +149,12 @@ exports.Game=function(initial_state) {
 
 };
 
+exports.Game.prototype.screen_objects= function(new_value) {
+  if (new_value)
+    this._screen_objects= new_value;
+  return this._screen_objects;
+};
+
 exports.Game.prototype.add_player= function(player_id) {
   var new_player= new Player();
   this.players[player_id]= new_player;
@@ -166,7 +173,7 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
 
 exports.Game.prototype.add_screen_object= function(new_screen_object) {
   new_screen_object.id=  (this.next_id++).toString();
-  this.screen_objects.push(new_screen_object);
+  this.screen_objects().push(new_screen_object);
   return new_screen_object;
 };
 
