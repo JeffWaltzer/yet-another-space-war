@@ -17,7 +17,6 @@ exports.Game=function(initial_state) {
   self.bullet_life_time = initial_state.bullet_life_time || 3;
 
   self.players= {};
-  self._screen_objects=[];
   self.next_id = 0;
 
   function each_screen_object(callback_function) {
@@ -150,9 +149,7 @@ exports.Game=function(initial_state) {
 };
 
 exports.Game.prototype.screen_objects= function(new_value) {
-  if (new_value)
-    this._screen_objects= new_value;
-  return this._screen_objects;
+  return this.game_field.screen_objects(new_value);
 };
 
 exports.Game.prototype.add_player= function(player_id) {
