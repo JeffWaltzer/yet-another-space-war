@@ -141,14 +141,10 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
   ship.player(the_player);
 };
 
-exports.Game.prototype.field_size = function() {
-  return this.game_field.field_size();
-};
-
 exports.Game.prototype.random_position = function() {
   return [
-    this.field_size().x() * Math.random(),
-    this.field_size().y() * Math.random()
+    this.game_field.field_size().x() * Math.random(),
+    this.game_field.field_size().y() * Math.random()
   ];
 };
 

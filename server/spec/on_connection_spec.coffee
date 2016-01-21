@@ -27,7 +27,6 @@ describe "connecting to the server", ->
     expect(server.game.players['0.5468260888010263'].socket).toEqual fake_socket
 
 
-
 describe "connecting to the server twice", ->
   server= undefined
   socket1= undefined

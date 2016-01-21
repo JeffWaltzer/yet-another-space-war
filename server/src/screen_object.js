@@ -68,7 +68,7 @@ exports.ScreenObject.prototype.outline= function() {
 
 exports.ScreenObject.prototype.update= function(tick_rate) {
   this._position.add_to(this.velocity.divide(tick_rate));
-  this._position.clip_to(this.game.field_size());
+  this._position.clip_to(this.game.game_field.field_size());
   this.update_outline();
 };
 

@@ -49,22 +49,22 @@ describe "Ship#update", ->
     
   describe 'when going off the screen', ->
     it 'top', ->
-      the_ship= the_game.add_ship({velocity: [0,1], position: [0, the_game.field_size().y() - 1], heading: Math.PI})
+      the_ship= the_game.add_ship({velocity: [0,1], position: [0, the_game.game_field.field_size().y() - 1], heading: Math.PI})
       the_ship.update(1, 0, 0)
       expect(the_ship.position().y()).toBeCloseTo(0)
 
     it 'bottom', ->
       the_ship= the_game.add_ship({velocity: [0,-1], position: [0, 0], heading: Math.PI})
       the_ship.update(1, 0, 0)
-      expect(the_ship.position().y()).toBeCloseTo(the_game.field_size().y() - 1)
+      expect(the_ship.position().y()).toBeCloseTo(the_game.game_field.field_size().y() - 1)
 
     it 'right', ->
-      the_ship= the_game.add_ship({debug: true, velocity: [1,0], position: [the_game.field_size().x() - 1,0], heading: Math.PI})
+      the_ship= the_game.add_ship({debug: true, velocity: [1,0], position: [the_game.game_field.field_size().x() - 1,0], heading: Math.PI})
       the_ship.update(1, 0, 0)
       expect(the_ship.position().x()).toBeCloseTo(0)
 
     it 'left', ->
       the_ship= the_game.add_ship({debug: true, velocity: [-1,0], position: [0,0], heading: Math.PI})
       the_ship.update(1, 0, 0)
-      expect(the_ship.position().x()).toBeCloseTo(the_game.field_size().x() - 1)
+      expect(the_ship.position().x()).toBeCloseTo(the_game.game_field.field_size().x() - 1)
 
