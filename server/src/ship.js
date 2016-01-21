@@ -86,7 +86,7 @@ exports.Ship.prototype.fire= function(){
     ship: self,
     player: self.player()
   };
-  return self.game.add_bullet(bullet_parameters);
+  return self.game.game_field.add_bullet(self.game,bullet_parameters);
 };
 
 exports.Ship.prototype.clone= function() {

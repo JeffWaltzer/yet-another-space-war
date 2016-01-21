@@ -9,10 +9,10 @@ describe "Ship#update", ->
 
   describe "when ship fires", ->
     it "asks game to create a bullet", ->
-      spyOn(the_game,'add_bullet')
+      spyOn(the_game.game_field,'add_bullet')
       the_ship= the_game.add_ship({velocity: [1,1], heading: Math.PI/3, acceleration: 0});
       the_ship.fire()
-      expect(the_game.add_bullet).toHaveBeenCalled()
+      expect(the_game.game_field.add_bullet).toHaveBeenCalled()
 
   describe "when there's no thrust", ->
     it "doesn't change the velocity", ->

@@ -86,7 +86,7 @@ exports.Game=function(initial_state) {
       message.you= player.ship.id;
 
     player.socket.send(JSON.stringify(message));
-  }    
+  }
 
   self.send_game_board= function(new_board) {
     this.each_player(underscore.bind(send_game_board_to_player, this, new_board));
@@ -162,9 +162,6 @@ exports.Game.prototype.add_ship = function(parameters) {
   return new_ship;
 };
 
-exports.Game.prototype.add_bullet= function(parameters) {
-  return this.game_field.add_bullet(this,parameters);
-};
 
 
 exports.Game.prototype.each_player= function(callback_function) {
