@@ -23,15 +23,11 @@ exports.Game=function(initial_state) {
   self.players= {};
   self.next_id = 0;
 
-  function each_player(callback_function) {
-    underscore.each(self.players, callback_function);
-  }
-
   self.collisions_with= function(screenObject,start_index) {
     var to_remove = [];
 
-    for(var j = start_index; j< self.screen_objects().length; j++) {
-      var screenObject2 = self.screen_objects()[j];
+    for(var j = start_index; j< self.game_field.screen_objects().length; j++) {
+      var screenObject2 = self.game_field.screen_objects()[j];
 
       if (screenObject2 === screenObject)
         continue;
@@ -53,8 +49,8 @@ exports.Game=function(initial_state) {
     };
 
     var to_remove = [];
-    for (var i = 0; i < self.screen_objects().length; i++) {
-      var screen_object = self.screen_objects()[i];
+    for (var i = 0; i < self.game_field.screen_objects().length; i++) {
+      var screen_object = self.game_field.screen_objects()[i];
       var objects_collided_with = self.collisions_with(screen_object, i + 1);
 
       if (objects_collided_with.length > 0) {
@@ -64,7 +60,7 @@ exports.Game=function(initial_state) {
       to_remove = to_remove.concat(objects_collided_with);
     }
 
-    self.screen_objects(underscore.difference(self.screen_objects(), to_remove));
+    self.game_field.screen_objects(underscore.difference(self.game_field.screen_objects(), to_remove));
 
     underscore.each(to_remove, function(screen_object) {
       if (screen_object.player()) {
@@ -91,7 +87,7 @@ exports.Game=function(initial_state) {
   }
 
   self.game_board= function() {
-    var outline_array= self.each_screen_object(make_game_piece);
+    var outline_array= this.game_field.each_screen_object(make_game_piece);
     var outlines= [];
     underscore.each(outline_array, function(outline, index) {
       outlines.push(outline);
@@ -112,7 +108,7 @@ exports.Game=function(initial_state) {
   }    
 
   self.send_game_board= function(new_board) {
-    each_player(underscore.bind(send_game_board_to_player, this, new_board));
+    this.each_player(underscore.bind(send_game_board_to_player, this, new_board));
   };
 
   self.tick= function() {
@@ -127,20 +123,16 @@ exports.Game=function(initial_state) {
 };
 
 exports.Game.prototype.remove_dead_objects= function() {
-    this.screen_objects(underscore.filter(this.screen_objects(),
+    this.game_field.screen_objects(underscore.filter(this.game_field.screen_objects(),
                                           function(screen_object){
                                             return !screen_object.dead();
                                           }));
 };
 
-exports.Game.prototype.each_screen_object= function(callback_function) {
-    return underscore.map(this.screen_objects(), callback_function);
-};
-
 exports.Game.prototype.update_screen_objects= function() {
   var self= this;
 
-  this.each_screen_object(
+  this.game_field.each_screen_object(
       function(screen_object) {
         screen_object.update(
           self.tick_rate,
@@ -174,7 +166,7 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
 
 exports.Game.prototype.add_screen_object= function(new_screen_object) {
   new_screen_object.id=  (this.next_id++).toString();
-  this.screen_objects().push(new_screen_object);
+  this.game_field.screen_objects().push(new_screen_object);
   return new_screen_object;
 };
 
@@ -232,3 +224,6 @@ exports.Game.prototype.add_bullet= function(parameters){
   return this.add_screen_object(new bullet.Bullet(defaultState));
 };
 
+exports.Game.prototype.each_player= function(callback_function) {
+  underscore.each(this.players, callback_function);
+};

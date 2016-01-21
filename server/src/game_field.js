@@ -1,5 +1,6 @@
-var vector=require('./vector');
+var underscore= require('underscore');
 
+var vector=require('./vector');
 
 
 exports.GameField = function(initial_state) {
@@ -17,3 +18,8 @@ exports.GameField.prototype.screen_objects= function(new_value) {
   return this._screen_objects;
 };
 
+
+
+exports.GameField.prototype.each_screen_object= function(callback_function) {
+  return underscore.map(this.screen_objects(), callback_function);
+};
