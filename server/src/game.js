@@ -141,13 +141,6 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
   ship.player(the_player);
 };
 
-exports.Game.prototype.random_position = function() {
-  return [
-    this.game_field.field_size().x() * Math.random(),
-    this.game_field.field_size().y() * Math.random()
-  ];
-};
-
 exports.Game.prototype.add_ship = function(parameters) {
   var defaultState = {
     game: this,
@@ -155,7 +148,7 @@ exports.Game.prototype.add_ship = function(parameters) {
     points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
     gun_point: [21,0],
     heading: 0,
-    position: this.random_position()
+    position: this.game_field.random_position()
   };
 
   if (parameters !== undefined)
@@ -164,17 +157,9 @@ exports.Game.prototype.add_ship = function(parameters) {
   var new_ship = this.game_field.add_screen_object(new ship.Ship(defaultState));
 
   if (!parameters || !parameters.position)
-    this.place_ship(new_ship);
+    this.game_field.place_ship(new_ship);
 
   return new_ship;
-};
-
-exports.Game.prototype.place_ship= function(ship) {    
-  var number_collided = this.game_field.collisions_with(ship, 0).length;
-  while (number_collided > 0) {
-    ship.position( new vector.Vector(this.random_position()));
-    number_collided = this.game_field.collisions_with(ship, 0).length;
-  }
 };
 
 exports.Game.prototype.add_bullet= function(parameters){

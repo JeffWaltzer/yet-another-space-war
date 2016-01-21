@@ -46,3 +46,19 @@ exports.GameField.prototype.add_screen_object= function(new_screen_object) {
   this.screen_objects().push(new_screen_object);
   return new_screen_object;
 };
+
+exports.GameField.prototype.random_position = function() {
+  return [
+    this.field_size().x() * Math.random(),
+    this.field_size().y() * Math.random()
+  ];
+};
+
+exports.GameField.prototype.place_ship= function(ship) {
+  var number_collided = this.collisions_with(ship, 0).length;
+  while (number_collided > 0) {
+    ship.position( new vector.Vector(this.random_position()));
+    number_collided = this.collisions_with(ship, 0).length;
+  }
+};
+
