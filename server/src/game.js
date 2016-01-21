@@ -3,7 +3,6 @@ var ship=require('./ship');
 var bullet=require('./bullet');
 var vector=require('./vector');
 var Player= require('./player').Player;
-var MathUtil= require('./math_util');
 var GameField = require('./game_field').GameField;
 
 exports.Game=function(initial_state) {
@@ -23,23 +22,6 @@ exports.Game=function(initial_state) {
   self.players= {};
   self.next_id = 0;
 
-  self.collisions_with= function(screenObject,start_index) {
-    var to_remove = [];
-
-    for(var j = start_index; j< self.game_field.screen_objects().length; j++) {
-      var screenObject2 = self.game_field.screen_objects()[j];
-
-      if (screenObject2 === screenObject)
-        continue;
-
-      var collided = MathUtil.collided(screenObject, screenObject2);
-      if(collided) {
-        to_remove.push(screenObject2);
-      }
-    }
-    return to_remove;
-  };
-
   self.handle_collisions= function() {
     var maybe_bump_score= function(screen_object, o) {
       if (screen_object.is_bullet() && !o.is_bullet() && screen_object.player())
@@ -51,7 +33,7 @@ exports.Game=function(initial_state) {
     var to_remove = [];
     for (var i = 0; i < self.game_field.screen_objects().length; i++) {
       var screen_object = self.game_field.screen_objects()[i];
-      var objects_collided_with = self.collisions_with(screen_object, i + 1);
+      var objects_collided_with = self.game_field.collisions_with(screen_object, i + 1);
 
       if (objects_collided_with.length > 0) {
         underscore.each(objects_collided_with, underscore.bind(maybe_bump_score, this, screen_object));
@@ -203,10 +185,10 @@ exports.Game.prototype.add_ship = function(parameters) {
 };
 
 exports.Game.prototype.place_ship= function(ship) {    
-  var number_collided = this.collisions_with(ship, 0).length;
+  var number_collided = this.game_field.collisions_with(ship, 0).length;
   while (number_collided > 0) {
     ship.position( new vector.Vector(this.random_position()));
-    number_collided = this.collisions_with(ship, 0).length;
+    number_collided = this.game_field.collisions_with(ship, 0).length;
   }
 };
 
