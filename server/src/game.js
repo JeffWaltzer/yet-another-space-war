@@ -141,10 +141,6 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
   ship.player(the_player);
 };
 
-exports.Game.prototype.add_screen_object= function(new_screen_object) {
-  return this.game_field.add_screen_object(new_screen_object);
-};
-
 exports.Game.prototype.field_size = function() {
   return this.game_field.field_size();
 };
@@ -169,7 +165,7 @@ exports.Game.prototype.add_ship = function(parameters) {
   if (parameters !== undefined)
     underscore.extend(defaultState ,parameters);
 
-  var new_ship = this.add_screen_object(new ship.Ship(defaultState));
+  var new_ship = this.game_field.add_screen_object(new ship.Ship(defaultState));
 
   if (!parameters || !parameters.position)
     this.place_ship(new_ship);
@@ -196,7 +192,7 @@ exports.Game.prototype.add_bullet= function(parameters){
   if (parameters !== undefined)
     underscore.extend(defaultState ,parameters);
 
-  return this.add_screen_object(new bullet.Bullet(defaultState));
+  return this.game_field.add_screen_object(new bullet.Bullet(defaultState));
 };
 
 exports.Game.prototype.each_player= function(callback_function) {

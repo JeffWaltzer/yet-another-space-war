@@ -7,7 +7,7 @@ describe "connecting to the server", ->
   fake_socket = undefined
   beforeEach ->
     server= yasw.createServer();
-    spyOn(server.game, 'add_screen_object').andCallThrough();
+    spyOn(server.game.game_field, 'add_screen_object').andCallThrough();
 
     fake_socket= {};
     fake_socket.send= ->
@@ -18,7 +18,7 @@ describe "connecting to the server", ->
     server.on_new_websocket(fake_socket)
 
   it "calls server#add_screen_object", ->
-    expect(server.game.add_screen_object).toHaveBeenCalled()
+    expect(server.game.game_field.add_screen_object).toHaveBeenCalled()
 
   it 'associates ship with socket' , ->
     expect(server.game.players['0.5468260888010263'].ship).toBeDefined();
@@ -35,7 +35,7 @@ describe "connecting to the server twice", ->
 
   beforeEach ->
     server= yasw.createServer();
-    spyOn(server.game, 'add_screen_object').andCallThrough();
+    spyOn(server.game.game_field, 'add_screen_object').andCallThrough();
 
     create_fake_socket = ->
       fake_socket = {};
@@ -54,7 +54,7 @@ describe "connecting to the server twice", ->
     expect(server.game.game_field.screen_objects.length).toEqual(1)
 
   it "calls server#add_screen_object", ->
-    expect(server.game.add_screen_object).toHaveBeenCalled()
+    expect(server.game.game_field.add_screen_object).toHaveBeenCalled()
 
   it 'associates ship with socket' , ->
     expect(server.game.players['0.5468260888010263'].ship).toBeDefined();
