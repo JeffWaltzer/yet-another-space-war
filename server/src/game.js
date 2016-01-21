@@ -125,10 +125,6 @@ exports.Game.prototype.update_screen_objects= function() {
     this.remove_dead_objects();
   };
 
-exports.Game.prototype.screen_objects= function(new_value) {
-  return this.game_field.screen_objects(new_value);
-};
-
 exports.Game.prototype.add_player= function(player_id) {
   var new_player= new Player();
   this.players[player_id]= new_player;

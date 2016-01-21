@@ -15,7 +15,7 @@ describe "game#tick when ship and bullet collide" , ->
     the_game.tick()
 
   it 'removes ship and bullet', ->
-    expect(the_game.screen_objects().length).toEqual(0)
+    expect(the_game.game_field.screen_objects().length).toEqual(0)
 
   afterEach ->
     the_game = null
