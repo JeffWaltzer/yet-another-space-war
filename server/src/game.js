@@ -20,7 +20,6 @@ exports.Game=function(initial_state) {
   self.acceleration_rate= initial_state.acceleration_rate;
 
   self.players= {};
-  self.next_id = 0;
 
   self.handle_collisions= function() {
     var maybe_bump_score= function(screen_object, o) {
@@ -147,9 +146,7 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
 };
 
 exports.Game.prototype.add_screen_object= function(new_screen_object) {
-  new_screen_object.id=  (this.next_id++).toString();
-  this.game_field.screen_objects().push(new_screen_object);
-  return new_screen_object;
+  return this.game_field.add_screen_object(new_screen_object);
 };
 
 exports.Game.prototype.field_size = function() {

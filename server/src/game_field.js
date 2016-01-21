@@ -7,6 +7,7 @@ var vector=require('./vector');
 exports.GameField = function(initial_state) {
   this._field_size = initial_state.field_size || new vector.Vector([800,600]);
   this._screen_objects=[];
+  this.next_id = 0;
 };
 
 exports.GameField.prototype.field_size = function () {
@@ -38,4 +39,10 @@ exports.GameField.prototype.collisions_with= function(screenObject,start_index) 
     }
   }
   return to_remove;
+};
+
+exports.GameField.prototype.add_screen_object= function(new_screen_object) {
+  new_screen_object.id=  (this.next_id++).toString();
+  this.screen_objects().push(new_screen_object);
+  return new_screen_object;
 };
