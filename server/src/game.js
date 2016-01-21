@@ -142,27 +142,8 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
 };
 
 exports.Game.prototype.add_ship = function(parameters) {
-  var defaultState = {
-    game: this,
-    rotation: 0,
-    points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
-    gun_point: [21,0],
-    heading: 0,
-    position: this.game_field.random_position()
-  };
-
-  if (parameters !== undefined)
-    underscore.extend(defaultState ,parameters);
-
-  var new_ship = this.game_field.add_screen_object(new ship.Ship(defaultState));
-
-  if (!parameters || !parameters.position)
-    this.game_field.place_ship(new_ship);
-
-  return new_ship;
+  return this.game_field.add_ship(this,parameters);
 };
-
-
 
 exports.Game.prototype.each_player= function(callback_function) {
   underscore.each(this.players, callback_function);
