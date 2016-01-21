@@ -1,5 +1,7 @@
 var underscore= require('underscore');
 
+var bullet=require('./bullet');
+
 var MathUtil= require('./math_util');
 var vector=require('./vector');
 
@@ -62,3 +64,17 @@ exports.GameField.prototype.place_ship= function(ship) {
   }
 };
 
+
+exports.GameField.prototype.add_bullet= function(game,parameters) {
+  var defaultState = {
+    game: game,
+    rotation: 0,
+    points: [[-1, -1], [-1, 1], [1, 1], [1, -1]],
+    position: [0, 0]
+  };
+
+  if (parameters !== undefined)
+    underscore.extend(defaultState ,parameters);
+
+  return this.add_screen_object(new bullet.Bullet(defaultState));
+};

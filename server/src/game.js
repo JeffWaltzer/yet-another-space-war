@@ -162,19 +162,10 @@ exports.Game.prototype.add_ship = function(parameters) {
   return new_ship;
 };
 
-exports.Game.prototype.add_bullet= function(parameters){
-  var defaultState = {
-    game: this,
-    rotation: 0,
-    points: [[-1, -1], [-1, 1], [1, 1], [1, -1]],
-    position: [0, 0]
-  };
-
-  if (parameters !== undefined)
-    underscore.extend(defaultState ,parameters);
-
-  return this.game_field.add_screen_object(new bullet.Bullet(defaultState));
+exports.Game.prototype.add_bullet= function(parameters) {
+  return this.game_field.add_bullet(this,parameters);
 };
+
 
 exports.Game.prototype.each_player= function(callback_function) {
   underscore.each(this.players, callback_function);
