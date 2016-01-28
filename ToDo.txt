@@ -69,3 +69,6 @@ Before Release
             at self.tick (/home/jmax/projects/yasw/server/src/game.js:200:5)
             at wrapper [as _onTimeout] (timers.js:258:14)
             at Timer.listOnTimeout [as ontimeout] (timers.js:110:15)
+
+
+GameSettings object for call to game_field.update_screen_objects();
