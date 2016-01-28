@@ -101,7 +101,7 @@ describe "A bullet fired from ship A colliding with ship B", ->
     the_bullet= ship_a.fire()
     the_bullet.position(ship_b.position())
 
-    the_game.handle_collisions()
+    the_game.game_field.handle_collisions()
 
   it "increments player A's score", ->
     expect(player_a._score).toEqual(1)
