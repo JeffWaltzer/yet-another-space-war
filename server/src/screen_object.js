@@ -97,3 +97,15 @@ exports.ScreenObject.prototype.player= function(new_value) {
     this._player= new_value;
   return this._player;
 };
+
+exports.ScreenObject.prototype.make_game_piece= function() {
+  return {
+    outline: this.outline(),
+    id: this.id,
+    score: this.score(),
+    position: [
+      this.position().x(),
+      this.position().y()
+    ]
+  };
+};

@@ -4,6 +4,7 @@ var bullet=require('./bullet');
 var vector=require('./vector');
 var Player= require('./player').Player;
 var GameField = require('./game_field').GameField;
+var ScreenObject= require('./screen_object').ScreenObject;
 
 exports.Game=function(initial_state) {
   var self = this;
@@ -54,21 +55,10 @@ exports.Game=function(initial_state) {
     });
   };
 
-  function make_game_piece(screen_object) {
-    return {
-      outline: screen_object.outline(),
-      id: screen_object.id,
-      score: screen_object.score(),
-      position: [
-        screen_object.position().x(),
-        screen_object.position().y()
-      ]
-    };
-
-  }
-
   self.game_board= function() {
-    var outline_array= this.game_field.each_screen_object(make_game_piece);
+    var outline_array= this.game_field.each_screen_object(function(screen_object) {
+      return screen_object.make_game_piece();
+    });
     var outlines= [];
     underscore.each(outline_array, function(outline, index) {
       outlines.push(outline);
