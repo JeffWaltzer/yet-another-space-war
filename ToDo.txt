@@ -1,6 +1,6 @@
 Add e2e test for ship commands
 Move custom matcher out of ship_transforms_spec.coffee
-Error handlers.
+Check node API for error call backs that we should implement.
 Run tests on a different port, so having the server running doesn't blow them up.
 Split server specs into e2e/unit directories.
 Figure out how to test generated SVG in client. (index.html)
@@ -12,38 +12,27 @@ Unit tests for Vector
 Change ship#gun_point to be a function.
 Review code for consistent usage of function over var
 Check for consistency of use of self vs this
-Check node API for error call backs that we should implement.
 To avoid DOS attack limit number random ship position retries.
 Seperate game coordinates from client coordinates
 Scale game field to window size (client)
 Create style guide
-Handle bullet initialization without initial state. Or does this even make sense? 
 Add code coverage tool for client side code.
 Add logging package (mostly so test runs don't natter so much :-) )
 Add html5 gamepad support
-Actually reach into old sessions and update new one (ship & socket).
 Make sure we handle multiple cookies correctly.
 Force focus to gamefield on reload.
 Add visual indication of focus on gamefield.
 Simplify fire client specs to not pay attention to key state.
 Simplify fire server specs.
-Prevent ship from receiving commands after death
-Stop losing track of player's ship on screen object removal (not sure of trigger condition).
 
 Session Managment
     Handle websocket disconnects (end user's session?)
     Handle errors on socket connect
 
-    when a connection comes in
-         if there's a session cookie
-            if there's a matching session
-               reach into the session for the ship
-               close out the ship's old socket
-               assign the new socket to the ship
-            else /* no matching session */
-                treat as if there were no session cookie
-         else
-             create a new session
+GameSettings object for call to game_field.update_screen_objects();
+Split up GameField#handle_collisions()
+Roll in Jeff's top-level Gruntfile
+Check function calls for parameter-object classes
 
 Before Release
     Add favicon.
@@ -59,16 +48,5 @@ Before Release
       Remove cookie guard to yasw server.
     Clone should give new ship random heading and velocity.
 
-*** Probably Fixed ***
-    Under load, the following error occasionally happens. Why?
-        TypeError: Cannot read property 'player' of undefined
-            at maybe_bump_score (/home/jmax/projects/yasw/server/src/game.js:127:15)
-            at Function._.each._.forEach (/home/jmax/projects/yasw/server/node_modules/underscore/underscore.js:153:9)
-            at self.handle_collisions (/home/jmax/projects/yasw/server/src/game.js:136:20)
-            at update_screen_objects (/home/jmax/projects/yasw/server/src/game.js:159:10)
-            at self.tick (/home/jmax/projects/yasw/server/src/game.js:200:5)
-            at wrapper [as _onTimeout] (timers.js:258:14)
-            at Timer.listOnTimeout [as ontimeout] (timers.js:110:15)
 
-
-GameSettings object for call to game_field.update_screen_objects();
+    
