@@ -2,6 +2,7 @@ var underscore= require('underscore');
 
 var bullet=require('./bullet');
 var ship=require('./ship');
+var ScreenObject= require('./screen_object').ScreenObject;
 
 var MathUtil= require('./math_util');
 var vector=require('./vector');
@@ -113,3 +114,10 @@ exports.GameField.prototype.game_board= function() {
     return outlines;
   };
 
+exports.GameField.prototype.remove_dead_objects= function() {
+  this.screen_objects(
+    underscore.filter(this.screen_objects(),
+                      function(screen_object) {
+                        return screen_object.live();
+                      }));
+};

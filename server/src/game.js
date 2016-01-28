@@ -72,13 +72,6 @@ exports.Game=function(initial_state) {
   };
 };
 
-exports.Game.prototype.remove_dead_objects= function() {
-    this.game_field.screen_objects(underscore.filter(this.game_field.screen_objects(),
-                                          function(screen_object){
-                                            return !screen_object.dead();
-                                          }));
-};
-
 exports.Game.prototype.update_screen_objects= function() {
   var self= this;
 
@@ -91,7 +84,7 @@ exports.Game.prototype.update_screen_objects= function() {
       });
 
     this.handle_collisions();
-    this.remove_dead_objects();
+    this.game_field.remove_dead_objects();
   };
 
 exports.Game.prototype.add_player= function(player_id) {

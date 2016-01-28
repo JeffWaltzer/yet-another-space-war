@@ -72,8 +72,8 @@ exports.ScreenObject.prototype.update= function(tick_rate) {
   this.update_outline();
 };
 
-exports.ScreenObject.prototype.dead = function() {
-  return false;
+exports.ScreenObject.prototype.live = function() {
+  return true;
 };
 
 exports.ScreenObject.prototype.score = function() {
