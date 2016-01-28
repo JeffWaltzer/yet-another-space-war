@@ -42,7 +42,7 @@ describe "sending a game board when our player has a ship", ->
       position: [201,303]
     )
 
-    game.send_game_board(game.game_board())
+    game.send_game_board(game.game_field.game_board())
 
   it "sends a 'you' item as a string", ->
     expect(typeof sent_data.you).toBe 'string'

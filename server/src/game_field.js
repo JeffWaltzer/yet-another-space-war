@@ -101,3 +101,15 @@ exports.GameField.prototype.add_ship = function(game,parameters) {
 
   return new_ship;
 };
+
+exports.GameField.prototype.game_board= function() {
+    var outline_array= this.each_screen_object(function(screen_object) {
+      return screen_object.make_game_piece();
+    });
+    var outlines= [];
+    underscore.each(outline_array, function(outline, index) {
+      outlines.push(outline);
+    });
+    return outlines;
+  };
+

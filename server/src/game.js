@@ -55,17 +55,6 @@ exports.Game=function(initial_state) {
     });
   };
 
-  self.game_board= function() {
-    var outline_array= this.game_field.each_screen_object(function(screen_object) {
-      return screen_object.make_game_piece();
-    });
-    var outlines= [];
-    underscore.each(outline_array, function(outline, index) {
-      outlines.push(outline);
-    });
-    return outlines;
-  };
-
   function send_game_board_to_player(board, player) {
     if (!player.socket)
       return;
@@ -84,7 +73,7 @@ exports.Game=function(initial_state) {
 
   self.tick= function() {
     self.update_screen_objects();
-    self.send_game_board(self.game_board());
+    self.send_game_board(self.game_field.game_board());
   };
 
   self.start_ticking= function(tick_rate) {
