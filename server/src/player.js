@@ -11,3 +11,15 @@ exports.Player.prototype.on_message = function(json_message) {
     return this.ship.on_message(json_message) ;
   return null;
 };
+
+exports.Player.prototype.send_game_board= function(board) {
+  if (!this.socket)
+    return;
+
+  var message= { screen_objects: board };
+
+  if (this.ship)
+    message.you= this.ship.id;
+
+  this.socket.send(JSON.stringify(message));
+};

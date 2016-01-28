@@ -55,20 +55,10 @@ exports.Game=function(initial_state) {
     });
   };
 
-  function send_game_board_to_player(board, player) {
-    if (!player.socket)
-      return;
-
-    var message= { screen_objects: board };
-
-    if (player.ship)
-      message.you= player.ship.id;
-
-    player.socket.send(JSON.stringify(message));
-  }
-
   self.send_game_board= function(new_board) {
-    this.each_player(underscore.bind(send_game_board_to_player, this, new_board));
+    underscore.each(this.players, function(player) {
+      player.send_game_board(new_board);
+    });
   };
 
   self.tick= function() {
@@ -122,8 +112,4 @@ exports.Game.prototype.connect_ship= function(player_id, ship) {
 
 exports.Game.prototype.add_ship = function(parameters) {
   return this.game_field.add_ship(this,parameters);
-};
-
-exports.Game.prototype.each_player= function(callback_function) {
-  underscore.each(this.players, callback_function);
 };
