@@ -13,7 +13,7 @@ custom_matchers=
           result.message= "arrays are not the same size: expected: #{expected.length}; actual: #{actual.length}";
           return result;
 
-        _.each _.zip(actual, expected), (point_pair) ->
+        underscore.each underscore.zip(actual, expected), (point_pair) ->
           expected_value= point_pair[0]
           actual_value= point_pair[1]
           if Math.abs(actual[0] - expected[0]) > 1e-6
