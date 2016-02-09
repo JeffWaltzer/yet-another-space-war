@@ -1,4 +1,0 @@
-Fix ship persistence (^R)
-    Shouldn't also clone ship (BUG!)
-Look for cleanups in game.handle_collisions()
-

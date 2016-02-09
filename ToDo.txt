@@ -41,11 +41,8 @@ Before Release
         Call underscore 'underscore' everywhere (some places it's currently '_')
     Add top level grunt to make sure a client 'grunt release' has been done before trying to run the server tests.
     Re-arrange project structure to have the client under the server directory
-    Should have same ship after page reload.
     Explosions.
     Handle multiple bullets hitting a ship.
-    Add cookies to server/spec/ship_command_spec.coffee
-      Remove cookie guard to yasw server.
     Clone should give new ship random heading and velocity.
 
 
