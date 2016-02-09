@@ -135,26 +135,7 @@ exports.GameField.prototype.update_screen_objects= function(tick_rate, ship_rota
   this.remove_dead_objects();
 };
 
-exports.GameField.prototype.handle_collisions= function() {
-  var maybe_bump_score= function(screen_object, o) {
-    if (screen_object.is_bullet() && !o.is_bullet() && screen_object.player())
-      screen_object.player().bump_score();
-    else if (o.is_bullet() && !screen_object.is_bullet() && o.player())
-      o.player().bump_score();
-  };
-
-  var to_remove = [];
-  for (var i = 0; i < this.screen_objects().length; i++) {
-    var screen_object = this.screen_objects()[i];
-    var objects_collided_with = this.collisions_with(screen_object, i + 1);
-
-    if (objects_collided_with.length > 0) {
-      underscore.each(objects_collided_with, underscore.bind(maybe_bump_score, this, screen_object));
-      to_remove.push(screen_object);
-    }
-    to_remove = to_remove.concat(objects_collided_with);
-  }
-
+exports.GameField.prototype.remove_screen_objects= function(to_remove) {
   this.screen_objects(underscore.difference(this.screen_objects(), to_remove));
 
   underscore.each(to_remove, function(screen_object) {
@@ -166,5 +147,33 @@ exports.GameField.prototype.handle_collisions= function() {
       }
     }
   });
+};
+
+exports.GameField.prototype.dead_objects= function() {
+  var to_remove = [];
+  for (var i = 0; i < this.screen_objects().length; i++) {
+    var screen_object = this.screen_objects()[i];
+    var objects_collided_with = this.collisions_with(screen_object, i + 1);
+
+    if (objects_collided_with.length > 0) {
+      underscore.each(objects_collided_with, underscore.bind(this.maybe_bump_score,
+							     this,
+							     screen_object));
+      to_remove.push(screen_object);
+    }
+    to_remove = to_remove.concat(objects_collided_with);
+  }
+  return to_remove;
+};
+
+exports.GameField.prototype.maybe_bump_score= function(screen_object, o) {
+  if (screen_object.is_bullet() && !o.is_bullet() && screen_object.player())
+    screen_object.player().bump_score();
+  else if (o.is_bullet() && !screen_object.is_bullet() && o.player())
+    o.player().bump_score();
+};
+
+exports.GameField.prototype.handle_collisions= function() {
+  this.remove_screen_objects(this.dead_objects());
 };
 
