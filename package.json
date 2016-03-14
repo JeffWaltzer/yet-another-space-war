@@ -1,7 +1,7 @@
 {"scripts":
   {
     "install":"cd server && npm install",
-    "test": "cd server && grunt --stack"
+    "test": "./testme.sh"
   }
 }
 
