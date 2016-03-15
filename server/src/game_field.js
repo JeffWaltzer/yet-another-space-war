@@ -149,6 +149,10 @@ exports.GameField.prototype.remove_screen_objects= function(to_remove) {
   });
 };
 
+exports.GameField.prototype.remove_screen_object= function(to_remove) {
+  this.screen_objects(underscore.difference(this.screen_objects(), [to_remove]));
+};
+
 exports.GameField.prototype.dead_objects= function() {
   var to_remove = [];
   for (var i = 0; i < this.screen_objects().length; i++) {
