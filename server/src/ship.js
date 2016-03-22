@@ -103,3 +103,7 @@ exports.Ship.prototype.score= function() {
     return null;
   return this.player()._score;
 };
+
+exports.Ship.prototype.explode= function() {
+    this.game.game_field.remove_screen_object(this);
+};

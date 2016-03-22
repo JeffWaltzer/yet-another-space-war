@@ -109,3 +109,7 @@ exports.ScreenObject.prototype.make_game_piece= function() {
     ]
   };
 };
+
+exports.ScreenObject.prototype.isFragment= function() {
+    return false;
+};
