@@ -173,6 +173,8 @@ exports.GameField.prototype.dead_objects= function() {
   return to_remove;
 };
 
+
+
 exports.GameField.prototype.maybe_bump_score= function(screen_object, o) {
   if (screen_object.is_bullet() && !o.is_bullet() && screen_object.player())
     screen_object.player().bump_score();
