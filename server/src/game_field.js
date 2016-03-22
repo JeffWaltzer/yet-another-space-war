@@ -82,7 +82,7 @@ exports.GameField.prototype.add_bullet= function(game,parameters) {
 };
 
 
-exports.GameField.prototype.add_ship = function(game,parameters) {
+exports.GameField.prototype.add_ship = function(game, parameters) {
   var defaultState = {
     game: game,
     rotation: 0,
@@ -101,6 +101,19 @@ exports.GameField.prototype.add_ship = function(game,parameters) {
     this.place_ship(new_ship);
 
   return new_ship;
+};
+
+exports.GameField.prototype.add_fragment = function(game, parameters) {
+    var defaultState = {
+        game: game,
+        points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
+        heading: 0,
+        position: parameters.position,
+    };
+
+    var new_ship = this.add_screen_object(new bullet.Bullet(defaultState));
+
+    return new_ship;
 };
 
 exports.GameField.prototype.game_board= function() {
@@ -132,7 +145,7 @@ exports.GameField.prototype.update_screen_objects= function(tick_rate, ship_rota
     });
 
   this.handle_collisions();
-  this.remove_dead_objects();
+  // this.remove_dead_objects();
 };
 
 exports.GameField.prototype.remove_screen_objects= function(to_remove) {
