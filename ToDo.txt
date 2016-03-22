@@ -31,7 +31,6 @@ Session Managment
 
 GameSettings object for call to game_field.update_screen_objects();
 Split up GameField#handle_collisions()
-Roll in Jeff's top-level Gruntfile
 Check function calls for parameter-object classes
 
 Before Release
@@ -46,5 +45,4 @@ Before Release
     Clone should give new ship random heading and velocity.
 
 
-    
 move custom matcher out of ship_spec.
