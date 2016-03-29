@@ -36,7 +36,17 @@ exports.createServer= function(parameters) {
     var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
     var player_id;
-    player_id = cookies.split('=')[1];
+
+    underscore.each(cookies.split(';'),
+        function(cookie) {
+          var fields= cookie.split('=');
+          var name= fields[0].trim();
+          var value= fields[1].trim();
+
+          if (name === 'yasw_player_id')
+            player_id= value;
+        });
+
     game.connect_socket(player_id, socket);
     var player = game.players[player_id];
 
@@ -54,11 +64,11 @@ exports.createServer= function(parameters) {
 
   yasw_server.on_connect= function(request, response) {
     var cookies= new Cookies(request,response);
-    var player_id= cookies.get('yasw_game_id');
+    var player_id= cookies.get('yasw_player_id');
     
     if (!player_id || !this.game.players[player_id]) {
       player_id= yasw_server.make_player_id();
-      cookies.set('yasw_game_id', player_id);
+      cookies.set('yasw_player_id', player_id);
       this.game.add_player(player_id);
     }
   };

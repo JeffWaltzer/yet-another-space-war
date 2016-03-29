@@ -13,7 +13,7 @@ describe "connecting to the server", ->
     fake_socket.send= ->
     fake_socket.on= ->
     fake_socket.request =
-      headers: {"cookie": "yasw_game_id=0.5468260888010263" }
+      headers: {"cookie": "yasw_player_id=0.5468260888010263" }
     server.game.players['0.5468260888010263']= new player.Player();
     server.on_new_websocket(fake_socket)
 
@@ -41,7 +41,7 @@ describe "connecting to the server twice", ->
       fake_socket.send = ->
       fake_socket.on = ->
       fake_socket.request =
-        headers: {"cookie": "yasw_game_id=0.5468260888010263"}
+        headers: {"cookie": "yasw_player_id=0.5468260888010263"}
       server.on_new_websocket(fake_socket)
       fake_socket
 

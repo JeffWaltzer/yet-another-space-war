@@ -62,6 +62,10 @@ exports.ScreenObject.prototype.is_bullet = function () {
   return false;
 };
 
+exports.ScreenObject.prototype.is_fragment = function () {
+  return false;
+};
+
 exports.ScreenObject.prototype.outline= function() {
   return this.outline_cache;
 };

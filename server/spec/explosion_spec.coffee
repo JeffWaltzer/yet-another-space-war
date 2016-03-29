@@ -21,7 +21,7 @@ describe "ship#explode" , ->
   it 'adds fragments', ->
     fragments= underscore.select(
       the_game.game_field.screen_objects(), (screen_object) ->
-        screen_object.isFragment())
+        screen_object.is_fragment())
     expect(fragments.length).toBeGreaterThan(0)
 
   afterEach ->

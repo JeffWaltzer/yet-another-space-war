@@ -122,7 +122,7 @@ check_content("", /Space Wars/)
 check_status("", 302);
 check_header("", "location", "/game.html");
 
-check_header("", "Set-Cookie", ['yasw_game_id=foo; path=/; httponly']);
+check_header("", "Set-Cookie", ['yasw_player_id=foo; path=/; httponly']);
 
 check_request("/game.html", "/game.html", "text/html")
 check_content("/game.html", /Space Wars/)

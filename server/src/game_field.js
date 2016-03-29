@@ -67,6 +67,14 @@ exports.GameField.prototype.place_ship= function(ship) {
 };
 
 
+exports.GameField.prototype.add_fragment= function(game,parameters) {
+  return this.add_screen_object({
+    is_fragment: function() {
+      return true;
+    }
+  });
+};
+
 exports.GameField.prototype.add_bullet= function(game,parameters) {
   var defaultState = {
     game: game,
