@@ -8,7 +8,7 @@ describe "bullet", ->
   beforeEach ->
     the_bullet = new bullet.Bullet({})
 
-  it "creates buller", ->
+  it "creates bullet", ->
     expect(the_bullet).toBeDefined()
 
   it 'has default position', ->
