@@ -2,15 +2,30 @@ Game = require( './../../src/game').Game
 screen_object = require './../../src/screen_object'
 
 describe 'screen object', ->
+  game = undefined
+  a_ship= undefined
+  a_screen_object= undefined
+
+  beforeEach ->
+    game = new Game()
+    a_screen_object= new screen_object.ScreenObject({})
+
+  it 'is not a ship', ->
+    expect(a_screen_object.is_ship()).toEqual(false)
+
+  it 'is not a bullet', ->
+    expect(a_screen_object.is_bullet()).toEqual(false)
+
+  it 'is not a fragment', ->
+    expect(a_screen_object.is_fragment()).toEqual(false)
+
   it 'have distinct ids',->
-    game= new Game()
     screen_object1 = game.game_field.add_screen_object {update: ->}
     screen_object2 = game.game_field.add_screen_object {update: ->}
 
     expect(screen_object1.id).not.toEqual(screen_object2.id)
 
   it 'that was deleted does not get its id reused',->
-    game= new Game()
     screen_object1 = game.game_field.add_screen_object {update: ->}
     game.game_field.screen_objects([])
     screen_object2 = game.game_field.add_screen_object {update: ->}

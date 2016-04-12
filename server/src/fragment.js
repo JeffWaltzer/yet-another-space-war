@@ -3,6 +3,7 @@ var screen_object= require('./screen_object');
 var util = require('util');
 
 exports.Fragment = function(initial_state) {
+  initial_state.points= initial_state.points || [[0,0],[0,1]];
   screen_object.ScreenObject.call(this, initial_state);
 
   // self.velocity = new vector.Vector([0, 0]);

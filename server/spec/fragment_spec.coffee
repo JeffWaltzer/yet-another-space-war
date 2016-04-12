@@ -21,6 +21,9 @@ describe "fragment", ->
     expect(the_fragment.position().x()).toEqual(0)
     expect(the_fragment.position().y()).toEqual(0)
 
+  it 'has a shape', ->
+    expect(the_fragment.outline().length).toBeGreaterThan(0)
+
   it 'has default age', ->
     expect(the_fragment.life_left).toEqual(0)
 

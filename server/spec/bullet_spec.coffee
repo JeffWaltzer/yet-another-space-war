@@ -9,7 +9,7 @@ describe "bullet", ->
     the_bullet = new bullet.Bullet({})
 
   it "creates bullet", ->
-    expect(the_bullet).toBeDefined()
+    expect(the_bullet.is_bullet()).toEqual(true)
 
   it 'has default position', ->
     expect(the_bullet.position().x()).toEqual(0)
