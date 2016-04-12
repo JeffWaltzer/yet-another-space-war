@@ -3,6 +3,7 @@ ship = require './../../src/ship'
 game = require './../../src/game'
 vector = require './../../src/vector'
 math_util= require './../../src/math_util'
+underscore = require 'underscore'
 
 describe 'bullet and ship', ->
   the_ship = null
@@ -120,3 +121,9 @@ describe "A bullet fired from ship A colliding with ship B", ->
 
   it "removes player B from the ship", ->
     expect(ship_b.player()).toBeNull()
+
+  it 'leaves fragments', ->
+    fragments= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
+      a_screen_object.is_fragment()
+    )
+    expect(fragments.length).toBeGreaterThan(0)
