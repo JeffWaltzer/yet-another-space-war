@@ -98,6 +98,10 @@ exports.Ship.prototype.clone= function() {
   this.game.add_ship();
 };
 
+exports.Ship.prototype.is_ship = function() {
+  return true;
+};
+
 exports.Ship.prototype.score= function() {
   if (!this.player())
     return null;

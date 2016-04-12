@@ -23,6 +23,16 @@ custom_matchers=
         result
       }
 
+describe 'ship', ->
+  the_ship = undefined
+
+  beforeEach ->
+    the_ship = new ship.Ship({})
+
+  it 'is a ship', ->
+    expect(the_ship.is_ship()).toEqual(true)
+
+
 describe "ship#outline", ->
   server= undefined
   beforeEach ->

@@ -14,6 +14,9 @@ describe "fragment", ->
   it "does not create a bullet", ->
     expect(the_fragment.is_bullet()).toBe(false);
 
+  it "does not create a ship", ->
+    expect(the_fragment.is_ship()).toBe(false);
+
   it 'has default position', ->
     expect(the_fragment.position().x()).toEqual(0)
     expect(the_fragment.position().y()).toEqual(0)
