@@ -2,6 +2,7 @@ var underscore= require('underscore');
 
 var bullet=require('./bullet');
 var ship=require('./ship');
+var Fragment= require('./fragment').Fragment;
 var ScreenObject= require('./screen_object').ScreenObject;
 
 var MathUtil= require('./math_util');
@@ -67,12 +68,16 @@ exports.GameField.prototype.place_ship= function(ship) {
 };
 
 
-exports.GameField.prototype.add_fragment= function(game,parameters) {
-  return this.add_screen_object({
-    is_fragment: function() {
-      return true;
-    }
-  });
+exports.GameField.prototype.add_fragment= function(game, parameters) {
+  var defaultState = {
+    game: game,
+    rotation: 0,
+  };
+    
+  if (parameters !== undefined)
+      underscore.extend(defaultState ,parameters);
+
+    return this.add_screen_object(new Fragment(parameters));
 };
 
 exports.GameField.prototype.add_bullet= function(game,parameters) {
@@ -126,6 +131,10 @@ exports.GameField.prototype.remove_dead_objects= function() {
   this.screen_objects(
     underscore.filter(this.screen_objects(),
                       function(screen_object) {
+                        // DEBUG
+                        if (!screen_object.live)
+                            console.log("screen object without live: ", screen_object);
+
                         return screen_object.live();
                       }));
 };
@@ -174,6 +183,9 @@ exports.GameField.prototype.dead_objects= function() {
       underscore.each(objects_collided_with, underscore.bind(this.maybe_bump_score,
 							     this,
 							     screen_object));
+      underscore.each(objects_collided_with, underscore.bind(this.maybe_explode,
+							     this,
+							     screen_object));
       to_remove.push(screen_object);
     }
     to_remove = to_remove.concat(objects_collided_with);
@@ -181,6 +193,12 @@ exports.GameField.prototype.dead_objects= function() {
   return to_remove;
 };
 
+
+
+exports.GameField.prototype.maybe_explode= function(screen_object, o) {
+    screen_object.explode();
+    o.explode();
+};
 
 
 exports.GameField.prototype.maybe_bump_score= function(screen_object, o) {

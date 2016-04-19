@@ -15,6 +15,10 @@ exports.Vector= function(coordinates) {
         else
           throw("wrong size array while initalizing Vector");
       }
+      else if (coordinates instanceof exports.Vector) {
+        self.coordinates= [coordinates.coordinates.x(),
+                           coordinates.coordinates.y()];
+      }
       else {
         if (coordinates.magnitude === undefined)
           throw("invalid argument for new Vector: missing magnitude");
@@ -27,8 +31,11 @@ exports.Vector= function(coordinates) {
         ];
       }
     }
-    else
-      throw("invalid argument for new Vector");
+    else {
+      console.log(new Error().stack);
+      console.log("invalid argument for new Vector: ", coordinates);
+      throw("invalid argument for new Vector"<);
+    }
   }
 
   var make_coordinate_accessor= function(i) {
