@@ -131,10 +131,6 @@ exports.GameField.prototype.remove_dead_objects= function() {
   this.screen_objects(
     underscore.filter(this.screen_objects(),
                       function(screen_object) {
-                        // DEBUG
-                        if (!screen_object.live)
-                            console.log("screen object without live: ", screen_object);
-
                         return screen_object.live();
                       }));
 };

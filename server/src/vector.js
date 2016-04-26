@@ -16,8 +16,8 @@ exports.Vector= function(coordinates) {
           throw("wrong size array while initalizing Vector");
       }
       else if (coordinates instanceof exports.Vector) {
-        self.coordinates= [coordinates.coordinates.x(),
-                           coordinates.coordinates.y()];
+        self.coordinates= [coordinates.x(),
+                           coordinates.y()];
       }
       else {
         if (coordinates.magnitude === undefined)
@@ -32,9 +32,7 @@ exports.Vector= function(coordinates) {
       }
     }
     else {
-      console.log(new Error().stack);
-      console.log("invalid argument for new Vector: ", coordinates);
-      throw("invalid argument for new Vector"<);
+      throw("invalid argument for new Vector");
     }
   }
 
