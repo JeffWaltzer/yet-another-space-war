@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         }
       },
       all: {specNameMatcher: 'spec/obj/*_spec.js'},
-      quick: {specNamMatcher: 'send_game_board_spec'}
+      quick: {specNamMatcher: 'spec/obj/vector_spec.js'}
     },
 
     coffee: {
