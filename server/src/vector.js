@@ -32,9 +32,7 @@ exports.Vector= function(coordinates) {
       }
     }
     else {
-      console.log(new Error().stack);
-      console.log("invalid argument for new Vector: ", coordinates);
-      throw("invalid argument for new Vector");
+        throw("invalid argument for new Vector" + (new Error().stack));
     }
   }
 

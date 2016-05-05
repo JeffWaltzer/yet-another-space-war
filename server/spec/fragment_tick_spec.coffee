@@ -47,7 +47,10 @@ describe "game#tick" , ->
     server.game.tick()
 
   it 'updates fragments', ->
-    expect(fragment.life_left).toBeCloseTo(20 - 1/server.tick_rate, 6)
+    expect(fragment.life_left).toBeCloseTo(3 - 1/server.tick_rate, 6)
+
+  it 'does not kill the live fragment', ->
+    expect(server.game.game_field.screen_objects()).toContain(fragment)
 
   it 'has no dead fragments', ->
     expect(server.game.game_field.screen_objects()).not.toContain(dead_fragment)

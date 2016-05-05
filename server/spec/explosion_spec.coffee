@@ -1,5 +1,6 @@
 game = require './../../src/game'
 ship = require './../../src/ship'
+Vector = require('./../../src/vector').Vector
 underscore = require('underscore')
 
 describe "ship#explode" , ->
@@ -14,9 +15,6 @@ describe "ship#explode" , ->
     });
 
     the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
-    # DEBUG
-    console.log "the_ship.position(): #{the_ship.position()}"
-
     the_ship.explode()
 
   it 'removes ship', ->
@@ -27,6 +25,22 @@ describe "ship#explode" , ->
       the_game.game_field.screen_objects(), (screen_object) ->
         screen_object.is_fragment())
     expect(fragments.length).toBeGreaterThan(0)
+
+  describe "a new fragment", -> 
+    fragments= undefined
+    the_fragment= undefined
+
+    beforeEach ->
+      fragments= fragments= underscore.select(
+        the_game.game_field.screen_objects(), (screen_object) ->
+          screen_object.is_fragment())
+      the_fragment= fragments[0]
+
+    it "has an x velocity of 7", ->
+      expect(the_fragment.velocity.x()).toEqual(7)
+
+    it "has a y velocity of 7", ->
+      expect(the_fragment.velocity.y()).toEqual(7)
 
   afterEach ->
     the_game = null

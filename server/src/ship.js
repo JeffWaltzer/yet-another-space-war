@@ -76,16 +76,16 @@ exports.Ship.prototype.gun_point= function() {
 
 
 exports.Ship.prototype.explode = function() {
-  // DEBUG
-  console.log("Ship#explode: this.position(): ", this.position());
-
   this.game.game_field.remove_screen_object(this);
   return [
     this.game.game_field.add_fragment(
         this.game,
-        {game: this.game, position: this.position()}
-    )
-  ];
+        {
+            game: this.game,
+            position: this.position(),
+            velocity: [7,7],
+            life_left: 3,
+        })];
 };
 
 exports.Ship.prototype.fire= function(){
