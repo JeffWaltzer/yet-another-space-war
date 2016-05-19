@@ -77,15 +77,21 @@ exports.Ship.prototype.gun_point= function() {
 
 exports.Ship.prototype.explode = function() {
   this.game.game_field.remove_screen_object(this);
-  return [
-    this.game.game_field.add_fragment(
-        this.game,
-        {
-            game: this.game,
-            position: this.position(),
-            velocity: [7,7],
-            life_left: 3,
-        })];
+    var fragments= [];
+    var number_of_fragments= Math.floor(10*Math.random() + 2);
+    for (var i= 0; i < number_of_fragments; i++) {
+        fragments.push(
+            this.game.game_field.add_fragment(
+                this.game,
+                {
+                    game: this.game,
+                    position: this.position(),
+                    velocity: [7,7],
+                    life_left: 3,
+                }
+            ));
+    }
+    return fragments;
 };
 
 exports.Ship.prototype.fire= function(){

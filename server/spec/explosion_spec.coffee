@@ -1,3 +1,4 @@
+inject_random_numbers= require('./inject_random_numbers')
 game = require './../../src/game'
 ship = require './../../src/ship'
 Vector = require('./../../src/vector').Vector
@@ -15,6 +16,7 @@ describe "ship#explode" , ->
     });
 
     the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
+    inject_random_numbers([0.1])
     the_ship.explode()
 
   it 'removes ship', ->
@@ -24,7 +26,7 @@ describe "ship#explode" , ->
     fragments= underscore.select(
       the_game.game_field.screen_objects(), (screen_object) ->
         screen_object.is_fragment())
-    expect(fragments.length).toBeGreaterThan(0)
+    expect(fragments.length).toEqual(3)
 
   describe "a new fragment", -> 
     fragments= undefined
