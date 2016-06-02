@@ -2,6 +2,7 @@ request = require 'request'
 yasw = require './../../src/yasw_server'
 http_mocks = require 'node-mocks-http'
 Cookies = require('cookies')
+Player = require('../../src/player').Player
 
 inject_random_numbers= require('./inject_random_numbers')
 
@@ -57,7 +58,7 @@ describe 'session management', ->
         encrypted: false
       }
 
-      server.game.players['Mike']={}
+      server.game.players['Mike']= new Player()
 
       server.on_connect(fake_request, fake_response)
       headers= fake_response._headers;
@@ -82,7 +83,7 @@ describe 'session management', ->
         encrypted: false
       }
 
-      server.game.players['Mike']={}
+      server.game.players['Mike']= new Player()
 
       server.on_connect(fake_request, fake_response)
       headers= fake_response._headers;
