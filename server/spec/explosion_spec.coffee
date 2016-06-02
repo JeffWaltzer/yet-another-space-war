@@ -16,7 +16,12 @@ describe "ship#explode" , ->
     });
 
     the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
-    inject_random_numbers([0.1])
+    inject_random_numbers(
+        [0.1,
+        1, 0,
+        0, 1,
+        1, 1,
+        ])
     the_ship.explode()
 
   it 'removes ship', ->
@@ -28,7 +33,7 @@ describe "ship#explode" , ->
         screen_object.is_fragment())
     expect(fragments.length).toEqual(3)
 
-  describe "a new fragment", -> 
+  describe "the first fragment", -> 
     fragments= undefined
     the_fragment= undefined
 
@@ -38,11 +43,43 @@ describe "ship#explode" , ->
           screen_object.is_fragment())
       the_fragment= fragments[0]
 
-    it "has an x velocity of 7", ->
-      expect(the_fragment.velocity.x()).toEqual(7)
+    it "has an x velocity of 15", ->
+      expect(the_fragment.velocity.x()).toEqual(15)
 
-    it "has a y velocity of 7", ->
-      expect(the_fragment.velocity.y()).toEqual(7)
+    it "has a y velocity of 15", ->
+      expect(the_fragment.velocity.y()).toEqual(0)
+
+  describe "the second fragment", -> 
+    fragments= undefined
+    the_fragment= undefined
+
+    beforeEach ->
+      fragments= fragments= underscore.select(
+        the_game.game_field.screen_objects(), (screen_object) ->
+          screen_object.is_fragment())
+      the_fragment= fragments[1]
+
+    it "has an x velocity of 15", ->
+      expect(the_fragment.velocity.x()).toEqual(0)
+
+    it "has a y velocity of 15", ->
+      expect(the_fragment.velocity.y()).toEqual(15)
+
+  describe "the third fragment", -> 
+    fragments= undefined
+    the_fragment= undefined
+
+    beforeEach ->
+      fragments= fragments= underscore.select(
+        the_game.game_field.screen_objects(), (screen_object) ->
+          screen_object.is_fragment())
+      the_fragment= fragments[2]
+
+    it "has an x velocity of 15", ->
+      expect(the_fragment.velocity.x()).toEqual(15)
+ 
+    it "has a y velocity of 15", ->
+      expect(the_fragment.velocity.y()).toEqual(15)
 
   afterEach ->
     the_game = null

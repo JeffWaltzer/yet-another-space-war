@@ -86,7 +86,8 @@ exports.Ship.prototype.explode = function() {
                 {
                     game: this.game,
                     position: this.position(),
-                    velocity: [7,7],
+                    velocity: [15 * Math.random(),
+			       15 * Math.random()],
                     life_left: 3,
                 }
             ));
