@@ -2,15 +2,23 @@ underscore = require('underscore')
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
 
-describe "server initialization", ->
-  server= undefined
-
+describe 'game tick', ->
+  game_field = undefined
   beforeEach ->
-    spyOn(global, 'setInterval');
-    server= yasw.createServer();
+    server= yasw.createServer({
+      ship_rotation_rate: 2*Math.PI # radians/s
+      tick_rate: 10                 # ticks/s
+      fragment_life_time: 20
+    })
+    game = server.game
+    game_field = game.game_field
+    game_field.add_fragment(game,{game: game, outline: [[0,0],[0,5],[5,5],[5,0]]})
+    game_field.add_fragment(game,{game: game, outline: [[2,2],[2,7],[7,7],[7,2]]})
+    game.tick()
 
-  it "arranges for game#tick to be called periodically", ->
-    expect(setInterval).toHaveBeenCalledWith(server.game.tick, 1000 / server.tick_rate)
+  it 'does not collide', ->
+    expect(game_field.screen_objects().length).toEqual(2)
+
 
 describe "game#tick" , ->
   server= undefined
