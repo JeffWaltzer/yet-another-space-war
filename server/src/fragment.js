@@ -5,7 +5,7 @@ var util = require('util');
 
 exports.Fragment = function(initial_state) {
   
-  initial_state.points= initial_state.points || [[0,0],[0,1]];
+  initial_state.points= initial_state.points || [[0, 0], [5, 0], [2.5, 4.33]];
   screen_object.ScreenObject.call(this, initial_state);
 
   this.life_left = initial_state.life_left || 3;
