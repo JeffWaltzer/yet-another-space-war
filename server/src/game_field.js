@@ -38,11 +38,15 @@ exports.GameField.prototype.collisions_with= function(screenObject,start_index) 
     if (screenObject2 === screenObject)
       continue;
 
+    if (screenObject2.ignores_collisions())
+        continue;
+
     var collided = MathUtil.collided(screenObject, screenObject2);
     if(collided) {
       to_remove.push(screenObject2);
     }
   }
+
   return to_remove;
 };
 

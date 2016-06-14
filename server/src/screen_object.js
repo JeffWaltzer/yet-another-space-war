@@ -23,6 +23,10 @@ exports.ScreenObject = function(initial_state) {
 
 };
 
+exports.ScreenObject.prototype.ignores_collisions= function() {
+    return false;
+};
+
 exports.ScreenObject.prototype.ship_to_game_transform= function() {
   return transforms.make_translation(this._position);
 };

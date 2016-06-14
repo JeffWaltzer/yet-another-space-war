@@ -25,7 +25,7 @@ describe "fragment", ->
     expect(the_fragment.outline().length).toBeGreaterThan(0)
 
   it 'has default age', ->
-    expect(the_fragment.life_left).toEqual(0)
+    expect(the_fragment.life_left).toEqual(3)
 
   it 'has default velocity', ->
     expect(the_fragment.velocity.x()).toEqual(0)

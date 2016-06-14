@@ -8,13 +8,17 @@ exports.Fragment = function(initial_state) {
   initial_state.points= initial_state.points || [[0,0],[0,1]];
   screen_object.ScreenObject.call(this, initial_state);
 
-  this.life_left = initial_state.life_left || 0;
+  this.life_left = initial_state.life_left || 3;
 };
 
 util.inherits(exports.Fragment, screen_object.ScreenObject);
 
 exports.Fragment.prototype.is_fragment = function() {
   return true;
+};
+
+exports.Fragment.prototype.ignores_collisions= function() {
+    return true;
 };
 
 exports.Fragment.prototype.update= MortalObject.update;
