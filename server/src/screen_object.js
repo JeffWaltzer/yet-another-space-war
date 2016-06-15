@@ -12,17 +12,18 @@ var ScreenObject = function(initial_state) {
     this._player= initial_state.player;
 
     this.update_outline();
-
-    this.position = function(new_value) {
-	if (typeof new_value !== 'undefined') {
-	    this._position = new_value;
-	    this.update_outline();
-	}
-	return this._position;
-    };
-
 };
 exports.ScreenObject= ScreenObject;
+
+meta.method(ScreenObject,
+	    'position',
+	    function(new_value) {
+		if (typeof new_value !== 'undefined') {
+		    this._position = new_value;
+		    this.update_outline();
+		}
+		return this._position;
+	    });
 
 meta.method(ScreenObject,
 	    'ignores_collisions',
