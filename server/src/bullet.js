@@ -19,6 +19,8 @@ util.inherits(Bullet, ScreenObject);
 
 exports.Bullet = Bullet;
 
+Bullet.mixin(MortalObject);
+
 Bullet.method('ship',
 	      function(new_value) {
 		  if(new_value) {
@@ -27,8 +29,5 @@ Bullet.method('ship',
 		  return this._ship;
 	      });
 
-Bullet.method('is_bullet', function() {return true;};
-
-Bullet.prototype.update= MortalObject.update;
-Bullet.prototype.live = MortalObject.live;
+Bullet.method('is_bullet', function() {return true;});
 
