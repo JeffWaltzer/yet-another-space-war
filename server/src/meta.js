@@ -1,6 +1,11 @@
-function method(klass, name, body) {
-    klass.prototype[name]= body;
+function method(name, body) {
+    this.prototype[name]= body;
     return body;
 }
     
-exports.method= method;
+function objectify(klass) {
+    klass.method= method;
+    return klass;
+}
+
+exports.objectify= objectify;
