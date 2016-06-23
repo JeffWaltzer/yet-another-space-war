@@ -10,19 +10,8 @@ exports.Ship= function(initial_state) {
   var self= this;
 
   self.rotation= initial_state.rotation || 0;
-  self.heading= initial_state.heading ||0;
   self.acceleration= initial_state.acceleration || 0;
   self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
-
-  self.ship_to_game_transform= function() {
-    var rotation=            transforms.make_rotation(this.heading);
-    var composite_transform= transforms.identity();
-    var super_transform= screen_object.ScreenObject.prototype.ship_to_game_transform.call(this);
-
-    return transforms.concatenate_transforms(composite_transform,
-                                             super_transform,
-                                             rotation);
-  };
 
 };
 
@@ -86,8 +75,8 @@ exports.Ship.prototype.explode = function() {
                 {
                     game: this.game,
                     position: this.position(),
-                    velocity: [15 * Math.random(),
-  			                       15 * Math.random()],
+                    velocity: [30 * Math.random() - 15,
+  			                       30 * Math.random() -15],
                     life_left: 3,
                 }
             ));
