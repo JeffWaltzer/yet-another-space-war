@@ -19,14 +19,14 @@ describe 'the server, when asked for ship data ', ->
     if init_ship
       init_ship();
 
-  check_rotation = (ship_command, expected_rotation, server, test, init_ship, done) ->
+  check_angular_velocity = (ship_command, expected_angular_velocity, server, test, init_ship, done) ->
     spyOn(server, 'socket_cookies').andReturn("yasw_player_id=0.5328")
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.game.game_field.screen_objects()[0].rotation).toEqual(expected_rotation)
+          expect(server.game.game_field.screen_objects()[0].angular_velocity).toEqual(expected_angular_velocity)
           done()
         ),50
 
@@ -67,16 +67,16 @@ describe 'the server, when asked for ship data ', ->
   it 'starts with no ships', () ->
     expect(server.game.game_field.screen_objects().length).toEqual(0)
 
-  it 'sets ship negative rotation on rotate_left', (done) ->
-    check_rotation "rotate_left", -1, server, this, null, done
+  it 'sets ship negative angular_velocity on rotate_left', (done) ->
+    check_angular_velocity "rotate_left", -server.game.ship_rotation_rate, server, this, null, done
 
-  it 'sets ship postive rotation on rotate_right', (done) ->
-    check_rotation "rotate_right", 1, server, this, null, done
+  it 'sets ship postive angular_velocity on rotate_right', (done) ->
+    check_angular_velocity "rotate_right", server.game.ship_rotation_rate, server, this, null, done
 
-  it 'sets ship no rotation on rotate_stop', (done) ->
-    set_rotation = ->
-      server.game.game_field.screen_objects()[0].rotation = 1
-    check_rotation "rotate_stop", 0, server, this, set_rotation, done
+  it 'sets ship no angular_velocity on rotate_stop', (done) ->
+    set_angular_velocity = ->
+      server.game.game_field.screen_objects()[0].angular_velocity = 1
+    check_angular_velocity "rotate_stop", 0, server, this, set_angular_velocity, done
 
   it 'sets acceleration on thrust_on', (done) ->
     check_acceleration "thrust_on", 1, server, this, null, done

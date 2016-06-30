@@ -23,13 +23,13 @@ exports.Ship.prototype.on_message = function(json_message) {
 
   switch (message.command) {
   case 'rotate_left':
-    self.rotation = -1;
+    self.angular_velocity= -this.game.ship_rotation_rate;
     break;
   case 'rotate_right':
-    self.rotation = 1;
+    self.angular_velocity= this.game.ship_rotation_rate;
     break;
   case 'rotate_stop':
-    self.rotation = 0;
+      self.angular_velocity= 0;
     break;
   case 'thrust_on':
     self.acceleration = 1;
@@ -48,10 +48,10 @@ exports.Ship.prototype.on_message = function(json_message) {
 
 exports.Ship.prototype.update= function(tick_rate, rotation_rate, acceleration_rate) {
   var self = this;
-  self.heading += rotation_rate/tick_rate * self.rotation;
+  this.heading += this.angular_velocity / tick_rate;
+  exports.Ship.super_.prototype.update.call(this, tick_rate);
   self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
     heading: self.heading}));
-  exports.Ship.super_.prototype.update.call(this, tick_rate);
 };
 
 

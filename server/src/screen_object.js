@@ -10,6 +10,7 @@ exports.ScreenObject = function(initial_state) {
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player;
   this.heading = initial_state.heading || 0;
+  this.angular_velocity = initial_state.angular_velocity || 0;
 
   this.update_outline();
 
@@ -30,11 +31,11 @@ exports.ScreenObject.prototype.ignores_collisions= function() {
 exports.ScreenObject.prototype.ship_to_game_transform= function() {
     var rotation=            transforms.make_rotation(this.heading);
     var composite_transform= transforms.identity();
-    var super_transform= transforms.make_translation(this._position);
+    var scale_and_translate_transform= transforms.make_translation(this._position);
 
     return transforms.concatenate_transforms(composite_transform,
-        super_transform,
-        rotation);
+                                             scale_and_translate_transform,
+                                             rotation);
 };
 
 exports.ScreenObject.prototype.generate_outline = function() {
