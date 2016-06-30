@@ -48,7 +48,6 @@ exports.Ship.prototype.on_message = function(json_message) {
 
 exports.Ship.prototype.update= function(tick_rate, rotation_rate, acceleration_rate) {
   var self = this;
-  this.heading += this.angular_velocity / tick_rate;
   exports.Ship.super_.prototype.update.call(this, tick_rate);
   self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
     heading: self.heading}));
@@ -75,8 +74,9 @@ exports.Ship.prototype.explode = function() {
                 {
                     game: this.game,
                     position: this.position(),
-                    velocity: [30 * Math.random() - 15,
-  			                       30 * Math.random() -15],
+                    velocity: [100 * Math.random() - 50,
+  			                       100 * Math.random() - 50],
+                    angular_velocity: 20*Math.random() - 10,
                     life_left: 3,
                 }
             ));

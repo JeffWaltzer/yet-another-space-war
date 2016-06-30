@@ -75,11 +75,10 @@ exports.GameField.prototype.place_ship= function(ship) {
 exports.GameField.prototype.add_fragment= function(game, parameters) {
   var defaultState = {
     game: game,
-    rotation: 0,
   };
     
   if (parameters !== undefined)
-      underscore.extend(defaultState ,parameters);
+      underscore.extend(defaultState, parameters);
 
     return this.add_screen_object(new Fragment(parameters));
 };
