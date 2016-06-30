@@ -1,25 +1,28 @@
-exports.Player= function() {
-  this._score= 0;
-};
+var meta= require('./meta');
 
-exports.Player.prototype.bump_score= function() {
-  this._score++;
-};
+var Player= meta.objectify(function() {
+ this._score= 0;
+});
+exports.Player= Player;
 
-exports.Player.prototype.on_message = function(json_message) {
-  if (this.ship)
-    return this.ship.on_message(json_message) ;
-  return null;
-};
+Player.method('bump_score', function() {
+    this._score++;
+});
 
-exports.Player.prototype.send_game_board= function(board) {
-  if (!this.socket)
-    return;
+Player.method('on_message', function(json_message) {
+    if (this.ship)
+	return this.ship.on_message(json_message) ;
+    return null;
+});
 
-  var message= { screen_objects: board };
+Player.method('send_game_board', function(board) {
+    if (!this.socket)
+	return;
 
-  if (this.ship)
-    message.you= this.ship.id;
+    var message= { screen_objects: board };
 
-  this.socket.send(JSON.stringify(message));
-};
+    if (this.ship)
+	message.you= this.ship.id;
+
+    this.socket.send(JSON.stringify(message));
+});

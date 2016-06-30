@@ -14,9 +14,20 @@ function add_mixin(mixin_module) {
 	    this);
 }
 
+function mk_class_accessor(name) {
+    var body= function(new_value) {
+	if (new_value !== undefined)
+	    this[name]= new_value;
+	return this[name];
+    };
+    this.prototype[name]= body;
+    return body;
+}
+
 function objectify(klass) {
     klass.methods= [];
     klass.method= mk_class_method;
+    klass.accessor= mk_class_accessor;
     klass.mixin= add_mixin;
     return klass;
 }

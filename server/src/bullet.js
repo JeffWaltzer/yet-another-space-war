@@ -15,19 +15,13 @@ var Bullet= meta.objectify(function(initial_state) {
     }
 });
 
-util.inherits(Bullet, ScreenObject);
-
 exports.Bullet = Bullet;
+
+util.inherits(Bullet, ScreenObject);
 
 Bullet.mixin(MortalObject);
 
-Bullet.method('ship',
-	      function(new_value) {
-		  if(new_value) {
-		      this._ship = new_value;
-		  }
-		  return this._ship;
-	      });
+Bullet.accessor('ship');
 
 Bullet.method('is_bullet', function() {return true;});
 
