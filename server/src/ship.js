@@ -73,8 +73,10 @@ exports.Ship.prototype.explode = function() {
           {
             game: this.game,
             position: this.position(),
-            velocity: [100 * Math.random() - 50,
-              100 * Math.random() - 50],
+            velocity: [
+              this.velocity.x() + 100 * Math.random() - 50,
+              this.velocity.y() + 100 * Math.random() - 50
+            ],
             angular_velocity: 20 * Math.random() - 10,
             life_left: 3,
           }

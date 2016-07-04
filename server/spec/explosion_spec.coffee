@@ -15,7 +15,13 @@ describe "ship#explode" , ->
       acceleration_rate: 5
     });
 
-    the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
+    the_ship = the_game.add_ship({
+        position: [0, 0],
+        points: [[1, 1], [5, 1], [5, 5], [1, 5]],
+        velocity: [5,10]
+      }
+    )
+
     inject_random_numbers(
         [0.1,
         1, 0, 0.5,
@@ -43,11 +49,11 @@ describe "ship#explode" , ->
           screen_object.is_fragment())
       the_fragment= fragments[0]
 
-    it "has an x velocity of 50", ->
-      expect(the_fragment.velocity.x()).toEqual(50)
+    it "has an x velocity of 55", ->
+      expect(the_fragment.velocity.x()).toEqual(55)
 
-    it "has a y velocity of -50", ->
-      expect(the_fragment.velocity.y()).toEqual(-50)
+    it "has a y velocity of -40", ->
+      expect(the_fragment.velocity.y()).toEqual(-40)
 
   describe "the second fragment", -> 
     fragments= undefined
@@ -59,11 +65,11 @@ describe "ship#explode" , ->
           screen_object.is_fragment())
       the_fragment= fragments[1]
 
-    it "has an x velocity of -50", ->
-      expect(the_fragment.velocity.x()).toEqual(-50)
+    it "has an x velocity of -45", ->
+      expect(the_fragment.velocity.x()).toEqual(-45)
 
-    it "has a y velocity of 50", ->
-      expect(the_fragment.velocity.y()).toEqual(50)
+    it "has a y velocity of 60", ->
+      expect(the_fragment.velocity.y()).toEqual(60)
 
   describe "the third fragment", -> 
     fragments= undefined
@@ -75,11 +81,11 @@ describe "ship#explode" , ->
           screen_object.is_fragment())
       the_fragment= fragments[2]
 
-    it "has an x velocity of 50", ->
-      expect(the_fragment.velocity.x()).toEqual(50)
+    it "has an x velocity of 55", ->
+      expect(the_fragment.velocity.x()).toEqual(55)
  
-    it "has a y velocity of 50", ->
-      expect(the_fragment.velocity.y()).toEqual(50)
+    it "has a y velocity of 40", ->
+      expect(the_fragment.velocity.y()).toEqual(60)
 
   afterEach ->
     the_game = null
