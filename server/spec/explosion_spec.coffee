@@ -23,10 +23,11 @@ describe "ship#explode" , ->
     )
 
     inject_random_numbers(
-        [0.1,
+        [0.2,
         1, 0, 0.5,
         0, 1, 0.5,
         1, 1, 0.5,
+        0, 0, 0,
         ])
     the_ship.explode()
 
@@ -37,7 +38,7 @@ describe "ship#explode" , ->
     fragments= underscore.select(
       the_game.game_field.screen_objects(), (screen_object) ->
         screen_object.is_fragment())
-    expect(fragments.length).toEqual(3)
+    expect(fragments.length).toEqual(4)
 
   describe "the first fragment", -> 
     fragments= undefined
@@ -55,6 +56,9 @@ describe "ship#explode" , ->
     it "has a y velocity of -40", ->
       expect(the_fragment.velocity.y()).toEqual(-40)
 
+    it 'has first fragment shape', ->
+      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[0])
+
   describe "the second fragment", -> 
     fragments= undefined
     the_fragment= undefined
@@ -71,7 +75,10 @@ describe "ship#explode" , ->
     it "has a y velocity of 60", ->
       expect(the_fragment.velocity.y()).toEqual(60)
 
-  describe "the third fragment", -> 
+    it 'has second fragment shape', ->
+      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[1])
+
+  describe "the third fragment", ->
     fragments= undefined
     the_fragment= undefined
 
@@ -86,6 +93,22 @@ describe "ship#explode" , ->
  
     it "has a y velocity of 40", ->
       expect(the_fragment.velocity.y()).toEqual(60)
+
+    it 'has third fragment shape', ->
+      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[2])
+
+  describe "the fourth fragment", ->
+    fragments= undefined
+    the_fragment= undefined
+
+    beforeEach ->
+      fragments= fragments= underscore.select(
+        the_game.game_field.screen_objects(), (screen_object) ->
+          screen_object.is_fragment())
+      the_fragment= fragments[3]
+
+    it 'has first fragment shape', ->
+      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[0])
 
   afterEach ->
     the_game = null

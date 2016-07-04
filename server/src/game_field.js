@@ -121,7 +121,8 @@ exports.GameField.prototype.add_ship = function(game,parameters) {
 
 exports.GameField.prototype.game_board= function() {
     var outline_array= this.each_screen_object(function(screen_object) {
-      return screen_object.make_game_piece();
+      var gamePiece = screen_object.make_game_piece();
+      return gamePiece;
     });
     var outlines= [];
     underscore.each(outline_array, function(outline, index) {
