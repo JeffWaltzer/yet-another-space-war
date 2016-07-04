@@ -5,7 +5,9 @@ describe "Ship#update", ->
   the_game = undefined
 
   beforeEach ->
-    the_game = new game.Game({});
+    the_game = new game.Game({
+      tick_rate: 20,
+    });
 
   describe "when ship fires", ->
     it "asks game to create a bullet", ->

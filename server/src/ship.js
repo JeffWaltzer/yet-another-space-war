@@ -68,20 +68,20 @@ exports.Ship.prototype.explode = function() {
     var fragments= [];
     var number_of_fragments= Math.floor(10*Math.random() + 2);
     for (var i= 0; i < number_of_fragments; i++) {
-        fragments.push(
-            this.game.game_field.add_fragment(
-                this.game,
-                {
-                    game: this.game,
-                    position: this.position(),
-                    velocity: [100 * Math.random() - 50,
-  			                       100 * Math.random() - 50],
-                    angular_velocity: 20*Math.random() - 10,
-                    life_left: 3,
-                }
-            ));
+      var fragment = this.game.game_field.add_fragment(
+          this.game,
+          {
+            game: this.game,
+            position: this.position(),
+            velocity: [100 * Math.random() - 50,
+              100 * Math.random() - 50],
+            angular_velocity: 20 * Math.random() - 10,
+            life_left: 3,
+          }
+      );
+      fragments.push(fragment);
     }
-    return fragments;
+  return fragments;
 };
 
 exports.Ship.prototype.fire= function(){
