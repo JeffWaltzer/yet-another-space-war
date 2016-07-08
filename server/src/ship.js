@@ -81,7 +81,16 @@ exports.Ship.prototype.gun_point= function() {
 exports.Ship.prototype.explode = function() {
   this.game.game_field.remove_screen_object(this);
     var fragments= [];
-    var number_of_fragments= Math.floor(10*Math.random() + 2);
+
+  var randthing = function (start, size) {
+    return Math.floor(size * Math.random() + start);
+  };
+
+  var randfloor = function (start, size) {
+    return size * Math.random() + start;
+  };
+
+  var number_of_fragments= randthing(20,60);
   var shape_index = 0;
     for (var i= 0; i < number_of_fragments; i++) {
       var fragment = this.game.game_field.add_fragment(
@@ -94,7 +103,7 @@ exports.Ship.prototype.explode = function() {
               this.velocity.y() + 100 * Math.random() - 50
             ],
             angular_velocity: 20 * Math.random() - 10,
-            life_left: 3,
+            life_left: randfloor(1,4),
             points: fragmentShapes[(shape_index++) % fragmentShapes.length]
           }
       );
