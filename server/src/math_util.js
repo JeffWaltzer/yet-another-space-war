@@ -77,3 +77,7 @@ function point_inside(object1,object2) {
 
   return (intersection_count % 2) == 1;
 }
+
+exports.random_in_range = function (lower, upper) {
+  return (upper-lower) * Math.random() + lower;
+};

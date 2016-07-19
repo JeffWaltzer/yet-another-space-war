@@ -3,6 +3,8 @@ var vector= require('./vector');
 var transforms= require('./transform');
 var screen_object = require('./screen_object');
 var util = require('util');
+var math_util = require('./math_util');
+var fragment_maker = require('./fragment_maker');
 
 exports.Ship= function(initial_state) {
   screen_object.ScreenObject.call(this, initial_state);
@@ -17,20 +19,6 @@ exports.Ship= function(initial_state) {
 
 util.inherits(exports.Ship, screen_object.ScreenObject);
 
-var shape = [[5, 0], [1.24, 3.80], [-4.85, 3.53], [-2.43, -1.76], [1.85, -2.85]];
-var fragmentShapes = [
-  underscore.map(shape, function (point) {
-    return [point[0] * 1, point[1] * 1];
-  }),
-  underscore.map(shape, function (point) {
-    return [point[0] * 3, point[1] * 2];
-  }),
-  underscore.map(shape, function (point) {
-    return [point[0] * 1, point[1] * 4];
-  })
-];
-
-exports.Ship.fragment_shapes = fragmentShapes;
 
 exports.Ship.prototype.on_message = function(json_message) {
   var self=this;
@@ -77,7 +65,7 @@ exports.Ship.prototype.gun_point= function() {
   return new vector.Vector(transformed_point);
 };
 
-exports.Ship.prototype.random_in_range = function (lower, upper) {
+var random_in_range = function (lower, upper) {
   return (upper-lower) * Math.random() + lower;
 };
 
@@ -86,19 +74,19 @@ exports.Ship.prototype.fragment_parameters = function (shape_index) {
     game: this.game,
     position: this.position(),
     velocity: [
-      this.velocity.x() + this.random_in_range(-50, 50),
-      this.velocity.y() + this.random_in_range(-50, 50)
+      this.velocity.x() + random_in_range(-50, 50),
+      this.velocity.y() + random_in_range(-50, 50)
     ],
-    angular_velocity: this.random_in_range(-10, 10),
+    angular_velocity: random_in_range(-10, 10),
     life_left: 3,
-    points: fragmentShapes[(shape_index) % fragmentShapes.length]
+    points: fragment_maker.fragment_shapes[(shape_index) % fragment_maker.fragment_shapes.length]
   };
 };
 
 exports.Ship.prototype.explode = function() {
   this.game.game_field.remove_screen_object(this);
   var fragments= [];
-  var number_of_fragments= Math.floor(this.random_in_range(2,12));
+  var number_of_fragments= Math.floor(random_in_range(2,12));
   var shape_index = 0;
     for (var i= 0; i < number_of_fragments; i++) {
       var fragment = this.game.game_field.add_fragment(

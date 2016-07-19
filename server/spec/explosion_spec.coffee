@@ -1,8 +1,10 @@
+underscore = require('underscore')
+
 inject_random_numbers= require('./inject_random_numbers')
 game = require './../../src/game'
 ship = require './../../src/ship'
 Vector = require('./../../src/vector').Vector
-underscore = require('underscore')
+fragment_maker = require './../../src/fragment_maker'
 
 describe "ship#explode" , ->
   the_game = undefined
@@ -57,7 +59,7 @@ describe "ship#explode" , ->
       expect(the_fragment.velocity.y()).toEqual(-40)
 
     it 'has first fragment shape', ->
-      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[0])
+      expect(the_fragment.outline()).toEqual(fragment_maker.fragment_shapes[0])
 
   describe "the second fragment", -> 
     fragments= undefined
@@ -76,7 +78,7 @@ describe "ship#explode" , ->
       expect(the_fragment.velocity.y()).toEqual(60)
 
     it 'has second fragment shape', ->
-      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[1])
+      expect(the_fragment.outline()).toEqual(fragment_maker.fragment_shapes[1])
 
   describe "the third fragment", ->
     fragments= undefined
@@ -95,7 +97,7 @@ describe "ship#explode" , ->
       expect(the_fragment.velocity.y()).toEqual(60)
 
     it 'has third fragment shape', ->
-      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[2])
+      expect(the_fragment.outline()).toEqual(fragment_maker.fragment_shapes[2])
 
   describe "the fourth fragment", ->
     fragments= undefined
@@ -108,7 +110,7 @@ describe "ship#explode" , ->
       the_fragment= fragments[3]
 
     it 'has first fragment shape', ->
-      expect(the_fragment.outline()).toEqual(ship.Ship.fragment_shapes[0])
+      expect(the_fragment.outline()).toEqual(fragment_maker.fragment_shapes[0])
 
   afterEach ->
     the_game = null
