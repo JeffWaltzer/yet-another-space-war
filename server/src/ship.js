@@ -77,26 +77,33 @@ exports.Ship.prototype.gun_point= function() {
   return new vector.Vector(transformed_point);
 };
 
+exports.Ship.prototype.random_in_range = function (lower, upper) {
+  return (upper-lower) * Math.random() + lower;
+};
+
+exports.Ship.prototype.fragment_parameters = function (shape_index) {
+  return {
+    game: this.game,
+    position: this.position(),
+    velocity: [
+      this.velocity.x() + this.random_in_range(-50, 50),
+      this.velocity.y() + this.random_in_range(-50, 50)
+    ],
+    angular_velocity: this.random_in_range(-10, 10),
+    life_left: 3,
+    points: fragmentShapes[(shape_index) % fragmentShapes.length]
+  };
+};
 
 exports.Ship.prototype.explode = function() {
   this.game.game_field.remove_screen_object(this);
-    var fragments= [];
-    var number_of_fragments= Math.floor(10*Math.random() + 2);
+  var fragments= [];
+  var number_of_fragments= Math.floor(this.random_in_range(2,12));
   var shape_index = 0;
     for (var i= 0; i < number_of_fragments; i++) {
       var fragment = this.game.game_field.add_fragment(
           this.game,
-          {
-            game: this.game,
-            position: this.position(),
-            velocity: [
-              this.velocity.x() + 100 * Math.random() - 50,
-              this.velocity.y() + 100 * Math.random() - 50
-            ],
-            angular_velocity: 20 * Math.random() - 10,
-            life_left: 3,
-            points: fragmentShapes[(shape_index++) % fragmentShapes.length]
-          }
+          this.fragment_parameters(shape_index++)
       );
       fragments.push(fragment);
     }
