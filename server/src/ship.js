@@ -83,19 +83,22 @@ exports.Ship.prototype.fragment_parameters = function (shape_index) {
   };
 };
 
+exports.Ship.prototype.add_fragment= function(shape_index) {
+    return this.game.game_field.add_fragment(
+        this.game,
+        this.fragment_parameters(shape_index++)
+    );
+};
+
 exports.Ship.prototype.explode = function() {
-  this.game.game_field.remove_screen_object(this);
-  var fragments= [];
-  var number_of_fragments= Math.floor(random_in_range(2,12));
-  var shape_index = 0;
+    this.game.game_field.remove_screen_object(this);
+    var fragments= [];
+    var number_of_fragments= Math.floor(random_in_range(2,12));
+    var shape_index = 0;
     for (var i= 0; i < number_of_fragments; i++) {
-      var fragment = this.game.game_field.add_fragment(
-          this.game,
-          this.fragment_parameters(shape_index++)
-      );
-      fragments.push(fragment);
+        fragments.push(this.add_fragment(shape_index++));
     }
-  return fragments;
+    return fragments;
 };
 
 exports.Ship.prototype.fire= function(){
