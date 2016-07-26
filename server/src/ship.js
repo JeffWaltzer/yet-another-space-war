@@ -90,15 +90,18 @@ exports.Ship.prototype.add_fragment= function(shape_index) {
     );
 };
 
-exports.Ship.prototype.explode = function() {
-    this.game.game_field.remove_screen_object(this);
-    var fragments= [];
+exports.Ship.prototype.add_fragments= function() {
     var number_of_fragments= Math.floor(random_in_range(2,12));
-    var shape_index = 0;
+    var fragments= [];
     for (var i= 0; i < number_of_fragments; i++) {
-        fragments.push(this.add_fragment(shape_index++));
+        fragments.push(this.add_fragment(i));
     }
     return fragments;
+};
+
+exports.Ship.prototype.explode = function() {
+    this.game.game_field.remove_screen_object(this);
+    return this.add_fragments();
 };
 
 exports.Ship.prototype.fire= function(){
