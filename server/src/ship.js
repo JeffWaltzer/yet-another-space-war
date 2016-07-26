@@ -5,6 +5,8 @@ var screen_object = require('./screen_object');
 var util = require('util');
 var math_util = require('./math_util');
 var fragment_maker = require('./fragment_maker');
+var Fragment= require('./fragment').Fragment;
+
 
 exports.Ship= function(initial_state) {
   screen_object.ScreenObject.call(this, initial_state);
@@ -84,9 +86,8 @@ exports.Ship.prototype.fragment_parameters = function (shape_index) {
 };
 
 exports.Ship.prototype.add_fragment= function(shape_index) {
-    return this.game.game_field.add_fragment(
-        this.game,
-        this.fragment_parameters(shape_index++)
+    return this.game.game_field.add_screen_object(
+        new Fragment(this.fragment_parameters(shape_index++))
     );
 };
 
