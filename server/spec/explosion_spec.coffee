@@ -109,7 +109,7 @@ describe "ship#explode" , ->
           screen_object.is_fragment())
       the_fragment= fragments[3]
 
-    it 'has first fragment shape', ->
+    xit 'has first fragment shape', ->
       expect(the_fragment.outline()).toEqual(fragment_maker.fragment_shapes[0])
 
   afterEach ->
