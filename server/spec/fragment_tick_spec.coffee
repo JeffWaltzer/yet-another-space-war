@@ -1,6 +1,7 @@
 underscore = require('underscore')
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
+Fragment = require( './../../src/fragment').Fragment
 
 describe 'game tick', ->
   game_field = undefined
@@ -12,8 +13,8 @@ describe 'game tick', ->
     })
     game = server.game
     game_field = game.game_field
-    game_field.add_fragment(game,{game: game, outline: [[0,0],[0,5],[5,5],[5,0]]})
-    game_field.add_fragment(game,{game: game, outline: [[2,2],[2,7],[7,7],[7,2]]})
+    game_field.add_screen_object(new Fragment({game: game, outline: [[0,0],[0,5],[5,5],[5,0]]}))
+    game_field.add_screen_object(new Fragment({game: game, outline: [[2,2],[2,7],[7,7],[7,2]]}))
     game.tick()
 
   it 'does not collide', ->

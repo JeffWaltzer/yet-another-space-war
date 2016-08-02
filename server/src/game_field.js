@@ -71,18 +71,6 @@ exports.GameField.prototype.place_ship= function(ship) {
   }
 };
 
-
-exports.GameField.prototype.add_fragment= function(game, parameters) {
-  var defaultState = {
-    game: game,
-  };
-    
-  if (parameters !== undefined)
-      underscore.extend(defaultState, parameters);
-
-    return this.add_screen_object(new Fragment(parameters));
-};
-
 exports.GameField.prototype.add_bullet= function(game,parameters) {
   var defaultState = {
     game: game,
