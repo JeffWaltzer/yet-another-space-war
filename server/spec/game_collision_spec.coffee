@@ -17,7 +17,8 @@ describe 'bullet and ship', ->
     the_ship =  the_game.add_ship(
       position: [0,0]
     );
-    the_bullet = the_game.game_field.add_bullet the_game,{
+    the_bullet = the_game.game_field.add_bullet {
+      game: the_game,
       position: [-10, 10]
     }
     expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
@@ -26,7 +27,8 @@ describe 'bullet and ship', ->
     the_ship =  the_game.add_ship(
       position: [0,0]
     );
-    the_bullet = the_game.game_field.add_bullet the_game,{
+    the_bullet = the_game.game_field.add_bullet {
+      game: the_game,
       position: [5, 0]
     }
     expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
@@ -35,14 +37,17 @@ describe 'bullet and ship', ->
     the_ship =  the_game.add_ship(
       position: [0,0]
     );
-    the_bullet = the_game.game_field.add_bullet the_game,{
+    the_bullet = the_game.game_field.add_bullet({
+      game:  the_game,
       position: [10, 20]
-    }
+    })
     expect(math_util.collided(the_ship, the_bullet)).toBeFalsy()
 
   it 'other', ->
     the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
-    the_bullet = the_game.game_field.add_bullet(the_game,{points: [[1, 1],[3,1],[3,3],[1,3]]})
+    the_bullet = the_game.game_field.add_bullet({
+      game: the_game,
+      points: [[1, 1],[3,1],[3,3],[1,3]]})
     expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
 describe 'single ship collides with', ->
