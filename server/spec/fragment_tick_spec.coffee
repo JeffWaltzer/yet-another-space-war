@@ -20,7 +20,6 @@ describe 'game tick', ->
   it 'does not collide', ->
     expect(game_field.screen_objects().length).toEqual(2)
 
-
 describe "game#tick" , ->
   server= undefined
   heading_change= undefined
