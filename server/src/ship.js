@@ -109,14 +109,15 @@ exports.Ship.prototype.fire= function(){
   var self=this;
   var bullet_speed= self.game.bullet_speed;
   var bullet_parameters= {
+    game: self.game,
     life_left: self.game.bullet_life_time,
     position: self.gun_point().coordinates,
     velocity: [self.velocity.x() + bullet_speed * Math.cos(self.heading),
-      self.velocity.y() + bullet_speed * Math.sin(self.heading)],
+               self.velocity.y() + bullet_speed * Math.sin(self.heading)],
     ship: self,
     player: self.player()
   };
-  return self.game.game_field.add_bullet(self.game,bullet_parameters);
+  return self.game.game_field.add_bullet(bullet_parameters);
 };
 
 exports.Ship.prototype.clone= function() {
