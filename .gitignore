@@ -5,3 +5,4 @@ client/spec/obj
 server/spec/obj
 server/public/*
 server/coverage
+report
