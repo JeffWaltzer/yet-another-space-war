@@ -67,42 +67,9 @@ exports.Ship.prototype.gun_point= function() {
   return new vector.Vector(transformed_point);
 };
 
-var random_in_range = function (lower, upper) {
-  return (upper-lower) * Math.random() + lower;
-};
-
-exports.Ship.prototype.fragment_parameters = function (shape_index) {
-  return {
-    game: this.game,
-    position: this.position(),
-    velocity: [
-      this.velocity.x() + random_in_range(-50, 50),
-      this.velocity.y() + random_in_range(-50, 50)
-    ],
-    angular_velocity: random_in_range(-10, 10),
-    life_left: 3,
-    points: fragment_maker.fragment_shapes[(shape_index) % fragment_maker.fragment_shapes.length]
-  };
-};
-
-exports.Ship.prototype.add_fragment= function(shape_index) {
-    return this.game.game_field.add_screen_object(
-        new Fragment(this.fragment_parameters(shape_index++))
-    );
-};
-
-exports.Ship.prototype.add_fragments= function() {
-    var number_of_fragments= Math.floor(random_in_range(2,12));
-    var fragments= [];
-    for (var i= 0; i < number_of_fragments; i++) {
-        fragments.push(this.add_fragment(i));
-    }
-    return fragments;
-};
-
 exports.Ship.prototype.explode = function() {
     this.game.game_field.remove_screen_object(this);
-    return this.add_fragments();
+    return fragment_maker.add_fragments(this);
 };
 
 exports.Ship.prototype.fire= function(){
