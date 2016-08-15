@@ -6,7 +6,6 @@ exports.ScreenObject = function(initial_state) {
   this.game= initial_state.game;
   this.points= initial_state.points;
   this._position = new vector.Vector(initial_state.position || [0, 0]);
-  this.debug= initial_state.debug || false;
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player;
   this.heading = initial_state.heading || 0;

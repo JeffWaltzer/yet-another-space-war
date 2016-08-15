@@ -15,9 +15,6 @@ describe "server initialization", ->
   it "sets the acceleration_rate", ->
     expect(server.acceleration_rate).toEqual(1)
 
-  it "sets the debug", ->
-    expect(server.debug).toEqual(false)
-
   it "sets the top_edge", ->
     expect(server.field_size.y()).toEqual(600)
 
