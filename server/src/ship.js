@@ -69,7 +69,7 @@ exports.Ship.prototype.gun_point= function() {
 
 exports.Ship.prototype.explode = function() {
     this.game.game_field.remove_screen_object(this);
-    return fragment_maker.add_fragments(this);
+    return fragment_maker.add_fragments(this.game.game_field, this);
 };
 
 exports.Ship.prototype.fire= function(){

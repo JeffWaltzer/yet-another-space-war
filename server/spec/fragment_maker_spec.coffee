@@ -30,7 +30,7 @@ describe 'fragment making', ->
         0, 0, 0,
       ])
 
-    fragment_maker.add_fragments(the_ship);
+    fragment_maker.add_fragments(the_ship.game.game_field, the_ship);
 
 
   describe "the first fragment", ->

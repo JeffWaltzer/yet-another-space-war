@@ -52,17 +52,17 @@ var fragment_parameters = function (ship,shape_index) {
   };
 };
 
-var add_fragment = function (ship, shape_index) {
-  return ship.game.game_field.add_screen_object(
+var add_fragment = function (game_field, ship, shape_index) {
+  return game_field.add_screen_object(
       new Fragment(fragment_parameters(ship, shape_index++))
   );
 };
 
-exports.add_fragments = function (ship) {
+exports.add_fragments = function (game_field, ship) {
   var number_of_fragments = Math.floor(math_util.random_in_range(2, 12));
   var fragments = [];
   for (var i = 0; i < number_of_fragments; i++) {
-    fragments.push(add_fragment(ship, i));
+      fragments.push(add_fragment(game_field, ship, i));
   }
   return fragments;
 };
