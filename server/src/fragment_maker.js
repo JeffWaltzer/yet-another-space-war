@@ -38,13 +38,13 @@ var fragment_shapes = [
 ];
 
 
-var fragment_parameters = function (ship,shape_index) {
+var fragment_parameters = function (game, median_position, median_velocity, shape_index) {
   return {
-    game: ship.game,
-    position: ship.position(),
+    game: game,
+    position: median_position,
     velocity: [
-      ship.velocity.x() + math_util.random_in_range(-50, 50),
-      ship.velocity.y() + math_util.random_in_range(-50, 50)
+      median_velocity.x() + math_util.random_in_range(-50, 50),
+      median_velocity.y() + math_util.random_in_range(-50, 50)
     ],
     angular_velocity: math_util.random_in_range(-10, 10),
     life_left: 3,
@@ -52,17 +52,17 @@ var fragment_parameters = function (ship,shape_index) {
   };
 };
 
-var add_fragment = function (game_field, ship, shape_index) {
+var add_fragment = function (game, game_field, median_position, median_velocity, shape_index) {
   return game_field.add_screen_object(
-      new Fragment(fragment_parameters(ship, shape_index++))
+      new Fragment(fragment_parameters(game, median_position, median_velocity, shape_index))
   );
 };
 
-exports.add_fragments = function (game_field, ship) {
+exports.add_fragments = function (game, game_field, median_position, median_velocity) {
   var number_of_fragments = Math.floor(math_util.random_in_range(2, 12));
   var fragments = [];
   for (var i = 0; i < number_of_fragments; i++) {
-      fragments.push(add_fragment(game_field, ship, i));
+      fragments.push(add_fragment(game, game_field, median_position, median_velocity, i));
   }
   return fragments;
 };
