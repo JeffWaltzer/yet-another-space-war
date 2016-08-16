@@ -1,18 +1,18 @@
-exports.Player= function() {
+function Player() {
   this._score= 0;
-};
+}
 
-exports.Player.prototype.bump_score= function() {
+Player.prototype.bump_score= function() {
   this._score++;
 };
 
-exports.Player.prototype.on_message = function(json_message) {
+Player.prototype.on_message = function(json_message) {
   if (this.ship)
     return this.ship.on_message(json_message) ;
   return null;
 };
 
-exports.Player.prototype.send_game_board= function(board) {
+Player.prototype.send_game_board= function(board) {
   if (!this.socket)
     return;
 
@@ -23,3 +23,5 @@ exports.Player.prototype.send_game_board= function(board) {
 
   this.socket.send(JSON.stringify(message));
 };
+
+exports.Player= Player;
