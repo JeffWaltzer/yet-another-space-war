@@ -33,9 +33,9 @@ module.exports = function(grunt) {
     jshint: {
       all: ['src/**/*.js'],
       options: {
-        globals: {
-          _: false
-        },
+        // globals: {
+        //   _: false
+        // },
         browser: true,
         devel: true
       }

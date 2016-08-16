@@ -1,8 +1,8 @@
-var underscore= require('underscore');
+var _= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 
-exports.ScreenObject = function(initial_state) {
+function ScreenObject(initial_state) {
   this.game= initial_state.game;
   this.points= initial_state.points;
   this._position = new vector.Vector(initial_state.position || [0, 0]);
@@ -21,13 +21,13 @@ exports.ScreenObject = function(initial_state) {
     return this._position;
   };
 
-};
+}
 
-exports.ScreenObject.prototype.ignores_collisions= function() {
+ScreenObject.prototype.ignores_collisions= function() {
     return false;
 };
 
-exports.ScreenObject.prototype.ship_to_game_transform= function() {
+ScreenObject.prototype.ship_to_game_transform= function() {
     var rotation=            transforms.make_rotation(this.heading);
     var composite_transform= transforms.identity();
     var scale_and_translate_transform= transforms.make_translation(this._position);
@@ -37,69 +37,67 @@ exports.ScreenObject.prototype.ship_to_game_transform= function() {
                                              rotation);
 };
 
-exports.ScreenObject.prototype.generate_outline = function() {
-  var self = this;
+ScreenObject.prototype.generate_outline = function() {
+    this.bounding_box = false;
 
-  this.bounding_box = false;
-
-  var composite_transform = this.ship_to_game_transform();
-  var returned_points = underscore.map(this.points,
-    function(p) {
-      var rv = [0, 0, 0];
-      transforms.apply_transform(rv, composite_transform, p);
-      var x = (rv[0] / rv[2]);
-      var y = (rv[1] / rv[2]);
-      if (self.bounding_box) {
-        if (x > self.bounding_box.right )  self.bounding_box.right = x;
-        if (x < self.bounding_box.left )  self.bounding_box.left = x;
-        if (y > self.bounding_box.top )  self.bounding_box.top = y;
-        if (y < self.bounding_box.bottom )  self.bounding_box.bottom = y;
-      } else {
-        self.bounding_box = {};
-        self.bounding_box.left = self.bounding_box.right = x;
-        self.bounding_box.top = self.bounding_box.bottom = y;
-      }
-      return [x, y];
-    });
-  return returned_points;
+    var composite_transform = this.ship_to_game_transform();
+    var returned_points = _(this.points).map(function(p) {
+	var rv = [0, 0, 0];
+	transforms.apply_transform(rv, composite_transform, p);
+	var x = (rv[0] / rv[2]);
+	var y = (rv[1] / rv[2]);
+	if (this.bounding_box) {
+	    if (x > this.bounding_box.right )  this.bounding_box.right = x;
+	    if (x < this.bounding_box.left )  this.bounding_box.left = x;
+	    if (y > this.bounding_box.top )  this.bounding_box.top = y;
+	    if (y < this.bounding_box.bottom )  this.bounding_box.bottom = y;
+	} else {
+	    this.bounding_box = {};
+	    this.bounding_box.left = this.bounding_box.right = x;
+	    this.bounding_box.top = this.bounding_box.bottom = y;
+	}
+	return [x, y];
+    },
+					     this);
+    return returned_points;
 };
 
-exports.ScreenObject.prototype.update_outline = function() {
+ScreenObject.prototype.update_outline = function() {
   this.outline_cache = this.generate_outline();
 };
 
-exports.ScreenObject.prototype.is_bullet = function () {
+ScreenObject.prototype.is_bullet = function () {
   return false;
 };
 
-exports.ScreenObject.prototype.is_fragment = function () {
+ScreenObject.prototype.is_fragment = function () {
   return false;
 };
 
-exports.ScreenObject.prototype.is_ship = function () {
+ScreenObject.prototype.is_ship = function () {
   return false;
 };
 
-exports.ScreenObject.prototype.outline= function() {
+ScreenObject.prototype.outline= function() {
   return this.outline_cache;
 };
 
-exports.ScreenObject.prototype.update= function(tick_rate) {
+ScreenObject.prototype.update= function(tick_rate) {
   this._position.add_to(this.velocity.divide(tick_rate));
   this._position.clip_to(this.game.game_field.field_size());
   this.heading += this.angular_velocity / tick_rate;
   this.update_outline();
 };
 
-exports.ScreenObject.prototype.live = function() {
+ScreenObject.prototype.live = function() {
   return true;
 };
 
-exports.ScreenObject.prototype.score = function() {
+ScreenObject.prototype.score = function() {
   return 0;
 };
 
-exports.ScreenObject.prototype.lines=function () {
+ScreenObject.prototype.lines=function () {
   var result = [];
   var transform_points = this.outline();
   for(var i = 0; i< transform_points.length; i++) {
@@ -111,13 +109,13 @@ exports.ScreenObject.prototype.lines=function () {
   return result;
 };
 
-exports.ScreenObject.prototype.player= function(new_value) {
+ScreenObject.prototype.player= function(new_value) {
   if (new_value !== undefined)
     this._player= new_value;
   return this._player;
 };
 
-exports.ScreenObject.prototype.make_game_piece= function() {
+ScreenObject.prototype.make_game_piece= function() {
   return {
     outline: this.outline(),
     id: this.id,
@@ -129,6 +127,7 @@ exports.ScreenObject.prototype.make_game_piece= function() {
   };
 };
 
-exports.ScreenObject.prototype.explode = function() {
+ScreenObject.prototype.explode = function() {
 };
 
+exports.ScreenObject = ScreenObject;

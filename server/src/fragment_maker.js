@@ -1,4 +1,3 @@
-var underscore = require('underscore');
 var math_util = require('./math_util');
 var Fragment= require('./fragment').Fragment;
 
@@ -38,7 +37,7 @@ var fragment_shapes = [
 ];
 
 
-var fragment_parameters = function (game, median_position, median_velocity, shape_index) {
+function fragment_parameters(game, median_position, median_velocity, shape_index) {
   return {
     game: game,
     position: median_position,
@@ -50,13 +49,13 @@ var fragment_parameters = function (game, median_position, median_velocity, shap
     life_left: 3,
     points: fragment_shapes[(shape_index) % fragment_shapes.length]
   };
-};
+}
 
-var add_fragment = function (game, game_field, median_position, median_velocity, shape_index) {
+function add_fragment(game, game_field, median_position, median_velocity, shape_index) {
   return game_field.add_screen_object(
       new Fragment(fragment_parameters(game, median_position, median_velocity, shape_index))
   );
-};
+}
 
 exports.add_fragments = function (game, game_field, median_position, median_velocity) {
   var number_of_fragments = Math.floor(math_util.random_in_range(2, 12));
@@ -66,7 +65,5 @@ exports.add_fragments = function (game, game_field, median_position, median_velo
   }
   return fragments;
 };
-
-
 
 exports.fragment_shapes = fragment_shapes;
