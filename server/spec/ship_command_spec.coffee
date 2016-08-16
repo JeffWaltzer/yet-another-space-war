@@ -79,7 +79,7 @@ describe 'the server, when asked for ship data ', ->
     check_angular_velocity "rotate_stop", 0, server, this, set_angular_velocity, done
 
   it 'sets acceleration on thrust_on', (done) ->
-    check_acceleration "thrust_on", 1, server, this, null, done
+    check_acceleration "thrust_on", 30, server, this, null, done
 
   it 'sets no acceleration on thrust_off', (done) ->
     set_acceleration= ->

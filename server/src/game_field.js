@@ -126,12 +126,10 @@ exports.GameField.prototype.remove_dead_objects= function() {
                       }));
 };
 
-exports.GameField.prototype.update_screen_objects= function(tick_rate, acceleration_rate) {
+exports.GameField.prototype.update_screen_objects= function(tick_rate) {
   this.each_screen_object(
     function(screen_object) {
-      screen_object.update(
-        tick_rate,
-        acceleration_rate);
+      screen_object.update(tick_rate);
     });
 
   this.handle_collisions();

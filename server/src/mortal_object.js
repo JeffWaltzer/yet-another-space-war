@@ -1,6 +1,6 @@
 var ScreenObject= require('./screen_object').ScreenObject;
 
-exports.update= function(tick_rate, rotation_rate, acceleration_rate) {
+exports.update= function(tick_rate) {
     this.life_left -= 1 / tick_rate;
     ScreenObject.prototype.update.call(this, tick_rate);
 };

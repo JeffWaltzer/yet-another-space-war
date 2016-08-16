@@ -37,7 +37,7 @@ exports.Ship.prototype.on_message = function(json_message) {
       self.angular_velocity= 0;
     break;
   case 'thrust_on':
-    self.acceleration = 1;
+    self.acceleration = 30;
     break;
   case 'thrust_off':
     self.acceleration = 0;
@@ -51,10 +51,10 @@ exports.Ship.prototype.on_message = function(json_message) {
 };
 
 
-exports.Ship.prototype.update= function(tick_rate, acceleration_rate) {
+exports.Ship.prototype.update= function(tick_rate) {
   var self = this;
   exports.Ship.super_.prototype.update.call(this, tick_rate);
-  self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
+  self.velocity.add_to(new vector.Vector({magnitude: self.acceleration / tick_rate,
     heading: self.heading}));
 };
 
