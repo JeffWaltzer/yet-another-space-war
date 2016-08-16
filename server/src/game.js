@@ -29,7 +29,7 @@ exports.Game=function(initial_state) {
   };
 
   self.tick= function() {
-    self.game_field.update_screen_objects(self.tick_rate, self.ship_rotation_rate, self.acceleration_rate);
+    self.game_field.update_screen_objects(self.tick_rate, self.acceleration_rate);
     self.send_game_board(self.game_field.game_board());
   };
 

@@ -51,7 +51,7 @@ exports.Ship.prototype.on_message = function(json_message) {
 };
 
 
-exports.Ship.prototype.update= function(tick_rate, rotation_rate, acceleration_rate) {
+exports.Ship.prototype.update= function(tick_rate, acceleration_rate) {
   var self = this;
   exports.Ship.super_.prototype.update.call(this, tick_rate);
   self.velocity.add_to(new vector.Vector({magnitude: self.acceleration * acceleration_rate / tick_rate,
