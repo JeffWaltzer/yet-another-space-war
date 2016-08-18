@@ -1,4 +1,4 @@
-exports.Vector= function(coordinates) {
+function Vector(coordinates) {
   var self= this;
   self.coordinates= [0,0];
 
@@ -65,4 +65,7 @@ exports.Vector= function(coordinates) {
     return new exports.Vector([self.x() / s,
                                self.y() / s]);
   };
-};
+}
+
+exports.Vector= Vector;
+
