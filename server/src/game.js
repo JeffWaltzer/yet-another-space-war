@@ -27,11 +27,12 @@ function Game(initial_state) {
     self.send_game_board(self.game_field.game_board());
   };
 
-  self.start_ticking= function(tick_rate) {
-    if (tick_rate!==0)
-      setInterval(self.tick, 1000/tick_rate);
-  };
 }
+
+Game.prototype.start_ticking= function(tick_rate) {
+    if (tick_rate!==0)
+	setInterval(this.tick, 1000/tick_rate);
+};
 
 Game.prototype.send_game_board= function(new_board) {
     underscore.each(this.players, function(player) {
