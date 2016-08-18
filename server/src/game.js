@@ -6,7 +6,7 @@ var Player= require('./player').Player;
 var GameField = require('./game_field').GameField;
 var ScreenObject= require('./screen_object').ScreenObject;
 
-exports.Game=function(initial_state) {
+function Game(initial_state) {
   var self = this;
   if (!initial_state)
     initial_state= {};
@@ -37,24 +37,26 @@ exports.Game=function(initial_state) {
     if (tick_rate!==0)
       setInterval(self.tick, 1000/tick_rate);
   };
-};
+}
 
-exports.Game.prototype.add_player= function(player_id) {
+Game.prototype.add_player= function(player_id) {
   var new_player= new Player();
   this.players[player_id]= new_player;
   return new_player;
 };
 
-exports.Game.prototype.connect_socket= function(player_id, socket) {
+Game.prototype.connect_socket= function(player_id, socket) {
   this.players[player_id].socket = socket;
 };
 
-exports.Game.prototype.connect_ship= function(player_id, ship) {
+Game.prototype.connect_ship= function(player_id, ship) {
   var the_player= this.players[player_id];
   the_player.ship= ship;
   ship.player(the_player);
 };
 
-exports.Game.prototype.add_ship = function(parameters) {
+Game.prototype.add_ship = function(parameters) {
   return this.game_field.add_ship(this,parameters);
 };
+
+exports.Game= Game;
