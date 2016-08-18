@@ -5,12 +5,10 @@ var util = require('util');
 function Bullet(initial_state) {
   ScreenObject.call(this, initial_state);
 
-  var self = this;
-
-  self.life_left = initial_state.life_left || 0;
+  this.life_left = initial_state.life_left || 0;
 
   if (initial_state.ship) {
-    self.ship( initial_state.ship);
+    this.ship( initial_state.ship);
   }
 }
 
