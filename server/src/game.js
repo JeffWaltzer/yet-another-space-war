@@ -22,12 +22,6 @@ function Game(initial_state) {
 
   self.players= {};
 
-  self.send_game_board= function(new_board) {
-    underscore.each(this.players, function(player) {
-      player.send_game_board(new_board);
-    });
-  };
-
   self.tick= function() {
     self.game_field.update_screen_objects(self.tick_rate);
     self.send_game_board(self.game_field.game_board());
@@ -38,6 +32,12 @@ function Game(initial_state) {
       setInterval(self.tick, 1000/tick_rate);
   };
 }
+
+Game.prototype.send_game_board= function(new_board) {
+    underscore.each(this.players, function(player) {
+	player.send_game_board(new_board);
+    });
+};
 
 Game.prototype.add_player= function(player_id) {
   var new_player= new Player();
