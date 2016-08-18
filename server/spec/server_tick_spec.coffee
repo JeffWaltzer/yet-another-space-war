@@ -10,7 +10,7 @@ describe "server initialization", ->
     server= yasw.createServer();
 
   it "arranges for game#tick to be called periodically", ->
-    expect(setInterval).toHaveBeenCalledWith(server.game.tick, 1000 / server.tick_rate)
+    expect(setInterval.mostRecentCall.args[1]).toEqual(1000 / server.tick_rate)
 
 describe "game#tick" , ->
   server= undefined

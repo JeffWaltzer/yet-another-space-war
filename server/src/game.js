@@ -7,31 +7,31 @@ var GameField = require('./game_field').GameField;
 var ScreenObject= require('./screen_object').ScreenObject;
 
 function Game(initial_state) {
-  var self = this;
   if (!initial_state)
     initial_state= {};
 
-  self.game_field= new GameField(initial_state);
-  self.bullet_speed= initial_state.bullet_speed || 7;
+  this.game_field= new GameField(initial_state);
+  this.bullet_speed= initial_state.bullet_speed || 7;
 
-  self.bullet_life_time = initial_state.bullet_life_time || 3;
-  self.tick_rate= initial_state.tick_rate;
+  this.bullet_life_time = initial_state.bullet_life_time || 3;
+  this.tick_rate= initial_state.tick_rate;
 
-  self.ship_rotation_rate= initial_state.ship_rotation_rate;
-  self.acceleration_rate= initial_state.acceleration_rate;
+  this.ship_rotation_rate= initial_state.ship_rotation_rate;
+  this.acceleration_rate= initial_state.acceleration_rate;
 
-  self.players= {};
-
-  self.tick= function() {
-    self.game_field.update_screen_objects(self.tick_rate);
-    self.send_game_board(self.game_field.game_board());
-  };
-
+  this.players= {};
 }
 
+Game.prototype.tick= function() {
+    this.game_field.update_screen_objects(this.tick_rate);
+    this.send_game_board(this.game_field.game_board());
+};
+
 Game.prototype.start_ticking= function(tick_rate) {
+    var self= this;
     if (tick_rate!==0)
-	setInterval(this.tick, 1000/tick_rate);
+	setInterval(function() { self.tick(); },
+		    1000/tick_rate);
 };
 
 Game.prototype.send_game_board= function(new_board) {
