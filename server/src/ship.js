@@ -11,11 +11,9 @@ var Fragment= require('./fragment').Fragment;
 function Ship(initial_state) {
   screen_object.ScreenObject.call(this, initial_state);
 
-  var self= this;
-
-  self.rotation= initial_state.rotation || 0;
-  self.acceleration= initial_state.acceleration || 0;
-  self.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
+  this.rotation= initial_state.rotation || 0;
+  this.acceleration= initial_state.acceleration || 0;
+  this.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
 
 }
 
@@ -23,47 +21,44 @@ util.inherits(Ship, screen_object.ScreenObject);
 
 
 Ship.prototype.on_message = function(json_message) {
-  var self=this;
   var message = JSON.parse(json_message);
 
   switch (message.command) {
   case 'rotate_left':
-    self.angular_velocity= -this.game.ship_rotation_rate;
+    this.angular_velocity= -this.game.ship_rotation_rate;
     break;
   case 'rotate_right':
-    self.angular_velocity= this.game.ship_rotation_rate;
+    this.angular_velocity= this.game.ship_rotation_rate;
     break;
   case 'rotate_stop':
-      self.angular_velocity= 0;
+      this.angular_velocity= 0;
     break;
   case 'thrust_on':
-    self.acceleration = 30;
+    this.acceleration = 30;
     break;
   case 'thrust_off':
-    self.acceleration = 0;
+    this.acceleration = 0;
     break;
   case 'fire':
-    self.fire();
+    this.fire();
     break;
   case 'clone':
-    self.clone();
+    this.clone();
   }
 };
 
 
 Ship.prototype.update= function(tick_rate) {
-  var self = this;
   Ship.super_.prototype.update.call(this, tick_rate);
-  self.velocity.add_to(new vector.Vector({magnitude: self.acceleration / tick_rate,
-    heading: self.heading}));
+  this.velocity.add_to(new vector.Vector({magnitude: this.acceleration / tick_rate,
+    heading: this.heading}));
 };
 
 
 
 Ship.prototype.gun_point= function() {
-  var self = this;
   var transformed_point= [0,0,1];
-  transforms.apply_transform(transformed_point, self.ship_to_game_transform(), self.raw_gun_point.coordinates);
+  transforms.apply_transform(transformed_point, this.ship_to_game_transform(), this.raw_gun_point.coordinates);
   return new vector.Vector(transformed_point);
 };
 
@@ -73,18 +68,17 @@ Ship.prototype.explode = function() {
 };
 
 Ship.prototype.fire= function(){
-  var self=this;
-  var bullet_speed= self.game.bullet_speed;
+  var bullet_speed= this.game.bullet_speed;
   var bullet_parameters= {
-    game: self.game,
-    life_left: self.game.bullet_life_time,
-    position: self.gun_point().coordinates,
-    velocity: [self.velocity.x() + bullet_speed * Math.cos(self.heading),
-               self.velocity.y() + bullet_speed * Math.sin(self.heading)],
-    ship: self,
-    player: self.player()
+    game: this.game,
+    life_left: this.game.bullet_life_time,
+    position: this.gun_point().coordinates,
+    velocity: [this.velocity.x() + bullet_speed * Math.cos(this.heading),
+               this.velocity.y() + bullet_speed * Math.sin(this.heading)],
+    ship: this,
+    player: this.player()
   };
-  return self.game.game_field.add_bullet(bullet_parameters);
+  return this.game.game_field.add_bullet(bullet_parameters);
 };
 
 Ship.prototype.clone= function() {
