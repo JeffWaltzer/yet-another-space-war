@@ -1,6 +1,5 @@
 function Vector(coordinates) {
-    var self= this;
-    self.coordinates= [0,0];
+    this.coordinates= [0,0];
 
     if (coordinates !== undefined) {
       if (typeof coordinates !== 'object') {
@@ -9,9 +8,9 @@ function Vector(coordinates) {
 
       if (Array.isArray(coordinates)) {
 	if (coordinates.length === 2)
-	  self.coordinates= coordinates;
+	  this.coordinates= coordinates;
 	else if (coordinates.length === 3)
-	  self.coordinates= [
+	  this.coordinates= [
 	      coordinates[0]/coordinates[2],
 	      coordinates[1]/coordinates[2]
 	  ];
@@ -19,11 +18,11 @@ function Vector(coordinates) {
 	  throw("wrong size array while initalizing Vector");
       }
       else if (coordinates instanceof Vector) {
-	self.coordinates= [coordinates.x(),
+	this.coordinates= [coordinates.x(),
 			   coordinates.y()];
       }
       else if (coordinates.magnitude !== undefined  &&  coordinates.heading !== undefined) {
-	self.coordinates= [
+	this.coordinates= [
 	    coordinates.magnitude * Math.cos(coordinates.heading),
 	    coordinates.magnitude * Math.sin(coordinates.heading)
 	];
