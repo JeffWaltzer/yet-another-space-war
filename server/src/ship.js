@@ -1,4 +1,3 @@
-var underscore = require('underscore');
 var vector= require('./vector');
 var transforms= require('./transform');
 var screen_object = require('./screen_object');
