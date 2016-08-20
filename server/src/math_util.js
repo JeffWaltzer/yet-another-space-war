@@ -1,20 +1,22 @@
-var underscore= require('underscore');
+var _= require('underscore');
 
 exports.collided =  function(object1, object2) {
-  if (!exports.bounding_boxes_intersect(object1.bounding_box,
-                                        object2.bounding_box)) {
-    return false;
-  }
+    if (!exports.bounding_boxes_intersect(object1.bounding_box,
+                                          object2.bounding_box)) {
+	return false;
+    }
 
-  var result= false;
-  underscore.each(object1.lines(),function(line1){
-    underscore.each(object2.lines(),function(line2){
-      if (exports.intersect(line1,line2))
-        result= true;
+    var result= false;
+    _(object1.lines()).each(function(line1){
+	_(object2.lines()).each(function(line2){
+	    if (exports.intersect(line1,line2))
+		result= true;
+	});
+	result = result ||
+	    point_inside(object1,object2) ||
+	    point_inside(object2,object1);
     });
-    result = result || point_inside(object1,object2) || point_inside(object2,object1);
-  });
-  return result;
+    return result;
 };
 
 exports.bounding_boxes_intersect = function(box1, box2) {
@@ -69,11 +71,10 @@ function point_inside(object1,object2) {
   var big_line= [object1.lines()[0][0], [-10000, -10000]];
   var intersection_count= 0;
 
-  underscore.each(object2.lines(), function(object_line) {
-
-    if (exports.intersect(big_line, object_line))
-      intersection_count++;
-  });
+    _(object2.lines()).each(function(object_line) {
+	if (exports.intersect(big_line, object_line))
+	    intersection_count++;
+    });
 
   return (intersection_count % 2) == 1;
 }
