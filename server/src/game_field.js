@@ -1,4 +1,4 @@
-var underscore= require('underscore');
+var _= require('underscore');
 
 var bullet=require('./bullet');
 var ship=require('./ship');
@@ -26,7 +26,7 @@ GameField.prototype.screen_objects= function(new_value) {
 };
 
 GameField.prototype.each_screen_object= function(callback_function) {
-  return underscore.map(this.screen_objects(), callback_function);
+    return _(this.screen_objects()).map(callback_function);
 };
 
 GameField.prototype.collisions_with= function(screenObject,start_index) {
@@ -79,7 +79,7 @@ GameField.prototype.add_bullet= function(parameters) {
   };
 
   if (parameters !== undefined)
-    underscore.extend(defaultState ,parameters);
+      _(defaultState).extend(parameters);
 
   return this.add_screen_object(new bullet.Bullet(defaultState));
 };
@@ -96,7 +96,7 @@ GameField.prototype.add_ship = function(game,parameters) {
   };
 
   if (parameters !== undefined)
-    underscore.extend(defaultState ,parameters);
+      _(defaultState).extend(parameters);
 
   var new_ship = this.add_screen_object(new ship.Ship(defaultState));
 
@@ -112,18 +112,18 @@ GameField.prototype.game_board= function() {
       return gamePiece;
     });
     var outlines= [];
-    underscore.each(outline_array, function(outline, index) {
-      outlines.push(outline);
+    _(outline_array).each(function(outline, index) {
+	outlines.push(outline);
     });
     return outlines;
   };
 
 GameField.prototype.remove_dead_objects= function() {
-  this.screen_objects(
-    underscore.filter(this.screen_objects(),
-                      function(screen_object) {
-                        return screen_object.live();
-                      }));
+    this.screen_objects(
+	_(this.screen_objects()).filter(
+	    function(screen_object) {
+		return screen_object.live();
+	    }));
 };
 
 GameField.prototype.update_screen_objects= function(tick_rate) {
@@ -137,44 +137,42 @@ GameField.prototype.update_screen_objects= function(tick_rate) {
 };
 
 GameField.prototype.remove_screen_objects= function(to_remove) {
-  this.screen_objects(underscore.difference(this.screen_objects(), to_remove));
+    this.screen_objects(_(this.screen_objects()).difference(to_remove));
 
-  underscore.each(to_remove, function(screen_object) {
-    if (screen_object.player()) {
-      var the_player= screen_object.player();
-      if (screen_object === the_player.ship) {
-        the_player.ship = null;
-        screen_object.player(null);
-      }
-    }
-  });
+    _(to_remove).each(function(screen_object) {
+	if (screen_object.player()) {
+	    var the_player= screen_object.player();
+	    if (screen_object === the_player.ship) {
+		the_player.ship = null;
+		screen_object.player(null);
+	    }
+	}
+    });
 };
 
 GameField.prototype.remove_screen_object= function(to_remove) {
-  this.screen_objects(underscore.reject(this.screen_objects(),
-      function(screen_object) {
-        return screen_object === to_remove;
-      }));
+    this.screen_objects(_(this.screen_objects()).reject(
+	function(screen_object) {
+            return screen_object === to_remove;
+	}));
 };
 
 GameField.prototype.dead_objects= function() {
-  var to_remove = [];
-  for (var i = 0; i < this.screen_objects().length; i++) {
-    var screen_object = this.screen_objects()[i];
-    var objects_collided_with = this.collisions_with(screen_object, i + 1);
+    var to_remove = [];
+    for (var i = 0; i < this.screen_objects().length; i++) {
+	var screen_object = this.screen_objects()[i];
+	var objects_collided_with = this.collisions_with(screen_object, i + 1);
 
-    if (objects_collided_with.length > 0) {
-      underscore.each(objects_collided_with, underscore.bind(this.maybe_bump_score,
-							     this,
-							     screen_object));
-      underscore.each(objects_collided_with, underscore.bind(this.maybe_explode,
-							     this,
-							     screen_object));
-      to_remove.push(screen_object);
+	if (objects_collided_with.length > 0) {
+	    _(objects_collided_with).each(_(this.maybe_bump_score).bind(this,
+									screen_object));
+	    _(objects_collided_with).each(_(this.maybe_explode).bind(this,
+								     screen_object));
+	    to_remove.push(screen_object);
+	}
+	to_remove = to_remove.concat(objects_collided_with);
     }
-    to_remove = to_remove.concat(objects_collided_with);
-  }
-  return to_remove;
+    return to_remove;
 };
 
 

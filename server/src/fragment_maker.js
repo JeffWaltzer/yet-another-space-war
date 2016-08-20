@@ -1,4 +1,3 @@
-var underscore = require('underscore');
 var math_util = require('./math_util');
 var Fragment= require('./fragment').Fragment;
 
