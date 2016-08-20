@@ -1,4 +1,4 @@
-var underscore= require('underscore');
+var _= require('underscore');
 var ship=require('./ship');
 var bullet=require('./bullet');
 var vector=require('./vector');
@@ -28,14 +28,13 @@ Game.prototype.tick= function() {
 };
 
 Game.prototype.start_ticking= function(tick_rate) {
-    var self= this;
     if (tick_rate!==0)
-	setInterval(function() { self.tick(); },
+	setInterval(_(this.tick).bind(this),
 		    1000/tick_rate);
 };
 
 Game.prototype.send_game_board= function(new_board) {
-    underscore.each(this.players, function(player) {
+    _(this.players).each(function(player) {
 	player.send_game_board(new_board);
     });
 };
