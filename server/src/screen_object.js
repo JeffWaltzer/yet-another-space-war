@@ -1,4 +1,4 @@
-var underscore= require('underscore');
+var _= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 
@@ -38,29 +38,28 @@ ScreenObject.prototype.ship_to_game_transform= function() {
 };
 
 ScreenObject.prototype.generate_outline = function() {
-  this.bounding_box = false;
+    this.bounding_box = false;
 
-  var composite_transform = this.ship_to_game_transform();
-    var returned_points = underscore.map(this.points,
-					 function(p) {
-					     var rv = [0, 0, 0];
-					     transforms.apply_transform(rv, composite_transform, p);
-					     var x = (rv[0] / rv[2]);
-					     var y = (rv[1] / rv[2]);
-					     if (this.bounding_box) {
-						 if (x > this.bounding_box.right )  this.bounding_box.right = x;
-						 if (x < this.bounding_box.left )  this.bounding_box.left = x;
-						 if (y > this.bounding_box.top )  this.bounding_box.top = y;
-						 if (y < this.bounding_box.bottom )  this.bounding_box.bottom = y;
-					     } else {
-						 this.bounding_box = {};
-						 this.bounding_box.left = this.bounding_box.right = x;
-						 this.bounding_box.top = this.bounding_box.bottom = y;
-					     }
-					     return [x, y];
-					 },
-					 this);
-  return returned_points;
+    var composite_transform = this.ship_to_game_transform();
+    var returned_points = _(this.points).map(function(p) {
+	var rv = [0, 0, 0];
+	transforms.apply_transform(rv, composite_transform, p);
+	var x = (rv[0] / rv[2]);
+	var y = (rv[1] / rv[2]);
+	if (this.bounding_box) {
+	    if (x > this.bounding_box.right )  this.bounding_box.right = x;
+	    if (x < this.bounding_box.left )  this.bounding_box.left = x;
+	    if (y > this.bounding_box.top )  this.bounding_box.top = y;
+	    if (y < this.bounding_box.bottom )  this.bounding_box.bottom = y;
+	} else {
+	    this.bounding_box = {};
+	    this.bounding_box.left = this.bounding_box.right = x;
+	    this.bounding_box.top = this.bounding_box.bottom = y;
+	}
+	return [x, y];
+    },
+					     this);
+    return returned_points;
 };
 
 ScreenObject.prototype.update_outline = function() {
