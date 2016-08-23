@@ -4,6 +4,7 @@ var bullet=require('./bullet');
 var ship=require('./ship');
 var Fragment= require('./fragment').Fragment;
 var ScreenObject= require('./screen_object').ScreenObject;
+var NullPlayer= require('./null_player').NullPlayer;
 
 var MathUtil= require('./math_util');
 var vector=require('./vector');
@@ -136,18 +137,18 @@ GameField.prototype.update_screen_objects= function(tick_rate) {
   this.remove_dead_objects();
 };
 
-GameField.prototype.remove_screen_objects= function(to_remove) {
-    this.screen_objects(_(this.screen_objects()).difference(to_remove));
+GameField.prototype.remove_screen_objects = function (to_remove) {
+  this.screen_objects(_(this.screen_objects()).difference(to_remove));
 
-    _(to_remove).each(function(screen_object) {
-	if (screen_object.player()) {
-	    var the_player= screen_object.player();
-	    if (screen_object === the_player.ship) {
-		the_player.ship = null;
-		screen_object.player(null);
-	    }
-	}
-    });
+  _(to_remove).each(function (screen_object) {
+    if (screen_object.player()) {
+      var the_player = screen_object.player();
+      if (screen_object === the_player.ship) {
+        the_player.ship = null;
+        screen_object.player(new NullPlayer());
+      }
+    }
+  });
 };
 
 GameField.prototype.remove_screen_object= function(to_remove) {
@@ -182,12 +183,9 @@ GameField.prototype.maybe_explode= function(screen_object, o) {
     o.explode();
 };
 
-
 GameField.prototype.maybe_bump_score= function(screen_object, o) {
-  if (screen_object.is_bullet() && !o.is_bullet() && screen_object.player())
-    screen_object.player().bump_score();
-  else if (o.is_bullet() && !screen_object.is_bullet() && o.player())
-    o.player().bump_score();
+  screen_object.bump_player_score(o);
+  o.bump_player_score(screen_object);
 };
 
 GameField.prototype.handle_collisions= function() {

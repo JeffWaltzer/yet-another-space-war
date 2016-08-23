@@ -91,8 +91,7 @@ Ship.prototype.is_ship = function() {
 Ship.prototype.score= function() {
   if (!this.player())
     return null;
-  return this.player()._score;
+  return this.player().score();
 };
-
 
 exports.Ship= Ship;

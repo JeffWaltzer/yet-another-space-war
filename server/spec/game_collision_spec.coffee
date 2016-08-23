@@ -125,7 +125,7 @@ describe "A bullet fired from ship A colliding with ship B", ->
     expect(player_b.ship).toBeNull()
 
   it "removes player B from the ship", ->
-    expect(ship_b.player()).toBeNull()
+    expect(ship_b.player().bump_score).toBeDefined()
 
   it 'leaves fragments', ->
     fragments= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
