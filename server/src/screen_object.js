@@ -5,6 +5,8 @@ var NullPlayer= require('./null_player').NullPlayer;
 
 function ScreenObject(initial_state) {
   this.game= initial_state.game;
+  if (this.game)
+      this.game_field= initial_state.game.game_field;
   this.points= initial_state.points;
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
@@ -70,7 +72,7 @@ ScreenObject.prototype.outline= function() {
 
 ScreenObject.prototype.update= function(tick_rate) {
   this._position.add_to(this.velocity.divide(tick_rate));
-  this._position.clip_to(this.game.game_field.field_size());
+  this._position.clip_to(this.game_field.field_size());
   this.heading += this.angular_velocity / tick_rate;
   this.update_outline();
 };

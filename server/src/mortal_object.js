@@ -5,7 +5,7 @@ exports.update= function(tick_rate) {
     ScreenObject.prototype.update.call(this, tick_rate);
 };
 
-exports.live= function(tick_rate, rotation_rate, acceleration_rate) {
+exports.live= function() {
     return this.life_left > 0;
 };
 

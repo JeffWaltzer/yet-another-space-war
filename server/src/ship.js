@@ -13,7 +13,11 @@ function Ship(initial_state) {
   this.rotation= initial_state.rotation || 0;
   this.acceleration= initial_state.acceleration || 0;
   this.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
-
+  if (this.game) {
+    this.ship_rotation_rate= this.game.ship_rotation_rate;
+    this.bullet_speed= this.game.bullet_speed;
+    this.bullet_life_time= this.game.bullet_life_time;
+  }
 }
 
 util.inherits(Ship, screen_object.ScreenObject);
@@ -24,10 +28,10 @@ Ship.prototype.on_message = function(json_message) {
 
   switch (message.command) {
   case 'rotate_left':
-    this.angular_velocity= -this.game.ship_rotation_rate;
+    this.angular_velocity= -this.ship_rotation_rate;
     break;
   case 'rotate_right':
-    this.angular_velocity= this.game.ship_rotation_rate;
+    this.angular_velocity= this.ship_rotation_rate;
     break;
   case 'rotate_stop':
       this.angular_velocity= 0;
@@ -62,22 +66,22 @@ Ship.prototype.gun_point= function() {
 };
 
 Ship.prototype.explode = function() {
-    this.game.game_field.remove_screen_object(this);
-    return fragment_maker.add_fragments(this.game, this.game.game_field, this.position(), this.velocity);
+    this.game_field.remove_screen_object(this);
+    return fragment_maker.add_fragments(this.game, this.game_field, this.position(), this.velocity);
 };
 
 Ship.prototype.fire= function(){
-  var bullet_speed= this.game.bullet_speed;
+  var bullet_speed= this.bullet_speed;
   var bullet_parameters= {
     game: this.game,
-    life_left: this.game.bullet_life_time,
+    life_left: this.bullet_life_time,
     position: this.gun_point().coordinates,
     velocity: [this.velocity.x() + bullet_speed * Math.cos(this.heading),
                this.velocity.y() + bullet_speed * Math.sin(this.heading)],
     ship: this,
     player: this.player()
   };
-  return this.game.game_field.add_bullet(bullet_parameters);
+  return this.game_field.add_bullet(bullet_parameters);
 };
 
 Ship.prototype.clone= function() {
