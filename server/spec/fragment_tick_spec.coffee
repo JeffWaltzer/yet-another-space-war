@@ -27,6 +27,7 @@ describe "game#tick" , ->
   ships = undefined
   fragment = undefined
   dead_fragment = undefined
+  original_fragment_life_left= undefined 
 
   beforeEach ->
     server= yasw.createServer({
@@ -52,10 +53,11 @@ describe "game#tick" , ->
     player= server.game.add_player('player_id');
     player.socket= fake_socket;
 
+    original_fragment_life_left= fragment.life_left
     server.game.tick()
 
   it 'updates fragments', ->
-    expect(fragment.life_left).toBeCloseTo(3 - 1/server.tick_rate, 6)
+    expect(fragment.life_left).toBeCloseTo(original_fragment_life_left - 1/server.tick_rate, 6)
 
   it 'does not kill the live fragment', ->
     expect(server.game.game_field.screen_objects()).toContain(fragment)

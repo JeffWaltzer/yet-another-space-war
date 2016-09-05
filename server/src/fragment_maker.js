@@ -46,7 +46,7 @@ function fragment_parameters(game, median_position, median_velocity, shape_index
       median_velocity.y() + math_util.random_in_range(-50, 50)
     ],
     angular_velocity: math_util.random_in_range(-10, 10),
-    life_left: 3,
+    life_left: math_util.random_in_range(2, 3),
     points: fragment_shapes[(shape_index) % fragment_shapes.length]
   };
 }

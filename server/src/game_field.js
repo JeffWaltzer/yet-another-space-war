@@ -114,7 +114,7 @@ GameField.prototype.game_board= function() {
     });
     var outlines= [];
     _(outline_array).each(function(outline, index) {
-	outlines.push(outline);
+	      outlines.push(outline);
     });
     return outlines;
   };
