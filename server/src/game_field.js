@@ -86,9 +86,9 @@ GameField.prototype.add_bullet= function(parameters) {
 };
 
 
-GameField.prototype.add_ship = function(game,parameters) {
+GameField.prototype.add_ship = function(parameters, ship_rotation_rate, bullet_speed, bullet_lifetime) {
   var defaultState = {
-    game: game,
+    game_field: this,
     rotation: 0,
     points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
     gun_point: [21,0],
@@ -99,7 +99,7 @@ GameField.prototype.add_ship = function(game,parameters) {
   if (parameters !== undefined)
       _(defaultState).extend(parameters);
 
-  var new_ship = this.add_screen_object(new ship.Ship(defaultState));
+  var new_ship = this.add_screen_object(new ship.Ship(defaultState, ship_rotation_rate, bullet_speed, bullet_lifetime));
 
   if (!parameters || !parameters.position)
     this.place_ship(new_ship);

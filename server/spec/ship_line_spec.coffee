@@ -3,7 +3,10 @@ ship = require '../../src/ship'
 describe 'a ships lines' , ->
   it 'should have lines', ->
     the_ship = new ship.Ship(
-      points: [[0,0],[1,2],[2,3]]
+        points: [[0,0],[1,2],[2,3]]
+      0,
+      0,
+      0,
     )
     expect(the_ship.lines()).toEqual(
       [
@@ -15,8 +18,11 @@ describe 'a ships lines' , ->
 
   it 'should have lines', ->
     the_ship = new ship.Ship(
-      position: [11,12],
-      points: [[0,0],[1,2],[2,3]]
+        position: [11,12],
+        points: [[0,0],[1,2],[2,3]],
+      0,
+      0,
+      0,
     )
     expect(the_ship.lines()).toEqual(
       [

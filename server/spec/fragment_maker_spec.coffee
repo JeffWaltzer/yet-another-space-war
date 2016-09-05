@@ -15,11 +15,14 @@ describe 'fragment making', ->
       acceleration_rate: 5
     });
 
-    the_ship = the_game.add_ship({
+    the_ship = the_game.game_field.add_ship({
         position: [0, 0],
         points: [[1, 1], [5, 1], [5, 5], [1, 5]],
         velocity: [5, 10]
-      }
+      },
+      0,
+      0,
+      0
     )
 
     inject_random_numbers(
@@ -30,7 +33,7 @@ describe 'fragment making', ->
         0, 0, 0,
       ])
 
-    fragment_maker.add_fragments(the_ship.game, the_ship.game.game_field, the_ship.position(), the_ship.velocity);
+    fragment_maker.add_fragments(the_game.game_field, the_ship.position(), the_ship.velocity);
 
 
   describe "the first fragment", ->

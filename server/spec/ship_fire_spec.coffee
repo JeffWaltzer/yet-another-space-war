@@ -13,11 +13,14 @@ describe 'Ship fires a bullet', ->
         bullet_speed: 10
 
       the_player =the_game.add_player('Frank Zappa')
-      the_ship = the_game.add_ship({
+      the_ship = the_game.game_field.add_ship({
         velocity: [50, 50],
         heading: Math.PI/4,
         player: the_player
-      })
+      },
+      0,
+      10,
+      0)
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
@@ -35,7 +38,7 @@ describe 'Ship fires a bullet', ->
 
       the_player =the_game.add_player('Frank Zappa')
 
-      the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/4, player: the_player})
+      the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/4, player: the_player}, 0, 10, 0)
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 6)
@@ -53,7 +56,7 @@ describe 'Ship fires a bullet', ->
 
       the_player =the_game.add_player('Frank Zappa')
 
-      the_ship = the_game.add_ship({velocity: [0, 0], heading: Math.PI/2,  player: the_player})
+      the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/2,  player: the_player}, 0, 10, 0)
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo( 0, 6)
@@ -72,7 +75,7 @@ describe 'Ship fires a bullet', ->
 
       the_player =the_game.add_player('Frank Zappa')
 
-      the_ship = the_game.add_ship({velocity: [50, 50], heading: Math.PI*3/4,  player: the_player})
+      the_ship = the_game.game_field.add_ship({velocity: [50, 50], heading: Math.PI*3/4,  player: the_player}, 0, 10, 0)
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
@@ -90,17 +93,20 @@ describe 'Ship fires a bullet', ->
         bullet_life_time: 6
       })
 
-      the_player =the_game.add_player('Frank Zappa')
+      the_player= the_game.add_player('Frank Zappa')
 
-      new_ship = the_game.add_ship({
+      new_ship = the_game.game_field.add_ship({
         rotation: 0
         points: [[-10,10],[20, 0],[-10,-10],[0,0]]
         heading: 0
         position: [100,100]
         gun_point: [21,0],
         player: the_player,
-      })
-      new_bullet = new_ship.fire()
+      },
+      0,
+      70,
+      6)
+      new_bullet = new_ship.fire(true)
 
     it 'starts bullet in correct position', ->
       expect(the_game.game_field.screen_objects()[1]).toEqual(new_bullet)

@@ -37,9 +37,9 @@ var fragment_shapes = [
 ];
 
 
-function fragment_parameters(game, median_position, median_velocity, shape_index) {
+function fragment_parameters(game_field, median_position, median_velocity, shape_index) {
   return {
-    game: game,
+    game: game_field,
     position: median_position,
     velocity: [
       median_velocity.x() + math_util.random_in_range(-50, 50),
@@ -51,17 +51,17 @@ function fragment_parameters(game, median_position, median_velocity, shape_index
   };
 }
 
-function add_fragment(game, game_field, median_position, median_velocity, shape_index) {
+function add_fragment(game_field, median_position, median_velocity, shape_index) {
   return game_field.add_screen_object(
-      new Fragment(fragment_parameters(game, median_position, median_velocity, shape_index))
+      new Fragment(fragment_parameters(game_field, median_position, median_velocity, shape_index))
   );
 }
 
-exports.add_fragments = function (game, game_field, median_position, median_velocity) {
+exports.add_fragments = function (game_field, median_position, median_velocity) {
   var number_of_fragments = Math.floor(math_util.random_in_range(2, 12));
   var fragments = [];
   for (var i = 0; i < number_of_fragments; i++) {
-      fragments.push(add_fragment(game, game_field, median_position, median_velocity, i));
+      fragments.push(add_fragment(game_field, median_position, median_velocity, i));
   }
   return fragments;
 };

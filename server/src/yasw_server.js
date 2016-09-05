@@ -48,7 +48,7 @@ exports.createServer= function(parameters) {
 	game.connect_socket(player_id, socket);
 	var player = game.players[player_id];
 
-	ship= player.ship  ||  game.add_ship();
+  ship= player.ship  ||  game.game_field.add_ship({}, game.ship_rotation_rate, game.bullet_speed, game.bullet_life_time);
 	game.connect_ship(player_id, ship);
 
 	socket.on('message', _(player.on_message).bind(player));

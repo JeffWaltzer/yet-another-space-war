@@ -14,39 +14,48 @@ describe 'bullet and ship', ->
     the_game = new game.Game({})
 
   it 'collide if bullet overlaps ship', ->
-    the_ship =  the_game.add_ship(
-      position: [0,0]
+    the_ship =  the_game.game_field.add_ship({
+      position: [0,0]},
+      0,
+      0,
+      0
     );
     the_bullet = the_game.game_field.add_bullet {
-      game: the_game,
+      game_field: the_game.game_field,
       position: [-10, 10]
     }
     expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
   it 'collide if bullet completely inside ship', ->
-    the_ship =  the_game.add_ship(
-      position: [0,0]
+    the_ship =  the_game.game_field.add_ship({
+      position: [0,0]},
+      0,
+      0,
+      0,
     );
     the_bullet = the_game.game_field.add_bullet {
-      game: the_game,
+      game_field: the_game.game_field,
       position: [5, 0]
     }
     expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
   it 'do not collide if at different points', ->
-    the_ship =  the_game.add_ship(
-      position: [0,0]
+    the_ship =  the_game.game_field.add_ship({
+      position: [0,0]},
+      0,
+      0,
+      0
     );
     the_bullet = the_game.game_field.add_bullet({
-      game:  the_game,
+      game_field:  the_game.game_field,
       position: [10, 20]
     })
     expect(math_util.collided(the_ship, the_bullet)).toBeFalsy()
 
   it 'other', ->
-    the_ship = the_game.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]})
+    the_ship = the_game.game_field.add_ship(  {position: [0, 0], points: [[1, 1],[5,1],[5,5],[1,5]]}, 0, 0, 0)
     the_bullet = the_game.game_field.add_bullet({
-      game: the_game,
+      game_field: the_game.game_field,
       points: [[1, 1],[3,1],[3,3],[1,3]]})
     expect(math_util.collided(the_ship, the_bullet)).toBeTruthy()
 
@@ -60,28 +69,28 @@ describe 'single ship collides with', ->
     game_field = the_game.game_field
 
   it 'ship does not collide with self', ->
-    the_ship = the_game.add_ship()
+    the_ship = game_field.add_ship({}, 0, 0, 0)
     expect(game_field.collisions_with(the_ship,0)).toEqual([])
 
   it 'detects ship with other ship collisions', ->
-    ship1 = the_game.add_ship(position: [10,10])
-    ship2 = the_game.add_ship(position: [10,10])
+    ship1 = game_field.add_ship({position: [10,10]}, 0, 0, 0)
+    ship2 = game_field.add_ship({position: [10,10]}, 0, 0, 0)
     expect(game_field.collisions_with(ship1,0)).toEqual([ship2])
 
   it 'does not collide non-overlapping ships', ->
-    ship1 = the_game.add_ship(position: [11,12])
-    ship2 = the_game.add_ship(position: [100,100])
+    ship1 = game_field.add_ship({position: [11,12]}, 0, 0, 0)
+    ship2 = game_field.add_ship({position: [100,100]}, 0, 0, 0)
     expect(game_field.collisions_with(ship1,0)).toEqual([])
 
   it 'ships do not collide when positioned into different locations', ->
-    ship1 = the_game.add_ship(position: [400,450])
-    ship2 = the_game.add_ship(position: [400,450])
+    ship1 = game_field.add_ship({position: [400,450]}, 0, 0, 0)
+    ship2 = game_field.add_ship({position: [400,450]}, 0, 0, 0)
     ship2.position(new vector.Vector([80,120]))
     expect(game_field.collisions_with(ship1,0)).toEqual([])
 
   it 'ships do collide when positioned into same locations', ->
-    ship1 = the_game.add_ship(position: [400,450])
-    ship2 = the_game.add_ship()
+    ship1 = game_field.add_ship({position: [400,450]}, 0, 0, 0)
+    ship2 = game_field.add_ship({}, 0, 0, 0)
     ship2.position(new vector.Vector([400,450]))
     expect(game_field.collisions_with(ship1,0)).toEqual([ship2])
 
@@ -97,10 +106,10 @@ describe "A bullet fired from ship A colliding with ship B", ->
     the_game= new game.Game({})
 
     player_a= the_game.add_player('a')
-    ship_a= the_game.add_ship()
+    ship_a= the_game.game_field.add_ship({}, 0, 0, 0)
     the_game.connect_ship('a', ship_a)
 
-    ship_b= the_game.add_ship()
+    ship_b= the_game.game_field.add_ship({}, 0, 0, 0)
     player_b= the_game.add_player('b')
     the_game.connect_ship('b', ship_b)
 

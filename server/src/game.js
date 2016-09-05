@@ -55,8 +55,4 @@ Game.prototype.connect_ship= function(player_id, ship) {
   ship.player(the_player);
 };
 
-Game.prototype.add_ship = function(parameters) {
-  return this.game_field.add_ship(this,parameters);
-};
-
 exports.Game= Game;

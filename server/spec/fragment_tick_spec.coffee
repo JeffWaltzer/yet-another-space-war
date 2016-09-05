@@ -13,8 +13,8 @@ describe 'game tick', ->
     })
     game = server.game
     game_field = game.game_field
-    game_field.add_screen_object(new Fragment({game: game, outline: [[0,0],[0,5],[5,5],[5,0]]}))
-    game_field.add_screen_object(new Fragment({game: game, outline: [[2,2],[2,7],[7,7],[7,2]]}))
+    game_field.add_screen_object(new Fragment({game_field: game_field, outline: [[0,0],[0,5],[5,5],[5,0]]}))
+    game_field.add_screen_object(new Fragment({game_field: game_field, outline: [[2,2],[2,7],[7,7],[7,2]]}))
     game.tick()
 
   it 'does not collide', ->
@@ -37,10 +37,10 @@ describe "game#tick" , ->
     })
     heading_change= server.ship_rotation_rate/server.tick_rate;
     ships=[]
-    ships.push server.game.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]})
-    ships.push server.game.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]})
-    ships.push server.game.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]})
-    ships.push server.game.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]})
+    ships.push server.game.game_field.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]}, 0, 0, 0)
+    ships.push server.game.game_field.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]}, 0, 0, 0)
+    ships.push server.game.game_field.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]}, 0, 0, 0)
+    ships.push server.game.game_field.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]}, 0, 0, 0)
 
     fragment = ships[0].explode()[0]
     dead_fragment= ships[1].explode()[0]

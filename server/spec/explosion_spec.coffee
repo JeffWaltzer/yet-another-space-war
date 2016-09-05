@@ -15,11 +15,14 @@ describe "ship#explode" , ->
       acceleration_rate: 5
     });
 
-    the_ship = the_game.add_ship({
+    the_ship = the_game.game_field.add_ship({
         position: [0, 0],
         points: [[1, 1], [5, 1], [5, 5], [1, 5]],
         velocity: [5,10]
-      }
+      },
+      0,
+      0,
+      0
     )
 
     the_ship.explode()
