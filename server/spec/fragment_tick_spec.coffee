@@ -9,7 +9,7 @@ describe 'game tick', ->
     server= yasw.createServer({
       ship_rotation_rate: 2*Math.PI # radians/s
       tick_rate: 10                 # ticks/s
-      fragment_life_time: 20
+      fragment_lifetime: 20
     })
     game = server.game
     game_field = game.game_field
@@ -33,7 +33,7 @@ describe "game#tick" , ->
     server= yasw.createServer({
       ship_rotation_rate: 2*Math.PI # radians/s
       tick_rate: 10                 # ticks/s
-      fragment_life_time: 20
+      fragment_lifetime: 20
     })
     heading_change= server.ship_rotation_rate/server.tick_rate;
     ships=[]

@@ -24,14 +24,14 @@ describe "game#tick" , ->
     server= yasw.createServer({
       ship_rotation_rate: 2*Math.PI # radians/s
       tick_rate: 10                 # ticks/s
-      bullet_life_time: 20
+      bullet_lifetime: 20
     })
     heading_change= server.ship_rotation_rate/server.tick_rate;
     ships=[]
-    ships.push server.game.game_field.add_ship({angular_velocity:  0,                         heading:          0, points: [[5, 0]], position: [10, 10]}, 0, 0, server.game.bullet_life_time)
-    ships.push server.game.game_field.add_ship({angular_velocity:  0,                         heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]}, 0, 0, server.game.bullet_life_time)
-    ships.push server.game.game_field.add_ship({angular_velocity:  server.ship_rotation_rate, heading:          0, points: [[5, 0]], position: [30, 30]}, 0, 0, server.game.bullet_life_time)
-    ships.push server.game.game_field.add_ship({angular_velocity: -server.ship_rotation_rate, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]}, 0, 0, server.game.bullet_life_time)
+    ships.push server.game.game_field.add_ship({angular_velocity:  0,                         heading:          0, points: [[5, 0]], position: [10, 10]}, 0, 0, server.game.bullet_lifetime)
+    ships.push server.game.game_field.add_ship({angular_velocity:  0,                         heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]}, 0, 0, server.game.bullet_lifetime)
+    ships.push server.game.game_field.add_ship({angular_velocity:  server.ship_rotation_rate, heading:          0, points: [[5, 0]], position: [30, 30]}, 0, 0, server.game.bullet_lifetime)
+    ships.push server.game.game_field.add_ship({angular_velocity: -server.ship_rotation_rate, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]}, 0, 0, server.game.bullet_lifetime)
 
     bullet = ships[0].fire()
 
@@ -45,7 +45,7 @@ describe "game#tick" , ->
     player= server.game.add_player('player_id');
     player.socket= fake_socket;
 
-    viewing_ship = server.game.game_field.add_ship({angular_velocity:  0, heading:          0, points: [[5, 0]], position:[50,60]}, 0, 0, server.game.bullet_life_time)
+    viewing_ship = server.game.game_field.add_ship({angular_velocity:  0, heading:          0, points: [[5, 0]], position:[50,60]}, 0, 0, server.game.bullet_lifetime)
     player.ship= viewing_ship;
 
     server.game.tick()

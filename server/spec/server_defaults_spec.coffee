@@ -25,7 +25,7 @@ describe "server initialization", ->
     expect(server.bullet_speed).toEqual(70)
 
   it "sets bullet life time", ->
-    expect(server.bullet_life_time).toEqual(4)
+    expect(server.bullet_lifetime).toEqual(4)
 
    afterEach ->
     server= undefined

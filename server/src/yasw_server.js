@@ -21,7 +21,7 @@ exports.createServer= function(parameters) {
     var right_edge= (parameters && parameters.right_edge) || 800;
 
     yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
-    yasw_server.bullet_life_time = (parameters && parameters.bullet_life_time) || 4;
+    yasw_server.bullet_lifetime = (parameters && parameters.bullet_lifetime) || 4;
 
     yasw_server.game= new game.Game(yasw_server);
     yasw_server.game.start_ticking(yasw_server.tick_rate);
@@ -48,7 +48,7 @@ exports.createServer= function(parameters) {
 	game.connect_socket(player_id, socket);
 	var player = game.players[player_id];
 
-  ship= player.ship  ||  game.game_field.add_ship({}, game.ship_rotation_rate, game.bullet_speed, game.bullet_life_time);
+  ship= player.ship  ||  game.game_field.add_ship({}, game.ship_rotation_rate, game.bullet_speed, game.bullet_lifetime);
 	game.connect_ship(player_id, ship);
 
 	socket.on('message', _(player.on_message).bind(player));

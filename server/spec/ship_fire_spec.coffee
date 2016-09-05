@@ -90,7 +90,7 @@ describe 'Ship fires a bullet', ->
     beforeEach ->
       the_game = new game.Game({
         tick_rate: 0
-        bullet_life_time: 6
+        bullet_lifetime: 6
       })
 
       the_player= the_game.add_player('Frank Zappa')

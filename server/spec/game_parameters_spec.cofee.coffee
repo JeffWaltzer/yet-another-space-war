@@ -6,7 +6,7 @@ describe 'default game settings', ->
   yasw_server = undefined
   game = undefined
   settings=[
-    'bullet_life_time'
+    'bullet_lifetime'
     'bullet_speed'
   ]
 
