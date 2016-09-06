@@ -23,7 +23,7 @@ describe "server initialization", ->
     expect(server.field_size.x()).toEqual(800)
 
   it "sets the bullet_speed", ->
-    expect(server.bullet_speed).toEqual(70)
+    expect(ship.Ship.bullet_speed).toEqual(10)
 
   it "sets bullet life time", ->
     expect(server.bullet_lifetime).toEqual(4)

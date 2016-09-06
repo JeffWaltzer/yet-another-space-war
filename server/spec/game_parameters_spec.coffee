@@ -5,9 +5,8 @@ _= require 'underscore'
 describe 'default game settings', ->
   yasw_server = undefined
   game = undefined
-  settings=[
+  settings= [
     'bullet_lifetime'
-    'bullet_speed'
   ]
 
   beforeEach ->

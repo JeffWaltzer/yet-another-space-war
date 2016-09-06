@@ -14,7 +14,7 @@ exports.createServer= function(parameters) {
 
     ship.Ship.rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
     ship.Ship.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
-    yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
+    ship.Ship.bullet_speed = (parameters && parameters.bullet_speed) || 10;
 
 
     yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
@@ -51,7 +51,7 @@ exports.createServer= function(parameters) {
 	game.connect_socket(player_id, socket);
 	var player = game.players[player_id];
 
-  the_ship= player.ship  ||  game.game_field.add_ship({}, ship.Ship.rotation_rate, game.bullet_speed, game.bullet_lifetime);
+  the_ship= player.ship  ||  game.game_field.add_ship({}, ship.Ship.rotation_rate, ship.Ship.bullet_speed, game.bullet_lifetime);
 	game.connect_ship(player_id, the_ship);
 
 	socket.on('message', _(player.on_message).bind(player));
