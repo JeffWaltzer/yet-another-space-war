@@ -7,14 +7,12 @@ var fragment_maker = require('./fragment_maker');
 var Fragment= require('./fragment').Fragment;
 
 
-function Ship(initial_state, ship_rotation_rate, bullet_speed, bullet_lifetime) {
+function Ship(initial_state) {
   screen_object.ScreenObject.call(this, initial_state);
 
   this.rotation= initial_state.rotation || 0;
   this.acceleration= initial_state.acceleration || 0;
   this.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
-  this.bullet_speed= bullet_speed;
-  this.bullet_lifetime= bullet_lifetime;
 }
 
 util.inherits(Ship, screen_object.ScreenObject);
@@ -69,13 +67,12 @@ Ship.prototype.explode = function() {
 };
 
 Ship.prototype.fire= function(debug){
-  var bullet_speed= this.bullet_speed;
   var bullet_parameters= {
     game_field: this.game_field,
-    life_left: this.bullet_lifetime,
+    life_left: Ship.bullet_lifetime,
     position: this.gun_point().coordinates,
-    velocity: [this.velocity.x() + bullet_speed * Math.cos(this.heading),
-               this.velocity.y() + bullet_speed * Math.sin(this.heading)],
+    velocity: [this.velocity.x() + Ship.bullet_speed * Math.cos(this.heading),
+               this.velocity.y() + Ship.bullet_speed * Math.sin(this.heading)],
     ship: this,
     player: this.player()
   };
@@ -85,7 +82,7 @@ Ship.prototype.fire= function(debug){
 
 Ship.prototype.clone= function() {
   if (this.game_field)
-    this.game_field.add_ship(this.ship_rotation_speed, this.bullet_speed, this.bullet_lifetime);
+    this.game_field.add_ship();
 };
 
 Ship.prototype.is_ship = function() {

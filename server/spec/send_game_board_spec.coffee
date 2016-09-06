@@ -39,10 +39,7 @@ describe "sending a game board when our player has a ship", ->
     the_player.socket= fake_socket;
     the_player.ship = game.game_field.add_ship({
       player: the_player,
-      position: [201,303]},
-      0,
-      0,
-      0
+      position: [201,303]}
     )
 
     game.send_game_board(game.game_field.game_board())

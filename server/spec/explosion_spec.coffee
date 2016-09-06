@@ -19,10 +19,7 @@ describe "ship#explode" , ->
         position: [0, 0],
         points: [[1, 1], [5, 1], [5, 5], [1, 5]],
         velocity: [5,10]
-      },
-      0,
-      0,
-      0
+      }
     )
 
     the_ship.explode()

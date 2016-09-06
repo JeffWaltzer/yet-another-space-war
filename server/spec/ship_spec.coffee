@@ -40,9 +40,9 @@ describe "ship#outline", ->
 
     server= yasw.createServer()
 
-    server.game.game_field.add_ship({heading: -Math.PI/2, points: [[10, 0]]}, 0, 0, 0)
-    server.game.game_field.add_ship({heading:          0, points: [[5, 0]]}, 0, 0, 0)
-    server.game.game_field.add_ship({heading:  Math.PI/2, points: [[3, 0]]}, 0, 0, 0)
+    server.game.game_field.add_ship({heading: -Math.PI/2, points: [[10, 0]]})
+    server.game.game_field.add_ship({heading:          0, points: [[5, 0]]})
+    server.game.game_field.add_ship({heading:  Math.PI/2, points: [[3, 0]]})
 
   it "updates the ship position for heading -π/2", ->
     expect(server.game.game_field.screen_objects()[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
@@ -62,9 +62,9 @@ describe "Ship#gun_point", ->
   beforeEach ->
     this.addMatchers(custom_matchers)
     server= yasw.createServer()
-    server.game.game_field.add_ship({position: [0, 0], heading: 0,         gun_point: [1, 2]}, 0, 0, 0)
-    server.game.game_field.add_ship({position: [0, 0], heading: Math.PI/2, gun_point: [1, 2]}, 0, 0, 0)
-    server.game.game_field.add_ship({heading: Math.PI,   gun_point: [1, 2], position: [10, 10]}, 0, 0, 0)
+    server.game.game_field.add_ship({position: [0, 0], heading: 0,         gun_point: [1, 2]})
+    server.game.game_field.add_ship({position: [0, 0], heading: Math.PI/2, gun_point: [1, 2]})
+    server.game.game_field.add_ship({heading: Math.PI,   gun_point: [1, 2], position: [10, 10]})
 
   it "expect correct gun_point for unrotated ship", ->
     expect(server.game.game_field.screen_objects()[0].gun_point().x()).toEqual(1)
@@ -88,7 +88,7 @@ describe "Ship#fire", ->
   beforeEach ->
     the_server= yasw.createServer()
     the_game= the_server.game
-    the_ship= the_game.game_field.add_ship({}, 0, 0, 0)
+    the_ship= the_game.game_field.add_ship()
     the_ship.fire()
 
   it "adds a bullet", ->
@@ -106,7 +106,7 @@ describe "Ship#clone", ->
   beforeEach ->
     the_server= yasw.createServer()
     the_game= the_server.game
-    the_ship= the_game.game_field.add_ship({}, 0, 0, 0)
+    the_ship= the_game.game_field.add_ship()
     the_ship.clone()
 
   it "adds a ship", ->

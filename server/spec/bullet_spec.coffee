@@ -30,7 +30,7 @@ describe "bullet with explicit values", ->
   beforeEach ->
     the_game = new game.Game({})
     fake_player = the_game.add_player('Britany Spears')
-    fake_ship =  the_game.game_field.add_ship({}, 0, 0, 0);
+    fake_ship =  the_game.game_field.add_ship();
     the_bullet = new bullet.Bullet {
       position: [3, 4]
       velocity: [5, 6]

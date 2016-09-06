@@ -17,10 +17,7 @@ describe 'Ship fires a bullet', ->
         velocity: [50, 50],
         heading: Math.PI/4,
         player: the_player
-      },
-      0,
-      10,
-      0)
+      })
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
@@ -38,7 +35,7 @@ describe 'Ship fires a bullet', ->
 
       the_player =the_game.add_player('Frank Zappa')
 
-      the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/4, player: the_player}, 0, 10, 0)
+      the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/4, player: the_player})
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 6)
@@ -56,7 +53,7 @@ describe 'Ship fires a bullet', ->
 
       the_player =the_game.add_player('Frank Zappa')
 
-      the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/2,  player: the_player}, 0, 10, 0)
+      the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/2,  player: the_player})
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo( 0, 6)
@@ -75,7 +72,7 @@ describe 'Ship fires a bullet', ->
 
       the_player =the_game.add_player('Frank Zappa')
 
-      the_ship = the_game.game_field.add_ship({velocity: [50, 50], heading: Math.PI*3/4,  player: the_player}, 0, 10, 0)
+      the_ship = the_game.game_field.add_ship({velocity: [50, 50], heading: Math.PI*3/4,  player: the_player})
       bullet = the_ship.fire()
 
       expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
@@ -102,10 +99,7 @@ describe 'Ship fires a bullet', ->
         position: [100,100]
         gun_point: [21,0],
         player: the_player,
-      },
-      0,
-      70,
-      6)
+      })
       new_bullet = new_ship.fire(true)
 
     it 'starts bullet in correct position', ->
@@ -116,4 +110,4 @@ describe 'Ship fires a bullet', ->
       expect(new_bullet.position().y()).toEqual((new_ship.gun_point().y()))
 
     it 'starts bullet with correct life time', ->
-      expect(new_bullet.life_left).toEqual(6)
+      expect(new_bullet.life_left).toEqual(ship.Ship.bullet_lifetime)

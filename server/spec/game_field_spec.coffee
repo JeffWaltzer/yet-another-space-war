@@ -7,7 +7,7 @@ describe 'game field', ->
     ship = undefined
     it 'adds fragments for a ship', ->
       game_field= new GameField({})
-      ship = game_field.add_ship({}, 0, 0, 0)
+      ship = game_field.add_ship()
       game_field.remove_screen_objects([ship])
       expect(underscore.select(
         game_field.screen_objects()

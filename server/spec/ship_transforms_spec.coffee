@@ -10,10 +10,7 @@ describe "A ship not at the origin, but not rotated", ->
       points: [[1,0]],
       heading: 0,
       position: [10,20],
-    },
-    0,
-    0,
-    0)
+    })
     the_ship.update_outline()
 
   it 'translates x', ->
@@ -34,10 +31,7 @@ describe "Rotation around the  origin", ->
       points: [[1,0]],
       heading: Math.PI/2,
       position: [0,0],
-    },
-    0,
-    0,
-    0)
+    })
     the_ship.update_outline()
 
   it 'rotates x', ->
@@ -58,10 +52,7 @@ describe "Rotation of 1,0 around itself", ->
       points: [[1,0]],
       heading: Math.PI/2,
       position: [1,0],
-    },
-    0,
-    0,
-    0)
+    })
     the_ship.update_outline()
 
   it 'rotates x', ->
@@ -82,10 +73,7 @@ describe "Rotation of 1,0 around 2,2", ->
       points: [[1,0]],
       heading: -Math.PI/2,
       position: [2,2],
-    },
-    0,
-    0,
-    0)
+    })
     the_ship.update_outline()
 
   it 'rotates x', ->

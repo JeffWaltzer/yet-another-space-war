@@ -37,10 +37,10 @@ describe "game#tick" , ->
     })
     heading_change= ship.Ship.rotation_rate/server.tick_rate;
     ships=[]
-    ships.push server.game.game_field.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]}, 0, 0, 0)
-    ships.push server.game.game_field.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]}, 0, 0, 0)
-    ships.push server.game.game_field.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]}, 0, 0, 0)
-    ships.push server.game.game_field.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]}, 0, 0, 0)
+    ships.push server.game.game_field.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]})
+    ships.push server.game.game_field.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]})
+    ships.push server.game.game_field.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]})
+    ships.push server.game.game_field.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]})
 
     fragment = ships[0].explode()[0]
     dead_fragment= ships[1].explode()[0]
