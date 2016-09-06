@@ -15,6 +15,7 @@ exports.createServer= function(parameters) {
     ship.Ship.rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
     ship.Ship.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
     ship.Ship.bullet_speed = (parameters && parameters.bullet_speed) || 10;
+    ship.Ship.bullet_lifetime = (parameters && parameters.bullet_lifetime) || 4;
 
 
     yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
@@ -24,7 +25,6 @@ exports.createServer= function(parameters) {
     var right_edge= (parameters && parameters.right_edge) || 800;
 
     yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
-    yasw_server.bullet_lifetime = (parameters && parameters.bullet_lifetime) || 4;
 
     yasw_server.game= new game.Game(yasw_server);
     yasw_server.game.start_ticking(yasw_server.tick_rate);

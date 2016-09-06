@@ -26,7 +26,7 @@ describe "server initialization", ->
     expect(ship.Ship.bullet_speed).toEqual(10)
 
   it "sets bullet life time", ->
-    expect(server.bullet_lifetime).toEqual(4)
+    expect(ship.Ship.bullet_lifetime).toEqual(4)
 
    afterEach ->
     server= undefined

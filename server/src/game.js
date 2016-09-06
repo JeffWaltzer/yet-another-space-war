@@ -11,12 +11,7 @@ function Game(initial_state) {
     initial_state= {};
 
   this.game_field= new GameField(initial_state);
-  this.bullet_speed= initial_state.bullet_speed || 7;
-
-  this.bullet_lifetime = initial_state.bullet_lifetime || 3;
   this.tick_rate= initial_state.tick_rate;
-
-  this.acceleration_rate= initial_state.acceleration_rate;
 
   this.players= {};
 }
