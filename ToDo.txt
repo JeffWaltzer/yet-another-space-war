@@ -48,3 +48,5 @@ Before Release
     
 move custom matcher out of ship_spec.
 remove references to fragment_shapes from explosion_spec
+Refactor specs that just need GameField instead of Game
+
