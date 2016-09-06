@@ -13,10 +13,12 @@ exports.createServer= function(parameters) {
     var http_server;
 
     ship.Ship.rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
+    ship.Ship.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
+    yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
+
 
     yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
-    yasw_server.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
-    yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
+
 
     var top_edge= (parameters && parameters.top_edge) || 600;
     var right_edge= (parameters && parameters.right_edge) || 800;

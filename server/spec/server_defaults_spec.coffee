@@ -14,7 +14,7 @@ describe "server initialization", ->
     expect(server.tick_rate).toEqual(1)
 
   it "sets the acceleration_rate", ->
-    expect(server.acceleration_rate).toEqual(1)
+    expect(ship.Ship.acceleration_rate).toEqual(1)
 
   it "sets the top_edge", ->
     expect(server.field_size.y()).toEqual(600)
