@@ -1,5 +1,6 @@
 yasw = require './../../src/yasw_server'
 engine_client = require 'engine.io-client'
+ship = require './../../src/ship'
 
 describe 'the server, when asked for ship data ', ->
   server= undefined
@@ -68,10 +69,10 @@ describe 'the server, when asked for ship data ', ->
     expect(server.game.game_field.screen_objects().length).toEqual(0)
 
   it 'sets ship negative angular_velocity on rotate_left', (done) ->
-    check_angular_velocity "rotate_left", -server.game.ship_rotation_rate, server, this, null, done
+    check_angular_velocity "rotate_left", -ship.Ship.rotation_rate, server, this, null, done
 
   it 'sets ship postive angular_velocity on rotate_right', (done) ->
-    check_angular_velocity "rotate_right", server.game.ship_rotation_rate, server, this, null, done
+    check_angular_velocity "rotate_right", ship.Ship.rotation_rate, server, this, null, done
 
   it 'sets ship no angular_velocity on rotate_stop', (done) ->
     set_angular_velocity = ->

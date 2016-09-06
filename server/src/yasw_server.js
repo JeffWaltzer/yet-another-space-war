@@ -12,7 +12,8 @@ exports.createServer= function(parameters) {
     var yasw_server= {};
     var http_server;
 
-    yasw_server.ship_rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
+    ship.Ship.rotation_rate = (parameters && parameters.ship_rotation_rate) || Math.PI;
+
     yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
     yasw_server.acceleration_rate = (parameters && parameters.acceleration_rate) || 1;
     yasw_server.bullet_speed = (parameters && parameters.bullet_speed) || 70;
@@ -31,7 +32,7 @@ exports.createServer= function(parameters) {
     };
 
     yasw_server.on_new_websocket= function(socket) {
-	var ship;
+	var the_ship;
 	var cookies = yasw_server.socket_cookies(socket);
 	var game= yasw_server.game;
 	var player_id;
@@ -48,12 +49,12 @@ exports.createServer= function(parameters) {
 	game.connect_socket(player_id, socket);
 	var player = game.players[player_id];
 
-  ship= player.ship  ||  game.game_field.add_ship({}, game.ship_rotation_rate, game.bullet_speed, game.bullet_lifetime);
-	game.connect_ship(player_id, ship);
+  the_ship= player.ship  ||  game.game_field.add_ship({}, ship.Ship.rotation_rate, game.bullet_speed, game.bullet_lifetime);
+	game.connect_ship(player_id, the_ship);
 
 	socket.on('message', _(player.on_message).bind(player));
 
-	return ship;
+	return the_ship;
     };
 
     yasw_server.make_player_id= function() {

@@ -1,4 +1,5 @@
 yasw = require './../../src/yasw_server'
+ship = require './../../src/ship'
 
 describe "server initialization", ->
   server= undefined
@@ -7,7 +8,7 @@ describe "server initialization", ->
     server= yasw.createServer()
 
   it "sets the ship_rotation_rate", ->
-    expect(server.ship_rotation_rate).toEqual(Math.PI)
+    expect(ship.Ship.rotation_rate).toEqual(Math.PI)
 
   it "sets the tick_rate", ->
     expect(server.tick_rate).toEqual(1)

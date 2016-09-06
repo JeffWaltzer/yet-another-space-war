@@ -13,23 +13,23 @@ function Ship(initial_state, ship_rotation_rate, bullet_speed, bullet_lifetime) 
   this.rotation= initial_state.rotation || 0;
   this.acceleration= initial_state.acceleration || 0;
   this.raw_gun_point = new vector.Vector(initial_state.gun_point || [0,0]);
-  this.ship_rotation_rate= ship_rotation_rate;
   this.bullet_speed= bullet_speed;
   this.bullet_lifetime= bullet_lifetime;
 }
 
 util.inherits(Ship, screen_object.ScreenObject);
 
+Ship.rotation_rate= 1;
 
 Ship.prototype.on_message = function(json_message) {
   var message = JSON.parse(json_message);
 
   switch (message.command) {
   case 'rotate_left':
-    this.angular_velocity= -this.ship_rotation_rate;
+    this.angular_velocity= -Ship.rotation_rate;
     break;
   case 'rotate_right':
-    this.angular_velocity= this.ship_rotation_rate;
+    this.angular_velocity= Ship.rotation_rate;
     break;
   case 'rotate_stop':
       this.angular_velocity= 0;

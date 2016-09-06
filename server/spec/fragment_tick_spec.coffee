@@ -35,7 +35,7 @@ describe "game#tick" , ->
       tick_rate: 10                 # ticks/s
       fragment_lifetime: 20
     })
-    heading_change= server.ship_rotation_rate/server.tick_rate;
+    heading_change= ship.Ship.rotation_rate/server.tick_rate;
     ships=[]
     ships.push server.game.game_field.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]}, 0, 0, 0)
     ships.push server.game.game_field.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]}, 0, 0, 0)
