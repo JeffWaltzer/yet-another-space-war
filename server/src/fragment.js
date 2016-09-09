@@ -17,7 +17,7 @@ Fragment.prototype.is_fragment = function() {
 };
 
 Fragment.prototype.ignores_collisions= function() {
-    return true;
+  return true;
 };
 
 Fragment.prototype.update= MortalObject.update;

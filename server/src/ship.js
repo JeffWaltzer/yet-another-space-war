@@ -30,7 +30,7 @@ Ship.prototype.on_message = function(json_message) {
     this.angular_velocity= Ship.rotation_rate;
     break;
   case 'rotate_stop':
-      this.angular_velocity= 0;
+    this.angular_velocity= 0;
     break;
   case 'thrust_on':
     this.acceleration = 30;
@@ -50,7 +50,7 @@ Ship.prototype.on_message = function(json_message) {
 Ship.prototype.update= function(tick_rate) {
   Ship.super_.prototype.update.call(this, tick_rate);
   this.velocity.add_to(new vector.Vector({magnitude: this.acceleration / tick_rate,
-    heading: this.heading}));
+                                          heading: this.heading}));
 };
 
 
@@ -62,8 +62,8 @@ Ship.prototype.gun_point= function() {
 };
 
 Ship.prototype.explode = function() {
-    this.game_field.remove_screen_object(this);
-    return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
+  this.game_field.remove_screen_object(this);
+  return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
 };
 
 Ship.prototype.fire= function(debug){
@@ -76,7 +76,7 @@ Ship.prototype.fire= function(debug){
     ship: this,
     player: this.player()
   };
-    
+  
   return this.game_field.add_bullet(bullet_parameters);
 };
 

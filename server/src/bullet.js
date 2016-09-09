@@ -18,13 +18,13 @@ Bullet.prototype.update= MortalObject.update;
 Bullet.prototype.live = MortalObject.live;
 
 Bullet.prototype.ship= function(new_value) {
-    if(new_value)
-        this._ship = new_value;
-    return this._ship;
+  if(new_value)
+    this._ship = new_value;
+  return this._ship;
 };
 
 Bullet.prototype.is_bullet = function() {
-    return true;
+  return true;
 };
 
 Bullet.prototype.bump_player_score = function (other_object) {

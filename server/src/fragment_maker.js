@@ -2,15 +2,15 @@ var math_util = require('./math_util');
 var Fragment= require('./fragment').Fragment;
 
 function make_fragment(n_sides, base_size) {
-    var fragment= [];
-    for (var i= 0; i < n_sides; i++) {
-	var twiddle= 1 + 0.8 * Math.random() - 0.4;
-	var angle= (2*Math.PI/n_sides) * i;
-	var size= base_size*twiddle;
-	fragment.push([size*Math.cos(angle),
-		       size*Math.sin(angle)]);
-    }
-    return fragment;
+  var fragment= [];
+  for (var i= 0; i < n_sides; i++) {
+    var twiddle= 1 + 0.8 * Math.random() - 0.4;
+    var angle= (2*Math.PI/n_sides) * i;
+    var size= base_size*twiddle;
+    fragment.push([size*Math.cos(angle),
+		   size*Math.sin(angle)]);
+  }
+  return fragment;
 }
 
 var fragment_shapes = [
@@ -53,7 +53,7 @@ function fragment_parameters(game_field, median_position, median_velocity, shape
 
 function add_fragment(game_field, median_position, median_velocity, shape_index) {
   return game_field.add_screen_object(
-      new Fragment(fragment_parameters(game_field, median_position, median_velocity, shape_index))
+    new Fragment(fragment_parameters(game_field, median_position, median_velocity, shape_index))
   );
 }
 
@@ -61,7 +61,7 @@ exports.add_fragments = function (game_field, median_position, median_velocity) 
   var number_of_fragments = Math.floor(math_util.random_in_range(2, 12));
   var fragments = [];
   for (var i = 0; i < number_of_fragments; i++) {
-      fragments.push(add_fragment(game_field, median_position, median_velocity, i));
+    fragments.push(add_fragment(game_field, median_position, median_velocity, i));
   }
   return fragments;
 };

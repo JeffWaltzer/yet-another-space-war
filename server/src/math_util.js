@@ -1,22 +1,22 @@
 var _= require('underscore');
 
 exports.collided =  function(object1, object2) {
-    if (!exports.bounding_boxes_intersect(object1.bounding_box,
-                                          object2.bounding_box)) {
-	return false;
-    }
+  if (!exports.bounding_boxes_intersect(object1.bounding_box,
+                                        object2.bounding_box)) {
+    return false;
+  }
 
-    var result= false;
-    _(object1.lines()).each(function(line1){
-	_(object2.lines()).each(function(line2){
-	    if (exports.intersect(line1,line2))
-		result= true;
-	});
-	result = result ||
-	    point_inside(object1,object2) ||
-	    point_inside(object2,object1);
+  var result= false;
+  _(object1.lines()).each(function(line1){
+    _(object2.lines()).each(function(line2){
+      if (exports.intersect(line1,line2))
+	result= true;
     });
-    return result;
+    result = result ||
+      point_inside(object1,object2) ||
+      point_inside(object2,object1);
+  });
+  return result;
 };
 
 exports.bounding_boxes_intersect = function(box1, box2) {
@@ -59,22 +59,22 @@ exports.intersect= function(line1, line2) {
   var s= vector_subtract(line2[1], line2[0]);
 
   var line1_t= vector_cross(vector_subtract(q,p), s) /
-    vector_cross(r, s);
+        vector_cross(r, s);
   var line2_t= vector_cross(vector_subtract(p,q), r) /
-    vector_cross(s, r);
+        vector_cross(s, r);
 
   return line1_t >= 0 && line1_t <= 1 &&
-         line2_t >= 0 && line2_t <= 1;
+    line2_t >= 0 && line2_t <= 1;
 };
 
 function point_inside(object1,object2) {
   var big_line= [object1.lines()[0][0], [-10000, -10000]];
   var intersection_count= 0;
 
-    _(object2.lines()).each(function(object_line) {
-	if (exports.intersect(big_line, object_line))
-	    intersection_count++;
-    });
+  _(object2.lines()).each(function(object_line) {
+    if (exports.intersect(big_line, object_line))
+      intersection_count++;
+  });
 
   return (intersection_count % 2) == 1;
 }

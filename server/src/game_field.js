@@ -27,7 +27,7 @@ GameField.prototype.screen_objects= function(new_value) {
 };
 
 GameField.prototype.each_screen_object= function(callback_function) {
-    return _(this.screen_objects()).map(callback_function);
+  return _(this.screen_objects()).map(callback_function);
 };
 
 GameField.prototype.collisions_with= function(screenObject,start_index) {
@@ -40,7 +40,7 @@ GameField.prototype.collisions_with= function(screenObject,start_index) {
       continue;
 
     if (screenObject2.ignores_collisions())
-        continue;
+      continue;
 
     var collided = MathUtil.collided(screenObject, screenObject2);
     if(collided) {
@@ -80,7 +80,7 @@ GameField.prototype.add_bullet= function(parameters) {
   };
 
   if (parameters !== undefined)
-      _(defaultState).extend(parameters);
+    _(defaultState).extend(parameters);
 
   return this.add_screen_object(new bullet.Bullet(defaultState));
 };
@@ -97,7 +97,7 @@ GameField.prototype.add_ship = function(parameters) {
   };
 
   if (parameters !== undefined)
-      _(defaultState).extend(parameters);
+    _(defaultState).extend(parameters);
 
   var new_ship = this.add_screen_object(new ship.Ship(defaultState));
 
@@ -108,23 +108,23 @@ GameField.prototype.add_ship = function(parameters) {
 };
 
 GameField.prototype.game_board= function() {
-    var outline_array= this.each_screen_object(function(screen_object) {
-      var gamePiece = screen_object.make_game_piece();
-      return gamePiece;
-    });
-    var outlines= [];
-    _(outline_array).each(function(outline, index) {
-	      outlines.push(outline);
-    });
-    return outlines;
-  };
+  var outline_array= this.each_screen_object(function(screen_object) {
+    var gamePiece = screen_object.make_game_piece();
+    return gamePiece;
+  });
+  var outlines= [];
+  _(outline_array).each(function(outline, index) {
+    outlines.push(outline);
+  });
+  return outlines;
+};
 
 GameField.prototype.remove_dead_objects= function() {
-    this.screen_objects(
-	_(this.screen_objects()).filter(
-	    function(screen_object) {
-		return screen_object.live();
-	    }));
+  this.screen_objects(
+    _(this.screen_objects()).filter(
+      function(screen_object) {
+	return screen_object.live();
+      }));
 };
 
 GameField.prototype.update_screen_objects= function(tick_rate) {
@@ -152,35 +152,35 @@ GameField.prototype.remove_screen_objects = function (to_remove) {
 };
 
 GameField.prototype.remove_screen_object= function(to_remove) {
-    this.screen_objects(_(this.screen_objects()).reject(
-	function(screen_object) {
-            return screen_object === to_remove;
-	}));
+  this.screen_objects(_(this.screen_objects()).reject(
+    function(screen_object) {
+      return screen_object === to_remove;
+    }));
 };
 
 GameField.prototype.dead_objects= function() {
-    var to_remove = [];
-    for (var i = 0; i < this.screen_objects().length; i++) {
-	var screen_object = this.screen_objects()[i];
-	var objects_collided_with = this.collisions_with(screen_object, i + 1);
+  var to_remove = [];
+  for (var i = 0; i < this.screen_objects().length; i++) {
+    var screen_object = this.screen_objects()[i];
+    var objects_collided_with = this.collisions_with(screen_object, i + 1);
 
-	if (objects_collided_with.length > 0) {
-	    _(objects_collided_with).each(_(this.maybe_bump_score).bind(this,
-									screen_object));
-	    _(objects_collided_with).each(_(this.maybe_explode).bind(this,
-								     screen_object));
-	    to_remove.push(screen_object);
-	}
-	to_remove = to_remove.concat(objects_collided_with);
+    if (objects_collided_with.length > 0) {
+      _(objects_collided_with).each(_(this.maybe_bump_score).bind(this,
+								  screen_object));
+      _(objects_collided_with).each(_(this.maybe_explode).bind(this,
+							       screen_object));
+      to_remove.push(screen_object);
     }
-    return to_remove;
+    to_remove = to_remove.concat(objects_collided_with);
+  }
+  return to_remove;
 };
 
 
 
 GameField.prototype.maybe_explode= function(screen_object, o) {
-    screen_object.explode();
-    o.explode();
+  screen_object.explode();
+  o.explode();
 };
 
 GameField.prototype.maybe_bump_score= function(screen_object, o) {

@@ -17,20 +17,20 @@ function Game(initial_state) {
 }
 
 Game.prototype.tick= function() {
-    this.game_field.update_screen_objects(this.tick_rate);
-    this.send_game_board(this.game_field.game_board());
+  this.game_field.update_screen_objects(this.tick_rate);
+  this.send_game_board(this.game_field.game_board());
 };
 
 Game.prototype.start_ticking= function(tick_rate) {
-    if (tick_rate!==0)
-	setInterval(_(this.tick).bind(this),
-		    1000/tick_rate);
+  if (tick_rate!==0)
+    setInterval(_(this.tick).bind(this),
+		1000/tick_rate);
 };
 
 Game.prototype.send_game_board= function(new_board) {
-    _(this.players).each(function(player) {
-	player.send_game_board(new_board);
-    });
+  _(this.players).each(function(player) {
+    player.send_game_board(new_board);
+  });
 };
 
 Game.prototype.add_player= function(player_id) {

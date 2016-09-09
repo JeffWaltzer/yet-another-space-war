@@ -24,13 +24,13 @@ function ScreenObject(initial_state) {
 }
 
 ScreenObject.prototype.ship_to_game_transform= function() {
-    var rotation=            transforms.make_rotation(this.heading);
-    var composite_transform= transforms.identity();
-    var scale_and_translate_transform= transforms.make_translation(this._position);
+  var rotation=            transforms.make_rotation(this.heading);
+  var composite_transform= transforms.identity();
+  var scale_and_translate_transform= transforms.make_translation(this._position);
 
-    return transforms.concatenate_transforms(composite_transform,
-                                             scale_and_translate_transform,
-                                             rotation);
+  return transforms.concatenate_transforms(composite_transform,
+                                           scale_and_translate_transform,
+                                           rotation);
 };
 
 ScreenObject.prototype.generate_outline = function () {
@@ -38,24 +38,24 @@ ScreenObject.prototype.generate_outline = function () {
 
   var composite_transform = this.ship_to_game_transform();
   var returned_points = _(this.points).map(
-      function (p) {
-        var rv = [0, 0, 0];
-        transforms.apply_transform(rv, composite_transform, p);
-        var x = (rv[0] / rv[2]);
-        var y = (rv[1] / rv[2]);
-        if (this.bounding_box) {
-          if (x > this.bounding_box.right)  this.bounding_box.right = x;
-          if (x < this.bounding_box.left)  this.bounding_box.left = x;
-          if (y > this.bounding_box.top)  this.bounding_box.top = y;
-          if (y < this.bounding_box.bottom)  this.bounding_box.bottom = y;
-        } else {
-          this.bounding_box = {};
-          this.bounding_box.left = this.bounding_box.right = x;
-          this.bounding_box.top = this.bounding_box.bottom = y;
-        }
-        return [x, y];
-      },
-      this);
+    function (p) {
+      var rv = [0, 0, 0];
+      transforms.apply_transform(rv, composite_transform, p);
+      var x = (rv[0] / rv[2]);
+      var y = (rv[1] / rv[2]);
+      if (this.bounding_box) {
+        if (x > this.bounding_box.right)  this.bounding_box.right = x;
+        if (x < this.bounding_box.left)  this.bounding_box.left = x;
+        if (y > this.bounding_box.top)  this.bounding_box.top = y;
+        if (y < this.bounding_box.bottom)  this.bounding_box.bottom = y;
+      } else {
+        this.bounding_box = {};
+        this.bounding_box.left = this.bounding_box.right = x;
+        this.bounding_box.top = this.bounding_box.bottom = y;
+      }
+      return [x, y];
+    },
+    this);
 
   return returned_points;
 };
@@ -71,7 +71,7 @@ ScreenObject.prototype.outline= function() {
 ScreenObject.prototype.update= function(tick_rate) {
   this._position.add_to(this.velocity.divide(tick_rate));
   if (this.game_field)
-      this._position.clip_to(this.game_field.field_size());
+    this._position.clip_to(this.game_field.field_size());
   this.heading += this.angular_velocity / tick_rate;
   this.update_outline();
 };
