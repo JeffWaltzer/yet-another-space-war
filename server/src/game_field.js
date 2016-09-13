@@ -1,17 +1,14 @@
 var _= require('underscore');
 
-var bullet=require('./bullet');
-var ship=require('./ship');
-var Fragment= require('./fragment').Fragment;
-var ScreenObject= require('./screen_object').ScreenObject;
+var Bullet=require('./bullet').Bullet;
+var Ship=require('./ship').Ship;
 var NullPlayer= require('./null_player').NullPlayer;
 
 var MathUtil= require('./math_util');
-var vector=require('./vector');
-
+var Vector=require('./vector').Vector;
 
 function GameField(initial_state) {
-  this._field_size = initial_state.field_size || new vector.Vector([800,600]);
+  this._field_size = initial_state.field_size || new Vector([800,600]);
   this._screen_objects=[];
   this.next_id = 0;
 }
@@ -67,22 +64,20 @@ GameField.prototype.random_position = function() {
 GameField.prototype.place_ship= function(ship) {
   var number_collided = this.collisions_with(ship, 0).length;
   while (number_collided > 0) {
-    ship.position( new vector.Vector(this.random_position()));
+    ship.position( new Vector(this.random_position()));
     number_collided = this.collisions_with(ship, 0).length;
   }
 };
 
 GameField.prototype.add_bullet= function(parameters) {
   var defaultState = {
-    rotation: 0,
     points: [[-1, -1], [-1, 1], [1, 1], [1, -1]],
-    position: [0, 0]
   };
 
   if (parameters !== undefined)
     _(defaultState).extend(parameters);
 
-  return this.add_screen_object(new bullet.Bullet(defaultState));
+  return this.add_screen_object(new Bullet(defaultState));
 };
 
 
@@ -99,7 +94,7 @@ GameField.prototype.add_ship = function(parameters) {
   if (parameters !== undefined)
     _(defaultState).extend(parameters);
 
-  var new_ship = this.add_screen_object(new ship.Ship(defaultState));
+  var new_ship = this.add_screen_object(new Ship(defaultState));
 
   if (!parameters || !parameters.position)
     this.place_ship(new_ship);

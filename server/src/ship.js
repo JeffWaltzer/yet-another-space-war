@@ -4,8 +4,6 @@ var screen_object = require('./screen_object');
 var util = require('util');
 var math_util = require('./math_util');
 var fragment_maker = require('./fragment_maker');
-var Fragment= require('./fragment').Fragment;
-
 
 function Ship(initial_state) {
   screen_object.ScreenObject.call(this, initial_state);
