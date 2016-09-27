@@ -1,4 +1,5 @@
 Game= require('../../src/game').Game
+Vector= require('../../src/vector').Vector
 
 describe "sending a game board when our player doesn't have a ship", ->
   message= null
@@ -21,6 +22,31 @@ describe "sending a game board when our player doesn't have a ship", ->
 
   it "has screen objects", ->
     expect(sent_data.screen_objects).toEqual([]);
+
+  it "has field size", ->
+    expect(sent_data.field_size).toEqual([800,600]);
+
+
+describe "sending the field size", ->
+  message= null
+  game= null
+  fake_socket= null
+  sent_data= null
+
+  beforeEach ->
+    fake_socket=
+      send: (data) ->
+        sent_data= JSON.parse(data)
+
+    game= new Game({field_size: new Vector([1001,1002])})
+
+    the_player= game.add_player('player_id')
+    the_player.socket= fake_socket;
+    game.send_game_board({})
+
+  it "has field size", ->
+    expect(sent_data.field_size).toEqual([1001,1002]);
+
 
 describe "sending a game board when our player has a ship", ->
   message= null

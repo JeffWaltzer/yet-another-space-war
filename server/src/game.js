@@ -27,9 +27,28 @@ Game.prototype.start_ticking= function(tick_rate) {
 		1000/tick_rate);
 };
 
+
+Game.prototype.send_player_game_board= function(board, player) {
+  if (!player.socket)
+    return;
+
+  var message= {
+    screen_objects: board,
+    field_size: this.game_field.field_size().coordinates
+  };
+
+  if (player.ship)
+    message.you= player.ship.id;
+
+  player.socket.send(JSON.stringify(message));
+};
+
+
+
 Game.prototype.send_game_board= function(new_board) {
+  var self=this;
   _(this.players).each(function(player) {
-    player.send_game_board(new_board);
+    self.send_player_game_board(new_board,player);
   });
 };
 
