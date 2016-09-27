@@ -39,7 +39,7 @@ var fragment_shapes = [
 
 function fragment_parameters(game_field, median_position, median_velocity, shape_index) {
   return {
-    game: game_field,
+    game_field: game_field,
     position: median_position,
     velocity: [
       median_velocity.x() + math_util.random_in_range(-50, 50),
