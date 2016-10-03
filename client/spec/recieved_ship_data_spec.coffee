@@ -19,6 +19,7 @@ describe 'recieving shipdata', ->
     game_server.web_socket.emit('message',
       JSON.stringify
         you: "1",
+        field_size: [314, 217],
         screen_objects: [
           {id: '1', score: 23, position: [0,0],      outline: [[0,0],[1,1]]}
           {id: '2', score: 42, position: [200, 400], outline: [[202,402],[203,403]]}])
@@ -49,6 +50,9 @@ describe 'recieving shipdata', ->
 
   it "sets the correct color for the other ship", ->
     expect(scope.screen_objects()[0].color).toEqual('green')
+
+  it "sets the field size", ->
+    expect(scope.field_size).toEqual([314,217])
 
 describe "removing a dead ship's data", ->
   beforeEach module('YASW')

@@ -18,7 +18,7 @@ describe "sending a game board when our player doesn't have a ship", ->
     game.send_game_board({})
 
   it "doesn't send a 'you' item in the message", ->
-    expect(sent_data.you).not.toBeDefined();
+    expect(sent_data.you).toBeNull();
 
   it "has screen objects", ->
     expect(sent_data.screen_objects).toEqual([]);
