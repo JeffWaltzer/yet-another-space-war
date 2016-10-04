@@ -79,8 +79,14 @@ Ship.prototype.fire= function(debug){
 };
 
 Ship.prototype.clone= function() {
-  if (this.game_field)
-    this.game_field.add_ship();
+    if (!this.game_field)
+        return;
+
+    var heading= math_util.random_in_range(0, 2*Math.PI);
+    var speed= math_util.random_in_range(0, 50);
+    this.game_field.add_ship({heading: heading,
+                              velocity: [speed*Math.cos(heading),
+                                         speed*Math.sin(heading)]});
 };
 
 Ship.prototype.is_ship = function() {
