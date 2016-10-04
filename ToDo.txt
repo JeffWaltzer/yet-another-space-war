@@ -1,5 +1,4 @@
 Add e2e test for ship commands
-Move custom matcher out of ship_transforms_spec.coffee
 Check node API for error call backs that we should implement.
 Run tests on a different port, so having the server running doesn't blow them up.
 Split server specs into e2e/unit directories.
@@ -23,7 +22,6 @@ Session Managment
     Handle websocket disconnects (end user's session?)
     Handle errors on socket connect
 
-Split up GameField#handle_collisions()
 
 Before Release
     Add favicon.
@@ -36,7 +34,7 @@ Before Release
 
 
     
-move custom matcher out of ship_spec.
-remove references to fragment_shapes from explosion_spec
 Refactor specs that just need GameField instead of Game
+
 Move collision detection out to a utility class.
+Split up GameField#handle_collisions()
