@@ -38,3 +38,5 @@ Refactor specs that just need GameField instead of Game
 
 Move collision detection out to a utility class.
 Split up GameField#handle_collisions()
+
+Move script out of game.html
