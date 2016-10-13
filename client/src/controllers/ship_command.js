@@ -1,4 +1,4 @@
-angular.module('YASW').controller('ShipCommandController', function($scope, game_server) {
+angular.module('YASW').controller('ShipCommandController', function($scope, $window,  game_server) {
   var key_in_state= function(key, state) { return $scope[key + '_key'] === state; };
   var rotation_keys_in_state= function(left, right) {
     return key_in_state('left', left) && key_in_state('right', right);
@@ -25,6 +25,18 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
   $scope.thrust_key= 'up';
   $scope.fire_key= 'up';
 
+  setInterval(function () {
+    var gamePads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
+    // _(gamePads).each(function (pad) {
+    //   console.log(pad);
+    // });
+    console.log(gamePads);
+  }, 1000);
+
+
+  $window.addEventListener('gamepaddisconnected', function (event) {
+    console.log('gamepaddisconnected', event.gamepad.index);
+  });
 
   $scope.onKeyDown= function(e) {
     switch (e.keyCode) {
@@ -45,6 +57,7 @@ angular.module('YASW').controller('ShipCommandController', function($scope, game
       break;
     }
   };
+
 
   $scope.onKeyUp= function(e) {
     switch (e.keyCode) {
