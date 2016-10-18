@@ -27,15 +27,28 @@ angular.module('YASW').controller('ShipCommandController', function($scope, $win
 
   setInterval(function () {
     var gamePads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
-    // _(gamePads).each(function (pad) {
-    //   console.log(pad);
-    // });
-    console.log(gamePads);
-  }, 1000);
+      _(gamePads).each(function (pad) {
+        if (!pad)
+          return;
+          
+        _(pad.buttons).each(function(button, button_index) {
+          var button_pressed= 
+            (typeof(button) == 'number') ?
+               button > 0.1 :
+               button.pressed;
+            if (button_pressed)
+              console.log("button " + button_index + " pressed");
+        });
+     });
+  }, 25);
 
 
   $window.addEventListener('gamepaddisconnected', function (event) {
-    console.log('gamepaddisconnected', event.gamepad.index);
+    console.log('gamepad disconnected', event.gamepad.index);
+  });
+
+  $window.addEventListener('gamepadconnected', function (event) {
+    console.log('gamepad connected', event.gamepad.index);
   });
 
   $scope.onKeyDown= function(e) {
