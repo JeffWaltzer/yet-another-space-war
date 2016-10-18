@@ -30,16 +30,17 @@ angular.module('YASW').controller('ShipCommandController', function($scope, $win
       _(gamePads).each(function (pad) {
         if (!pad)
           return;
-          
-        _(pad.buttons).each(function(button, button_index) {
-          var button_pressed= 
-            (typeof(button) == 'number') ?
-               button > 0.1 :
-               button.pressed;
-            if (button_pressed)
-              console.log("button " + button_index + " pressed");
-        });
-     });
+        var button= pad.buttons[1];
+        var button_pressed= 
+          (typeof(button) == 'number') ?
+            button > 0.1 :
+            button.pressed;
+
+          if (button_pressed)
+            on_fire_down();
+          else
+            on_fire_up();
+      });
   }, 25);
 
 
