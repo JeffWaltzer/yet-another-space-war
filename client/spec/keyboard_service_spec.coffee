@@ -5,4 +5,4 @@ describe "keyboard service", ->
     keyboard= _keyboard_
 
   it "does something", ->
-    expect(keyboard.value).toEqual("foo")
+    expect(keyboard).not.toBeNull()
