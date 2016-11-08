@@ -32,7 +32,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
       on_down_arrow_down();
       break;
     case keyboard.KEY_SPACE:
-      on_fire_down();
+      keyboard.on_fire_down();
       break;
     case keyboard.KEY_R:
       on_clone_down();
@@ -58,12 +58,6 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   };
 
 //--------------------------------------------------------------
-
-  var on_fire_down= function() {
-    if (key_in_state('fire', 'up'))
-      game_server.send('fire');
-    keyboard.fire_key= 'down';
-  };
 
   var on_fire_up= function() {
     keyboard.fire_key= 'up';
