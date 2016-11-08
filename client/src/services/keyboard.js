@@ -24,5 +24,29 @@ angular.module('YASW').factory('keyboard', [
       service.fire_key = 'down';
     };
 
+
+    service.on_fire_up= function() {
+      service.fire_key= 'up';
+    };
+
+    service.on_down_arrow_down = function() {
+      if (key_in_state('thrust', 'up'))
+        game_server.send('thrust_on');
+      service.thrust_key = 'down';
+    };
+
+    service.on_down_arrow_up = function() {
+      if (key_in_state('thrust', 'down'))
+        game_server.send('thrust_off');
+      service.thrust_key = 'up';
+    };
+
+    service.on_clone_down= function() {
+      game_server.send('clone');
+    };
+
+
+
+
     return service;
   }]);

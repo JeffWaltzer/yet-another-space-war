@@ -29,13 +29,13 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
       on_right_arrow_down();
       break;
     case keyboard.KEY_DOWN_ARROW:
-      on_down_arrow_down();
+      keyboard.on_down_arrow_down();
       break;
     case keyboard.KEY_SPACE:
       keyboard.on_fire_down();
       break;
     case keyboard.KEY_R:
-      on_clone_down();
+      keyboard.on_clone_down();
       break;
     }
   };
@@ -49,32 +49,15 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
       on_right_arrow_up();
       break;
     case keyboard.KEY_DOWN_ARROW:
-      on_down_arrow_up();
+      keyboard.on_down_arrow_up();
       break;
     case keyboard.KEY_SPACE:
-      on_fire_up();
+      keyboard.on_fire_up();
       break;
     }
   };
 
 //--------------------------------------------------------------
-
-  var on_fire_up= function() {
-    keyboard.fire_key= 'up';
-  };
-
-  var on_down_arrow_down = function() {
-    if (key_in_state('thrust', 'up'))
-      game_server.send('thrust_on');
-    keyboard.thrust_key = 'down';
-  };
-
-  var on_down_arrow_up = function() {
-    if (key_in_state('thrust', 'down'))
-      game_server.send('thrust_off');
-    keyboard.thrust_key = 'up';
-  };
-
 
   var on_left_arrow_down= function() {
     if (rotation_keys_in_state('up', 'up'))
@@ -109,7 +92,4 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
     keyboard.right_key='up';
   };
 
-  var on_clone_down= function() {
-    game_server.send('clone');
-  };
 }]);
