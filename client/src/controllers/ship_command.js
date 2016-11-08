@@ -14,21 +14,28 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   };
   game_server.web_socket.on('message', game_server.on_message);
 
+  var KEY_LEFT_ARROW = 37;
+  var KEY_RIGHT_ARROW = 39;
+  var KEY_DOWN_ARROW = 40;
+  var KEY_SPACE = 32;
+  var KEY_R = 82;
+
+
   $scope.onKeyDown= function(e) {
     switch (e.keyCode) {
-    case keyboard.KEY_LEFT_ARROW:
+    case KEY_LEFT_ARROW:
       keyboard.on_left_arrow_down();
       break;
-    case keyboard.KEY_RIGHT_ARROW:
+    case KEY_RIGHT_ARROW:
       keyboard.on_right_arrow_down();
       break;
-    case keyboard.KEY_DOWN_ARROW:
+    case KEY_DOWN_ARROW:
       keyboard.on_down_arrow_down();
       break;
-    case keyboard.KEY_SPACE:
+    case KEY_SPACE:
       keyboard.on_fire_down();
       break;
-    case keyboard.KEY_R:
+    case KEY_R:
       keyboard.on_clone_down();
       break;
     }
@@ -36,16 +43,16 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
 
   $scope.onKeyUp= function(e) {
     switch (e.keyCode) {
-    case keyboard.KEY_LEFT_ARROW:
+    case KEY_LEFT_ARROW:
       keyboard.on_left_arrow_up();
       break;
-    case keyboard.KEY_RIGHT_ARROW:
+    case KEY_RIGHT_ARROW:
       keyboard.on_right_arrow_up();
       break;
-    case keyboard.KEY_DOWN_ARROW:
+    case KEY_DOWN_ARROW:
       keyboard.on_down_arrow_up();
       break;
-    case keyboard.KEY_SPACE:
+    case KEY_SPACE:
       keyboard.on_fire_up();
       break;
     }
