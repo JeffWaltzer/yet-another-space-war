@@ -14,19 +14,13 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   };
   game_server.web_socket.on('message', game_server.on_message);
 
-  keyboard.left_key= 'up';
-  keyboard.right_key= 'up';
-  keyboard.thrust_key= 'up';
-  keyboard.fire_key= 'up';
-
-
   $scope.onKeyDown= function(e) {
     switch (e.keyCode) {
     case keyboard.KEY_LEFT_ARROW:
-      on_left_arrow_down();
+      keyboard.on_left_arrow_down();
       break;
     case keyboard.KEY_RIGHT_ARROW:
-      on_right_arrow_down();
+      keyboard.on_right_arrow_down();
       break;
     case keyboard.KEY_DOWN_ARROW:
       keyboard.on_down_arrow_down();
@@ -43,10 +37,10 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   $scope.onKeyUp= function(e) {
     switch (e.keyCode) {
     case keyboard.KEY_LEFT_ARROW:
-      on_left_arrow_up();
+      keyboard.on_left_arrow_up();
       break;
     case keyboard.KEY_RIGHT_ARROW:
-      on_right_arrow_up();
+      keyboard.on_right_arrow_up();
       break;
     case keyboard.KEY_DOWN_ARROW:
       keyboard.on_down_arrow_up();
@@ -55,41 +49,6 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
       keyboard.on_fire_up();
       break;
     }
-  };
-
-//--------------------------------------------------------------
-
-  var on_left_arrow_down= function() {
-    if (rotation_keys_in_state('up', 'up'))
-      game_server.send('rotate_left');
-    else if (rotation_keys_in_state('up', 'down'))
-      game_server.send('rotate_stop');
-    keyboard.left_key='down';
-  };
-
-  var on_left_arrow_up = function() {
-    if (rotation_keys_in_state('down', 'down'))
-      game_server.send('rotate_right');
-    else if (rotation_keys_in_state('down', 'up'))
-      game_server.send('rotate_stop');
-    keyboard.left_key = 'up';
-  };
-
-
-  var on_right_arrow_down=function () {
-    if (rotation_keys_in_state('up', 'up'))
-      game_server.send('rotate_right');
-    else if (rotation_keys_in_state('down', 'up'))
-      game_server.send('rotate_stop');
-    keyboard.right_key = 'down';
-  };
-
-  var on_right_arrow_up = function() {
-    if (rotation_keys_in_state('down', 'down'))
-      game_server.send('rotate_left');
-    else if (rotation_keys_in_state('up', 'down'))
-      game_server.send('rotate_stop');
-    keyboard.right_key='up';
   };
 
 }]);

@@ -5,6 +5,10 @@ angular.module('YASW').factory('keyboard', [
       return service[key + '_key'] === state;
     };
 
+    var rotation_keys_in_state = function (left, right) {
+      return key_in_state('left', left) && key_in_state('right', right);
+    };
+
     var service = {};
 
     service.KEY_LEFT_ARROW = 37;
@@ -45,8 +49,38 @@ angular.module('YASW').factory('keyboard', [
       game_server.send('clone');
     };
 
+    service.on_left_arrow_down = function () {
+      if (rotation_keys_in_state('up', 'up'))
+        game_server.send('rotate_left');
+      else if (rotation_keys_in_state('up', 'down'))
+        game_server.send('rotate_stop');
+      service.left_key = 'down';
+    };
+
+    service.on_left_arrow_up = function () {
+      if (rotation_keys_in_state('down', 'down'))
+        game_server.send('rotate_right');
+      else if (rotation_keys_in_state('down', 'up'))
+        game_server.send('rotate_stop');
+      service.left_key = 'up';
+    };
 
 
+    service.on_right_arrow_down = function () {
+      if (rotation_keys_in_state('up', 'up'))
+        game_server.send('rotate_right');
+      else if (rotation_keys_in_state('down', 'up'))
+        game_server.send('rotate_stop');
+      service.right_key = 'down';
+    };
+
+    service.on_right_arrow_up = function () {
+      if (rotation_keys_in_state('down', 'down'))
+        game_server.send('rotate_left');
+      else if (rotation_keys_in_state('up', 'down'))
+        game_server.send('rotate_stop');
+      service.right_key = 'up';
+    };
 
     return service;
   }]);
