@@ -1,27 +1,20 @@
 <html>
   <head>
     <title>Space Wars</title>
-    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/engine.io.js"></script>
     <script src="yasw.js"></script>
     <script src="services/game_server.js"></script>
     <script src="services/svg.js"></script>
     <script src="controllers/ship_command.js"></script>
-    <script>
-      angular.directive('tj:focus', function() {
-        return function(scope, element){
-        element[0].focus();
-        };
-      });
-    </script>
   </head>
   <body style="background-color: #080808; margin: 0"
         ng-app="YASW" ng-controller="ShipCommandController"
 	      ng-keydown="onKeyDown($event);"
         ng-keyup="onKeyUp($event);">
 
-    <svg width="100%" height="100%" viewBox="0 0 {{field_size[0]}} {{field_size[1]}}" tj:focus>
+    <svg width="100%" height="100%" ng-attr-viewBox="0 0 {{field_size[0]}} {{field_size[1]}}" yasw:initialFocus>
       <rect width="100%" height="100%" style="fill:rgb(0,0,0);stroke-width:0;stroke:rgb(255,0,0)"/>
 
       <polygon ng-repeat="ship in screen_objects()"
