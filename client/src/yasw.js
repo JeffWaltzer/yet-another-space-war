@@ -16,4 +16,16 @@ angular.module('YASW', [])
         ' fill="none"' + 
         '/>'
     };
+  })
+  .directive('score', function() {
+    return {
+      replace: true,
+      template: '<text' +
+        ' ng-if="screen_object.score"' +
+        ' ng-attr-x="{{screen_object.position[0]}}"' +
+        ' ng-attr-y="{{screen_object.position[1] - 20}}"' +
+        ' ng-attr-fill="{{screen_object.color}}">' +
+        '{{screen_object.score}}' +
+        '</text>'
+    };
   });
