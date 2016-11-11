@@ -8,6 +8,7 @@ angular.module('YASW', [])
   })
   .directive('screenObject', function() {
     return {
+      restrict: 'E',
       replace: true,
       template: '<polygon' +
         ' ng-attr-points="{{screen_object.polygon_string}}"' +
@@ -19,6 +20,7 @@ angular.module('YASW', [])
   })
   .directive('score', function() {
     return {
+      restrict: 'E',
       replace: true,
       template: '<text' +
         ' ng-if="screen_object.score"' +
