@@ -116,10 +116,10 @@ exports.createServer= function(parameters) {
       response.statusCode= status;
       read_stream.pipe(response);
       if (on_headers_written)
-	on_headers_written();
+	        on_headers_written();
     });
     read_stream.on('error', function() {
-      response.writeHead(404);
+      // response.writeHead(404);
       response.end();
     });
   };
