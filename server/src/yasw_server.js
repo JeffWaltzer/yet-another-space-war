@@ -119,7 +119,7 @@ exports.createServer= function(parameters) {
 	        on_headers_written();
     });
     read_stream.on('error', function() {
-      // response.writeHead(404);
+      response.writeHead(404);
       response.end();
     });
   };
