@@ -1,16 +1,20 @@
 describe "ShipCommandController", ->
   beforeEach module("YASW")
+
   scope = undefined
   $location = undefined
   createController = undefined
   game_server = undefined
-  beforeEach inject(($rootScope, $controller, _$location_, _game_server_) ->
+  keyboard= undefined
+
+  beforeEach inject(($rootScope, $controller, _$location_, _game_server_, _keyboard_) ->
     $location = _$location_
     scope = $rootScope.$new()
     createController = ->
       $controller "ShipCommandController",
         $scope: scope
     game_server = _game_server_
+    keyboard= _keyboard_
   )
 
   describe "Initial key states", ->
@@ -19,16 +23,16 @@ describe "ShipCommandController", ->
       controller = createController()
 
     it "start left up", ->
-      expect(scope.left_key).toBe "up"
+      expect(keyboard.left_key).toBe "up"
 
     it "start right up", ->
-      expect(scope.right_key).toBe "up"
+      expect(keyboard.right_key).toBe "up"
 
     it "start thrust up", ->
-      expect(scope.thrust_key).toBe "up"
+      expect(keyboard.thrust_key).toBe "up"
 
     it "start fire up", ->
-      expect(scope.fire_key).toBe "up"
+      expect(keyboard.fire_key).toBe "up"
 
   fire_up_sent_tests = [
     {fire_key: "up",   expected_sent: null},
@@ -40,7 +44,7 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.fire_key = test_conditions.fire_key
+        keyboard.fire_key = test_conditions.fire_key
         spyOn game_server, "send"
 
       describe " and we receive up", ->
@@ -64,7 +68,7 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.fire_key = test_conditions.fire_key
+        keyboard.fire_key = test_conditions.fire_key
         spyOn game_server, "send"
 
       describe " and we receive down", ->
@@ -88,13 +92,13 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.fire_key = test_conditions.fire_key
+        keyboard.fire_key = test_conditions.fire_key
 
       describe " and we receive up", ->
         beforeEach ->
           scope.onKeyUp {keyCode: 32}
         it "fire key is #{test_conditions.expected_state}", ->
-            expect(scope.fire_key).toEqual test_conditions.expected_state
+            expect(keyboard.fire_key).toEqual test_conditions.expected_state
 
   fire_down_state_tests = [
     {fire_key: "up",   expected_state: "down"},
@@ -106,13 +110,13 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.fire_key = test_conditions.fire_key
+        keyboard.fire_key = test_conditions.fire_key
 
       describe " and we receive key_down", ->
         beforeEach ->
           scope.onKeyDown {keyCode: 32}
         it "fire key is #{test_conditions.expected_state}", ->
-            expect(scope.fire_key).toEqual test_conditions.expected_state
+            expect(keyboard.fire_key).toEqual test_conditions.expected_state
 
 
   thrust_up_sent_tests = [
@@ -125,7 +129,7 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.thrust_key = test_conditions.thrust_key
+        keyboard.thrust_key = test_conditions.thrust_key
         spyOn game_server, "send"
 
       describe " and we receive up", ->
@@ -149,7 +153,7 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.thrust_key = test_conditions.thrust_key
+        keyboard.thrust_key = test_conditions.thrust_key
         spyOn game_server, "send"
 
       describe " and we receive down", ->
@@ -173,13 +177,13 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.thrust_key = test_conditions.thrust_key
+        keyboard.thrust_key = test_conditions.thrust_key
 
       describe " and we receive up", ->
         beforeEach ->
           scope.onKeyUp {keyCode: 40}
         it "thrust key is #{test_conditions.expected_state}", ->
-            expect(scope.thrust_key).toEqual test_conditions.expected_state
+            expect(keyboard.thrust_key).toEqual test_conditions.expected_state
 
   thrust_down_state_tests = [
     {thrust_key: "up",   expected_state: "down"},
@@ -191,13 +195,13 @@ describe "ShipCommandController", ->
       controller= undefined
       beforeEach ->
         controller = createController()
-        scope.thrust_key = test_conditions.thrust_key
+        keyboard.thrust_key = test_conditions.thrust_key
 
       describe " and we receive key_down", ->
         beforeEach ->
           scope.onKeyDown {keyCode: 40}
         it "thrust key is #{test_conditions.expected_state}", ->
-            expect(scope.thrust_key).toEqual test_conditions.expected_state
+            expect(keyboard.thrust_key).toEqual test_conditions.expected_state
 
 
   up_sent_tests = [
@@ -216,12 +220,12 @@ describe "ShipCommandController", ->
       controller = undefined
       beforeEach ->
         controller = createController()
-        scope.left_key = test_conditions.left_key
+        keyboard.left_key = test_conditions.left_key
         spyOn game_server, "send"
 
       describe " and right key is #{test_conditions.right_key}", ->
         beforeEach ->
-          scope.right_key = test_conditions.right_key
+          keyboard.right_key = test_conditions.right_key
 
         describe " and we receive #{test_conditions.event}", ->
           beforeEach ->
@@ -255,12 +259,12 @@ describe "ShipCommandController", ->
       controller = undefined
       beforeEach ->
         controller = createController()
-        scope.left_key = test_conditions.left_key
+        keyboard.left_key = test_conditions.left_key
         spyOn game_server, "send"
 
       describe " and right key is #{test_conditions.right_key}", ->
         beforeEach ->
-          scope.right_key = test_conditions.right_key
+          keyboard.right_key = test_conditions.right_key
 
         describe " and we receive #{test_conditions.event}", ->
           beforeEach ->
@@ -294,11 +298,11 @@ describe "ShipCommandController", ->
       controller = undefined
       beforeEach ->
         controller = createController()
-        scope.left_key = test_conditions.left_key
+        keyboard.left_key = test_conditions.left_key
 
        describe " and right key is #{test_conditions.right_key}", ->
         beforeEach ->
-          scope.right_key = test_conditions.right_key
+          keyboard.right_key = test_conditions.right_key
 
         describe " and we receive #{test_conditions.event}", ->
           beforeEach ->
@@ -309,10 +313,10 @@ describe "ShipCommandController", ->
             scope.onKeyUp {keyCode: key_code}
 
            it "right key is #{test_conditions.expected_right_key_state}", ->
-            expect(scope.right_key).toEqual test_conditions.expected_right_key_state
+            expect(keyboard.right_key).toEqual test_conditions.expected_right_key_state
 
           it "left key is #{test_conditions.expected_left_key_state}", ->
-            expect(scope.left_key).toEqual test_conditions.expected_left_key_state
+            expect(keyboard.left_key).toEqual test_conditions.expected_left_key_state
 
 
   down_state_tests = [
@@ -330,11 +334,11 @@ describe "ShipCommandController", ->
       controller = undefined
       beforeEach ->
         controller = createController()
-        scope.left_key = test_conditions.left_key
+        keyboard.left_key = test_conditions.left_key
 
        describe " and right key is #{test_conditions.right_key}", ->
         beforeEach ->
-          scope.right_key = test_conditions.right_key
+          keyboard.right_key = test_conditions.right_key
 
          describe " and we receive #{test_conditions.event}", ->
           beforeEach ->
@@ -345,10 +349,10 @@ describe "ShipCommandController", ->
             scope.onKeyDown {keyCode: key_code}
 
           it "right key is #{test_conditions.expected_right_key_state}", ->
-            expect(scope.right_key).toEqual test_conditions.expected_right_key_state
+            expect(keyboard.right_key).toEqual test_conditions.expected_right_key_state
 
           it "left key is #{test_conditions.expected_left_key_state}", ->
-            expect(scope.left_key).toEqual test_conditions.expected_left_key_state
+            expect(keyboard.left_key).toEqual test_conditions.expected_left_key_state
 
   describe "we receive clone_key_down", ->
     controller= undefined
