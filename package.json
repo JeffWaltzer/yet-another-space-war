@@ -1,6 +1,6 @@
 {"scripts":
   {
-    "install":"cd server && npm install",
+    "install":"cd server && npm install && cd ../client && npm install && grunt release",
     "test": "cd server && grunt --stack"
   }
 }
