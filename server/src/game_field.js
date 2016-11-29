@@ -160,10 +160,8 @@ GameField.prototype.dead_objects= function() {
     var objects_collided_with = this.collisions_with(screen_object, i + 1);
 
     if (objects_collided_with.length > 0) {
-      _(objects_collided_with).each(_(this.maybe_bump_score).bind(this,
-								  screen_object));
-      _(objects_collided_with).each(_(this.maybe_explode).bind(this,
-							       screen_object));
+      _(objects_collided_with).each(_(this.maybe_bump_score).bind(this, screen_object));
+      _(objects_collided_with).each(_(this.maybe_explode).bind(this, screen_object));
       to_remove.push(screen_object);
     }
     to_remove = to_remove.concat(objects_collided_with);
