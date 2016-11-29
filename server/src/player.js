@@ -2,8 +2,8 @@ function Player() {
   this._score= 0;
 }
 
-Player.prototype.bump_score= function() {
-  this._score++;
+Player.prototype.bump_score= function(score_bump) {
+  this._score += score_bump;
 };
 
 Player.prototype.score=function (new_value) {

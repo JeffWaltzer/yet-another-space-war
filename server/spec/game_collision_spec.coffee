@@ -126,3 +126,41 @@ describe "A bullet fired from ship A colliding with ship B", ->
       a_screen_object.is_fragment()
     )
     expect(fragments.length).toBeGreaterThan(0)
+
+
+describe "A bullet fired from ship A colliding with another bullet from ship A", ->
+  the_game= null
+  the_player= null
+  the_ship= null
+  the_bullet= null
+  the_other_bullet= null
+
+  beforeEach ->
+    the_game= new game.Game({})
+
+    the_player= the_game.add_player('a')
+    the_ship= the_game.game_field.add_ship()
+    the_game.connect_ship('a', the_ship)
+
+    the_bullet= the_ship.fire()
+    the_other_bullet= the_ship.fire()
+  
+    the_bullet.position(the_ship.position().add_to(new vector.Vector([100, 100])))
+    the_other_bullet.position(the_bullet.position())
+
+    the_game.game_field.handle_collisions()
+
+  it "doesn't increment the player's score", ->
+    expect(the_player._score).toEqual(0)
+
+  it "doesn't remove the ship from the player", ->
+    expect(the_player.ship).not.toBeNull()
+
+  it "doesn't remove the_ player from the ship", ->
+    expect(the_ship.player()).not.toBeNull()
+
+  it "doesn't leave fragments", ->
+    fragments= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
+      a_screen_object.is_fragment()
+    )
+    expect(fragments.length).toEqual(0)

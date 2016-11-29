@@ -42,7 +42,7 @@ describe "generating a game board", ->
       expected_x= 100
       expected_y= 200
       player= game.add_player('the_player')
-      player.bump_score();
+      player.bump_score(1);
       ship= game_field.add_ship(
         game_field: game_field,
         player: player,

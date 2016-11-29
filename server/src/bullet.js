@@ -28,7 +28,7 @@ Bullet.prototype.is_bullet = function() {
 };
 
 Bullet.prototype.bump_player_score = function (other_object) {
-  this.player().bump_score();
+  this.player().bump_score(other_object.point_value());
 };
 
 exports.Bullet= Bullet;

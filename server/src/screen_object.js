@@ -105,6 +105,10 @@ ScreenObject.prototype.make_game_piece= function() {
   };
 };
 
+ScreenObject.prototype.point_value= function() {
+  return 0;
+};
+
 ScreenObject.prototype.bump_player_score = function (other_object) {
 };
 

@@ -99,4 +99,8 @@ Ship.prototype.score= function() {
   return this.player().score();
 };
 
+Ship.prototype.point_value= function() {
+  return 1;
+};
+
 exports.Ship= Ship;
