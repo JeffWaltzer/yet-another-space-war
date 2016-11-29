@@ -57,13 +57,15 @@ function add_fragment(game_field, median_position, median_velocity, shape_index)
   );
 }
 
-exports.add_fragments = function (game_field, median_position, median_velocity) {
+function add_fragments(game_field, median_position, median_velocity) {
   var number_of_fragments = Math.floor(math_util.random_in_range(2, 12));
   var fragments = [];
   for (var i = 0; i < number_of_fragments; i++) {
     fragments.push(add_fragment(game_field, median_position, median_velocity, i));
   }
   return fragments;
-};
+}
 
+exports.add_fragment= add_fragment;
+exports.add_fragments= add_fragments;
 exports.fragment_shapes = fragment_shapes;

@@ -3,6 +3,7 @@ ship = require './../../src/ship'
 game = require './../../src/game'
 vector = require './../../src/vector'
 math_util= require './../../src/math_util'
+fragment_maker= require './../../src/fragment_maker'
 underscore = require 'underscore'
 
 describe 'bullet and ship', ->
@@ -164,3 +165,62 @@ describe "A bullet fired from ship A colliding with another bullet from ship A",
       a_screen_object.is_fragment()
     )
     expect(fragments.length).toEqual(0)
+
+
+describe "A fragment and a bullet colliding", ->
+  the_game= null
+  the_fragment= null
+  the_bullet= null
+
+  beforeEach ->
+    the_game= new game.Game({})
+
+    the_fragment= fragment_maker.add_fragment(the_game.game_field,
+                                              new vector.Vector([1,1]),
+                                              new vector.Vector([0,0]),
+                                              0)
+    the_bullet= the_game.game_field.add_bullet()
+  
+    the_bullet.position(the_fragment.position())
+    the_game.game_field.handle_collisions()
+
+  it "doesn't remove the fragment", ->
+    fragments= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
+      a_screen_object.is_fragment()
+    )
+    expect(fragments.length).toEqual(1)
+
+  it "doesn't remove the bullet", ->
+    bullets= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
+      a_screen_object.is_bullet()
+    )
+    expect(bullets.length).toEqual(1)
+
+describe "A bullet and a fragment colliding", ->
+  the_game= null
+  the_fragment= null
+  the_bullet= null
+
+  beforeEach ->
+    the_game= new game.Game({})
+
+    the_bullet= the_game.game_field.add_bullet()
+    the_fragment= fragment_maker.add_fragment(the_game.game_field,
+                                              new vector.Vector([1,1]),
+                                              new vector.Vector([0,0]),
+                                              0)
+  
+    the_bullet.position(the_fragment.position())
+    the_game.game_field.handle_collisions()
+
+  it "doesn't remove the fragment", ->
+    fragments= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
+      a_screen_object.is_fragment()
+    )
+    expect(fragments.length).toEqual(1)
+
+  it "doesn't remove the bullet", ->
+    bullets= underscore.filter(the_game.game_field.screen_objects(), (a_screen_object)->
+      a_screen_object.is_bullet()
+    )
+    expect(bullets.length).toEqual(1)

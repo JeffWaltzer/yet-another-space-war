@@ -30,6 +30,9 @@ GameField.prototype.each_screen_object= function(callback_function) {
 GameField.prototype.collisions_with= function(screenObject,start_index) {
   var to_remove = [];
 
+  if (screenObject.ignores_collisions())
+    return to_remove;
+
   for(var j = start_index; j< this.screen_objects().length; j++) {
     var screenObject2 = this.screen_objects()[j];
 
