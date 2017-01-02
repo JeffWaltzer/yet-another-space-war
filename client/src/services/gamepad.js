@@ -11,10 +11,12 @@ angular.module('YASW').factory('gamepad', [
 
     var service = {};
 
-    service.left_button = "up";
-    service.right_button = "up";
-    service.thrust_button = "up";
-    service.fire_button = "up";
+    service.buttons = [{pressed: false}];
+
+    //service.left_button = "up";
+    //service.right_button = "up";
+    //service.thrust_button = "up";
+    //service.fire_button = "up";
 
   //   service.on_fire_down = function () {
   //     if (button_in_state('fire', 'up'))
