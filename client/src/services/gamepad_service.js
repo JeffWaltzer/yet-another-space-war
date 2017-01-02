@@ -1,4 +1,4 @@
-angular.module('YASW').factory('gamepad', [
+angular.module('YASW').factory('gamepad_service', [
   'game_server',
   function (game_server) {
   //   var button_in_state = function (button, state) {

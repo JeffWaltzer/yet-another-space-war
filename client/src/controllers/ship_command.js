@@ -1,4 +1,4 @@
-angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'gamepad', function ($scope, game_server, keyboard, gamepad) {
+angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'gamepad_service', function ($scope, game_server, keyboard, gamepad_service) {
 
   var key_in_state = function (key, state) {
     return keyboard[key + '_key'] === state;
@@ -63,10 +63,10 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
     }
   };
 
-  $scope.interpret_gamepad = function (new_gamepad) {
-    if (new_gamepad.buttons[0].pressed && !gamepad.buttons[0].pressed)
+  $scope.interpret_gamepad = function (gamepad) {
+    if (gamepad.buttons[0].pressed && !gamepad_service.buttons[0].pressed)
       game_server.send('fire');
-    gamepad.buttons = new_gamepad.buttons;
+    gamepad_service.buttons = gamepad.buttons;
   };
 
 }]);
