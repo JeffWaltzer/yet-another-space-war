@@ -13,7 +13,7 @@ angular.module('YASW').factory('gamepad_service', [
 
     service.buttons = [{pressed: false}];
 
-    service.fire_button = function() { return 0; };
+    service.fire_button_index = function() { return 0; };
 
     //service.left_button = "up";
     //service.right_button = "up";
