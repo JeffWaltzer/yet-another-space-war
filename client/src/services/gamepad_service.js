@@ -4,18 +4,18 @@ angular.module('YASW').factory('gamepad_service', [
 
     var service = {};
 
-    service.buttons = [
-      {pressed: false},
-      {pressed: false},
-    ];
-
+    var fire_button_index = 0;
+    var thrust_button_index = 1;
 
     function YaswGamepad(dom_gamepad) {
-      var _dom_gamepad_ = dom_gamepad;
+      var _dom_gamepad_ = dom_gamepad || {buttons: [
+          {pressed: false},
+          {pressed: false},
+        ]};
 
       this.fire = function (new_value) {
 
-        var fire_button = _dom_gamepad_.buttons[service.fire_button_index()];
+        var fire_button = _dom_gamepad_.buttons[fire_button_index];
 
         if (new_value!==undefined)
           fire_button.pressed = new_value;
@@ -24,7 +24,7 @@ angular.module('YASW').factory('gamepad_service', [
       };
 
       this.thrust = function (new_value) {
-        var thrust_button = _dom_gamepad_.buttons[service.thrust_button_index()];
+        var thrust_button = _dom_gamepad_.buttons[thrust_button_index];
 
         if (new_value!==undefined)
           thrust_button.pressed = new_value;
@@ -35,8 +35,6 @@ angular.module('YASW').factory('gamepad_service', [
 
     service.YaswGamepad=YaswGamepad;
 
-    service.fire_button_index = function() { return 0; };
-    service.thrust_button_index = function() { return 1; };
 
     service.last_gamepad = new YaswGamepad({buttons: [
       {pressed: false},

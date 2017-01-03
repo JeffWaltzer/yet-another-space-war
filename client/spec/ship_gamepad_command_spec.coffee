@@ -8,18 +8,10 @@ describe "ShipCommandController", ->
   gamepad_service =undefined
 
   make_fake_gamepad = (button_values) ->
-
-    dom_gamepad = {
-      buttons: [
-        {},
-        {},
-      ]
-    }
-
+    return_value = new gamepad_service.YaswGamepad()
     _(button_values).each (value, key) ->
-      dom_gamepad['buttons'][gamepad_service[key]()] = {pressed: value}
-
-    new gamepad_service.YaswGamepad(dom_gamepad)
+      return_value[key](value)
+    return_value
 
   beforeEach inject(($rootScope, $controller, _$location_, _game_server_, _gamepad_service_) ->
     $location = _$location_
@@ -54,7 +46,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(fire_button_index: false));
+          scope.interpret_gamepad(make_fake_gamepad(fire: false));
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
@@ -77,7 +69,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive down", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(fire_button_index: true));
+          scope.interpret_gamepad(make_fake_gamepad(fire: true));
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
@@ -100,7 +92,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(fire_button_index: false));
+          scope.interpret_gamepad(make_fake_gamepad(fire: false));
 
         it "fire button is #{test_conditions.expected_state}", ->
           expect(gamepad_service.last_gamepad.fire()).toEqual test_conditions.expected_state == 'down'
@@ -118,7 +110,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive button_down", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(fire_button_index: true));
+          scope.interpret_gamepad(make_fake_gamepad(fire: true));
 
         it "fire button is #{test_conditions.expected_state}", ->
           expect(gamepad_service.last_gamepad.fire()).toEqual(test_conditions.expected_state == 'down')
@@ -137,7 +129,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(thrust_button_index: false));
+          scope.interpret_gamepad(make_fake_gamepad(thrust: false));
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
@@ -160,7 +152,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive down", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(thrust_button_index: true));
+          scope.interpret_gamepad(make_fake_gamepad(thrust: true));
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
@@ -183,7 +175,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(thrust_button_index: false));
+          scope.interpret_gamepad(make_fake_gamepad(thrust: false));
 
         it "thrust button is #{test_conditions.expected_state}", ->
           expect(gamepad_service.last_gamepad.thrust()).toEqual test_conditions.expected_state == 'down'
@@ -202,7 +194,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive button_down", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(thrust_button_index: true));
+          scope.interpret_gamepad(make_fake_gamepad(thrust: true));
 
         it "thrust button is #{test_conditions.expected_state}", ->
           expect(gamepad_service.last_gamepad.thrust()).toEqual test_conditions.expected_state == 'down'

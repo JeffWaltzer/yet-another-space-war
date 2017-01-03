@@ -1,11 +1,11 @@
 angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'gamepad_service', function ($scope, game_server, keyboard, gamepad_service) {
 
-  var key_in_state = function (key, state) {
-    return keyboard[key + '_key'] === state;
-  };
-  var rotation_keys_in_state = function (left, right) {
-    return key_in_state('left', left) && key_in_state('right', right);
-  };
+  //var key_in_state = function (key, state) {
+  //  return keyboard[key + '_key'] === state;
+  //};
+  //var rotation_keys_in_state = function (left, right) {
+  //  return key_in_state('left', left) && key_in_state('right', right);
+  //};
 
   $scope.screen_objects = function () {
     return game_server.screen_objects;
