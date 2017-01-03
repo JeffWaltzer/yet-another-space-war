@@ -43,9 +43,7 @@ angular.module('YASW').factory('gamepad_service', [
       {pressed: false},
     ]});
 
-    service.interpret_command = function (dom_gamepad) {
-
-      var gamepad = new YaswGamepad(dom_gamepad);
+    service.interpret_command = function (gamepad) {
 
       if (gamepad.fire() && !service.last_gamepad.fire())
         game_server.send('fire');

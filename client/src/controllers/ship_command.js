@@ -64,7 +64,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   };
 
 
-  $scope.interpret_gamepad = function (gamepad) {
+  $scope.interpret_gamepad = function(gamepad) {
     gamepad_service.interpret_command(gamepad);
   };
 

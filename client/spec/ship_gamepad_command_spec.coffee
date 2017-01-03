@@ -7,16 +7,19 @@ describe "ShipCommandController", ->
   game_server = undefined
   gamepad_service =undefined
 
-  make_fake_gamepad= (button_values) -> 
-    gamepad= {
+  make_fake_gamepad = (button_values) ->
+
+    dom_gamepad = {
       buttons: [
         {},
         {},
       ]
     }
+
     _(button_values).each (value, key) ->
-      gamepad['buttons'][gamepad_service[key]()] = {pressed: value}
-    gamepad
+      dom_gamepad['buttons'][gamepad_service[key]()] = {pressed: value}
+
+    new gamepad_service.YaswGamepad(dom_gamepad)
 
   beforeEach inject(($rootScope, $controller, _$location_, _game_server_, _gamepad_service_) ->
     $location = _$location_
