@@ -17,7 +17,6 @@ exports.createServer= function(parameters) {
   ship.Ship.bullet_speed = (parameters && parameters.bullet_speed) || 10;
   ship.Ship.bullet_lifetime = (parameters && parameters.bullet_lifetime) || 4;
 
-
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
 
 

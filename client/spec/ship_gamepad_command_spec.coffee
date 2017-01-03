@@ -30,10 +30,10 @@ describe "ShipCommandController", ->
 
   describe "Initial button states", ->
     it "start fire up", ->
-      expect(gamepad_service.buttons[gamepad_service.fire_button_index()].pressed).toBeFalsy()
+      expect(gamepad_service.last_gamepad.fire()).toBeFalsy()
 
     it "start thrust up", ->
-      expect(gamepad_service.buttons[gamepad_service.thrust_button_index()].pressed).toBeFalsy()
+      expect(gamepad_service.last_gamepad.thrust()).toBeFalsy()
 
 
   fire_up_sent_tests = [
@@ -45,8 +45,7 @@ describe "ShipCommandController", ->
     describe "When the fire button is #{test_conditions.buttons.fire}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.fire_button_index()] =
-          {pressed: test_conditions.buttons.fire == 'down'}
+        gamepad_service.last_gamepad.fire(test_conditions.buttons.fire == 'down');
 
         spyOn game_server, "send"
 
@@ -70,7 +69,7 @@ describe "ShipCommandController", ->
     describe "When fire button is #{test_conditions.fire_button}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.fire_button_index()] = {pressed: test_conditions.fire_button=='down'}
+        gamepad_service.last_gamepad.fire(test_conditions.fire_button == 'down')
         spyOn game_server, "send"
 
       describe " and we receive down", ->
@@ -93,8 +92,7 @@ describe "ShipCommandController", ->
     describe "When fire button is #{test_conditions.fire_button}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.fire_button_index()] =
-          {pressed: test_conditions.fire_button=='down'}
+        gamepad_service.last_gamepad.fire(test_conditions.fire_button == 'down');
 
 
       describe " and we receive up", ->
@@ -102,7 +100,7 @@ describe "ShipCommandController", ->
           scope.interpret_gamepad(make_fake_gamepad(fire_button_index: false));
 
         it "fire button is #{test_conditions.expected_state}", ->
-            expect(gamepad_service.buttons[gamepad_service.fire_button_index()].pressed).toEqual test_conditions .expected_state=='down'
+          expect(gamepad_service.last_gamepad.fire()).toEqual test_conditions.expected_state == 'down'
 
   fire_down_state_tests = [
     {fire_button: "up",   expected_state: "down"},
@@ -113,16 +111,14 @@ describe "ShipCommandController", ->
     describe "When fire button is #{test_conditions.fire_button}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.fire_button_index()] =
-          {pressed: test_conditions.fire_button=='down'}
-
+        gamepad_service.last_gamepad.fire(test_conditions.fire_button == 'down');
 
       describe " and we receive button_down", ->
         beforeEach ->
           scope.interpret_gamepad(make_fake_gamepad(fire_button_index: true));
 
         it "fire button is #{test_conditions.expected_state}", ->
-          expect(gamepad_service.buttons[gamepad_service.fire_button_index()].pressed).toEqual test_conditions .expected_state=='down'
+          expect(gamepad_service.last_gamepad.fire()).toEqual(test_conditions.expected_state == 'down')
 
    thrust_up_sent_tests = [
      {thrust_button: "up",   expected_sent: null},
@@ -133,10 +129,7 @@ describe "ShipCommandController", ->
     describe "When thrust button is #{test_conditions.thrust_button}", ->
       beforeEach ->
         createController()
-
-        gamepad_service.buttons[gamepad_service.thrust_button_index()] =
-          {pressed: test_conditions.thrust_button == 'down'}
-
+        gamepad_service.last_gamepad.thrust(test_conditions.thrust_button == 'down')
         spyOn game_server, "send"
 
       describe " and we receive up", ->
@@ -159,7 +152,7 @@ describe "ShipCommandController", ->
     describe "When thrust button is #{test_conditions.thrust_button}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.thrust_button_index()] = {pressed: test_conditions.thrust_button=='down'}
+        gamepad_service.last_gamepad.thrust(test_conditions.thrust_button == 'down')
         spyOn game_server, "send"
 
       describe " and we receive down", ->
@@ -182,8 +175,7 @@ describe "ShipCommandController", ->
     describe "When thrust button is #{test_conditions.thrust_button}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.thrust_button_index()] =
-          {pressed: test_conditions.thrust_button=='down'}
+        gamepad_service.last_gamepad.thrust(test_conditions.thrust_button == 'down')
 
 
       describe " and we receive up", ->
@@ -191,7 +183,7 @@ describe "ShipCommandController", ->
           scope.interpret_gamepad(make_fake_gamepad(thrust_button_index: false));
 
         it "thrust button is #{test_conditions.expected_state}", ->
-          expect(gamepad_service.buttons[gamepad_service.thrust_button_index()].pressed).toEqual test_conditions .expected_state=='down'
+          expect(gamepad_service.last_gamepad.thrust()).toEqual test_conditions.expected_state == 'down'
 
 
   thrust_down_state_tests = [
@@ -203,15 +195,14 @@ describe "ShipCommandController", ->
     describe "When thrust button is #{test_conditions.thrust_button}", ->
       beforeEach ->
         createController()
-        gamepad_service.buttons[gamepad_service.thrust_button_index()] =
-          {pressed: test_conditions.thrust_button == 'down'}
+        gamepad_service.last_gamepad.thrust(test_conditions.thrust_button == 'down')
 
       describe " and we receive button_down", ->
         beforeEach ->
           scope.interpret_gamepad(make_fake_gamepad(thrust_button_index: true));
 
         it "thrust button is #{test_conditions.expected_state}", ->
-          expect(gamepad_service.buttons[gamepad_service.thrust_button_index()].pressed).toEqual test_conditions .expected_state=='down'
+          expect(gamepad_service.last_gamepad.thrust()).toEqual test_conditions.expected_state == 'down'
 
 
   # up_sent_tests = [

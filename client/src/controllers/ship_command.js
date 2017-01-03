@@ -63,14 +63,9 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
     }
   };
 
+
   $scope.interpret_gamepad = function (gamepad) {
-    if (gamepad.buttons[0].pressed && !gamepad_service.buttons[0].pressed)
-      game_server.send('fire');
-    if (gamepad.buttons[1].pressed && !gamepad_service.buttons[1].pressed)
-      game_server.send('thrust_on');
-    if (!gamepad.buttons[1].pressed && gamepad_service.buttons[1].pressed)
-      game_server.send('thrust_off');
-    gamepad_service.buttons = gamepad.buttons;
+    gamepad_service.interpret_command(gamepad);
   };
 
 }]);
