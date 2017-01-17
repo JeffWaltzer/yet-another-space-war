@@ -25,6 +25,15 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   var KEY_SPACE = 32;
   var KEY_R = 82;
 
+  setInterval(function () {
+    var the_gamepads = _(navigator.getGamepads()).compact();
+    if (the_gamepads.length > 0) {
+      gamepad_service.interpret_command(
+          new gamepad_service.YaswGamepad(the_gamepads[0])
+      );
+    }
+  }, 50);
+
 
   $scope.onKeyDown = function (e) {
     switch (e.keyCode) {
@@ -61,11 +70,6 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
         keyboard.on_fire_up();
         break;
     }
-  };
-
-
-  $scope.interpret_gamepad = function(gamepad) {
-    gamepad_service.interpret_command(gamepad);
   };
 
 }]);
