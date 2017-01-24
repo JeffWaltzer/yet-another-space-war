@@ -7,6 +7,8 @@ angular.module('YASW').factory('gamepad_service', [
     var button_bindings= {
       fire: 2,
       thrust: 0,
+      left: 1,
+      right: 3,
     };
 
     var number_of_buttons= function() {
@@ -50,6 +52,24 @@ angular.module('YASW').factory('gamepad_service', [
 
         return thrust_button.pressed;
       };
+
+      this.left = function (new_value) {
+        var left_button = buttons[button_bindings.left];
+
+        if (new_value!==undefined)
+          left_button.pressed = new_value;
+
+        return left_button.pressed;
+      };
+
+      this.right = function (new_value) {
+        var right_button = buttons[button_bindings.right];
+
+        if (new_value!==undefined)
+          right_button.pressed = new_value;
+
+        return right_button.pressed;
+      };
     }
 
     service.YaswGamepad=YaswGamepad;
@@ -66,6 +86,21 @@ angular.module('YASW').factory('gamepad_service', [
 
       if (!gamepad.thrust() && service.last_gamepad.thrust())
         game_server.send('thrust_off');
+
+      if (service.last_gamepad.left() && service.last_gamepad.right()) {
+        if (gamepad.left() && !gamepad.right())
+          game_server.send('rotate_left');
+        else if (!gamepad.left() && gamepad.right())
+          game_server.send('rotate_right');
+      }
+      else if (!service.last_gamepad.left() && service.last_gamepad.right()) {
+        if (!gamepad.left() && !gamepad.right())
+          game_server.send('rotate_stop');
+      }
+      else if (service.last_gamepad.left() && !service.last_gamepad.right()) {
+        if (!gamepad.left() && !gamepad.right())
+          game_server.send('rotate_stop');
+      }
 
       service.last_gamepad = gamepad;
     };
