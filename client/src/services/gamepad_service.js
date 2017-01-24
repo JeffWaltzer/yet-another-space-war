@@ -5,10 +5,10 @@ angular.module('YASW').factory('gamepad_service', [
     var service = {};
 
     var button_bindings= {
-      fire: 2,
-      thrust: 0,
+      fire: 7,
+      thrust: 9,
       left: 1,
-      right: 3,
+      right: 2,
     };
 
     var number_of_buttons= function() {
