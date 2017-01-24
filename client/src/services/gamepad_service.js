@@ -72,7 +72,7 @@ angular.module('YASW').factory('gamepad_service', [
       };
     }
 
-    service.YaswGamepad=YaswGamepad;
+    service.YaswGamepad= YaswGamepad;
 
     service.last_gamepad = new YaswGamepad();
 

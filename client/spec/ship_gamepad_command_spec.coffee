@@ -227,10 +227,7 @@ describe "ShipCommandController", ->
             new_gamepad= make_fake_gamepad(
               left:  gamepad_service.last_gamepad.left(),
               right: gamepad_service.last_gamepad.right())
-            if (test_conditions.event == 'left')
-              new_gamepad.left(false);
-            else if (test_conditions.event == 'right')
-              new_gamepad.right(false);
+            new_gamepad[test_conditions.event](false);
 
             gamepad_service.interpret_command(new_gamepad)
 
