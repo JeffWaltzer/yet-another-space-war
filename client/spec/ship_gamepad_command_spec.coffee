@@ -46,7 +46,7 @@ describe "ShipCommandController", ->
 
       describe " and we receive up", ->
         beforeEach ->
-          scope.interpret_gamepad(make_fake_gamepad(fire: false));
+          gamepad_service.interpret_command(make_fake_gamepad(fire: false));
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
