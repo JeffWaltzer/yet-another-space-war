@@ -199,83 +199,51 @@ describe "ShipCommandController", ->
           expect(gamepad_service.last_gamepad.thrust()).toEqual test_conditions.expected_state == 'down'
 
 
-  up_sent_tests = [
-    {left_button: "down", right_button: "down", event: "right",   expected_sent: "rotate_left"}
-    {left_button: "down", right_button: "down", event: "left",    expected_sent: "rotate_right"}
-    {left_button: "up",   right_button: "down", event: "right",   expected_sent: "rotate_stop"}
-    {left_button: "down", right_button: "up",   event: "left",    expected_sent: "rotate_stop"}
-    {left_button: "up",   right_button: "up",   event: "left",    expected_sent: null}
-    {left_button: "up",   right_button: "down", event: "left",    expected_sent: null}
-    {left_button: "up",   right_button: "up",   event: "right",   expected_sent: null}
-    {left_button: "down", right_button: "up",   event: "right",   expected_sent: null}
+  sent_tests = [
+    {left_button: "down", right_button: "down", new_left_button: "down", new_right_button: "down", expected_sent: null}
+    {left_button: "down", right_button: "down", new_left_button: "down", new_right_button: "up",   expected_sent: "rotate_left"}
+    {left_button: "down", right_button: "down", new_left_button: "up",   new_right_button: "down", expected_sent: "rotate_right"}
+    {left_button: "down", right_button: "down", new_left_button: "up",   new_right_button: "up",   expected_sent: "rotate_stop"}
+
+    {left_button: "down", right_button: "up",   new_left_button: "down", new_right_button: "down", expected_sent: "rotate_stop"}
+    {left_button: "down", right_button: "up",   new_left_button: "down", new_right_button: "up",   expected_sent: null}
+    {left_button: "down", right_button: "up",   new_left_button: "up",   new_right_button: "down", expected_sent: "rotate_right"}
+    {left_button: "down", right_button: "up",   new_left_button: "up",   new_right_button: "up",   expected_sent: "rotate_stop"}
+
+    {left_button: "up",   right_button: "down", new_left_button: "down", new_right_button: "down", expected_sent: "rotate_stop"}
+    {left_button: "up",   right_button: "down", new_left_button: "down", new_right_button: "up",   expected_sent: "rotate_left"}
+    {left_button: "up",   right_button: "down", new_left_button: "up",   new_right_button: "down", expected_sent: null}
+    {left_button: "up",   right_button: "down", new_left_button: "up",   new_right_button: "up",   expected_sent: "rotate_stop"}
+
+    {left_button: "up",   right_button: "up",   new_left_button: "down", new_right_button: "down", expected_sent: "rotate_stop"}
+    {left_button: "up",   right_button: "up",   new_left_button: "down", new_right_button: "up",   expected_sent: "rotate_left"}
+    {left_button: "up",   right_button: "up",   new_left_button: "up",   new_right_button: "down", expected_sent: "rotate_right"}
+    {left_button: "up",   right_button: "up",   new_left_button: "up",   new_right_button: "up",   expected_sent: null}
   ]
 
-  _.each up_sent_tests, (test_conditions) ->
-    describe "When left button is #{test_conditions.left_button}", ->
+  _.each sent_tests, (test_conditions) ->
+    describe "When left button is #{test_conditions.left_button} and right button is #{test_conditions.right_button}", ->
       controller = undefined
       beforeEach ->
         controller = createController()
         gamepad_service.last_gamepad.left(test_conditions.left_button == 'down')
+        gamepad_service.last_gamepad.right(test_conditions.right_button == 'down')
         spyOn game_server, "send"
 
-      describe "and right button is #{test_conditions.right_button}", ->
+      describe "and we receive left #{test_conditions.new_left_button}, right #{test_conditions.new_right_button}", ->
         beforeEach ->
-          gamepad_service.last_gamepad.right(test_conditions.right_button == 'down')
+          new_gamepad= make_fake_gamepad(
+            left:  (test_conditions.new_left_button == 'down'),
+            right: (test_conditions.new_right_button == 'down'))
 
-        describe "and we receive #{test_conditions.event} up", ->
-          beforeEach ->
-            new_gamepad= make_fake_gamepad(
-              left:  gamepad_service.last_gamepad.left(),
-              right: gamepad_service.last_gamepad.right())
-            new_gamepad[test_conditions.event](false);
+          gamepad_service.interpret_command(new_gamepad)
 
-            gamepad_service.interpret_command(new_gamepad)
-
-          if test_conditions.expected_sent
-            it "sends #{test_conditions.expected_sent}", ->
-              expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
-          else
-            it "does not send", ->
-              expect(game_server.send).not.toHaveBeenCalled()
-
-  down_sent_tests = [
-    {left_button: "up",   right_button: "up",   event: "left",  expected_sent: "rotate_left"}
-    {left_button: "up",   right_button: "up",   event: "right", expected_sent: "rotate_right"}
-    {left_button: "up",   right_button: "down", event: "left",  expected_sent: "rotate_stop"}
-    {left_button: "down", right_button: "up",   event: "right", expected_sent: "rotate_stop"}
-    {left_button: "up",   right_button: "down", event: "right", expected_sent: null}
-    {left_button: "down", right_button: "up",   event: "left",  expected_sent: null}
-    {left_button: "down", right_button: "down", event: "left",  expected_sent: null}
-    {left_button: "down", right_button: "down", event: "right", expected_sent: null}
-  ]
-
-  _.each down_sent_tests, (test_conditions) ->
-    describe "When left button is #{test_conditions.left_button}", ->
-      controller = undefined
-      beforeEach ->
-        controller = createController()
-        gamepad_service.last_gamepad.left(test_conditions.left_button == 'down')
-        spyOn game_server, "send"
-
-      describe " and right button is #{test_conditions.right_button}", ->
-        beforeEach ->
-          gamepad_service.last_gamepad.right(test_conditions.right_button == 'down')
-
-        describe " and we receive #{test_conditions.event} down", ->
-          beforeEach ->
-            new_gamepad= make_fake_gamepad(
-              left:  gamepad_service.last_gamepad.left(),
-              right: gamepad_service.last_gamepad.right())
-            new_gamepad[test_conditions.event](true);
-
-            gamepad_service.interpret_command(new_gamepad)
-
-          if test_conditions.expected_sent
-            it "sends #{test_conditions.expected_sent}", ->
-              expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
-          else
-            it "does not send", ->
-              expect(game_server.send).not.toHaveBeenCalled()
+        if test_conditions.expected_sent
+          it "sends #{test_conditions.expected_sent}", ->
+            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+        else
+          it "does not send", ->
+            expect(game_server.send).not.toHaveBeenCalled()
 
 
   # up_state_tests = [

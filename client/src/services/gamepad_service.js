@@ -92,24 +92,32 @@ angular.module('YASW').factory('gamepad_service', [
           game_server.send('rotate_left');
         else if (!gamepad.left() && gamepad.right())
           game_server.send('rotate_right');
+        else if (!gamepad.left() && !gamepad.right())
+          game_server.send('rotate_stop');
       }
       else if (!service.last_gamepad.left() && service.last_gamepad.right()) {
         if (!gamepad.left() && !gamepad.right())
           game_server.send('rotate_stop');
         else if (gamepad.left() && gamepad.right())
           game_server.send('rotate_stop');
+        else if (gamepad.left() && !gamepad.right())
+          game_server.send('rotate_left');
       }
       else if (service.last_gamepad.left() && !service.last_gamepad.right()) {
         if (!gamepad.left() && !gamepad.right())
           game_server.send('rotate_stop');
         else if (gamepad.left() && gamepad.right())
           game_server.send('rotate_stop');
+        else if (!gamepad.left() && gamepad.right())
+          game_server.send('rotate_right');
       }
       else if (!service.last_gamepad.left() && !service.last_gamepad.right()) {
         if (!gamepad.left() && gamepad.right())
           game_server.send('rotate_right');
         else if (gamepad.left() && !gamepad.right())
           game_server.send('rotate_left');
+        else if (gamepad.left() && gamepad.right())
+          game_server.send('rotate_stop');
       }
       service.last_gamepad = gamepad;
     };
