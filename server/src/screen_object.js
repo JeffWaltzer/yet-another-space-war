@@ -2,10 +2,11 @@ var _= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 var NullPlayer= require('./null_player').NullPlayer;
+var Polygon = require('./polygon').Polygon;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
-  this.points= initial_state.points;
+  this.points = new Polygon(initial_state.points);
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();
@@ -37,25 +38,33 @@ ScreenObject.prototype.generate_outline = function () {
   this.bounding_box = false;
 
   var composite_transform = this.ship_to_game_transform();
-  var returned_points = _(this.points).map(
+
+  var returned_points = _(this.points._points).map(
     function (p) {
       var rv = [0, 0, 0];
       transforms.apply_transform(rv, composite_transform, p);
       var x = (rv[0] / rv[2]);
       var y = (rv[1] / rv[2]);
-      if (this.bounding_box) {
-        if (x > this.bounding_box.right)  this.bounding_box.right = x;
-        if (x < this.bounding_box.left)  this.bounding_box.left = x;
-        if (y > this.bounding_box.top)  this.bounding_box.top = y;
-        if (y < this.bounding_box.bottom)  this.bounding_box.bottom = y;
-      } else {
-        this.bounding_box = {};
-        this.bounding_box.left = this.bounding_box.right = x;
-        this.bounding_box.top = this.bounding_box.bottom = y;
-      }
       return [x, y];
     },
-    this);
+      this);
+
+  _(returned_points).each(
+      function (p) {
+        var x = p[0];
+        var y = p[1];
+        if (this.bounding_box) {
+          if (x > this.bounding_box.right) this.bounding_box.right = x;
+          if (x < this.bounding_box.left) this.bounding_box.left = x;
+          if (y > this.bounding_box.top) this.bounding_box.top = y;
+          if (y < this.bounding_box.bottom) this.bounding_box.bottom = y;
+        } else {
+          this.bounding_box = {};
+          this.bounding_box.left = this.bounding_box.right = x;
+          this.bounding_box.top = this.bounding_box.bottom = y;
+        }
+      },
+      this);
 
   return returned_points;
 };
