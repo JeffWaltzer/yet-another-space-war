@@ -35,29 +35,13 @@ ScreenObject.prototype.ship_to_game_transform= function() {
 };
 
 ScreenObject.prototype.generate_outline = function () {
-  this.bounding_box = false;
-
   var composite_transform = this.ship_to_game_transform();
-  var returned_points = this.shape.transform_polygon(composite_transform);
+  var transformed_polygon = this.shape.transform_polygon(composite_transform);
 
-  _(returned_points).each(
-      function (p) {
-        var x = p[0];
-        var y = p[1];
-        if (this.bounding_box) {
-          if (x > this.bounding_box.right) this.bounding_box.right = x;
-          if (x < this.bounding_box.left) this.bounding_box.left = x;
-          if (y > this.bounding_box.top) this.bounding_box.top = y;
-          if (y < this.bounding_box.bottom) this.bounding_box.bottom = y;
-        } else {
-          this.bounding_box = {};
-          this.bounding_box.left = this.bounding_box.right = x;
-          this.bounding_box.top = this.bounding_box.bottom = y;
-        }
-      },
-      this);
+  this.bounding_box = false;
+  this.bounding_box= transformed_polygon.find_bounding_box(this.bounding_box);
 
-  return returned_points;
+  return transformed_polygon._points;
 };
 
 ScreenObject.prototype.update_outline = function() {
