@@ -6,7 +6,7 @@ var Polygon = require('./polygon').Polygon;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
-  this.points = new Polygon(initial_state.points);
+  this.shape = new Polygon(initial_state.points);
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();
@@ -38,16 +38,7 @@ ScreenObject.prototype.generate_outline = function () {
   this.bounding_box = false;
 
   var composite_transform = this.ship_to_game_transform();
-
-  var returned_points = _(this.points._points).map(
-    function (p) {
-      var rv = [0, 0, 0];
-      transforms.apply_transform(rv, composite_transform, p);
-      var x = (rv[0] / rv[2]);
-      var y = (rv[1] / rv[2]);
-      return [x, y];
-    },
-      this);
+  var returned_points = this.shape.transform_polygon(composite_transform);
 
   _(returned_points).each(
       function (p) {
