@@ -2,7 +2,6 @@ var _= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 var NullPlayer= require('./null_player').NullPlayer;
-var Polygon = require('./polygon').Polygon;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
@@ -36,12 +35,12 @@ ScreenObject.prototype.to_game_space= function() {
 
 ScreenObject.prototype.generate_outline = function () {
   var composite_transform = this.to_game_space();
-  var transformed_polygon = this.shape.transform_polygon(composite_transform);
+  var transformed_shape = this.shape.transform_polygon(composite_transform);
 
   this.bounding_box = false;
-  this.bounding_box= transformed_polygon.find_bounding_box(this.bounding_box);
+  this.bounding_box= transformed_shape.find_bounding_box(this.bounding_box);
 
-  return transformed_polygon;
+  return transformed_shape;
 };
 
 ScreenObject.prototype.update_outline = function() {
