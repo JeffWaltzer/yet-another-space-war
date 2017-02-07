@@ -33,7 +33,7 @@ describe "generating a game board", ->
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
-      expect(game_board).toEqual [{id: '0', score: 0, position: [expected_x, expected_y], outline: [[100,201], [102,203]]}]
+      expect(game_board).toEqual [{id: '0', score: 0, position: [expected_x, expected_y], outline: new Polygon([[100,201], [102,203]])}]
 
   describe "when we have a ship and the player has a non-zero score", ->
     player= null
@@ -53,7 +53,7 @@ describe "generating a game board", ->
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
-      expect(game_board).toEqual [{id: '0', score: 1, position: [expected_x, expected_y], outline: [[100,201], [102,203]]}]
+      expect(game_board).toEqual [{id: '0', score: 1, position: [expected_x, expected_y], outline: new Polygon([[100,201], [102,203]])}]
 
   describe "GameField#remove_screen_object", ->
     player= null

@@ -41,7 +41,7 @@ ScreenObject.prototype.generate_outline = function () {
   this.bounding_box = false;
   this.bounding_box= transformed_polygon.find_bounding_box(this.bounding_box);
 
-  return transformed_polygon._points;
+  return transformed_polygon;
 };
 
 ScreenObject.prototype.update_outline = function() {
@@ -61,7 +61,7 @@ ScreenObject.prototype.update= function(tick_rate) {
 
 ScreenObject.prototype.lines=function () {
   var result = [];
-  var transform_points = this.outline();
+  var transform_points = this.outline()._points;
   for(var i = 0; i< transform_points.length; i++) {
     result.push([
       transform_points[i],

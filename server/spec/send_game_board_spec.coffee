@@ -85,7 +85,7 @@ describe "sending a game board when our player has a ship", ->
       screen_object = sent_data.screen_objects[0]
 
     it "has outline", ->
-      expect(screen_object.outline).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
+      expect(screen_object.outline._points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
 
     it "has id", ->
       expect(screen_object.id).toEqual '0'
