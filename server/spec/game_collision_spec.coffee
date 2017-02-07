@@ -179,7 +179,7 @@ describe "A fragment and a bullet colliding", ->
                                               new vector.Vector([1,1]),
                                               new vector.Vector([0,0]),
                                               0)
-    the_bullet= the_game.game_field.add_bullet()
+    the_bullet= the_game.game_field.add_bullet({})
   
     the_bullet.position(the_fragment.position())
     the_game.game_field.handle_collisions()
@@ -204,7 +204,7 @@ describe "A bullet and a fragment colliding", ->
   beforeEach ->
     the_game= new game.Game({})
 
-    the_bullet= the_game.game_field.add_bullet()
+    the_bullet= the_game.game_field.add_bullet({})
     the_fragment= fragment_maker.add_fragment(the_game.game_field,
                                               new vector.Vector([1,1]),
                                               new vector.Vector([0,0]),

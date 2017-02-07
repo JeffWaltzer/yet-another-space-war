@@ -4,7 +4,6 @@ var MortalObject= require('./mortal_object');
 var util = require('util');
 
 function Fragment(initial_state) {
-  initial_state.points= initial_state.points || [[-8.33, -5], [8.33, -5], [0, 5]];
   screen_object.ScreenObject.call(this, initial_state);
 
   this.life_left = initial_state.life_left || 3;

@@ -1,5 +1,6 @@
 var math_util = require('./math_util');
 var Fragment= require('./fragment').Fragment;
+var Polygon= require('./polygon').Polygon;
 
 function make_fragment(n_sides, base_size) {
   var fragment= [];
@@ -47,7 +48,7 @@ function fragment_parameters(game_field, median_position, median_velocity, shape
     ],
     angular_velocity: math_util.random_in_range(-10, 10),
     life_left: math_util.random_in_range(2, 3),
-    points: fragment_shapes[(shape_index) % fragment_shapes.length]
+    shape: new Polygon(fragment_shapes[(shape_index) % fragment_shapes.length])
   };
 }
 

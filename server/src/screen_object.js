@@ -6,7 +6,12 @@ var Polygon = require('./polygon').Polygon;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
-  this.shape = new Polygon(initial_state.points);
+
+  if (initial_state.shape)
+    this.shape = initial_state.shape;
+  else
+    this.shape = new Polygon(initial_state.points);
+
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();

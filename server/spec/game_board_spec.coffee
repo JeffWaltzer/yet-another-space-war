@@ -1,5 +1,6 @@
 Game= require('../../src/game').Game
 Ship= require('../../src/ship').Ship
+Polygon= require('../../src/polygon').Polygon
 
 describe "generating a game board", ->
   game= null
@@ -27,7 +28,7 @@ describe "generating a game board", ->
       ship= game_field.add_ship({
           player: player,
           position: [expected_x, expected_y],
-          points: [[0, 1], [2, 3]]})
+          shape: new Polygon([[0, 1], [2, 3]])})
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
@@ -47,7 +48,7 @@ describe "generating a game board", ->
         game_field: game_field,
         player: player,
         position: [expected_x, expected_y],
-        points: [[0, 1], [2, 3]])
+        shape: new Polygon([[0, 1], [2, 3]]))
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 

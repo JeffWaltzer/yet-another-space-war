@@ -6,6 +6,7 @@ var NullPlayer= require('./null_player').NullPlayer;
 
 var MathUtil= require('./math_util');
 var Vector=require('./vector').Vector;
+var Polygon= require('./polygon').Polygon;
 
 function GameField(initial_state) {
   this._field_size = initial_state.field_size || new Vector([800,600]);
@@ -73,14 +74,7 @@ GameField.prototype.place_ship= function(ship) {
 };
 
 GameField.prototype.add_bullet= function(parameters) {
-  var defaultState = {
-    points: [[-1, -1], [-1, 1], [1, 1], [1, -1]],
-  };
-
-  if (parameters !== undefined)
-    _(defaultState).extend(parameters);
-
-  return this.add_screen_object(new Bullet(defaultState));
+  return this.add_screen_object(new Bullet(parameters));
 };
 
 
@@ -88,7 +82,7 @@ GameField.prototype.add_ship = function(parameters) {
   var defaultState = {
     game_field: this,
     rotation: 0,
-    points: [[-10, 10], [20, 0], [-10, -10], [0, 0]],
+    shape: new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]]),
     gun_point: [21,0],
     heading: 0,
     position: this.random_position()
