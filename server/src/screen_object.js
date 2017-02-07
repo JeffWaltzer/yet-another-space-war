@@ -24,7 +24,7 @@ function ScreenObject(initial_state) {
   };
 }
 
-ScreenObject.prototype.ship_to_game_transform= function() {
+ScreenObject.prototype.to_game_space= function() {
   var rotation=            transforms.make_rotation(this.heading);
   var composite_transform= transforms.identity();
   var scale_and_translate_transform= transforms.make_translation(this._position);
@@ -35,7 +35,7 @@ ScreenObject.prototype.ship_to_game_transform= function() {
 };
 
 ScreenObject.prototype.generate_outline = function () {
-  var composite_transform = this.ship_to_game_transform();
+  var composite_transform = this.to_game_space();
   var transformed_polygon = this.shape.transform_polygon(composite_transform);
 
   this.bounding_box = false;

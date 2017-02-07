@@ -55,7 +55,7 @@ Ship.prototype.update= function(tick_rate) {
 
 Ship.prototype.gun_point= function() {
   var transformed_point= [0,0,1];
-  transforms.apply_transform(transformed_point, this.ship_to_game_transform(), this.raw_gun_point.coordinates);
+  transforms.apply_transform(transformed_point, this.to_game_space(), this.raw_gun_point.coordinates);
   return new vector.Vector(transformed_point);
 };
 
