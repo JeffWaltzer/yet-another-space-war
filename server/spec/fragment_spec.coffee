@@ -1,12 +1,13 @@
 fragment = require './../../src/fragment'
 ship = require './../../src/ship'
 game = require './../../src/game'
+Polygon= require('./../../src/polygon').Polygon;
 
 describe "fragment", ->
   the_fragment = undefined
 
   beforeEach ->
-    the_fragment = new fragment.Fragment({})
+    the_fragment = new fragment.Fragment({shape: new Polygon()})
 
   it "creates a fragment", ->
     expect(the_fragment.is_fragment()).toBe(true);
@@ -34,6 +35,7 @@ describe "fragment with explicit values", ->
 
   beforeEach ->
     the_fragment = new fragment.Fragment {
+      shape: new Polygon()
       position: [3, 4]
       velocity: [5, 6]
     }
