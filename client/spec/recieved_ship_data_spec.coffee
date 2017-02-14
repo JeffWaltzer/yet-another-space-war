@@ -21,8 +21,8 @@ describe 'recieving shipdata', ->
         you: "1",
         field_size: [314, 217],
         screen_objects: [
-          {id: '1', score: 23, position: [0,0],      outline: [[0,0],[1,1]]}
-          {id: '2', score: 42, position: [200, 400], outline: [[202,402],[203,403]]}])
+          {id: '1', score: 23, position: [0,0],      wireframe: [[0,0],[1,1]]}
+          {id: '2', score: 42, position: [200, 400], wireframe: [[202,402],[203,403]]}])
     )
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
@@ -70,8 +70,8 @@ describe "removing a dead ship's data", ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"screen_objects": {"3248": {"outline": [[0,0],[1,1]]}, "31416": {"outline": [[2,2],[3,3]]}}}')
-    game_server.web_socket.emit('message', '{"screen_objects": {"31416": {"outline": [[2,2],[3,3]]}}}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"3248": {"wireframe": [[0,0],[1,1]]}, "31416": {"wireframe": [[2,2],[3,3]]}}}')
+    game_server.web_socket.emit('message', '{"screen_objects": {"31416": {"wireframe": [[2,2],[3,3]]}}}')
   )
   it 'deletes a ship', ->
     expect(scope.screen_objects().length).toEqual(1)

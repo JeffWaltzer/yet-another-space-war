@@ -5,7 +5,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
 
   game_server.on_message = function (raw_data) {
     var message = JSON.parse(raw_data);
-    game_server.update_ship_outlines(message.screen_objects, message.you);
+    game_server.update_ship_wireframes(message.screen_objects, message.you);
     $scope.field_size = message.field_size;
     $scope.$digest();
   };
