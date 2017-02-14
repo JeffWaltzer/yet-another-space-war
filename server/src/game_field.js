@@ -24,7 +24,7 @@ GameField.prototype.screen_objects= function(new_value) {
   return this._screen_objects;
 };
 
-GameField.prototype.each_screen_object= function(callback_function) {
+GameField.prototype.map_screen_objects= function(callback_function) {
   return _(this.screen_objects()).map(callback_function);
 };
 
@@ -100,15 +100,9 @@ GameField.prototype.add_ship = function(parameters) {
 };
 
 GameField.prototype.game_board= function() {
-  var outline_array= this.each_screen_object(function(screen_object) {
-    var gamePiece = screen_object.make_game_piece();
-    return gamePiece;
+  return this.map_screen_objects(function(screen_object) {
+    return screen_object.make_game_piece();
   });
-  var outlines= [];
-  _(outline_array).each(function(outline, index) {
-    outlines.push(outline);
-  });
-  return outlines;
 };
 
 GameField.prototype.remove_dead_objects= function() {
@@ -120,7 +114,7 @@ GameField.prototype.remove_dead_objects= function() {
 };
 
 GameField.prototype.update_screen_objects= function(tick_rate) {
-  this.each_screen_object(
+  this.map_screen_objects(
     function(screen_object) {
       screen_object.update(tick_rate);
     });
