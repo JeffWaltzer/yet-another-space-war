@@ -6,24 +6,24 @@ angular.module('YASW', [])
       }
     };
   })
-  .directive('screenObject', function() {
+  .directive('gamePolygon', function() {
     return {
       restrict: 'E',
       replace: true,
       template: '' +
         '<g>' +
         '  <polygon' +
-        '   ng-attr-points="{{screen_object.polygon_string}}"' +
-        '   ng-attr-stroke="{{screen_object.color}}"' +
+        '   ng-attr-points="{{polygon.polygon_string}}"' +
+        '   ng-attr-stroke="{{polygon.color}}"' +
         '   stroke-width="2"' +
         '   fill="none"' +
         '  />' +
         '  <text' +
-        '   ng-if="screen_object.score"' +
-        '   ng-attr-x="{{screen_object.position[0]}}"' +
-        '   ng-attr-y="{{screen_object.position[1] - 20}}"' +
-        '   ng-attr-fill="{{screen_object.color}}">' +
-        '  {{screen_object.score}}' +
+        '   ng-if="polygon.score"' +
+        '   ng-attr-x="{{polygon.position[0]}}"' +
+        '   ng-attr-y="{{polygon.position[1] - 20}}"' +
+        '   ng-attr-fill="{{polygon.color}}">' +
+        '  {{polygon.score}}' +
         '  </text>' +
         '</g>'
     };
