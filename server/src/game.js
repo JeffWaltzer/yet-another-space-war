@@ -49,8 +49,10 @@ Game.prototype.send_game_board= function(new_board) {
   });
 };
 
+Game.player_colors= ['green', 'blue'];
+
 Game.prototype.add_player= function(player_id) {
-  var new_player= new Player();
+  var new_player= new Player(Game.player_colors[Object.keys(this.players).length]);
   this.players[player_id]= new_player;
   return new_player;
 };

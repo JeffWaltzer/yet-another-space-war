@@ -1,5 +1,6 @@
-function Player() {
+function Player(color) {
   this._score= 0;
+  this._color= color || 'red';
 }
 
 Player.prototype.bump_score= function(score_bump) {
@@ -21,7 +22,7 @@ Player.prototype.on_message = function(json_message) {
 
 
 Player.prototype.color= function() {
-  return 'green';
+  return this._color;
 };
 
 exports.Player= Player;
