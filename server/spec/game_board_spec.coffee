@@ -17,7 +17,7 @@ describe "generating a game board", ->
       game_board = game.game_field.game_board()
       expect(game_board).toEqual({})
 
-  describe "when we have a ship", ->
+  describe "when we have a ship that's connected to a player", ->
     player= null
     game_board = null
 
@@ -34,6 +34,21 @@ describe "generating a game board", ->
 
     it "creates the correct game board", ->
       expect(game_board).toEqual [{score: 0, color: 'green', position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
+
+  describe "when we have a ship that's not connected to a player", ->
+    player= null
+    game_board = null
+
+    beforeEach ->
+      expected_x= 100
+      expected_y= 200
+      ship= game_field.add_ship({
+          position: [expected_x, expected_y],
+          shape: new Polygon([[0, 1], [2, 3]])})
+      game_board = game.game_field.game_board()
+
+    it "creates the correct game board", ->
+      expect(game_board).toEqual [{score: undefined, color: 'white', position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
 
   describe "when we have a ship and the player has a non-zero score", ->
     player= null

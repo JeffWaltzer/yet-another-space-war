@@ -20,6 +20,9 @@ describe 'screen object', ->
   it 'is not a fragment', ->
     expect(a_screen_object.is_fragment()).toEqual(false)
 
+  it 'is white', ->
+    expect(a_screen_object.color()).toEqual('white')
+
   it 'have distinct ids',->
     screen_object1 = game.game_field.add_screen_object {update: ->}
     screen_object2 = game.game_field.add_screen_object {update: ->}

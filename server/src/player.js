@@ -20,4 +20,8 @@ Player.prototype.on_message = function(json_message) {
 };
 
 
+Player.prototype.color= function() {
+  return 'green';
+};
+
 exports.Player= Player;
