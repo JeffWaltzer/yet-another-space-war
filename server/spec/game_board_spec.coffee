@@ -33,7 +33,7 @@ describe "generating a game board", ->
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
-      expect(game_board).toEqual [{id: '0', score: 0, position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
+      expect(game_board).toEqual [{score: 0, color: 'green', position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
 
   describe "when we have a ship and the player has a non-zero score", ->
     player= null
@@ -53,7 +53,7 @@ describe "generating a game board", ->
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
-      expect(game_board).toEqual [{id: '0', score: 1, position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
+      expect(game_board).toEqual [{score: 1, color: 'green', position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
 
   describe "GameField#remove_screen_object", ->
     player= null
@@ -68,4 +68,4 @@ describe "generating a game board", ->
       game_field.remove_screen_object(ship)
 
     it "removes the screen object", ->
-      expect(game_field.screen_objects().length).toEqual(0)
+      expect(game_field.screen_objects()).toEqual([])

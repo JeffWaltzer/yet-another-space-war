@@ -17,11 +17,8 @@ describe "sending a game board when our player doesn't have a ship", ->
     the_player.socket= fake_socket;
     game.send_game_board({})
 
-  it "doesn't send a 'you' item in the message", ->
-    expect(sent_data.you).toBeNull();
-
   it "has screen objects", ->
-    expect(sent_data.screen_objects).toEqual([]);
+    expect(sent_data.polygons).toEqual([]);
 
   it "has field size", ->
     expect(sent_data.field_size).toEqual([800,600]);
@@ -40,6 +37,7 @@ describe "sending the field size", ->
 
     game= new Game({field_size: new Vector([1001,1002])})
 
+    # Smell: shouldn't need player
     the_player= game.add_player('player_id')
     the_player.socket= fake_socket;
     game.send_game_board({})
@@ -70,29 +68,22 @@ describe "sending a game board when our player has a ship", ->
 
     game.send_game_board(game.game_field.game_board())
 
-  it "sends a 'you' item as a string", ->
-    expect(typeof sent_data.you).toBe 'string'
-
-  it "sends a 'you' item in the message", ->
-    expect(sent_data.you).toEqual(the_player.ship.id)
-
-  it "has one screen object"  , ->
-    expect(sent_data.screen_objects.length).toEqual 1
+  it "has one screen object", ->
+    expect(sent_data.polygons.length).toEqual 1
 
   describe "the first screen object",  ->
-    screen_object = null
+    polygon = null
     beforeEach ->
-      screen_object = sent_data.screen_objects[0]
+      polygon = sent_data.polygons[0]
 
     it "has outline", ->
-      expect(screen_object.wireframe._points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
-
-    it "has id", ->
-      expect(screen_object.id).toEqual '0'
+      expect(polygon.wireframe._points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
 
     it "has position", ->
-      expect(screen_object.position).toEqual [ 201, 303 ]
+      expect(polygon.position).toEqual [ 201, 303 ]
 
     it "has score", ->
-      expect(screen_object.score).toEqual(0)
+      expect(polygon.score).toEqual(0)
 
+    it "is green", ->
+      expect(polygon.color).toEqual('green')

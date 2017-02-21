@@ -95,7 +95,7 @@ describe "game#tick" , ->
 
   it 'shows ships', ->
     message= JSON.parse(sent_data)
-    outlines= message.screen_objects
+    outlines= message.polygons
 
     expect(Object.keys(outlines).length).toEqual(6)
 

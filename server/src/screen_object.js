@@ -79,7 +79,7 @@ ScreenObject.prototype.player= function(new_value) {
 ScreenObject.prototype.make_game_piece= function() {
   return {
     wireframe: this.outline(),
-    id: this.id,
+    color: 'green',
     score: this.score(),
     position: [
       this.position().x(),

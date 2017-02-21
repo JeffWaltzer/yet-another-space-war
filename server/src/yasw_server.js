@@ -44,7 +44,7 @@ exports.createServer= function(parameters) {
       var value= fields[1].trim();
 
       if (name === 'yasw_player_id')
-	player_id= value;
+	      player_id= value;
     });
 
     game.connect_socket(player_id, socket);
@@ -109,13 +109,13 @@ exports.createServer= function(parameters) {
       status= 200;
     read_stream.on('open', function() {
       if (file_extension === "js")
-	response.setHeader("Content-Type", "text/javascript");
+	      response.setHeader("Content-Type", "text/javascript");
       else
-	response.setHeader("Content-Type", "text/html");
+	      response.setHeader("Content-Type", "text/html");
       response.statusCode= status;
       read_stream.pipe(response);
       if (on_headers_written)
-	on_headers_written();
+	      on_headers_written();
     });
     read_stream.on('error', function() {
       response.writeHead(404);
