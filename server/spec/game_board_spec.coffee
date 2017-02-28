@@ -76,7 +76,7 @@ describe "generating a game board", ->
 
     it "creates the correct game board", ->
       expect(game_board).toEqual [{score: 0, color: 'green',     position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])},
-                                  {score: 0, color: 'lightblue', position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
+                                  {score: 0, color: 'blue', position: [expected_x, expected_y], wireframe: new Polygon([[100,201], [102,203]])}]
 
   describe "when we have a ship and the player has a non-zero score", ->
     player= null
