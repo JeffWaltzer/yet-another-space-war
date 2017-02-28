@@ -64,6 +64,7 @@ Game.prototype.connect_socket= function(player_id, socket) {
 Game.prototype.connect_ship= function(player_id, ship) {
   var the_player= this.players[player_id];
   the_player.ship= ship;
+  ship.color( the_player.color);
   ship.player(the_player);
 };
 

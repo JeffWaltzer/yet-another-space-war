@@ -19,8 +19,8 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
     service.polygons= [];
     _.each(polygons, function(a_polygon) {
       service.polygons.push({
-        color: a_polygon.color,
-        polygon_string: SVG.polygon_string(a_polygon.wireframe),
+        color: a_polygon.wireframe[0].color,
+        polygon_string: SVG.polygon_string(a_polygon.wireframe[0]._points),
         score: a_polygon.score,
         position: a_polygon.position
       });

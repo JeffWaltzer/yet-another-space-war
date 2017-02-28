@@ -6,4 +6,4 @@ describe "the default game piece color", ->
   the_game_piece= a_screen_object.make_game_piece()
 
   it "is white", ->
-    expect(the_game_piece.color).toEqual('white')
+    expect(the_game_piece.wireframe[0]._color).toEqual('white')

@@ -6,7 +6,6 @@ var NullPlayer= require('./null_player').NullPlayer;
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
   this.shape = initial_state.shape;
-  this._color= 'white';
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();
@@ -79,8 +78,9 @@ ScreenObject.prototype.player= function(new_value) {
 
 ScreenObject.prototype.make_game_piece= function() {
   return {
-    wireframe: this.outline(),
-    color: this.color(),
+    wireframe: [
+      this.outline(),
+    ],
     score: this.score(),
     position: [
       this.position().x(),
@@ -125,8 +125,8 @@ ScreenObject.prototype.score = function() {
 
 ScreenObject.prototype.color= function(new_value) {
   if (new_value)
-    this._color= new_value;
-  return this._color;
+    this.shape._color= new_value;
+  return this.shape._color;
 };
 
 exports.ScreenObject = ScreenObject;

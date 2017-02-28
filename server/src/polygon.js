@@ -1,7 +1,8 @@
 var _= require('underscore');
 var transforms= require('./transform');
 
-function Polygon(points) {
+function Polygon(points,color) {
+  this._color = color || 'white';
   this._points = points;
 }
 
@@ -15,7 +16,7 @@ function transform_polygon(composite_transform) {
         return [x, y];
       },
       this);
-  return new Polygon(returned_points);
+  return new Polygon(returned_points,this._color);
 }
 
 function find_bounding_box(bounding_box) {
