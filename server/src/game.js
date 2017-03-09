@@ -34,7 +34,7 @@ Game.prototype.send_player_game_board= function(board, player) {
 
   var message= {
     polygons: board,
-      field_size: this.game_field.field_size().coordinates,
+    field_size: this.game_field.field_size().coordinates,
   };
 
   player.socket.send(JSON.stringify(message));
@@ -61,7 +61,7 @@ Game.prototype.connect_socket= function(player_id, socket) {
   this.players[player_id].socket = socket;
 };
 
-Game.prototype.connect_ship= function(player_id, ship) {
+Game.prototype.connect_ship= function(player_id, ship, debug) {
   var the_player= this.players[player_id];
   the_player.ship= ship;
   ship.color( the_player.color);

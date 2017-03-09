@@ -103,8 +103,4 @@ Ship.prototype.point_value= function() {
   return 1;
 };
 
-Ship.prototype.color= function() {
-  return this.player().color();
-};
-
 exports.Ship= Ship;

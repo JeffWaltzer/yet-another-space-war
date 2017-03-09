@@ -39,6 +39,22 @@ function find_bounding_box(bounding_box) {
   return bounding_box;
 }
 
+function color(new_value)
+{
+    if (new_value)
+        this._color= new_value;
+    return this._color;
+}
+
+function points(new_value)
+{
+    if (new_value)
+        this._points= new_value;
+    return this._points;
+}
+
+Polygon.prototype.color = color;
+Polygon.prototype.points = points;
 Polygon.prototype.find_bounding_box = find_bounding_box;
 Polygon.prototype.transform_polygon = transform_polygon;
 

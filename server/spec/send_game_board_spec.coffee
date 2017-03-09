@@ -69,7 +69,7 @@ describe "sending a game board when our player has a ship", ->
 
     game.send_game_board(game.game_field.game_board())
 
-  xit "has one screen object", ->
+  it "has one screen object", ->
     expect(sent_data.polygons.length).toEqual 1
 
   describe "the first screen object",  ->
@@ -77,14 +77,14 @@ describe "sending a game board when our player has a ship", ->
     beforeEach ->
       polygon = sent_data.polygons[0]
 
-    xit "has outline", ->
-      expect(polygon.wireframe._points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
+    it "has outline", ->
+      expect(polygon.wireframe[0].points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
 
-    xit "has position", ->
+    it "has position", ->
       expect(polygon.position).toEqual [ 201, 303 ]
 
-    xit "has score", ->
+    it "has score", ->
       expect(polygon.score).toEqual(0)
 
-    xit "is green", ->
-      expect(polygon.color).toEqual('green')
+    it "is green", ->
+      expect(polygon.wireframe[0].color).toEqual('green')
