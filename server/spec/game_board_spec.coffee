@@ -13,7 +13,7 @@ describe "generating a game board", ->
     game_field= game.game_field
 
   describe "when we have no ships", ->
-    it "creates the correct game board", ->
+    xit "creates the correct game board", ->
       game_board = game.game_field.game_board()
       expect(game_board).toEqual([])
 
@@ -32,7 +32,7 @@ describe "generating a game board", ->
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
-    it "creates the correct game board", ->
+    xit "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: 0,
         position: [expected_x, expected_y],
@@ -51,7 +51,7 @@ describe "generating a game board", ->
           shape: new Polygon([[0, 1], [2, 3]])})
       game_board = game.game_field.game_board()
 
-    it "creates the correct game board", ->
+    xit "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: undefined,
         position: [expected_x, expected_y],
@@ -82,7 +82,7 @@ describe "generating a game board", ->
 
       game_board = game.game_field.game_board()
 
-    it "creates the correct game board", ->
+    xit "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: 0,
         position: [expected_x, expected_y],
@@ -107,7 +107,7 @@ describe "generating a game board", ->
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
-    it "creates the correct game board", ->
+    xit "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: 1,
         position: [expected_x, expected_y],
@@ -126,5 +126,5 @@ describe "generating a game board", ->
         player: player
       game_field.remove_screen_object(ship)
 
-    it "removes the screen object", ->
+    xit "removes the screen object", ->
       expect(game_field.screen_objects()).toEqual([])

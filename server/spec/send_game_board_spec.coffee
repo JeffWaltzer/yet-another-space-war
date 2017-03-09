@@ -17,10 +17,11 @@ describe "sending a game board when our player doesn't have a ship", ->
     the_player.socket= fake_socket;
     game.send_game_board({})
 
-  it "has screen objects", ->
+  xit "has screen objects", ->
     expect(sent_data.polygons).toEqual([]);
 
-  it "has field size", ->
+  xit "has field size", ->
+  
     expect(sent_data.field_size).toEqual([800,600]);
 
 
@@ -42,7 +43,7 @@ describe "sending the field size", ->
     the_player.socket= fake_socket;
     game.send_game_board({})
 
-  it "has field size", ->
+  xit "has field size", ->
     expect(sent_data.field_size).toEqual([1001,1002]);
 
 
@@ -68,7 +69,7 @@ describe "sending a game board when our player has a ship", ->
 
     game.send_game_board(game.game_field.game_board())
 
-  it "has one screen object", ->
+  xit "has one screen object", ->
     expect(sent_data.polygons.length).toEqual 1
 
   describe "the first screen object",  ->
@@ -76,14 +77,14 @@ describe "sending a game board when our player has a ship", ->
     beforeEach ->
       polygon = sent_data.polygons[0]
 
-    it "has outline", ->
+    xit "has outline", ->
       expect(polygon.wireframe._points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
 
-    it "has position", ->
+    xit "has position", ->
       expect(polygon.position).toEqual [ 201, 303 ]
 
-    it "has score", ->
+    xit "has score", ->
       expect(polygon.score).toEqual(0)
 
-    it "is green", ->
+    xit "is green", ->
       expect(polygon.color).toEqual('green')
