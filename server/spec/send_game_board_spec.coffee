@@ -63,9 +63,10 @@ describe "sending a game board when our player has a ship", ->
     the_player= game.add_player('player_id')
     the_player.socket= fake_socket;
     the_player.ship = game.game_field.add_ship({
-      player: the_player,
       position: [201,303]}
     )
+
+    game.connect_ship('player_id', the_player.ship, true)
 
     game.send_game_board(game.game_field.game_board())
 
@@ -73,18 +74,18 @@ describe "sending a game board when our player has a ship", ->
     expect(sent_data.polygons.length).toEqual 1
 
   describe "the first screen object",  ->
-    polygon = null
+    screen_object_json = null
     beforeEach ->
-      polygon = sent_data.polygons[0]
+      screen_object_json = sent_data.polygons[0]
 
     it "has outline", ->
-      expect(polygon.wireframe[0].points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
+      expect(screen_object_json.wireframe[0].points).toEqual [ [ 191, 313 ], [ 221, 303 ], [ 191, 293 ], [ 201, 303 ] ]
 
     it "has position", ->
-      expect(polygon.position).toEqual [ 201, 303 ]
+      expect(screen_object_json.position).toEqual [ 201, 303 ]
 
     it "has score", ->
-      expect(polygon.score).toEqual(0)
+      expect(screen_object_json.score).toEqual(0)
 
     it "is green", ->
-      expect(polygon.wireframe[0].color).toEqual('green')
+      expect(screen_object_json.wireframe[0].color).toEqual('green')

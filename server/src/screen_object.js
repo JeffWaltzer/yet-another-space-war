@@ -126,9 +126,11 @@ ScreenObject.prototype.score = function() {
   return 0;
 };
 
-ScreenObject.prototype.color= function(new_value) {
-  if (new_value)
-    this.shape._color= new_value;
+ScreenObject.prototype.color = function (new_value) {
+  if (new_value) {
+    this.shape._color = new_value;
+    this.update_outline();
+  }
   return this.shape._color;
 };
 
