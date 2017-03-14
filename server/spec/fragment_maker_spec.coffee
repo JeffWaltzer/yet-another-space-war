@@ -90,16 +90,3 @@ describe 'fragment making', ->
 
     it 'has third fragment shape', ->
       expect(the_fragment.outline()).toEqual(new Polygon(fragment_maker.fragment_shapes[2]))
-
-  describe "the fourth fragment", ->
-    fragments = undefined
-    the_fragment = undefined
-
-    beforeEach ->
-      fragments = underscore.select(
-        the_game.game_field.screen_objects(), (screen_object) ->
-          screen_object.is_fragment())
-      the_fragment = fragments[3]
-
-    xit 'has first fragment shape', ->
-      expect(the_fragment.outline()).toEqual(new Polygon(fragment_maker.fragment_shapes[0]))
