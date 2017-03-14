@@ -17,10 +17,10 @@ describe "sending a game board when our player doesn't have a ship", ->
     the_player.socket= fake_socket;
     game.send_game_board({})
 
-  xit "has screen objects", ->
+  it "has screen objects", ->
     expect(sent_data.polygons).toEqual([]);
 
-  xit "has field size", ->
+  it "has field size", ->
   
     expect(sent_data.field_size).toEqual([800,600]);
 
@@ -43,7 +43,7 @@ describe "sending the field size", ->
     the_player.socket= fake_socket;
     game.send_game_board({})
 
-  xit "has field size", ->
+  it "has field size", ->
     expect(sent_data.field_size).toEqual([1001,1002]);
 
 

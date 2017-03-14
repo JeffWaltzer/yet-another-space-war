@@ -13,7 +13,7 @@ describe "generating a game board", ->
     game_field= game.game_field
 
   describe "when we have no ships", ->
-    xit "creates the correct game board", ->
+    it "creates the correct game board", ->
       game_board = game.game_field.game_board()
       expect(game_board).toEqual([])
 
@@ -32,11 +32,11 @@ describe "generating a game board", ->
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
-    xit "creates the correct game board", ->
+    it "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: 0,
         position: [expected_x, expected_y],
-        wireframe: [new Polygon([[100, 201], [102, 203]], 'green')]
+        wireframe: [{points: [[100, 201], [102, 203]], color: 'green'}]
       }]
 
   describe "when we have a ship that's not connected to a player", ->
@@ -51,11 +51,11 @@ describe "generating a game board", ->
           shape: new Polygon([[0, 1], [2, 3]])})
       game_board = game.game_field.game_board()
 
-    xit "creates the correct game board", ->
+    it "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: undefined,
         position: [expected_x, expected_y],
-        wireframe: [new Polygon([[100, 201], [102, 203]], 'white')]
+        wireframe: [{points: [[100, 201], [102, 203]], color: 'white'}]
       }]
 
   describe "when we have two ships connected to different players", ->
@@ -82,13 +82,19 @@ describe "generating a game board", ->
 
       game_board = game.game_field.game_board()
 
-    xit "creates the correct game board", ->
-      expect(game_board).toEqual [{
-        score: 0,
-        position: [expected_x, expected_y],
-        wireframe: [new Polygon([[100, 201], [102, 203]], 'green')]
-      },
-        {score: 0, position: [expected_x, expected_y], wireframe: [new Polygon([[100, 201], [102, 203]], 'blue')]}]
+    it "creates the correct game board", ->
+      expect(game_board).toEqual [
+        {
+          score: 0,
+          position: [expected_x, expected_y],
+          wireframe: [{points: [[100, 201], [102, 203]], color: 'green'}]
+        },
+        {
+          score: 0,
+          position: [expected_x, expected_y],
+          wireframe: [{points:[[100, 201], [102, 203]], color: 'blue'}]
+        }
+      ]
 
   describe "when we have a ship and the player has a non-zero score", ->
     player= null
@@ -107,11 +113,11 @@ describe "generating a game board", ->
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
-    xit "creates the correct game board", ->
+    it "creates the correct game board", ->
       expect(game_board).toEqual [{
         score: 1,
         position: [expected_x, expected_y],
-        wireframe: [new Polygon([[100, 201], [102, 203]], 'green')]
+        wireframe: [{points: [[100, 201], [102, 203]], color: 'green'}]
       }]
 
   describe "GameField#remove_screen_object", ->
@@ -126,5 +132,5 @@ describe "generating a game board", ->
         player: player
       game_field.remove_screen_object(ship)
 
-    xit "removes the screen object", ->
+    it "removes the screen object", ->
       expect(game_field.screen_objects()).toEqual([])
