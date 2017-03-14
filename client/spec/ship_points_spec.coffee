@@ -15,7 +15,7 @@ describe 'updating the ship wireframes', ->
         socket: _socket_
 
     createController()
-    game_server.update_ship_wireframes({"0": {"wireframe":  [{"_points": [[0,0],[1,1]]}]}, "1": {"wireframe": [{"_points": [[2,2],[3,3]]}]}});
+    game_server.update_ship_wireframes({"0": {"wireframe":  [{"points": [[0,0],[1,1]]}]}, "1": {"wireframe": [{"points": [[2,2],[3,3]]}]}});
   )
 
   it 'dispatches the ship 0 coordinates', ->

@@ -20,8 +20,8 @@ describe 'recieving shipdata', ->
       JSON.stringify
         field_size: [314, 217],
         polygons: [
-          {score: 23, position: [0,0],      wireframe: [{_points: [[0,0],[1,1]] , color: 'white'    }]}
-          {score: 42, position: [200, 400], wireframe: [{_points: [[202,402],[203,403]], color: 'green'     }]}])
+          {score: 23, position: [0,0],      wireframe: [{points: [[0,0],[1,1]] , color: 'white'    }]}
+          {score: 42, position: [200, 400], wireframe: [{points: [[202,402],[203,403]], color: 'green'     }]}])
     )
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
@@ -69,9 +69,10 @@ describe "removing a dead ship's data", ->
         socket: _socket_
 
     createController()
-    game_server.web_socket.emit('message', '{"polygons": {"3248": {"wireframe": [{"_points": [[0,0],[1,1]]}]}, "31416": {"wireframe": [{"_points":[[2,2],[3,3]]}]}}}')
-    game_server.web_socket.emit('message', '{"polygons": {                                      "31416": {"wireframe": [{"_points": [[2,2],[3,3]]}]}}}')
+    game_server.web_socket.emit('message', '{"polygons": {"3248": {"wireframe": [{"points": [[0,0],[1,1]]}]}, "31416": {"wireframe": [{"points":[[2,2],[3,3]]}]}}}')
+    game_server.web_socket.emit('message', '{"polygons": {                                      "31416": {"wireframe": [{"points": [[2,2],[3,3]]}]}}}')
   )
+
   it 'deletes a ship', ->
     expect(scope.polygons().length).toEqual(1)
 
