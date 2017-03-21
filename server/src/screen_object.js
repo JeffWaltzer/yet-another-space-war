@@ -5,7 +5,7 @@ var NullPlayer= require('./null_player').NullPlayer;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
-  this.shape = initial_state.shape;
+  this.shape = [initial_state.shape];
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();
@@ -35,12 +35,19 @@ ScreenObject.prototype.to_game_space= function() {
 
 ScreenObject.prototype.generate_outline = function () {
   var composite_transform = this.to_game_space();
-  var transformed_shape = this.shape.transform_polygon(composite_transform);
 
-  this.bounding_box = false;
-  this.bounding_box= transformed_shape.find_bounding_box(this.bounding_box);
+  var transformed_shape = _(this.shape).map(function(polygon) {
+    return polygon.transform_polygon(composite_transform);
+  });
 
-  return transformed_shape;
+  this.bounding_box= false;
+  var self= this;
+  _(transformed_shape).each(
+     function(polygon) {
+       self.bounding_box= polygon.find_bounding_box(self.bounding_box);
+  });
+
+    return transformed_shape;
 };
 
 ScreenObject.prototype.update_outline = function() {
@@ -59,15 +66,17 @@ ScreenObject.prototype.update= function(tick_rate) {
 };
 
 ScreenObject.prototype.lines=function () {
-  var result = [];
-  var transform_points = this.outline()._points;
-  for(var i = 0; i< transform_points.length; i++) {
-    result.push([
-      transform_points[i],
-      transform_points[(i+1) % transform_points.length]
-    ]);
-  }
-  return result;
+    var result = [];
+    _(this.outline()).each(function(polygon) {
+        var transform_points = polygon._points;
+        for(var i = 0; i< transform_points.length; i++) {
+            result.push([
+                transform_points[i],
+                transform_points[(i+1) % transform_points.length]
+            ]);
+        }
+    });
+    return result;
 };
 
 ScreenObject.prototype.player= function(new_value) {
@@ -78,17 +87,18 @@ ScreenObject.prototype.player= function(new_value) {
 
 ScreenObject.prototype.make_game_piece= function() {
   return {
-    wireframe: [
-        {
-            points: this.outline().points(),
-            color: this.outline().color(),
-        }
-    ],
-    score: this.score(),
-    position: [
-      this.position().x(),
-      this.position().y()
-    ]
+      wireframe: _(this.outline()).map(
+          function(polygon) {
+              return {
+                  points: polygon.points(), 
+                  color: polygon.color(),
+              };
+          }),
+      score: this.score(),
+      position: [
+          this.position().x(),
+          this.position().y()
+      ]
   };
 };
 
@@ -128,10 +138,10 @@ ScreenObject.prototype.score = function() {
 
 ScreenObject.prototype.color = function (new_value) {
   if (new_value) {
-    this.shape._color = new_value;
+    this.shape[0]._color = new_value;
     this.update_outline();
   }
-  return this.shape._color;
+  return this.shape[0]._color;
 };
 
 exports.ScreenObject = ScreenObject;

@@ -51,7 +51,7 @@ describe 'fragment making', ->
       expect(the_fragment.velocity.y()).toEqual(-40)
 
     it 'has first fragment shape', ->
-      expect(the_fragment.outline()).toEqual(new Polygon(fragment_maker.fragment_shapes[0]))
+      expect(the_fragment.outline()).toEqual([new Polygon(fragment_maker.fragment_shapes[0])])
 
   describe "the second fragment", ->
     fragments = undefined
@@ -70,7 +70,7 @@ describe 'fragment making', ->
       expect(the_fragment.velocity.y()).toEqual(60)
 
     it 'has second fragment shape', ->
-      expect(the_fragment.outline()).toEqual(new Polygon(fragment_maker.fragment_shapes[1]))
+      expect(the_fragment.outline()).toEqual([new Polygon(fragment_maker.fragment_shapes[1])])
 
   describe "the third fragment", ->
     fragments = undefined
@@ -89,4 +89,4 @@ describe 'fragment making', ->
       expect(the_fragment.velocity.y()).toEqual(60)
 
     it 'has third fragment shape', ->
-      expect(the_fragment.outline()).toEqual(new Polygon(fragment_maker.fragment_shapes[2]))
+      expect(the_fragment.outline()).toEqual([new Polygon(fragment_maker.fragment_shapes[2])])

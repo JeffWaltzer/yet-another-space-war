@@ -15,10 +15,10 @@ describe "A ship not at the origin, but not rotated", ->
     the_ship.update_outline()
 
   it 'translates x', ->
-    expect(the_ship.outline()._points[0][0]).toBeCloseTo(11)
+    expect(the_ship.outline()[0]._points[0][0]).toBeCloseTo(11)
 
   it 'translates y', ->
-    expect(the_ship.outline()._points[0][1]).toBeCloseTo(20)
+    expect(the_ship.outline()[0]._points[0][1]).toBeCloseTo(20)
 
   afterEach ->
     the_ship= null
@@ -36,10 +36,10 @@ describe "Rotation around the  origin", ->
     the_ship.update_outline()
 
   it 'rotates x', ->
-    expect(the_ship.outline()._points[0][0]).toBeCloseTo(0)
+    expect(the_ship.outline()[0]._points[0][0]).toBeCloseTo(0)
 
   it 'rotates y', ->
-    expect(the_ship.outline()._points[0][1]).toBeCloseTo(1)
+    expect(the_ship.outline()[0]._points[0][1]).toBeCloseTo(1)
 
   afterEach ->
     the_ship= null
@@ -57,10 +57,10 @@ describe "Rotation of 1,0 around itself", ->
     the_ship.update_outline()
 
   it 'rotates x', ->
-    expect(the_ship.outline()._points[0][0]).toBeCloseTo(1)
+    expect(the_ship.outline()[0]._points[0][0]).toBeCloseTo(1)
 
   it 'rotates y', ->
-    expect(the_ship.outline()._points[0][1]).toBeCloseTo(1)
+    expect(the_ship.outline()[0]._points[0][1]).toBeCloseTo(1)
 
   afterEach ->
     the_ship= null
@@ -78,10 +78,10 @@ describe "Rotation of 1,0 around 2,2", ->
     the_ship.update_outline()
 
   it 'rotates x', ->
-    expect(the_ship.outline()._points[0][0]).toBeCloseTo(2)
+    expect(the_ship.outline()[0]._points[0][0]).toBeCloseTo(2)
 
   it 'rotates y', ->
-    expect(the_ship.outline()._points[0][1]).toBeCloseTo(1)
+    expect(the_ship.outline()[0]._points[0][1]).toBeCloseTo(1)
 
   afterEach ->
     the_ship= null

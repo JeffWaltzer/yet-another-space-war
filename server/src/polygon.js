@@ -16,7 +16,7 @@ function transform_polygon(composite_transform) {
         return [x, y];
       },
       this);
-  return new Polygon(returned_points,this._color);
+  return new Polygon(returned_points, this._color);
 }
 
 function find_bounding_box(bounding_box) {
