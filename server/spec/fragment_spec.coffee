@@ -7,7 +7,7 @@ describe "fragment", ->
   the_fragment = undefined
 
   beforeEach ->
-    the_fragment = new fragment.Fragment({shape: new Polygon()})
+    the_fragment = new fragment.Fragment({shape: [new Polygon()]})
 
   it "creates a fragment", ->
     expect(the_fragment.is_fragment()).toBe(true);
@@ -35,7 +35,7 @@ describe "fragment with explicit values", ->
 
   beforeEach ->
     the_fragment = new fragment.Fragment {
-      shape: new Polygon()
+      shape: [new Polygon()]
       position: [3, 4]
       velocity: [5, 6]
     }

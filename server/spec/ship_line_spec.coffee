@@ -4,7 +4,7 @@ Polygon= require('./../../src/polygon').Polygon;
 describe 'a ships lines' , ->
   it 'should have lines', ->
     the_ship = new ship.Ship(
-      shape: new Polygon([[0,0],[1,2],[2,3]]),
+#      shape: new Polygon([[0,0],[1,2],[2,3]]),
       0,
       0,
       0,
@@ -20,7 +20,7 @@ describe 'a ships lines' , ->
   it 'should have lines', ->
     the_ship = new ship.Ship(
         position: [11,12],
-        shape: new Polygon([[0,0],[1,2],[2,3]]),
+#        shape: new Polygon([[0,0],[1,2],[2,3]]),
       0,
       0,
       0,

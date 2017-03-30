@@ -82,8 +82,6 @@ GameField.prototype.add_ship = function(parameters) {
   var defaultState = {
     game_field: this,
     rotation: 0,
-    shape: new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]]),
-    gun_point: [21,0],
     heading: 0,
     position: this.random_position()
   };

@@ -4,7 +4,7 @@ Polygon= require('./../../src/polygon').Polygon;
 describe 'Screen Object', ->
   it 'has bounding box', ->
     thing = new screen_object.ScreenObject({
-      shape: new Polygon([[1, 1],[5,1],[5,5],[1,5]])
+      shape: [new Polygon([[1, 1],[5,1],[5,5],[1,5]])]
       position: [11,13]
     })
 

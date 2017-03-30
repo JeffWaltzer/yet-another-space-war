@@ -34,28 +34,25 @@ describe "game#tick" , ->
     ships.push server.game.game_field.add_ship({
       angular_velocity: 0,
       heading: 0,
-      shape: new Polygon([[5, 0]]),
       position: [10, 10]
     })
 
     ships.push server.game.game_field.add_ship({
       angular_velocity:  0,
       heading:  Math.PI/2,
-      shape: new Polygon([[3, 0]]),
+#      shape: new Polygon([[3, 0]]),
       position: [20, 20]
     })
 
     ships.push server.game.game_field.add_ship({
       angular_velocity:  ship.Ship.rotation_rate,
       heading:          0,
-      shape: new Polygon([[5, 0]]),
       position: [30, 30]
     })
 
     ships.push server.game.game_field.add_ship({
       angular_velocity: -ship.Ship.rotation_rate,
       heading:  Math.PI/2,
-      shape: new Polygon([[3, 0]]),
       position: [105, 100]
     })
 
@@ -74,7 +71,6 @@ describe "game#tick" , ->
     viewing_ship = server.game.game_field.add_ship({
       angular_velocity:  0,
       heading:          0,
-      shape: new Polygon([[5, 0]]),
       position:[50,60]})
 
     player.ship= viewing_ship;

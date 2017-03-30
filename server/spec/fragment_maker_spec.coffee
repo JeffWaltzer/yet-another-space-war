@@ -18,7 +18,6 @@ describe 'fragment making', ->
 
     the_ship = the_game.game_field.add_ship({
         position: [0, 0],
-        shape: new Polygon(),
         velocity: [5, 10]
       }
     )

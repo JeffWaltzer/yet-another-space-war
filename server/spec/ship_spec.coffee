@@ -7,7 +7,7 @@ describe 'ship', ->
   the_ship = undefined
 
   beforeEach ->
-    the_ship = new ship.Ship({shape: new Polygon()}, 0, 0, 0)
+    the_ship = new ship.Ship({}, 0, 0, 0)
 
   it 'is a ship', ->
     expect(the_ship.is_ship()).toEqual(true)
@@ -19,9 +19,15 @@ describe "ship#outline", ->
 
     server= yasw.createServer()
 
-    server.game.game_field.add_ship({heading: -Math.PI/2, shape: new Polygon([[10, 0]])})
-    server.game.game_field.add_ship({heading:          0, shape: new Polygon([[5, 0]])})
-    server.game.game_field.add_ship({heading:  Math.PI/2, shape: new Polygon([[3, 0]])})
+    server.game.game_field.add_ship({heading: -Math.PI/2,
+#      shape: new Polygon([[10, 0]])
+    })
+    server.game.game_field.add_ship({heading:          0,
+#      shape: new Polygon([[5, 0]])
+    })
+    server.game.game_field.add_ship({heading:  Math.PI/2,
+#      shape: new Polygon([[3, 0]])
+    })
 
   it "updates the ship position for heading -π/2", ->
     expect(server.game.game_field.screen_objects()[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)

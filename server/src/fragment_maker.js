@@ -48,7 +48,7 @@ function fragment_parameters(game_field, median_position, median_velocity, shape
     ],
     angular_velocity: math_util.random_in_range(-10, 10),
     life_left: math_util.random_in_range(2, 3),
-    shape: new Polygon(fragment_shapes[(shape_index) % fragment_shapes.length])
+    shape: [new Polygon(fragment_shapes[(shape_index) % fragment_shapes.length])]
   };
 }
 

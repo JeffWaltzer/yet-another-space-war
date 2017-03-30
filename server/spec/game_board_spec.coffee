@@ -28,7 +28,8 @@ describe "generating a game board", ->
       ship= game_field.add_ship({
           player: player,
           position: [expected_x, expected_y],
-          shape: new Polygon([[0, 1], [2, 3]],'puce')})
+#          shape: new Polygon([[0, 1], [2, 3]],'puce')
+      })
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
@@ -48,7 +49,8 @@ describe "generating a game board", ->
       expected_y= 200
       ship= game_field.add_ship({
           position: [expected_x, expected_y],
-          shape: new Polygon([[0, 1], [2, 3]])})
+#          shape: new Polygon([[0, 1], [2, 3]])
+      })
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
@@ -70,14 +72,15 @@ describe "generating a game board", ->
       first_players_ship= game_field.add_ship({
           player: first_player,
           position: [expected_x, expected_y],
-          shape: new Polygon([[0, 1], [2, 3]])})
+#          shape: new Polygon([[0, 1], [2, 3]])
+      })
       game.connect_ship('first_player', first_players_ship)
 
       second_player= game.add_player('second_player')
       second_players_ship= game_field.add_ship({
           player: second_player,
           position: [expected_x, expected_y],
-          shape: new Polygon([[0, 1], [2, 3]])})
+      })
       game.connect_ship('second_player', second_players_ship)
 
       game_board = game.game_field.game_board()
@@ -109,7 +112,7 @@ describe "generating a game board", ->
         game_field: game_field,
         player: player,
         position: [expected_x, expected_y],
-        shape: new Polygon([[0, 1], [2, 3]]))
+      )
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
