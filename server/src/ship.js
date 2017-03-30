@@ -5,6 +5,7 @@ var util = require('util');
 var math_util = require('./math_util');
 var fragment_maker = require('./fragment_maker');
 var Polygon=require('./polygon').Polygon;
+
 function Ship(initial_state) {
   initial_state.shape = [new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]])];
   screen_object.ScreenObject.call(this, initial_state);

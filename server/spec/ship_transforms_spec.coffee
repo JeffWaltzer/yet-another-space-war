@@ -8,10 +8,10 @@ describe "A ship not at the origin, but not rotated", ->
     the_game = new game.Game({})
     the_ship= the_game.game_field.add_ship({
       rotation: 0,
-#      shape: new Polygon([[1,0]]),
       heading: 0,
       position: [10,20],
     })
+    the_ship.shape= [new Polygon([[1,0]])]
     the_ship.update_outline()
 
   it 'translates x', ->
@@ -29,10 +29,10 @@ describe "Rotation around the  origin", ->
     the_game = new game.Game({})
     the_ship= the_game.game_field.add_ship({
       rotation: 0,
-#      shape: new Polygon([[1,0]]),
       heading: Math.PI/2,
       position: [0,0],
     })
+    the_ship.shape= [new Polygon([[1,0]])]
     the_ship.update_outline()
 
   it 'rotates x', ->
@@ -50,10 +50,10 @@ describe "Rotation of 1,0 around itself", ->
     the_game = new game.Game({})
     the_ship= the_game.game_field.add_ship({
       rotation: 0,
-#      shape: new Polygon([[1,0]]),
       heading: Math.PI/2,
       position: [1,0],
     })
+    the_ship.shape= [new Polygon([[1,0]])]
     the_ship.update_outline()
 
   it 'rotates x', ->
@@ -71,10 +71,10 @@ describe "Rotation of 1,0 around 2,2", ->
     the_game = new game.Game({})
     the_ship= the_game.game_field.add_ship({
       rotation: 0,
-#      shape: new Polygon([[1,0]]),
       heading: -Math.PI/2,
       position: [2,2],
     })
+    the_ship.shape= [new Polygon([[1,0]])]
     the_ship.update_outline()
 
   it 'rotates x', ->
