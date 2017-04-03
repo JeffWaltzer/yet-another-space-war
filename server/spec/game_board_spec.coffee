@@ -2,6 +2,8 @@ Game= require('../../src/game').Game
 Ship= require('../../src/ship').Ship
 Polygon= require('../../src/polygon').Polygon
 
+util= require('util');
+
 describe "generating a game board", ->
   game= null
   expected_x= null
@@ -28,8 +30,8 @@ describe "generating a game board", ->
       ship= game_field.add_ship({
           player: player,
           position: [expected_x, expected_y],
-#          shape: new Polygon([[0, 1], [2, 3]],'puce')
       })
+      ship.shape= [new Polygon([[0, 1], [2, 3]],'puce')]
       game.connect_ship('the_player', ship)
       game_board = game.game_field.game_board()
 
@@ -49,8 +51,9 @@ describe "generating a game board", ->
       expected_y= 200
       ship= game_field.add_ship({
           position: [expected_x, expected_y],
-#          shape: new Polygon([[0, 1], [2, 3]])
       })
+      ship.shape= [new Polygon([[0, 1], [2, 3]])]
+      ship.update_outline()
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
@@ -72,7 +75,6 @@ describe "generating a game board", ->
       first_players_ship= game_field.add_ship({
           player: first_player,
           position: [expected_x, expected_y],
-#          shape: new Polygon([[0, 1], [2, 3]])
       })
       game.connect_ship('first_player', first_players_ship)
 
@@ -90,12 +92,12 @@ describe "generating a game board", ->
         {
           score: 0,
           position: [expected_x, expected_y],
-          wireframe: [{points: [[100, 201], [102, 203]], color: 'green'}]
+          wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: 'green'}]
         },
         {
           score: 0,
           position: [expected_x, expected_y],
-          wireframe: [{points:[[100, 201], [102, 203]], color: 'blue'}]
+          wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: 'blue'}]
         }
       ]
 
@@ -120,7 +122,7 @@ describe "generating a game board", ->
       expect(game_board).toEqual [{
         score: 1,
         position: [expected_x, expected_y],
-        wireframe: [{points: [[100, 201], [102, 203]], color: 'green'}]
+        wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: 'green'}]
       }]
 
   describe "GameField#remove_screen_object", ->
