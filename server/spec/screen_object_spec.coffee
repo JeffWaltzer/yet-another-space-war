@@ -9,7 +9,7 @@ describe 'screen object', ->
 
   beforeEach ->
     game = new Game()
-    a_screen_object= new screen_object.ScreenObject({})
+    a_screen_object= new screen_object.ScreenObject({shape: [new Polygon()]})
 
   it 'is not a ship', ->
     expect(a_screen_object.is_ship()).toEqual(false)
