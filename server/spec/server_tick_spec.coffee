@@ -41,7 +41,7 @@ describe "game#tick" , ->
       angular_velocity:  0,
       heading:  Math.PI/2,
 #      shape: new Polygon([[3, 0]]),
-      position: [20, 20]
+      position: [100, 1000]
     })
 
     ships.push server.game.game_field.add_ship({
