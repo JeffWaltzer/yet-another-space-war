@@ -125,6 +125,30 @@ describe "generating a game board", ->
         wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: 'green'}]
       }]
 
+  describe "when we have a ship with a jet", ->
+    player= null
+    game_board = null
+
+    beforeEach ->
+      expected_x= 0
+      expected_y= 0
+      ship= game_field.add_ship(
+        game_field: game_field,
+        position: [expected_x, expected_y],
+      )
+      ship.shape= [new Polygon([[0,0], [0,1]]),
+                   new Polygon([[0,0], [1,0]], 'red')]
+      ship.update_outline()
+      game_board = game.game_field.game_board()
+
+    it "creates the correct game board", ->
+      expect(game_board).toEqual [{
+        score: undefined,
+        position: [expected_x, expected_y],
+        wireframe: [{points: [ [ 0, 0 ], [ 0, 1] ], color: 'white'},
+                    {points: [ [ 0, 0 ], [ 1, 0] ], color: 'red'}]
+      }]
+
   describe "GameField#remove_screen_object", ->
     player= null
     game_field = null

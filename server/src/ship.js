@@ -7,7 +7,9 @@ var fragment_maker = require('./fragment_maker');
 var Polygon=require('./polygon').Polygon;
 
 function Ship(initial_state) {
-  initial_state.shape = [new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]])];
+  initial_state.shape = [new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]])// ,
+                         // new Polygon([[-5, 0], [-10, 5], [-20, 0], [-10, -5]], 'red')
+                        ];
   screen_object.ScreenObject.call(this, initial_state);
 
   this.raw_gun_point = new vector.Vector([21, 0]);
