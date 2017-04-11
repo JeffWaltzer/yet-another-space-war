@@ -20,15 +20,15 @@ describe "ship#outline", ->
     server= yasw.createServer()
 
     ship = server.game.game_field.add_ship({heading: -Math.PI / 2,})
-    ship.shape = [new Polygon([[10, 0]])]
+    ship.shape ( [new Polygon([[10, 0]])])
     ship.update_outline();
 
     ship = server.game.game_field.add_ship({heading: 0,})
-    ship.shape = [new Polygon([[5, 0]])]
+    ship.shape ( [new Polygon([[5, 0]])])
     ship.update_outline();
 
     ship = server.game.game_field.add_ship({heading: Math.PI / 2,})
-    ship.shape = [new Polygon([[3, 0]])]
+    ship.shape ( [new Polygon([[3, 0]])])
     ship.update_outline();
 
   it "updates the ship position for heading -π/2", ->

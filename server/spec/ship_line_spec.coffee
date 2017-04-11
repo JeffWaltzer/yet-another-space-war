@@ -8,7 +8,7 @@ describe 'a ships lines' , ->
       0,
       0,
     )
-    the_ship.shape= [new Polygon([[0,0],[1,2],[2,3]])]
+    the_ship.shape( [new Polygon([[0,0],[1,2],[2,3]])])
     the_ship.update_outline()
 
     expect(the_ship.lines()).toEqual(
@@ -25,10 +25,10 @@ describe 'a ships lines' , ->
       0,
       0,
     )
-    the_ship.shape=  [
+    the_ship.shape(  [
       new Polygon([[0,0],[1,2],[2,3]]),
       new Polygon([[3,4],[4,5],[5,6]])
-    ]
+    ])
     the_ship.update_outline()
 
     expect(the_ship.lines()).toEqual(
@@ -50,7 +50,7 @@ describe 'a ships lines' , ->
       0,
       0,
     )
-    the_ship.shape= [new Polygon([[0,0],[1,2],[2,3]])]
+    the_ship.shape( [new Polygon([[0,0],[1,2],[2,3]])])
     the_ship.update_outline()
 
     expect(the_ship.lines()).toEqual(

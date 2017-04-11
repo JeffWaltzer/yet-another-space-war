@@ -5,7 +5,7 @@ var NullPlayer= require('./null_player').NullPlayer;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
-  this.shape = initial_state.shape;
+  this.shape(initial_state.shape);
   this._position = new vector.Vector(initial_state.position || [0, 0]);
   this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();
@@ -23,6 +23,12 @@ function ScreenObject(initial_state) {
   };
 }
 
+ScreenObject.prototype.shape = function (new_shape) {
+  if (new_shape)
+    this._shape = new_shape;
+  return this._shape;
+};
+
 ScreenObject.prototype.to_game_space= function() {
   var rotation=            transforms.make_rotation(this.heading);
   var composite_transform= transforms.identity();
@@ -36,7 +42,7 @@ ScreenObject.prototype.to_game_space= function() {
 ScreenObject.prototype.generate_outline = function () {
   var composite_transform = this.to_game_space();
 
-  var transformed_shape = _(this.shape).map(function(polygon) {
+  var transformed_shape = _(this.shape()).map(function (polygon) {
     return polygon.transform_polygon(composite_transform);
   });
 
@@ -138,10 +144,10 @@ ScreenObject.prototype.score = function() {
 
 ScreenObject.prototype.color = function (new_value) {
   if (new_value) {
-    this.shape[0]._color = new_value;
+    this.shape()[0]._color = new_value;
     this.update_outline();
   }
-  return this.shape[0]._color;
+  return this.shape()[0]._color;
 };
 
 exports.ScreenObject = ScreenObject;
