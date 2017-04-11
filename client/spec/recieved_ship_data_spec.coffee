@@ -21,7 +21,10 @@ describe 'recieving shipdata', ->
         field_size: [314, 217],
         polygons: [
           {score: 23, position: [0,0],      wireframe: [{points: [[0,0],[1,1]] , color: 'white'    }]}
-          {score: 42, position: [200, 400], wireframe: [{points: [[202,402],[203,403]], color: 'green'     }]}])
+          {score: 42, position: [200, 400], wireframe: [
+            {points: [[202,402],[203,403]], color: 'green'     },
+            {points: [[102,403],[103,404]], color: 'red'     }
+            ]}])
     )
   it 'kicks off a digest cycle', ->
     expect(scope.$digest).toHaveBeenCalled()
@@ -49,6 +52,9 @@ describe 'recieving shipdata', ->
 
   it "sets the correct color for our ship", ->
     expect(scope.polygons()[1].color).toEqual('green')
+
+  it "sets the correct color for our ship's jet", ->
+    expect(scope.polygons()[2].color).toEqual('red')
 
   it "sets the field size", ->
     expect(scope.field_size).toEqual([314,217])

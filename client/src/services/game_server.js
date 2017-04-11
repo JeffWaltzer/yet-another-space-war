@@ -15,15 +15,18 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
         ':' + $location.port(),
       {transports: ['websocket']});
 
-  service.update_ship_wireframes= function(polygons) {
-    service.polygons= [];
-    _.each(polygons, function(a_polygon) {
-      service.polygons.push({
-        color: a_polygon.wireframe[0].color,
-        polygon_string: SVG.polygon_string(a_polygon.wireframe[0].points),
-        score: a_polygon.score,
-        position: a_polygon.position
+  service.update_ship_wireframes = function (polygons) {
+    service.polygons = [];
+    _.each(polygons, function (a_polygon) {
+      _.each(a_polygon.wireframe, function (a_wireframe) {
+        service.polygons.push({
+          color: a_wireframe.color,
+          polygon_string: SVG.polygon_string(a_polygon.wireframe[0].points),
+          score: a_polygon.score,
+          position: a_polygon.position
+        });
       });
+
     });
   };
 
