@@ -56,6 +56,9 @@ describe 'recieving shipdata', ->
   it "sets the correct color for our ship's jet", ->
     expect(scope.polygons()[2].color).toEqual('red')
 
+  it 'dispatches the ship 1 jet coordinates', ->
+    expect(scope.polygons()[2].polygon_string).toEqual('102,403 103,404')
+
   it "sets the field size", ->
     expect(scope.field_size).toEqual([314,217])
 
