@@ -7,9 +7,7 @@ var fragment_maker = require('./fragment_maker');
 var Polygon=require('./polygon').Polygon;
 
 function Ship(initial_state) {
-  initial_state.shape = [new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]])// ,
-                         // new Polygon([[-5, 0], [-10, 5], [-20, 0], [-10, -5]], 'red')
-                        ];
+  initial_state.shape = [ new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]]) ];
   screen_object.ScreenObject.call(this, initial_state);
 
   this.raw_gun_point = new vector.Vector([21, 0]);
@@ -79,7 +77,7 @@ Ship.prototype.fire= function(debug){
     ship: this,
     player: this.player()
   };
-  
+
   return this.game_field.add_bullet(bullet_parameters);
 };
 
@@ -107,5 +105,15 @@ Ship.prototype.score= function() {
 Ship.prototype.point_value= function() {
   return 1;
 };
+
+Ship.prototype.shape= function(new_value) {
+    var ship_shape= screen_object.ScreenObject.prototype.shape.call(this, new_value);
+
+    if (this.acceleration > 0)
+        return [ship_shape[0],  new Polygon([[-5, 0], [-10, 5], [-20, 0], [-10, -5]], 'red')];
+
+    return ship_shape;
+};
+
 
 exports.Ship= Ship;
