@@ -18,11 +18,11 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
   service.update_ship_wireframes = function (polygons) {
     service.polygons = [];
     _.each(polygons, function (a_polygon) {
-      _.each(a_polygon.wireframe, function (a_wireframe) {
+      _.each(a_polygon.wireframe, function (a_wireframe, index) {
         service.polygons.push({
           color: a_wireframe.color,
           polygon_string: SVG.polygon_string(a_wireframe.points),
-          score: a_polygon.score,
+          score: index === 0 ? a_polygon.score : null,
           position: a_polygon.position
         });
       });

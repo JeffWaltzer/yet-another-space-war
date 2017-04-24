@@ -44,6 +44,9 @@ describe 'recieving shipdata', ->
   it 'dispatches the ship 1 score', ->
     expect(scope.polygons()[1].score).toEqual(42)
 
+  it 'dispatches the ship 1 flame score', ->
+    expect(scope.polygons()[2].score).toBeNull()
+
   it 'dispatches the ship 1 position', ->
     expect(scope.polygons()[1].position).toEqual([200, 400])
 

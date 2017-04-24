@@ -19,7 +19,6 @@ exports.createServer= function(parameters) {
 
   yasw_server.tick_rate = (parameters && parameters.tick_rate) || 1;
 
-
   var top_edge= (parameters && parameters.top_edge) || 600;
   var right_edge= (parameters && parameters.right_edge) || 800;
 
