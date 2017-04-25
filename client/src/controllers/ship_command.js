@@ -21,7 +21,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
     var the_gamepads = _(navigator.getGamepads()).compact();
     if (the_gamepads.length > 0) {
       gamepad_service.interpret_command(
-          new gamepad_service.YaswGamepad(the_gamepads[0])
+          new gamepad_service.GamepadState(the_gamepads[0])
       );
     }
   }, 50);
