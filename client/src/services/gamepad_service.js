@@ -15,7 +15,7 @@ angular.module('YASW').factory('gamepad_service', [
       return _(_(button_bindings).values()).max() + 1;
     };
 
-    function YaswGamepad(dom_gamepad) {
+    function GamepadState(dom_gamepad) {
 
       function fake_buttons() {
         var buttons = _(Array(number_of_buttons())).map(function () {
@@ -72,9 +72,9 @@ angular.module('YASW').factory('gamepad_service', [
       };
     }
 
-    service.YaswGamepad= YaswGamepad;
+    service.GamepadState= GamepadState;
 
-    service.last_gamepad = new YaswGamepad();
+    service.last_gamepad = new GamepadState();
 
     service.interpret_command = function (gamepad) {
       if (gamepad.fire() && !service.last_gamepad.fire()) {

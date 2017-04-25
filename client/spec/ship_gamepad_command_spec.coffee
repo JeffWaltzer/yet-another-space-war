@@ -8,7 +8,7 @@ describe "ShipCommandController", ->
   gamepad_service =undefined
 
   make_fake_gamepad = (button_values) ->
-    return_value = new gamepad_service.YaswGamepad()
+    return_value = new gamepad_service.GamepadState()
     _(button_values).each (value, key) ->
       return_value[key](value)
     return_value
