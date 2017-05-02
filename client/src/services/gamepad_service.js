@@ -29,17 +29,13 @@ angular.module('YASW').factory('gamepad_service', [
             game_server.send('rotate_stop');
         }
         else if (this.last_gamepad_state.rotating_right()) {
-          if (gamepad_state.both_up())
-            game_server.send('rotate_stop');
-          else if (gamepad_state.both_down())
+          if (gamepad_state.both_up() || gamepad_state.both_down())
             game_server.send('rotate_stop');
           else if (gamepad_state.rotating_left())
             game_server.send('rotate_left');
         }
         else if (this.last_gamepad_state.rotating_left()) {
-          if (gamepad_state.both_up())
-            game_server.send('rotate_stop');
-          else if (gamepad_state.both_down())
+          if (gamepad_state.both_up() || gamepad_state.both_down())
             game_server.send('rotate_stop');
           else if (gamepad_state.rotating_right())
             game_server.send('rotate_right');
