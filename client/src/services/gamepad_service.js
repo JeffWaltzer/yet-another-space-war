@@ -20,8 +20,8 @@ angular.module('YASW').factory('gamepad_service', [
         if (!gamepad_state.thrust() && new_gamepad.last_gamepad_state.thrust())
           game_server.send('thrust_off');
 
-        if (new_gamepad.last_gamepad_state.left() && new_gamepad.last_gamepad_state.right()) {
-          if (gamepad_state.left() && !gamepad_state.right())
+       if (new_gamepad.last_gamepad_state.left() && new_gamepad.last_gamepad_state.right()) {
+          if (gamepad_state.rotating_left())
             game_server.send('rotate_left');
           else if (!gamepad_state.left() && gamepad_state.right())
             game_server.send('rotate_right');
@@ -33,7 +33,7 @@ angular.module('YASW').factory('gamepad_service', [
             game_server.send('rotate_stop');
           else if (gamepad_state.left() && gamepad_state.right())
             game_server.send('rotate_stop');
-          else if (gamepad_state.left() && !gamepad_state.right())
+          else if (gamepad_state.rotating_left())
             game_server.send('rotate_left');
         }
         else if (new_gamepad.last_gamepad_state.left() && !new_gamepad.last_gamepad_state.right()) {
@@ -47,7 +47,7 @@ angular.module('YASW').factory('gamepad_service', [
         else if (!new_gamepad.last_gamepad_state.left() && !new_gamepad.last_gamepad_state.right()) {
           if (!gamepad_state.left() && gamepad_state.right())
             game_server.send('rotate_right');
-          else if (gamepad_state.left() && !gamepad_state.right())
+          else if (gamepad_state.rotating_left())
             game_server.send('rotate_left');
           else if (gamepad_state.left() && gamepad_state.right())
             game_server.send('rotate_stop');
@@ -90,7 +90,11 @@ angular.module('YASW').factory('gamepad_service', [
       var buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
 
 
-      this.fire = function (new_value) {
+        this.rotating_left= function() {
+          return this.left()  &&  !this.right();
+        };
+        
+        this.fire = function (new_value) {
 
         var fire_button = buttons[button_bindings.fire];
 
