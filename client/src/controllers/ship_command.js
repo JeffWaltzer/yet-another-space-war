@@ -18,10 +18,10 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   var KEY_R = 82;
 
   setInterval(function () {
-    var the_gamepads = _(navigator.getGamepads()).compact();
-    if (the_gamepads.length > 0) {
+    var the_dom_gamepads = _(navigator.getGamepads()).compact();
+    if (the_dom_gamepads.length > 0) {
       gamepad_service.interpret_command(
-          new gamepad_service.GamepadState(the_gamepads[0])
+          new gamepad_service.GamepadState(the_dom_gamepads[0])
       );
     }
   }, 50);
