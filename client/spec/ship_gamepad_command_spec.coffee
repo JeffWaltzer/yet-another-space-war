@@ -23,7 +23,7 @@ describe "ShipCommandController", ->
     game_server = _game_server_
     gamepad_service = _gamepad_service_
 
-    the_gamepad = gamepad_service.create_gamepad();
+    the_gamepad = new gamepad_service.create_gamepad();
 
   )
 

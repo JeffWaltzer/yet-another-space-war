@@ -6,9 +6,7 @@ angular.module('YASW').factory('gamepad_service', [
     var service = {};
 
     function Gamepad() {
-      var new_gamepad = {};
-
-      new_gamepad.last_gamepad_state = new GamepadState();
+      this.last_gamepad_state = new GamepadState();
 
       function interpret_command(gamepad_state) {
         if (gamepad_state.fire() && !this.last_gamepad_state.fire()) {
@@ -52,15 +50,13 @@ angular.module('YASW').factory('gamepad_service', [
         this.last_gamepad_state = gamepad_state;
       }
 
-      new_gamepad.interpret_command = interpret_command;
-
-      return new_gamepad;
+      this.interpret_command = interpret_command;
     }
 
 
     service.GamepadState= GamepadState;
 
-    service.interpret_command = Gamepad().interpret_command;
+    service.interpret_command = (new Gamepad()).interpret_command;
 
     service.create_gamepad = Gamepad;
     return service;
