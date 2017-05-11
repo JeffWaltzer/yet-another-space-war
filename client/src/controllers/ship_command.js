@@ -21,15 +21,6 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
 
   var the_gamepad= new Gamepad();
 
-  setInterval(function () {
-    var the_dom_gamepads = _(navigator.getGamepads()).compact();
-    if (the_dom_gamepads.length > 0) {
-      the_gamepad.interpret_command(
-          new Gamepad.GamepadState(the_dom_gamepads[0])
-      );
-    }
-  }, 50);
-
 
   $scope.onKeyDown = function (e) {
     switch (e.keyCode) {
