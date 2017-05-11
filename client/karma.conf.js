@@ -7,6 +7,7 @@ module.exports = function(config) {
                 'lib/**/*.js',
                 'src/yasw.js',
                 'src/controllers/*.js',
+                'src/models/*.js',
                 'src/services/*.js',
                 'spec/obj/*.js'
             ],
