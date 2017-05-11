@@ -1,6 +1,7 @@
 angular.module('YASW').factory('gamepad_service', [
   'game_server',
-  function (game_server) {
+  'gamepad_state',
+  function (game_server,gamepad_state) {
 
     var service = {};
 
@@ -60,7 +61,7 @@ angular.module('YASW').factory('gamepad_service', [
       fire: 7,
       thrust: 9,
       left: 1,
-      right: 2,
+      right: 2
     };
 
     var number_of_buttons= function() {

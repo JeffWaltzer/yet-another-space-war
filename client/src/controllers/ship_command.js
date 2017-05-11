@@ -1,4 +1,6 @@
-angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'gamepad_service', function ($scope, game_server, keyboard, gamepad_service) {
+angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'gamepad_service',
+  function ($scope, game_server, keyboard, gamepad_service) {
+
   $scope.polygons = function () {
     return game_server.polygons;
   };
