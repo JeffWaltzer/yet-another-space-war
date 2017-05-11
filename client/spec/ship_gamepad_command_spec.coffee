@@ -5,25 +5,27 @@ describe "ShipCommandController", ->
   $location = undefined
   createController = undefined
   game_server = undefined
-  gamepad_service =undefined
+  Gamepad =undefined
+  GamepadState = undefined
   the_gamepad =undefined
 
   make_fake_gamepad = (button_values) ->
-    return_value = new gamepad_service.GamepadState()
+    return_value = new GamepadState()
     _(button_values).each (value, key) ->
       return_value[key](value)
     return_value
 
-  beforeEach inject(($rootScope, $controller, _$location_, _game_server_, _gamepad_service_) ->
+  beforeEach inject(($rootScope, $controller, _$location_, _game_server_, _Gamepad_, _GamepadState_) ->
     $location = _$location_
     scope = $rootScope.$new()
     createController = ->
       $controller "ShipCommandController",
         $scope: scope
     game_server = _game_server_
-    gamepad_service = _gamepad_service_
+    Gamepad = _Gamepad_
+    GamepadState=_GamepadState_
 
-    the_gamepad = new gamepad_service.create_gamepad();
+    the_gamepad = new Gamepad();
 
   )
 
