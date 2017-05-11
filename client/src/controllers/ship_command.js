@@ -1,5 +1,5 @@
-angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'gamepad_service',
-  function ($scope, game_server, keyboard, gamepad_service) {
+angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'Gamepad',
+  function ($scope, game_server, keyboard, Gamepad) {
 
   $scope.polygons = function () {
     return game_server.polygons;
@@ -19,13 +19,13 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   var KEY_SPACE = 32;
   var KEY_R = 82;
 
-  var the_gamepad= gamepad_service.create_gamepad();
+  var the_gamepad= new Gamepad();
 
   setInterval(function () {
     var the_dom_gamepads = _(navigator.getGamepads()).compact();
     if (the_dom_gamepads.length > 0) {
       the_gamepad.interpret_command(
-          new gamepad_service.GamepadState(the_dom_gamepads[0])
+          new Gamepad.GamepadState(the_dom_gamepads[0])
       );
     }
   }, 50);
