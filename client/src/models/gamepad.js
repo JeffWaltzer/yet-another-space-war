@@ -23,15 +23,18 @@ angular.module('YASW').factory('Gamepad', [
 
 
   Gamepad.prototype.interpret_command = function (gamepad_state) {
-    if (gamepad_state.fire() && !this.last_gamepad_state.fire()) {
-      game_server.send('fire');
-    }
+      if (gamepad_state.fire_down_since(this.last_gamepad_state)) {
+          game_server.send('fire');
+      }
 
-    if (gamepad_state.thrust() && !this.last_gamepad_state.thrust())
-      game_server.send('thrust_on');
+      if (gamepad_state.thrust_down_since(this.last_gamepad_state)) {
+            game_server.send('thrust_on');
+      }
 
-    if (!gamepad_state.thrust() && this.last_gamepad_state.thrust())
-      game_server.send('thrust_off');
+      if (gamepad_state.thrust_up_since(this.last_gamepad_state)) {
+          game_server.send('thrust_off');
+      }
+
 
     if (this.last_gamepad_state.both_down()) {
       if (gamepad_state.rotating_left())
@@ -68,4 +71,3 @@ angular.module('YASW').factory('Gamepad', [
 }
 
 ]);
-
