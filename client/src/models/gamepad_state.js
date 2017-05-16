@@ -29,44 +29,44 @@ angular.module('YASW').factory(
       }
 
       function GamepadState(dom_gamepad) {
-        var buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
-
-        this.fire = function (new_value) {
-          var fire_button = buttons[button_bindings.fire];
-
-          if (new_value!==undefined)
-            fire_button.pressed = new_value;
-
-          return fire_button.pressed;
-        };
-
-        this.thrust = function (new_value) {
-          var thrust_button = buttons[button_bindings.thrust];
-
-          if (new_value!==undefined)
-            thrust_button.pressed = new_value;
-
-          return thrust_button.pressed;
-        };
-
-        this.left = function (new_value) {
-          var left_button = buttons[button_bindings.left];
-
-          if (new_value!==undefined)
-            left_button.pressed = new_value;
-
-          return left_button.pressed;
-        };
-
-        this.right = function (new_value) {
-          var right_button = buttons[button_bindings.right];
-
-          if (new_value!==undefined)
-            right_button.pressed = new_value;
-
-          return right_button.pressed;
-        };
+        this.buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
       }
+
+      GamepadState.prototype.fire = function (new_value) {
+        var fire_button = this.buttons[button_bindings.fire];
+
+        if (new_value!==undefined)
+          fire_button.pressed = new_value;
+
+        return fire_button.pressed;
+      };
+
+      GamepadState.prototype.thrust = function (new_value) {
+        var thrust_button = this.buttons[button_bindings.thrust];
+
+        if (new_value!==undefined)
+          thrust_button.pressed = new_value;
+
+        return thrust_button.pressed;
+      };
+
+      GamepadState.prototype.left = function (new_value) {
+        var left_button = this.buttons[button_bindings.left];
+
+        if (new_value!==undefined)
+          left_button.pressed = new_value;
+
+        return left_button.pressed;
+      };
+
+      GamepadState.prototype.right = function (new_value) {
+        var right_button = this.buttons[button_bindings.right];
+
+        if (new_value!==undefined)
+          right_button.pressed = new_value;
+
+        return right_button.pressed;
+      };
 
       GamepadState.prototype.fire_down_since= function(last_gamepad_state) {
         return this.fire() && !last_gamepad_state.fire();
