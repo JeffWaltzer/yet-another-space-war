@@ -209,7 +209,7 @@ describe "ShipCommandController", ->
     {left_button: "down", right_button: "down", new_left_button: "down", new_right_button: "down", expected_sent: null}
     {left_button: "down", right_button: "down", new_left_button: "down", new_right_button: "up",   expected_sent: "rotate_left"}
     {left_button: "down", right_button: "down", new_left_button: "up",   new_right_button: "down", expected_sent: "rotate_right"}
-    {left_button: "down", right_button: "down", new_left_button: "up",   new_right_button: "up",   expected_sent: "rotate_stop"}
+    {left_button: "down", right_button: "down", new_left_button: "up",   new_right_button: "up",   expected_sent: null}
 
     {left_button: "down", right_button: "up",   new_left_button: "down", new_right_button: "down", expected_sent: "rotate_stop"}
     {left_button: "down", right_button: "up",   new_left_button: "down", new_right_button: "up",   expected_sent: null}
@@ -221,7 +221,7 @@ describe "ShipCommandController", ->
     {left_button: "up",   right_button: "down", new_left_button: "up",   new_right_button: "down", expected_sent: null}
     {left_button: "up",   right_button: "down", new_left_button: "up",   new_right_button: "up",   expected_sent: "rotate_stop"}
 
-    {left_button: "up",   right_button: "up",   new_left_button: "down", new_right_button: "down", expected_sent: "rotate_stop"}
+    {left_button: "up",   right_button: "up",   new_left_button: "down", new_right_button: "down", expected_sent: null}
     {left_button: "up",   right_button: "up",   new_left_button: "down", new_right_button: "up",   expected_sent: "rotate_left"}
     {left_button: "up",   right_button: "up",   new_left_button: "up",   new_right_button: "down", expected_sent: "rotate_right"}
     {left_button: "up",   right_button: "up",   new_left_button: "up",   new_right_button: "up",   expected_sent: null}

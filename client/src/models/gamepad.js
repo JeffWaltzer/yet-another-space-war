@@ -36,22 +36,19 @@ angular.module('YASW').factory('Gamepad', [
       }
 
 
-      if (this.last_gamepad_state.both_down() && gamepad_state.rotating_left() ||
-          this.last_gamepad_state.rotating_right()  && gamepad_state.rotating_left() ||
-          this.last_gamepad_state.both_up() && gamepad_state.rotating_left())
-
+      if (gamepad_state.rotating_left()  && !this.last_gamepad_state.rotating_left())
           game_server.send('rotate_left');
 
-      else if (this.last_gamepad_state.both_down() && gamepad_state.rotating_right() ||
-               this.last_gamepad_state.rotating_left() && gamepad_state.rotating_right() ||
-               this.last_gamepad_state.both_up() && gamepad_state.rotating_right())
+      else if (gamepad_state.rotating_right() && !this.last_gamepad_state.rotating_right())
           game_server.send('rotate_right');
 
-      else if (this.last_gamepad_state.both_down() && gamepad_state.both_up() ||
-               this.last_gamepad_state.rotating_right()  &&  (gamepad_state.both_up() || gamepad_state.both_down()) ||
-               this.last_gamepad_state.rotating_left() && (gamepad_state.both_up() || gamepad_state.both_down()) ||
-               this.last_gamepad_state.both_up()  &&  gamepad_state.both_down())
-          game_server.send('rotate_stop');
+      else {
+          var was_rotating= this.last_gamepad_state.rotating_right()  ||  this.last_gamepad_state.rotating_left();
+          var are_rotating= gamepad_state.rotating_right() || gamepad_state.rotating_left();
+
+          if (was_rotating && !are_rotating)
+              game_server.send('rotate_stop');
+      }
 
       this.last_gamepad_state = gamepad_state;
   };
