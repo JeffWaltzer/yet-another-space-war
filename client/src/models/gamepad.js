@@ -3,57 +3,50 @@ angular.module('YASW').factory('Gamepad', [
   'GamepadState',
   function (game_server,GamepadState) {
 
-  function Gamepad() {
-    var self = this;
-    this.last_gamepad_state = new GamepadState();
+    function Gamepad() {
+      var self = this;
+      this.last_gamepad_state = new GamepadState();
 
-    setInterval(function () {
-      self.poll_gamepad();
-    }, 50);
-  }
-
-  Gamepad.prototype.poll_gamepad = function () {
-    var the_dom_gamepads = _(navigator.getGamepads()).compact();
-    if (the_dom_gamepads.length > 0) {
-      this.interpret_command(
-        new GamepadState(the_dom_gamepads[0])
-      );
+      setInterval(function () {
+        self.poll_gamepad();
+      }, 50);
     }
-  };
 
+    Gamepad.prototype.poll_gamepad = function () {
+      var the_dom_gamepads = _(navigator.getGamepads()).compact();
+      if (the_dom_gamepads.length > 0) {
+        this.interpret_command(
+          new GamepadState(the_dom_gamepads[0])
+        );
+      }
+    };
 
-  Gamepad.prototype.interpret_command = function (gamepad_state) {
+    Gamepad.prototype.interpret_command = function (gamepad_state) {
       if (gamepad_state.fire_down_since(this.last_gamepad_state)) {
-          game_server.send('fire');
+        game_server.send('fire');
       }
 
       if (gamepad_state.thrust_down_since(this.last_gamepad_state)) {
-            game_server.send('thrust_on');
+        game_server.send('thrust_on');
       }
 
       if (gamepad_state.thrust_up_since(this.last_gamepad_state)) {
-          game_server.send('thrust_off');
+        game_server.send('thrust_off');
       }
-
 
       if (gamepad_state.rotating_left()  && !this.last_gamepad_state.rotating_left())
-          game_server.send('rotate_left');
+        game_server.send('rotate_left');
 
       else if (gamepad_state.rotating_right() && !this.last_gamepad_state.rotating_right())
-          game_server.send('rotate_right');
+        game_server.send('rotate_right');
 
-      else {
-          var was_rotating= this.last_gamepad_state.rotating_right()  ||  this.last_gamepad_state.rotating_left();
-          var are_rotating= gamepad_state.rotating_right() || gamepad_state.rotating_left();
-
-          if (was_rotating && !are_rotating)
-              game_server.send('rotate_stop');
-      }
+      else if (this.last_gamepad_state.rotating() && !gamepad_state.rotating())
+        game_server.send('rotate_stop');
 
       this.last_gamepad_state = gamepad_state;
-  };
+    };
 
-  return Gamepad;
-}
+    return Gamepad;
+  }
 
 ]);

@@ -34,17 +34,21 @@ angular.module('YASW').factory(
 
         var buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
 
-          this.fire_down_since= function(last_gamepad_state) {
-              return this.fire() && !last_gamepad_state.fire();
-          };
+        this.fire_down_since= function(last_gamepad_state) {
+          return this.fire() && !last_gamepad_state.fire();
+        };
 
-         this.thrust_down_since = function(last_gamepad_state) {
-            return this.thrust() && !last_gamepad_state.thrust();
-         };
+        this.thrust_down_since = function(last_gamepad_state) {
+          return this.thrust() && !last_gamepad_state.thrust();
+        };
 
-          this.thrust_up_since= function(last_gamepad_state) {
-              return !this.thrust() && last_gamepad_state.thrust();
-          };
+        this.thrust_up_since= function(last_gamepad_state) {
+          return !this.thrust() && last_gamepad_state.thrust();
+        };
+
+        this.rotating= function() {
+          return this.rotating_left() || this.rotating_right();
+        };
 
         this.rotating_left= function() {
           return this.left()  &&  !this.right();
