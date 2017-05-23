@@ -1,10 +1,13 @@
+
 angular.module('YASW').factory('Gamepad', [
   'game_server',
   'GamepadState',
   function (game_server,GamepadState) {
 
-    function Gamepad() {
+    function Gamepad(id) {
       var self = this;
+      this.id = id;
+
       this.last_gamepad_state = new GamepadState();
 
       setInterval(function () {
@@ -12,11 +15,20 @@ angular.module('YASW').factory('Gamepad', [
       }, 50);
     }
 
+    Gamepad.dom_gamepads = function () {
+      return navigator.getGamepads();
+    };
+
     Gamepad.prototype.poll_gamepad = function () {
-      var the_dom_gamepads = _(navigator.getGamepads()).compact();
-      if (the_dom_gamepads.length > 0) {
+      var self = this;
+      var the_dom_gamepad = _(Gamepad.dom_gamepads()).find(
+        function (a_dom_gamepad) {
+          return a_dom_gamepad && a_dom_gamepad.id === self.id;
+        });
+
+      if (the_dom_gamepad) {
         this.interpret_command(
-          new GamepadState(the_dom_gamepads[0])
+          new GamepadState(the_dom_gamepad)
         );
       }
     };
