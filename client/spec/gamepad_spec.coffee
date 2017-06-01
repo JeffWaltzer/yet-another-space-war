@@ -49,3 +49,6 @@ describe "Gamepad", ->
 
   it 'updates from dom gamepad into gamepad state', ->
     expect(the_gamepad.last_gamepad_state.buttons[0].pressed).toBeTruthy()
+
+  it 'creates a new gamepad', ->
+    expect(Gamepad.gamepads.length).toEqual(2)
