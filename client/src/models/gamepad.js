@@ -9,13 +9,11 @@ angular.module('YASW').factory('Gamepad', [
       this.id = id;
 
       this.last_gamepad_state = new GamepadState();
-
-      setInterval(function () {
-        Gamepad.poll_gamepads();
-      }, 50);
     }
 
     Gamepad.gamepads= [];
+
+    Gamepad.timer= setInterval(Gamepad.poll_gamepads, 50);
 
     Gamepad.dom_gamepads = function () {
       return navigator.getGamepads();
