@@ -6,7 +6,9 @@ describe "Gamepad", ->
 
   beforeEach inject((_Gamepad_) ->
     Gamepad = _Gamepad_
+
     the_gamepad = new Gamepad('us')
+    Gamepad.gamepads.push(the_gamepad);
 
     Gamepad.dom_gamepads = ->
       [
@@ -42,7 +44,7 @@ describe "Gamepad", ->
         }
       ]
 
-    the_gamepad.poll_gamepad()
+    Gamepad.poll_gamepads()
   )
 
   it 'updates from dom gamepad into gamepad state', ->

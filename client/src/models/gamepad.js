@@ -11,23 +11,30 @@ angular.module('YASW').factory('Gamepad', [
       this.last_gamepad_state = new GamepadState();
 
       setInterval(function () {
-        self.poll_gamepad();
+        Gamepad.poll_gamepads();
       }, 50);
     }
+
+    Gamepad.gamepads= [];
 
     Gamepad.dom_gamepads = function () {
       return navigator.getGamepads();
     };
 
-    Gamepad.prototype.poll_gamepad = function () {
-      var self = this;
-      var the_dom_gamepad = _(Gamepad.dom_gamepads()).find(
+    Gamepad.poll_gamepads = function () {
+      if (Gamepad.gamepads.size <= 0)
+        return;
+
+      var the_dom_gamepad= null;
+      var the_gamepad=  Gamepad.gamepads[0];
+
+      the_dom_gamepad = _(Gamepad.dom_gamepads()).find(
         function (a_dom_gamepad) {
-          return a_dom_gamepad && a_dom_gamepad.id === self.id;
+          return a_dom_gamepad && a_dom_gamepad.id === the_gamepad.id;
         });
 
-      if (the_dom_gamepad) {
-        this.interpret_command(
+      if (the_dom_gamepad && the_gamepad) {
+        the_gamepad.interpret_command(
           new GamepadState(the_dom_gamepad)
         );
       }
