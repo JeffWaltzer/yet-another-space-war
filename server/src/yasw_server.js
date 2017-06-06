@@ -32,6 +32,10 @@ exports.createServer= function(parameters) {
   };
 
   yasw_server.on_new_websocket= function(socket) {
+
+    //DEBUG
+    console.log("We have socket!;");
+
     var the_ship;
     var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
@@ -62,6 +66,8 @@ exports.createServer= function(parameters) {
   };
 
   yasw_server.on_message = function (json, socket) {
+    //DEBUG
+    console.log("We have message:", json);
     var message = JSON.parse(json);
     if (!message.new_player)
       return;
