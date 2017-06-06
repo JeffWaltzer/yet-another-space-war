@@ -35,26 +35,51 @@ exports.createServer= function(parameters) {
     var the_ship;
     var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
-    var player_id;
+    // var player_id;
+    //
+    // _(cookies.split(';')).each(function(cookie) {
+    //   var fields= cookie.split('=');
+    //   var name= fields[0].trim();
+    //   var value= fields[1].trim();
+    //
+    //   if (name === 'yasw_player_id')
+    //    player_id= value;
+    // });
+    //
+    // game.connect_socket(player_id, socket);
+    // var player = game.players[player_id];
+    //
+    // the_ship= player.ship  ||  game.game_field.add_ship();
+    // game.connect_ship(player_id, the_ship);
 
-    _(cookies.split(';')).each(function(cookie) {
-      var fields= cookie.split('=');
-      var name= fields[0].trim();
-      var value= fields[1].trim();
-
-      if (name === 'yasw_player_id')
-	      player_id= value;
+    socket.on('message', function (message) {
+      yasw_server.on_message(message, socket);
     });
+
+    // socket.on('message', _(player.on_message).bind(player));
+
+    // return the_ship;
+  };
+
+  yasw_server.on_message = function (json, socket) {
+    var message = JSON.parse(json);
+    if (!message.new_player)
+      return;
+
+    var game = yasw_server.game;
+    var player_id = message.new_player;
+
+
+    game.add_player(player_id);
+
 
     game.connect_socket(player_id, socket);
     var player = game.players[player_id];
 
-    the_ship= player.ship  ||  game.game_field.add_ship();
+    var the_ship = player.ship || game.game_field.add_ship();
     game.connect_ship(player_id, the_ship);
 
     socket.on('message', _(player.on_message).bind(player));
-
-    return the_ship;
   };
 
   yasw_server.make_player_id= function() {

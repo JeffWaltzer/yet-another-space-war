@@ -15,6 +15,9 @@ angular.module('YASW').factory('game_server', ["$location", "SVG" ,function($loc
         ':' + $location.port(),
       {transports: ['websocket']});
 
+
+  service.web_socket.send('{"new_player": "Frank"}');
+
   service.update_ship_wireframes = function (polygons) {
     service.polygons = [];
     _.each(polygons, function (a_polygon) {
