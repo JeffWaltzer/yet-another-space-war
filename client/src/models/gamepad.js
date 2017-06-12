@@ -20,7 +20,6 @@ angular.module('YASW').factory('Gamepad', [
 
     Gamepad.gamepads= [];
 
-
     Gamepad.dom_gamepads = function () {
       return navigator.getGamepads();
     };
@@ -42,6 +41,10 @@ angular.module('YASW').factory('Gamepad', [
     };
 
     Gamepad.timer= setInterval(Gamepad.poll_gamepads, 50);
+
+    Gamepad.prototype.connect= function() {
+      this.command_socket().send(JSON.stringify({new_player: this.id}));
+    };
 
     Gamepad.prototype.command_socket= function() {
       return this._command_socket;
