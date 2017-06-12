@@ -1,14 +1,21 @@
-
 angular.module('YASW').factory('Gamepad', [
+  '$location',
   'game_server',
   'GamepadState',
-  function (game_server,GamepadState) {
+  function ($location, game_server,GamepadState) {
 
     function Gamepad(id) {
       var self = this;
       this.id = id;
 
       this.last_gamepad_state = new GamepadState();
+
+      this._command_socket =
+        eio(
+          'ws://'+
+            $location.host() +
+            ':' + $location.port(),
+          {transports: ['websocket']});
     }
 
     Gamepad.gamepads= [];
@@ -35,6 +42,10 @@ angular.module('YASW').factory('Gamepad', [
     };
 
     Gamepad.timer= setInterval(Gamepad.poll_gamepads, 50);
+
+    Gamepad.prototype.command_socket= function() {
+      return this._command_socket;
+    };
 
     Gamepad.prototype.interpret_command = function (gamepad_state) {
       if (gamepad_state.fire_down_since(this.last_gamepad_state)) {
