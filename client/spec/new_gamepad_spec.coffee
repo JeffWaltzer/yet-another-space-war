@@ -12,3 +12,17 @@ describe "Gamepad creation", ->
 
   it 'has a websocket', ->
     expect(the_gamepad.command_socket()).toBeTruthy()
+
+
+  describe "A new gamepad", ->
+    the_socket= null
+    
+    beforeEach  ->
+      the_socket= the_gamepad.command_socket()
+      spyOn(the_socket, 'send')
+      the_gamepad.connect();
+
+    it 'sends a new_player command', ->
+      raw_first_message= the_socket.send.calls.first().args[0]
+      first_message= JSON.parse(raw_first_message)
+      expect(first_message.new_player).toEqual('us')
