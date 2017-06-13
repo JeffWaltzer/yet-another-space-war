@@ -1,8 +1,7 @@
 angular.module('YASW').factory('Gamepad', [
   '$location',
-  'game_server',
   'GamepadState',
-  function ($location, game_server,GamepadState) {
+  function ($location, GamepadState) {
 
     function Gamepad(id) {
       var self = this;
@@ -43,34 +42,42 @@ angular.module('YASW').factory('Gamepad', [
     Gamepad.timer= setInterval(Gamepad.poll_gamepads, 50);
 
     Gamepad.prototype.connect= function() {
-      this.command_socket().send(JSON.stringify({new_player: this.id}));
+      this.send_new_player(this.id);
     };
 
     Gamepad.prototype.command_socket= function() {
       return this._command_socket;
     };
 
+    Gamepad.prototype.send_new_player= function(id) {
+      this.command_socket().send(JSON.stringify({new_player: id}));
+    };
+
+    Gamepad.prototype.send_command= function(command) {
+      this.command_socket().send(JSON.stringify({command: command}));
+    };
+
     Gamepad.prototype.interpret_command = function (gamepad_state) {
       if (gamepad_state.fire_down_since(this.last_gamepad_state)) {
-        this.command_socket().send('fire');
+        this.send_command('fire');
       }
 
       if (gamepad_state.thrust_down_since(this.last_gamepad_state)) {
-        this.command_socket().send('thrust_on');
+        this.send_command('thrust_on');
       }
 
       if (gamepad_state.thrust_up_since(this.last_gamepad_state)) {
-        this.command_socket().send('thrust_off');
+        this.send_command('thrust_off');
       }
 
       if (gamepad_state.rotating_left()  && !this.last_gamepad_state.rotating_left())
-        this.command_socket().send('rotate_left');
+        this.send_command('rotate_left');
 
       else if (gamepad_state.rotating_right() && !this.last_gamepad_state.rotating_right())
-        this.command_socket().send('rotate_right');
+        this.send_command('rotate_right');
 
       else if (this.last_gamepad_state.rotating() && !gamepad_state.rotating())
-        this.command_socket().send('rotate_stop');
+        this.send_command('rotate_stop');
 
       this.last_gamepad_state = gamepad_state;
     };
