@@ -48,7 +48,7 @@ describe "ShipCommandController", ->
         createController()
         the_gamepad.last_gamepad_state.fire(test_conditions.buttons.fire == 'down');
 
-        spyOn game_server, "send"
+        spyOn the_gamepad.command_socket(), "send"
 
       describe " and we receive up", ->
         beforeEach ->
@@ -56,10 +56,10 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
         else
           it "does not send", ->
-            expect(game_server.send).not.toHaveBeenCalled()
+            expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
 
   fire_down_sent_tests = [
     {fire_button: "up", expected_sent: 'fire'},
@@ -71,7 +71,7 @@ describe "ShipCommandController", ->
       beforeEach ->
         createController()
         the_gamepad.last_gamepad_state.fire(test_conditions.fire_button == 'down')
-        spyOn game_server, "send"
+        spyOn the_gamepad.command_socket(), "send"
 
       describe " and we receive down", ->
         beforeEach ->
@@ -79,10 +79,10 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
         else
           it "does not send", ->
-            expect(game_server.send).not.toHaveBeenCalled()
+            expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
 
   fire_up_state_tests = [
     {fire_button: "up",   expected_state: "up"},
@@ -131,7 +131,7 @@ describe "ShipCommandController", ->
       beforeEach ->
         createController()
         the_gamepad.last_gamepad_state.thrust(test_conditions.thrust_button == 'down')
-        spyOn game_server, "send"
+        spyOn the_gamepad.command_socket(), "send"
 
       describe " and we receive up", ->
         beforeEach ->
@@ -139,10 +139,10 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
         else
           it "does not send", ->
-            expect(game_server.send).not.toHaveBeenCalled()
+            expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
 
   thrust_down_sent_tests = [
     {thrust_button: "up",   expected_sent: 'thrust_on'},
@@ -154,7 +154,7 @@ describe "ShipCommandController", ->
       beforeEach ->
         createController()
         the_gamepad.last_gamepad_state.thrust(test_conditions.thrust_button == 'down')
-        spyOn game_server, "send"
+        spyOn the_gamepad.command_socket(), "send"
 
       describe " and we receive down", ->
         beforeEach ->
@@ -162,10 +162,10 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
         else
           it "does not send", ->
-            expect(game_server.send).not.toHaveBeenCalled()
+            expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
 
   thrust_up_state_tests = [
     {thrust_button: "up",   expected_state: "up"},
@@ -234,7 +234,7 @@ describe "ShipCommandController", ->
         controller = createController()
         the_gamepad.last_gamepad_state.left(test_conditions.left_button == 'down')
         the_gamepad.last_gamepad_state.right(test_conditions.right_button == 'down')
-        spyOn game_server, "send"
+        spyOn the_gamepad.command_socket(), "send"
 
       describe "and we receive left #{test_conditions.new_left_button}, right #{test_conditions.new_right_button}", ->
         beforeEach ->
@@ -246,7 +246,7 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(game_server.send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
         else
           it "does not send", ->
-            expect(game_server.send).not.toHaveBeenCalled()
+            expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
