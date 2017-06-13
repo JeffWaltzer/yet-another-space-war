@@ -62,7 +62,7 @@ describe "ShipCommandController", ->
             expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
 
   fire_down_sent_tests = [
-    {fire_button: "up", expected_sent: 'fire'},
+    {fire_button: "up", expected_sent: "fire"},
     {fire_button: "down", expected_sent: null}
   ]
 
@@ -79,7 +79,7 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith JSON.stringify({command: test_conditions.expected_sent})
         else
           it "does not send", ->
             expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
@@ -139,7 +139,7 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith JSON.stringify({command: test_conditions.expected_sent})
         else
           it "does not send", ->
             expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
@@ -162,7 +162,7 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith JSON.stringify({command: test_conditions.expected_sent})
         else
           it "does not send", ->
             expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
@@ -246,7 +246,7 @@ describe "ShipCommandController", ->
 
         if test_conditions.expected_sent
           it "sends #{test_conditions.expected_sent}", ->
-            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith test_conditions.expected_sent
+            expect(the_gamepad.command_socket().send).toHaveBeenCalledWith JSON.stringify({command: test_conditions.expected_sent})
         else
           it "does not send", ->
             expect(the_gamepad.command_socket().send).not.toHaveBeenCalled()
