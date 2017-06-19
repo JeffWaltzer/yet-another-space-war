@@ -19,9 +19,6 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   var KEY_SPACE = 32;
   var KEY_R = 82;
 
-  var the_gamepad= new Gamepad();
-
-
   $scope.onKeyDown = function (e) {
     switch (e.keyCode) {
       case KEY_LEFT_ARROW:
