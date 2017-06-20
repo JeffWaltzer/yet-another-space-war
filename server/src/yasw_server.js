@@ -35,19 +35,9 @@ exports.createServer= function(parameters) {
     var the_ship;
     var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
-    var player_id;
 
-    _(cookies.split(';')).each(function(cookie) {
-      var fields= cookie.split('=');
-      var name= fields[0].trim();
-      var value= fields[1].trim();
-
-      if (name === 'yasw_player_id')
-	      player_id= value;
-    });
-
-    game.connect_socket(player_id, socket);
-    var player = game.players[player_id];
+    var player = game.players[0];
+    game.connect_socket(player, socket);
 
     the_ship= player.ship  ||  game.game_field.add_ship();
     game.connect_ship(player_id, the_ship);

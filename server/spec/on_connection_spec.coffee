@@ -12,19 +12,16 @@ describe "connecting to the server", ->
     fake_socket= {};
     fake_socket.send= ->
     fake_socket.on= ->
-    fake_socket.request =
-      headers: {"cookie": "yasw_player_id=0.5468260888010263" }
-    server.game.players['0.5468260888010263']= new player.Player();
     server.on_new_websocket(fake_socket)
 
   it "calls server#add_screen_object", ->
     expect(server.game.game_field.add_screen_object).toHaveBeenCalled()
 
   it 'associates ship with socket' , ->
-    expect(server.game.players['0.5468260888010263'].ship).toBeDefined();
+    expect(server.game.players[0].ship).toBeDefined();
 
   it 'creates a player', ->
-    expect(server.game.players['0.5468260888010263'].socket).toEqual fake_socket
+    expect(server.game.players[0].socket).toEqual fake_socket
 
 
 describe "connecting to the server twice", ->
@@ -40,23 +37,26 @@ describe "connecting to the server twice", ->
       fake_socket = {};
       fake_socket.send = ->
       fake_socket.on = ->
-      fake_socket.request =
-        headers: {"cookie": "yasw_player_id=0.5468260888010263"}
       server.on_new_websocket(fake_socket)
       fake_socket
 
-    server.game.players['0.5468260888010263'] = new player.Player();
     socket1=create_fake_socket()
     socket2=create_fake_socket()
 
-  it 'has one ship' ,->
-    expect(server.game.game_field.screen_objects.length).toEqual(1)
+  it 'has two ships' ,->
+    expect(server.game.game_field.screen_objects.length).toEqual(2)
 
   it "calls server#add_screen_object", ->
-    expect(server.game.game_field.add_screen_object).toHaveBeenCalled()
+    expect(server.game.game_field.add_screen_object.callCount).toEqual(2)
 
   it 'associates ship with socket' , ->
-    expect(server.game.players['0.5468260888010263'].ship).toBeDefined();
+    expect(server.game.players[0].ship).toBeDefined();
+
+  it 'associates ship with other socket' , ->
+    expect(server.game.players[1].ship).toBeDefined();
 
   it 'creates a player', ->
-    expect(server.game.players['0.5468260888010263'].socket).toEqual socket2
+    expect(server.game.players[0].socket).toEqual socket1
+
+  it 'creates a player', ->
+    expect(server.game.players[1].socket).toEqual socket2

@@ -40,8 +40,6 @@ describe "game#tick" , ->
     ships=[]
     ships.push server.game.game_field.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]})
     ships.push server.game.game_field.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]})
-    ships.push server.game.game_field.add_ship({rotation:  1, heading:          0, points: [[5, 0]], position: [30, 30]})
-    ships.push server.game.game_field.add_ship({rotation: -1, heading:  Math.PI/2, points: [[3, 0]], position: [105, 100]})
 
     fragment = ships[0].explode()[0]
     dead_fragment= ships[1].explode()[0]
@@ -50,9 +48,6 @@ describe "game#tick" , ->
     fake_socket=
       send: (data) ->
         sent_data = data
-
-    player= server.game.add_player('player_id');
-    player.socket= fake_socket;
 
     original_fragment_life_left= fragment.life_left
     server.game.tick()
