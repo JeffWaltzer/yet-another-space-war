@@ -13,7 +13,7 @@ describe "sending a game board when our player doesn't have a ship", ->
         sent_data= JSON.parse(data)
 
     game= new Game()
-    the_player= game.add_player('player_id')
+    the_player= game.add_player()
     the_player.socket= fake_socket;
     game.send_game_board({})
 
@@ -39,7 +39,7 @@ describe "sending the field size", ->
     game= new Game({field_size: new Vector([1001,1002])})
 
     # Smell: shouldn't need player
-    the_player= game.add_player('player_id')
+    the_player= game.add_player()
     the_player.socket= fake_socket;
     game.send_game_board({})
 
@@ -60,13 +60,11 @@ describe "sending a game board when our player has a ship", ->
         sent_data= JSON.parse(data)
 
     game= new Game()
-    the_player= game.add_player('player_id')
+    the_player= game.add_player()
     the_player.socket= fake_socket;
     the_player.ship = game.game_field.add_ship({
       position: [201,303]}
     )
-
-    game.connect_ship('player_id', the_player.ship, true)
 
     game.send_game_board(game.game_field.game_board())
 

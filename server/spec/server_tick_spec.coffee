@@ -65,7 +65,7 @@ describe "game#tick" , ->
       send: (data) ->
         sent_data = data
 
-    player= server.game.add_player('player_id');
+    player= server.game.add_player();
     player.socket= fake_socket;
 
     viewing_ship = server.game.game_field.add_ship({

@@ -21,7 +21,6 @@ describe 'the server, when asked for ship data ', ->
       init_ship();
 
   check_angular_velocity = (ship_command, expected_angular_velocity, server, test, init_ship, done) ->
-    spyOn(server, 'socket_cookies').andReturn("yasw_player_id=0.5328")
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, init_ship, test, done)
@@ -32,7 +31,6 @@ describe 'the server, when asked for ship data ', ->
         ),50
 
   check_acceleration = (ship_command, expected_acceleration, server, test, init_ship, done) ->
-    spyOn(server, 'socket_cookies').andReturn("yasw_player_id=0.5328")
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, init_ship, test, done)
@@ -43,7 +41,6 @@ describe 'the server, when asked for ship data ', ->
         ),50
 
   check_fire = (ship_command,  server, test, init_ship, done) ->
-    spyOn(server, 'socket_cookies').andReturn("yasw_player_id=0.5328")
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, init_ship, test, done)
@@ -55,7 +52,6 @@ describe 'the server, when asked for ship data ', ->
         ),50
 
   check_clone = (server, test, done) ->
-    spyOn(server, 'socket_cookies').andReturn("yasw_player_id=0.5328")
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, null, test, done)

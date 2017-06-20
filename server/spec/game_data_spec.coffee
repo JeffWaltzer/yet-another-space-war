@@ -85,44 +85,11 @@ check_status= (page_name, expected_status) ->
         done())
 
 
-check_header= (page_name, header_name, expected_header_value) ->
-  describe "the server, when asked for '#{page_name}'", ->
-    server= undefined
-
-    beforeEach ->
-      server= yasw.createServer()
-      spyOn(server, 'make_player_id').andReturn('foo');
-
-    it "should respond with the '#{header_name}' header set to '#{expected_header_value}'", (done) ->
-      fake_request= {
-        url: "http://www.example.com/#{page_name}"
-        once: ->,
-        connection: {encrypted: false}
-        headers: {},
-      }
-
-      got_headers= {}
-      fake_response= {
-        setHeader: (key, value) -> got_headers[key]= value
-        getHeader: (key) -> got_headers[key]
-        on: ->
-        once: ->
-        emit: ->
-        write: ->
-        end: ->
-      }
-
-      server.on_request(fake_request, fake_response, ->
-        expect(got_headers[header_name]).toEqual expected_header_value
-        done())
 
 
 check_request("", "/index.html", "text/html")
 check_content("", /Space Wars/)
 check_status("", 302);
-check_header("", "location", "/game.html");
-
-check_header("", "Set-Cookie", ['yasw_player_id=foo; path=/; httponly']);
 
 check_request("/game.html", "/game.html", "text/html")
 check_content("/game.html", /Space Wars/)
