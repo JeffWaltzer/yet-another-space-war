@@ -57,6 +57,14 @@ Game.prototype.add_player= function() {
   return new_player;
 };
 
+Game.prototype.remove_player= function(player) {
+  this.players= _(this.players).reject(function(p) { return p == player; });
+};  
+
+Game.prototype.remove_ship= function(ship) {
+  this.game_field.screen_objects(_(this.game_field.screen_objects()).reject(function(so) { return so == ship; }));
+};
+
 Game.prototype.connect_socket= function(player, socket) {
   player.socket = socket;
 };
