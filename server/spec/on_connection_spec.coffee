@@ -46,6 +46,14 @@ describe "connecting to the server twice", ->
   it 'has two ships' ,->
     expect(server.game.game_field.screen_objects().length).toEqual(2)
 
+  describe "the first ship", ->
+    it "is green", ->
+      expect(server.game.game_field.screen_objects()[0].color()).toEqual('green')
+
+  describe "the second ship", ->
+    it "is blue", ->
+      expect(server.game.game_field.screen_objects()[1].color()).toEqual('blue')
+
   it "calls server#add_screen_object", ->
     expect(server.game.game_field.add_screen_object.callCount).toEqual(2)
 
