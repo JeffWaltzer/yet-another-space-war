@@ -26,13 +26,13 @@ describe "generating a game board", ->
     beforeEach ->
       expected_x= 100
       expected_y= 200
-      player= game.add_player('the_player')
+      player= game.add_player()
       ship= game_field.add_ship({
           player: player,
           position: [expected_x, expected_y],
       })
       ship.shape( [new Polygon([[0, 1], [2, 3]],'puce')])
-      game.connect_ship('the_player', ship)
+      game.connect_ship(player, ship)
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->
@@ -71,19 +71,19 @@ describe "generating a game board", ->
     beforeEach ->
       expected_x= 100
       expected_y= 200
-      first_player= game.add_player('first_player')
+      first_player= game.add_player()
       first_players_ship= game_field.add_ship({
           player: first_player,
           position: [expected_x, expected_y],
       })
-      game.connect_ship('first_player', first_players_ship)
+      game.connect_ship(first_player, first_players_ship)
 
-      second_player= game.add_player('second_player')
+      second_player= game.add_player()
       second_players_ship= game_field.add_ship({
           player: second_player,
           position: [expected_x, expected_y],
       })
-      game.connect_ship('second_player', second_players_ship)
+      game.connect_ship(second_player, second_players_ship)
 
       game_board = game.game_field.game_board()
 
@@ -115,7 +115,7 @@ describe "generating a game board", ->
         player: player,
         position: [expected_x, expected_y],
       )
-      game.connect_ship('the_player', ship)
+      game.connect_ship(player, ship)
       game_board = game.game_field.game_board()
 
     it "creates the correct game board", ->

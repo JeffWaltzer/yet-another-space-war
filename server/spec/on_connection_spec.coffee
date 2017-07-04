@@ -44,7 +44,7 @@ describe "connecting to the server twice", ->
     socket2=create_fake_socket()
 
   it 'has two ships' ,->
-    expect(server.game.game_field.screen_objects.length).toEqual(2)
+    expect(server.game.game_field.screen_objects().length).toEqual(2)
 
   it "calls server#add_screen_object", ->
     expect(server.game.game_field.add_screen_object.callCount).toEqual(2)

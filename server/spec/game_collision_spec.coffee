@@ -91,13 +91,13 @@ describe "A bullet fired from ship A colliding with ship B", ->
   beforeEach ->
     the_game= new game.Game({})
 
-    player_a= the_game.add_player('a')
+    player_a= the_game.add_player()
     ship_a= the_game.game_field.add_ship()
-    the_game.connect_ship('a', ship_a)
+    the_game.connect_ship(player_a, ship_a)
 
     ship_b= the_game.game_field.add_ship()
-    player_b= the_game.add_player('b')
-    the_game.connect_ship('b', ship_b)
+    player_b= the_game.add_player()
+    the_game.connect_ship(player_b, ship_b)
 
     the_bullet= ship_a.fire()
     the_bullet.position(ship_b.position())
@@ -139,9 +139,9 @@ describe "A bullet fired from ship A colliding with another bullet from ship A",
   beforeEach ->
     the_game= new game.Game({})
 
-    the_player= the_game.add_player('a')
+    the_player= the_game.add_player()
     the_ship= the_game.game_field.add_ship()
-    the_game.connect_ship('a', the_ship)
+    the_game.connect_ship(the_player, the_ship)
 
     the_bullet= the_ship.fire()
     the_other_bullet= the_ship.fire()

@@ -53,6 +53,7 @@ describe "sending a game board when our player has a ship", ->
   fake_socket= null
   sent_data= null
   the_player = null
+  the_ship= null
 
   beforeEach ->
     fake_socket=
@@ -62,9 +63,10 @@ describe "sending a game board when our player has a ship", ->
     game= new Game()
     the_player= game.add_player()
     the_player.socket= fake_socket;
-    the_player.ship = game.game_field.add_ship({
+    the_ship = game.game_field.add_ship({
       position: [201,303]}
     )
+    game.connect_ship(the_player, the_ship)
 
     game.send_game_board(game.game_field.game_board())
 
