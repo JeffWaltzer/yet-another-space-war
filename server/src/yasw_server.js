@@ -40,10 +40,6 @@ exports.createServer= function(parameters) {
     return the_ship;
   };
 
-  yasw_server.on_connect= function(request, response) {
-    this.game.add_player();
-  };
-
   yasw_server.on_request= function(request, response, on_response_headers_written) {
     var filename= url.parse(request.url).pathname;
     if (filename == '/')
@@ -54,7 +50,6 @@ exports.createServer= function(parameters) {
       response.setHeader("location", "/game.html");
     }
 
-    yasw_server.on_connect(request, response);
     yasw_server.static_page(filename, response, status, on_response_headers_written);
   };
 

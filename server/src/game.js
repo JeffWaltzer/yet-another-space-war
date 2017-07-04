@@ -52,7 +52,7 @@ Game.prototype.send_game_board= function(new_board) {
 Game.player_colors= ['green', 'blue'];
 
 Game.prototype.add_player= function() {
-  var new_player= new Player(Game.player_colors[Object.keys(this.players).length]);
+  var new_player= new Player(Game.player_colors[this.players.length]);
   this.players.push(new_player);
   return new_player;
 };
