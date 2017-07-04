@@ -6,7 +6,6 @@ var _= require('underscore');
 var ship= require('./ship');
 var game= require('./game');
 var vector= require('./vector');
-var Cookies = require('cookies');
 
 exports.createServer= function(parameters) {
   var yasw_server= {};
@@ -27,39 +26,22 @@ exports.createServer= function(parameters) {
   yasw_server.game= new game.Game(yasw_server);
   yasw_server.game.start_ticking(yasw_server.tick_rate);
 
-  yasw_server.socket_cookies= function(socket) {
-    return socket.request.headers.cookie;
-  };
-
   yasw_server.on_new_websocket= function(socket) {
     var the_ship;
-    var cookies = yasw_server.socket_cookies(socket);
     var game= yasw_server.game;
 
-    var player = game.players[0];
+    var player = game.add_player();
     game.connect_socket(player, socket);
 
-    the_ship= player.ship  ||  game.game_field.add_ship();
-    game.connect_ship(player_id, the_ship);
-
+    the_ship= game.game_field.add_ship();
+    game.connect_ship(player, the_ship);
     socket.on('message', _(player.on_message).bind(player));
 
     return the_ship;
   };
 
-  yasw_server.make_player_id= function() {
-    return Math.random();
-  };
-
   yasw_server.on_connect= function(request, response) {
-    var cookies= new Cookies(request,response);
-    var player_id= cookies.get('yasw_player_id');
-    
-    if (!player_id || !this.game.players[player_id]) {
-      player_id= yasw_server.make_player_id();
-      cookies.set('yasw_player_id', player_id);
-      this.game.add_player(player_id);
-    }
+    this.game.add_player();
   };
 
   yasw_server.on_request= function(request, response, on_response_headers_written) {

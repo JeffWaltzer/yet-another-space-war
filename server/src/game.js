@@ -13,7 +13,7 @@ function Game(initial_state) {
   this.game_field= new GameField(initial_state);
   this.tick_rate= initial_state.tick_rate;
 
-  this.players= {};
+  this.players= [];
 }
 
 Game.prototype.tick= function() {
@@ -51,21 +51,20 @@ Game.prototype.send_game_board= function(new_board) {
 
 Game.player_colors= ['green', 'blue'];
 
-Game.prototype.add_player= function(player_id) {
+Game.prototype.add_player= function() {
   var new_player= new Player(Game.player_colors[Object.keys(this.players).length]);
-  this.players[player_id]= new_player;
+  this.players.push(new_player);
   return new_player;
 };
 
-Game.prototype.connect_socket= function(player_id, socket) {
-  this.players[player_id].socket = socket;
+Game.prototype.connect_socket= function(player, socket) {
+  player.socket = socket;
 };
 
-Game.prototype.connect_ship= function(player_id, ship) {
-  var the_player= this.players[player_id];
-  the_player.ship= ship;
-  ship.color( the_player.color());
-  ship.player(the_player);
+Game.prototype.connect_ship= function(player, ship) {
+  player.ship= ship;
+  ship.color(player.color());
+  ship.player(player);
 };
 
 exports.Game= Game;
