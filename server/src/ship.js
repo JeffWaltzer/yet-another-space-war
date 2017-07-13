@@ -115,5 +115,6 @@ Ship.prototype.shape= function(new_value) {
     return ship_shape;
 };
 
+Ship.prototype.stop_screen_updates = function (){};
 
 exports.Ship= Ship;

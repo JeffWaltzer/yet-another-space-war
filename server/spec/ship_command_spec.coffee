@@ -61,6 +61,18 @@ describe 'the server, when asked for ship data ', ->
           done()
         ),50
 
+  check_stop_screen_updates = (server, test, done) ->
+    socket = engine_client('ws://localhost:3000', transports: ['websocket'])
+    socket.on 'open', ->
+      setup_ship(socket, null, test, done)
+      the_ship = server.game.game_field.screen_objects()[0]
+      spyOn(the_ship, 'stop_screen_updates')
+      socket.send JSON.stringify({'command': 'stop-screen-updates'}), ->
+        setTimeout (->
+          expect(the_ship.stop_screen_updates).toHaveBeenCalled()
+          done()
+        ), 50
+
   it 'starts with no ships', () ->
     expect(server.game.game_field.screen_objects().length).toEqual(0)
 
@@ -88,6 +100,9 @@ describe 'the server, when asked for ship data ', ->
 
   it 'clones the ship on command', (done) ->
     check_clone(server, this, done)
+
+  it 'stops screen updates on command', (done)->
+    check_stop_screen_updates(server, this, done)
 
   afterEach ->
     server.shutdown()
