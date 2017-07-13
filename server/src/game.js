@@ -67,4 +67,12 @@ Game.prototype.connect_ship= function(player, ship) {
   ship.player(player);
 };
 
+
+Game.prototype.on_close = function (player) {
+  this.game_field.remove_screen_object(player.ship);
+  this.players = _(this.players).reject(function (p) {
+    return p === player;
+  });
+};
+
 exports.Game= Game;

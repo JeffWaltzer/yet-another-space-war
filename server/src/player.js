@@ -14,6 +14,7 @@ Player.prototype.score=function (new_value) {
 };
 
 
+
 Player.prototype.on_message = function(json_message) {
   if (this.ship)
     return this.ship.on_message(json_message) ;

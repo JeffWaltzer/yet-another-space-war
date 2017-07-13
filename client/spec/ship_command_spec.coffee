@@ -359,7 +359,7 @@ describe "ShipCommandController", ->
     beforeEach ->
       controller = createController()
       spyOn game_server, "send"
-      scope.onKeyDown {keyCode: 82}
+      scope.onKeyDown {keyCode: 83}
 
     it "sends 'clone'", ->
       expect(game_server.send).toHaveBeenCalledWith 'clone'

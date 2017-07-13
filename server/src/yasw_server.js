@@ -35,7 +35,10 @@ exports.createServer= function(parameters) {
 
     the_ship= game.game_field.add_ship();
     game.connect_ship(player, the_ship);
+
     socket.on('message', _(player.on_message).bind(player));
+
+    socket.on('close', _(game.on_close).bind(game, player), game);
 
     return the_ship;
   };

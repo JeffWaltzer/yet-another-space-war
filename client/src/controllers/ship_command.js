@@ -18,6 +18,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   var KEY_DOWN_ARROW = 40;
   var KEY_SPACE = 32;
   var KEY_R = 82;
+  var KEY_S = 83;
 
   $scope.onKeyDown = function (e) {
     switch (e.keyCode) {
@@ -33,7 +34,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
       case KEY_SPACE:
         keyboard.on_fire_down();
         break;
-      case KEY_R:
+      case KEY_S:
         keyboard.on_clone_down();
         break;
     }
