@@ -37,7 +37,8 @@ module.exports = function(grunt) {
         //   _: false
         // },
         browser: true,
-        devel: true
+        devel: true,
+        reporterOutput: ""
       }
     },
 

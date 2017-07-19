@@ -8,7 +8,8 @@ module.exports = function(grunt) {
           $: false
         },
         browser: true,
-        devel: true
+        devel: true,
+        reporterOutput: ""
       }
     },
 
