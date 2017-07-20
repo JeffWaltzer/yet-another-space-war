@@ -1,6 +1,7 @@
 function Player(color) {
   this._score= 0;
   this._color= color || 'red';
+  this._send_game_board= true;
 }
 
 Player.prototype.bump_score= function(score_bump) {
@@ -13,8 +14,6 @@ Player.prototype.score=function (new_value) {
   return this._score;
 };
 
-
-
 Player.prototype.on_message = function(json_message) {
   if (this.ship)
     this.ship.on_message(json_message) ;
@@ -23,6 +22,12 @@ Player.prototype.on_message = function(json_message) {
 
 Player.prototype.color= function() {
   return this._color;
+};
+
+Player.prototype.send_game_board_p= function(new_value) {
+    if (new_value !== undefined)
+      this._send_game_board= new_value;
+    return this._send_game_board;
 };
 
 exports.Player= Player;

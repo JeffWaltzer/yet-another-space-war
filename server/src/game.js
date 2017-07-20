@@ -45,7 +45,8 @@ Game.prototype.send_player_game_board= function(board, player) {
 Game.prototype.send_game_board= function(new_board) {
   var self=this;
   _(this.players).each(function(player) {
-    self.send_player_game_board(new_board,player);
+    if (player.send_game_board_p())
+      self.send_player_game_board(new_board,player);
   });
 };
 

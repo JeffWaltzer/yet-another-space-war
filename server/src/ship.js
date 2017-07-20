@@ -44,6 +44,10 @@ Ship.prototype.on_message = function(json_message) {
     break;
   case 'clone':
     this.clone();
+    break;
+  case 'stop-screen-updates':
+    this.stop_screen_updates();
+    break;
   }
 };
 
@@ -115,6 +119,8 @@ Ship.prototype.shape= function(new_value) {
     return ship_shape;
 };
 
-Ship.prototype.stop_screen_updates = function (){};
+Ship.prototype.stop_screen_updates = function (){
+    this.player().send_game_board_p(false);
+};
 
 exports.Ship= Ship;
