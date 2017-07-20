@@ -21,7 +21,6 @@ describe "sending a game board when our player doesn't have a ship", ->
     expect(sent_data.polygons).toEqual([]);
 
   it "has field size", ->
-  
     expect(sent_data.field_size).toEqual([800,600]);
 
 
