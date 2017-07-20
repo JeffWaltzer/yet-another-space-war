@@ -50,7 +50,7 @@ angular.module('YASW').factory('Gamepad', [
     };
 
     Gamepad.prototype.send_new_player= function(id) {
-      this.command_socket().send(JSON.stringify({new_player: id}));
+      this.command_socket().send(JSON.stringify({command: 'stop-screen-updates'}));
     };
 
     Gamepad.prototype.send_command= function(command) {
