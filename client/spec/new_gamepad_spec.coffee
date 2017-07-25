@@ -7,12 +7,8 @@ describe "Gamepad creation", ->
   beforeEach inject((_Gamepad_) ->
     Gamepad = _Gamepad_
 
-    the_gamepad = new Gamepad('us')
+    the_gamepad = new Gamepad('us', {send: ->})
   )
-
-  it 'has a websocket', ->
-    expect(the_gamepad.command_socket()).toBeTruthy()
-
 
   describe "A new gamepad", ->
     the_socket= null

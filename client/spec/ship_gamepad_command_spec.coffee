@@ -25,7 +25,7 @@ describe "ShipCommandController", ->
     Gamepad = _Gamepad_
     GamepadState=_GamepadState_
 
-    the_gamepad = new Gamepad();
+    the_gamepad = new Gamepad('id', {send:->});
 
   )
 

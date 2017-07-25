@@ -7,7 +7,7 @@ describe "Gamepad", ->
   beforeEach inject((_Gamepad_) ->
     Gamepad = _Gamepad_
 
-    the_gamepad = new Gamepad('us')
+    the_gamepad = new Gamepad('us', {})
     Gamepad.gamepads.push(the_gamepad);
 
     Gamepad.dom_gamepads = ->
