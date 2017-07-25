@@ -50,7 +50,7 @@ Game.prototype.send_game_board= function(new_board) {
   });
 };
 
-Game.player_colors= ['green', 'blue'];
+Game.player_colors = ['green', 'magenta', 'yellow', 'palegreen', 'purple', 'orange', 'cyan', 'blue'];
 
 Game.prototype.add_player= function() {
   var new_player= new Player(Game.player_colors[this.players.length]);
