@@ -31,6 +31,7 @@ angular.module('YASW').factory('Gamepad', [
           });
           if (!gamepad) {
             gamepad= new Gamepad(dom_gamepad.id);
+            gamepad.connect();
             Gamepad.gamepads.push(gamepad);
           }
           gamepad.interpret_command(
