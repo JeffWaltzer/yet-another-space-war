@@ -92,12 +92,12 @@ describe "generating a game board", ->
         {
           score: 0,
           position: [expected_x, expected_y],
-          wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: 'green'}]
+          wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: Game.player_colors[0]}]
         },
         {
           score: 0,
           position: [expected_x, expected_y],
-          wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: 'blue'}]
+          wireframe: [{points: [ [ 90, 210 ], [ 120, 200 ], [ 90, 190 ], [ 100, 200 ] ], color: Game.player_colors[1]}]
         }
       ]
 

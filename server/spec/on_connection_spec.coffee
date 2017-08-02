@@ -1,6 +1,7 @@
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
 player = require './../../src/player'
+Game = require('./../../src/game').Game
 
 describe "connecting to the server", ->
   server= undefined
@@ -47,12 +48,12 @@ describe "connecting to the server twice", ->
     expect(server.game.game_field.screen_objects().length).toEqual(2)
 
   describe "the first ship", ->
-    it "is green", ->
-      expect(server.game.game_field.screen_objects()[0].color()).toEqual('green')
+    it "is #{Game.player_colors[0]}", ->
+      expect(server.game.game_field.screen_objects()[0].color()).toEqual(Game.player_colors[0])
 
   describe "the second ship", ->
-    it "is blue", ->
-      expect(server.game.game_field.screen_objects()[1].color()).toEqual('blue')
+    it "is #{Game.player_colors[1]}", ->
+      expect(server.game.game_field.screen_objects()[1].color()).toEqual(Game.player_colors[1])
 
   it "calls server#add_screen_object", ->
     expect(server.game.game_field.add_screen_object.callCount).toEqual(2)
