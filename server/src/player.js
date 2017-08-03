@@ -32,7 +32,10 @@ Player.prototype.send_game_board_p= function(new_value) {
     return this._send_game_board;
 };
 
-Player.prototype.add_ship= function() {
+Player.prototype.add_ship= function(game) {
+    var new_ship= game.game_field.add_ship();
+    game.connect_ship(this, new_ship);
+    return new_ship;
 };
 
 exports.Player= Player;
