@@ -68,6 +68,9 @@ Ship.prototype.gun_point= function() {
 
 Ship.prototype.explode = function() {
   this.game_field.remove_screen_object(this);
+
+  setTimeout(this.player().add_ship, 1000);
+
   return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
 };
 

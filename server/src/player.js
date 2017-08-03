@@ -4,6 +4,8 @@ function Player(color) {
   this._send_game_board= true;
 }
 
+Player.resurrection_time= 1000;
+
 Player.prototype.bump_score= function(score_bump) {
   this._score += score_bump;
 };
@@ -28,6 +30,9 @@ Player.prototype.send_game_board_p= function(new_value) {
     if (new_value !== undefined)
       this._send_game_board= new_value;
     return this._send_game_board;
+};
+
+Player.prototype.add_ship= function() {
 };
 
 exports.Player= Player;

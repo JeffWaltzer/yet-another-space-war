@@ -5,7 +5,6 @@ describe 'Player', ->
   the_player=null
 
   describe 'with no ship', ->
-
     beforeEach ->
       the_player = new player.Player()
 
