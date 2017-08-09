@@ -21,7 +21,6 @@ Player.prototype.on_message = function(json_message) {
     this.ship.on_message(json_message) ;
 };
 
-
 Player.prototype.color= function() {
   return this._color;
 };
@@ -32,10 +31,16 @@ Player.prototype.send_game_board_p= function(new_value) {
     return this._send_game_board;
 };
 
-Player.prototype.add_ship= function(game) {
-    var new_ship= game.game_field.add_ship();
-    game.connect_ship(this, new_ship);
+Player.prototype.add_ship= function(game_field) {
+    var new_ship= game_field.add_ship();
+    this.connect_ship( new_ship);
     return new_ship;
+};
+
+Player.prototype.connect_ship = function (ship) {
+  this.ship = ship;
+  ship.color(this.color());
+  ship.player(this);
 };
 
 exports.Player= Player;

@@ -22,7 +22,7 @@ describe 'Player', ->
     the_ship= null
 
     beforeEach ->
-      the_ship= the_player.add_ship(the_game)
+      the_ship= the_player.add_ship(the_game.game_field)
 
     it "adds a ship", ->
       expect(the_game.game_field.screen_objects()[0]).toEqual(the_ship)

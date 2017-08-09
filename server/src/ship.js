@@ -67,9 +67,16 @@ Ship.prototype.gun_point= function() {
 };
 
 Ship.prototype.explode = function() {
-  this.game_field.remove_screen_object(this);
+  var undead_player = this.player();
+  var game_field = this.game_field;
 
-  setTimeout(this.player().add_ship, 1000);
+  game_field.remove_screen_object(this);
+
+  setTimeout(function () {
+      var new_ship = game_field.add_ship({heading: 2 * Math.PI * Math.random()});
+      undead_player.connect_ship(new_ship);
+    },
+    1000);
 
   return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
 };

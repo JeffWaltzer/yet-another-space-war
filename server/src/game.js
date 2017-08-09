@@ -63,9 +63,7 @@ Game.prototype.connect_socket= function(player, socket) {
 };
 
 Game.prototype.connect_ship= function(player, ship) {
-  player.ship= ship;
-  ship.color(player.color());
-  ship.player(player);
+  player.connect_ship(ship);
 };
 
 
