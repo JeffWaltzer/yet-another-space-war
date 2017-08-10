@@ -30,7 +30,8 @@ describe "ship#explode" , ->
     expect(the_game.game_field.screen_objects()).not.toContain(the_ship)
 
   it 'sets a resurrection timer on the player', ->
-    expect(global.setTimeout).toHaveBeenCalled();
+    expect(global.setTimeout).toHaveBeenCalledWith(the_ship.resurrect, Player.resurrection_time, the_game.game_field, the_ship.player());
+
 
   it 'adds fragments', ->
     fragments= underscore.select(

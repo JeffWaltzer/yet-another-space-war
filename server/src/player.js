@@ -4,7 +4,7 @@ function Player(color) {
   this._send_game_board= true;
 }
 
-Player.resurrection_time= 1000;
+Player.resurrection_time= 3000;
 
 Player.prototype.bump_score= function(score_bump) {
   this._score += score_bump;

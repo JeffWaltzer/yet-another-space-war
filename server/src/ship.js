@@ -5,6 +5,7 @@ var util = require('util');
 var math_util = require('./math_util');
 var fragment_maker = require('./fragment_maker');
 var Polygon=require('./polygon').Polygon;
+var Player=require('./player').Player;
 
 function Ship(initial_state) {
   initial_state.shape = [ new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]]) ];
@@ -67,18 +68,24 @@ Ship.prototype.gun_point= function() {
 };
 
 Ship.prototype.explode = function() {
-  var undead_player = this.player();
+  var the_player = this.player();
   var game_field = this.game_field;
 
   game_field.remove_screen_object(this);
 
-  setTimeout(function () {
-      var new_ship = game_field.add_ship({heading: 2 * Math.PI * Math.random()});
-      undead_player.connect_ship(new_ship);
-    },
-    1000);
+  setTimeout(
+    this.resurrect,
+    Player.resurrection_time,
+    game_field,
+    the_player
+  );
 
   return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
+};
+
+Ship.prototype.resurrect = function (game_field, undead_player) {
+  var new_ship = game_field.add_ship({heading: 2 * Math.PI * Math.random()});
+  undead_player.connect_ship(new_ship);
 };
 
 Ship.prototype.fire= function(debug){
