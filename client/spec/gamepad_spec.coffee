@@ -13,9 +13,9 @@ describe "Gamepad", ->
     Gamepad.dom_gamepads = ->
       [
         {
-          id: 'them'
+          id: 'us'
           buttons: [
-            {pressed: false},
+            {pressed: true},
             {pressed: false},
             {pressed: false},
             {pressed: false},
@@ -30,8 +30,8 @@ describe "Gamepad", ->
         {
           id: 'us',
           buttons: [
-            {pressed: true},
             {pressed: false},
+            {pressed: true},
             {pressed: false},
             {pressed: false},
             {pressed: false},
@@ -52,3 +52,6 @@ describe "Gamepad", ->
 
   it 'creates a new gamepad', ->
     expect(Gamepad.gamepads.length).toEqual(2)
+
+  it 'updates the new gamepad', ->
+    expect(Gamepad.gamepads[1].last_gamepad_state.buttons[1].pressed).toBeTruthy()

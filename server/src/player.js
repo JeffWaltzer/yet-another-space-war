@@ -6,6 +6,20 @@ function Player(color) {
 
 Player.resurrection_time= 3000;
 
+Player.prototype.arrange_for_resurrection= function(game_field) {
+  setTimeout(
+    this.resurrect,
+    Player.resurrection_time,
+    game_field,
+    this
+  );
+};
+
+Player.prototype.resurrect= function(game_field, player) {
+  var new_ship = game_field.add_ship({heading: 2 * Math.PI * Math.random()});
+  player.connect_ship(new_ship);
+};
+
 Player.prototype.bump_score= function(score_bump) {
   this._score += score_bump;
 };

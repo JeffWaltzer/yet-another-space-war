@@ -72,20 +72,9 @@ Ship.prototype.explode = function() {
   var game_field = this.game_field;
 
   game_field.remove_screen_object(this);
-
-  setTimeout(
-    this.resurrect,
-    Player.resurrection_time,
-    game_field,
-    the_player
-  );
+  the_player.arrange_for_resurrection(game_field);
 
   return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
-};
-
-Ship.prototype.resurrect = function (game_field, undead_player) {
-  var new_ship = game_field.add_ship({heading: 2 * Math.PI * Math.random()});
-  undead_player.connect_ship(new_ship);
 };
 
 Ship.prototype.fire= function(debug){

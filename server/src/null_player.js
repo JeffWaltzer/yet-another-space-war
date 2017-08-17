@@ -14,4 +14,10 @@ NullPlayer.prototype.color= function() {
 NullPlayer.prototype.add_ship= function() {
 };
 
+NullPlayer.prototype.connect_ship= function() {
+};
+
+NullPlayer.prototype.arrange_for_resurrection= function() {
+};
+
 exports.NullPlayer = NullPlayer;
