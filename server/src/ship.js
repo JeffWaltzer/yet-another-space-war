@@ -68,6 +68,8 @@ Ship.prototype.gun_point= function() {
 };
 
 Ship.prototype.explode = function() {
+  if (this._exploded) return;
+  this._exploded=true;
   var the_player = this.player();
   var game_field = this.game_field;
 
@@ -113,7 +115,7 @@ Ship.prototype.score= function() {
 };
 
 Ship.prototype.point_value= function() {
-  return 1;
+  return this._exploded ? 0: 1;
 };
 
 Ship.prototype.shape= function(new_value) {
