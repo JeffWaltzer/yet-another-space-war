@@ -4,14 +4,17 @@ angular.module('YASW').factory(
     function () {
 
       var button_bindings= {
-        fire: 7,
-        thrust: 9,
-        left: 1,
-        right: 2
+        'default' : {
+          fire: 7,
+          thrust: 9,
+          left: 1,
+          right: 2
+        }
       };
 
+
       var number_of_buttons= function() {
-        return _(_(button_bindings).values()).max() + 1;
+        return _(_(button_bindings['default']).values()).max() + 1;
       };
 
       function fake_buttons() {
@@ -33,7 +36,7 @@ angular.module('YASW').factory(
       }
 
       GamepadState.prototype.fire = function (new_value) {
-        var fire_button = this.buttons[button_bindings.fire];
+        var fire_button = this.buttons[button_bindings['default'].fire];
 
         if (new_value!==undefined)
           fire_button.pressed = new_value;
@@ -42,7 +45,7 @@ angular.module('YASW').factory(
       };
 
       GamepadState.prototype.thrust = function (new_value) {
-        var thrust_button = this.buttons[button_bindings.thrust];
+        var thrust_button = this.buttons[button_bindings['default'].thrust];
 
         if (new_value!==undefined)
           thrust_button.pressed = new_value;
@@ -51,7 +54,7 @@ angular.module('YASW').factory(
       };
 
       GamepadState.prototype.left = function (new_value) {
-        var left_button = this.buttons[button_bindings.left];
+        var left_button = this.buttons[button_bindings['default'].left];
 
         if (new_value!==undefined)
           left_button.pressed = new_value;
@@ -60,7 +63,7 @@ angular.module('YASW').factory(
       };
 
       GamepadState.prototype.right = function (new_value) {
-        var right_button = this.buttons[button_bindings.right];
+        var right_button = this.buttons[button_bindings['default'].right];
 
         if (new_value!==undefined)
           right_button.pressed = new_value;
