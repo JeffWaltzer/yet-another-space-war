@@ -9,6 +9,12 @@ angular.module('YASW').factory(
           thrust: 9,
           left: 1,
           right: 2
+        },
+        'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)' : {
+          fire: 10,
+          thrust: 11,
+          left: 6,
+          right: 7
         }
       };
 
@@ -32,11 +38,16 @@ angular.module('YASW').factory(
       }
 
       function GamepadState(dom_gamepad) {
+        if (dom_gamepad && _(_(button_bindings).keys()).contains(dom_gamepad.id))
+          this.id= dom_gamepad.id;
+        else
+          this.id= 'default';
+
         this.buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
       }
 
       GamepadState.prototype.fire = function (new_value) {
-        var fire_button = this.buttons[button_bindings['default'].fire];
+        var fire_button = this.buttons[button_bindings[this.id].fire];
 
         if (new_value!==undefined)
           fire_button.pressed = new_value;
@@ -45,7 +56,7 @@ angular.module('YASW').factory(
       };
 
       GamepadState.prototype.thrust = function (new_value) {
-        var thrust_button = this.buttons[button_bindings['default'].thrust];
+        var thrust_button = this.buttons[button_bindings[this.id].thrust];
 
         if (new_value!==undefined)
           thrust_button.pressed = new_value;
@@ -54,7 +65,7 @@ angular.module('YASW').factory(
       };
 
       GamepadState.prototype.left = function (new_value) {
-        var left_button = this.buttons[button_bindings['default'].left];
+        var left_button = this.buttons[button_bindings[this.id].left];
 
         if (new_value!==undefined)
           left_button.pressed = new_value;
@@ -63,7 +74,7 @@ angular.module('YASW').factory(
       };
 
       GamepadState.prototype.right = function (new_value) {
-        var right_button = this.buttons[button_bindings['default'].right];
+        var right_button = this.buttons[button_bindings[this.id].right];
 
         if (new_value!==undefined)
           right_button.pressed = new_value;
