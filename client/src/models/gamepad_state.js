@@ -15,6 +15,18 @@ angular.module('YASW').factory(
           thrust: 11,
           left: 6,
           right: 7
+        },
+        'THRUSTMASTER FireStorm Dual Power 2  (Vendor: 044f Product: b304)' : {
+          fire: 7,
+          thrust: 9,
+          left: 1,
+          right: 2
+        },
+        'Saitek PLC Cyborg Force Rumble Pad (Vendor: 06a3 Product: ff0c)' : {
+          fire: 6,
+          thrust: 2,
+          left: 1,
+          right: 3
         }
       };
 

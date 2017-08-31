@@ -82,9 +82,11 @@ describe "When we see a new gamepad with a non-default id", ->
             {pressed: false},
             {pressed: false},
             {pressed: false},
+            {pressed: false},
+            {pressed: false},
+            {pressed: false},
+            {pressed: false},
             {pressed: true},
-            {pressed: false},
-            {pressed: false},
             {pressed: false},
           ]
         }
