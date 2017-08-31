@@ -1,14 +1,15 @@
-describe "Gamepad", ->
+describe "When we have a gamepad and see a new one with the same id", ->
   beforeEach module("YASW")
 
-  the_gamepad = null
+  original_gamepad = null
+  new_gamepad = null
   Gamepad = null
 
   beforeEach inject((_Gamepad_) ->
     Gamepad = _Gamepad_
 
-    the_gamepad = new Gamepad('us', {})
-    Gamepad.gamepads.push(the_gamepad);
+    original_gamepad = new Gamepad('us', {})
+    Gamepad.gamepads.push(original_gamepad);
 
     Gamepad.dom_gamepads = ->
       [
@@ -45,13 +46,15 @@ describe "Gamepad", ->
       ]
 
     Gamepad.poll_gamepads()
+
+    new_gamepad= Gamepad.gamepads[1]
   )
 
-  it 'updates from dom gamepad into gamepad state', ->
-    expect(the_gamepad.last_gamepad_state.buttons[0].pressed).toBeTruthy()
+  it "updates the correct gamepad's state", ->
+    expect(original_gamepad.last_gamepad_state.buttons[0].pressed).toBeTruthy()
 
   it 'creates a new gamepad', ->
-    expect(Gamepad.gamepads.length).toEqual(2)
+    expect(new_gamepad).not.toBeNull()
 
   it 'updates the new gamepad', ->
-    expect(Gamepad.gamepads[1].last_gamepad_state.buttons[1].pressed).toBeTruthy()
+    expect(new_gamepad.last_gamepad_state.buttons[1].pressed).toBeTruthy()
