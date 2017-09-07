@@ -2,6 +2,7 @@ var _= require('underscore');
 
 var Bullet=require('./bullet').Bullet;
 var Ship=require('./ship').Ship;
+var Sun=require('./sun').Sun;
 var NullPlayer= require('./null_player').NullPlayer;
 
 var MathUtil= require('./math_util');
@@ -75,6 +76,10 @@ GameField.prototype.place_ship= function(ship) {
 
 GameField.prototype.add_bullet= function(parameters) {
   return this.add_screen_object(new Bullet(parameters));
+};
+
+GameField.prototype.add_sun= function(parameters) {
+  return this.add_screen_object(new Sun(parameters));
 };
 
 
