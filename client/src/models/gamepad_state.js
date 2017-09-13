@@ -11,10 +11,10 @@ angular.module('YASW').factory(
           right: 2
         },
         'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)' : {
-          fire: 10,
+          fire: 6,
           thrust: 11,
-          left: 6,
-          right: 7
+          left: 3,
+          right: 1,
         },
         'THRUSTMASTER FireStorm Dual Power 2  (Vendor: 044f Product: b304)' : {
           fire: 7,
