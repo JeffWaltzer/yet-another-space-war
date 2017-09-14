@@ -81,11 +81,11 @@ describe "When we see a new gamepad with a non-default id", ->
           left: 1,
           right: 2
         },
-        'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)' : {
-          fire: 6,
-          thrust: 11,
+        'our-binding' : {
+          fire: 1,
+          thrust: 2,
           left: 3,
-          right: 1,
+          right: 5,
         },
       }
     )
@@ -93,16 +93,10 @@ describe "When we see a new gamepad with a non-default id", ->
     Gamepad.dom_gamepads = ->
       [
         {
-          id: 'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)'
+          id: 'our-binding',
           buttons: [
             {pressed: false},
-            {pressed: false},
-            {pressed: false},
-            {pressed: false},
-            {pressed: false},
-            {pressed: false},
             {pressed: true},
-            {pressed: false},
             {pressed: false},
             {pressed: false},
             {pressed: false},

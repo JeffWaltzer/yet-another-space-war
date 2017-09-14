@@ -59,6 +59,7 @@ angular.module('YASW').factory(
       }
 
       GamepadState.set_button_bindings= function(new_value) {
+	button_bindings= new_value;
       };
       
       GamepadState.prototype.fire = function (new_value) {
