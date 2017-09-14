@@ -58,6 +58,9 @@ angular.module('YASW').factory(
         this.buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
       }
 
+      GamepadState.set_button_bindings= function(new_value) {
+      };
+      
       GamepadState.prototype.fire = function (new_value) {
         var fire_button = this.buttons[button_bindings[this.id].fire];
 

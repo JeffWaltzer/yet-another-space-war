@@ -67,9 +67,28 @@ describe "When we see a new gamepad with a non-default id", ->
 
   new_gamepad = null
   Gamepad = null
+  GamepadState= null
 
-  beforeEach inject((_Gamepad_) ->
+  beforeEach inject((_Gamepad_, _GamepadState_) ->
     Gamepad = _Gamepad_
+    GamepadState = _GamepadState_
+
+    GamepadState.set_button_bindings(
+      {
+        'default' : {
+          fire: 7,
+          thrust: 9,
+          left: 1,
+          right: 2
+        },
+        'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)' : {
+          fire: 6,
+          thrust: 11,
+          left: 3,
+          right: 1,
+        },
+      }
+    )
 
     Gamepad.dom_gamepads = ->
       [
