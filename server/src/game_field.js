@@ -108,11 +108,11 @@ GameField.prototype.game_board= function() {
   });
 };
 
-GameField.prototype.remove_dead_objects= function() {
+GameField.prototype.remove_dead_objects = function () {
   this.screen_objects(
     _(this.screen_objects()).filter(
-      function(screen_object) {
-	return screen_object.live();
+      function (screen_object) {
+        return screen_object.live();
       }));
 };
 
@@ -182,7 +182,7 @@ GameField.prototype.maybe_bump_score= function(screen_object, o) {
 };
 
 GameField.prototype.handle_collisions= function() {
-  this.remove_screen_objects(this.dead_objects());
+  this.dead_objects();
 };
 
 exports.GameField= GameField;

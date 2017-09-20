@@ -116,6 +116,7 @@ ScreenObject.prototype.bump_player_score = function (other_object) {
 };
 
 ScreenObject.prototype.explode = function() {
+  this.game_field.remove_screen_object(this);
 };
 
 ScreenObject.prototype.is_bullet = function () {

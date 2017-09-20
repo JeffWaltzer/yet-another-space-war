@@ -73,7 +73,10 @@ Ship.prototype.explode = function() {
   var the_player = this.player();
   var game_field = this.game_field;
 
-  game_field.remove_screen_object(this);
+  Ship.super_.prototype.explode.call(this);
+  this.player(null);
+  the_player.ship = null;
+
   the_player.arrange_for_resurrection(game_field);
 
   return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
