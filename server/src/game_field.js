@@ -147,30 +147,6 @@ GameField.prototype.remove_screen_object= function(to_remove) {
     }));
 };
 
-GameField.prototype.dead_objects= function() {
-  var to_remove = [];
-  for (var i = 0; i < this.screen_objects().length; i++) {
-    var screen_object = this.screen_objects()[i];
-    var objects_collided_with = this.collisions_with(screen_object, i + 1);
-
-    if (objects_collided_with.length > 0) {
-
-      _(objects_collided_with).each(
-        _(function (screen_object1, screen_object2) {
-            this.maybe_bump_score(screen_object1, screen_object2);
-            this.maybe_explode(screen_object1, screen_object2);
-          }
-        ).bind(this, screen_object));
-
-      to_remove.push(screen_object);
-    }
-    to_remove = to_remove.concat(objects_collided_with);
-  }
-  return to_remove;
-};
-
-
-
 GameField.prototype.maybe_explode= function(screen_object, o) {
   screen_object.explode();
   o.explode();
@@ -182,7 +158,18 @@ GameField.prototype.maybe_bump_score= function(screen_object, o) {
 };
 
 GameField.prototype.handle_collisions= function() {
-  this.dead_objects();
+  for (var i = 0; i < this.screen_objects().length; i++) {
+    var screen_object = this.screen_objects()[i];
+    var objects_collided_with = this.collisions_with(screen_object, i + 1);
+    if (objects_collided_with.length > 0) {
+      _(objects_collided_with).each(
+        _(function (screen_object1, screen_object2) {
+            this.maybe_bump_score(screen_object1, screen_object2);
+            this.maybe_explode(screen_object1, screen_object2);
+          }
+        ).bind(this, screen_object));
+    }
+  }
 };
 
 exports.GameField= GameField;
