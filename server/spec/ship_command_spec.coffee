@@ -1,6 +1,6 @@
 yasw = require './../../src/yasw_server'
 engine_client = require 'engine.io-client'
-ship = require './../../src/ship'
+Ship = require('./../../src/ship').Ship
 
 describe 'the server, when asked for ship data ', ->
   server= undefined
@@ -26,7 +26,7 @@ describe 'the server, when asked for ship data ', ->
       setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.game.game_field.screen_objects()[0].angular_velocity).toEqual(expected_angular_velocity)
+          expect(server.game.game_field.screen_objects_of_type(Ship)[0].angular_velocity).toEqual(expected_angular_velocity)
           done()
         ),50
 
@@ -36,7 +36,7 @@ describe 'the server, when asked for ship data ', ->
       setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.game.game_field.screen_objects()[0].acceleration).toEqual(expected_acceleration)
+          expect(server.game.game_field.screen_objects_of_type(Ship)[0].acceleration).toEqual(expected_acceleration)
           done()
         ),50
 
@@ -44,10 +44,10 @@ describe 'the server, when asked for ship data ', ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, init_ship, test, done)
-      spyOn(server.game.game_field.screen_objects()[0],'fire')
+      spyOn(server.game.game_field.screen_objects_of_type(Ship)[0],'fire')
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.game.game_field.screen_objects()[0].fire).toHaveBeenCalled()
+          expect(server.game.game_field.screen_objects_of_type(Ship)[0].fire).toHaveBeenCalled()
           done()
         ),50
 
@@ -57,7 +57,7 @@ describe 'the server, when asked for ship data ', ->
       setup_ship(socket, null, test, done)
       socket.send JSON.stringify({'command': 'clone'}) , ->
         setTimeout (->
-          expect(server.game.game_field.screen_objects().length).toEqual(2)
+          expect(server.game.game_field.screen_objects_of_type(Ship).length).toEqual(2)
           done()
         ),50
 
@@ -65,7 +65,7 @@ describe 'the server, when asked for ship data ', ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
     socket.on 'open', ->
       setup_ship(socket, null, test, done)
-      the_ship = server.game.game_field.screen_objects()[0]
+      the_ship = server.game.game_field.screen_objects_of_type(Ship)[0]
       spyOn(the_ship, 'stop_screen_updates')
       socket.send JSON.stringify({'command': 'stop-screen-updates'}), ->
         setTimeout (->
@@ -74,17 +74,17 @@ describe 'the server, when asked for ship data ', ->
         ), 50
 
   it 'starts with no ships', () ->
-    expect(server.game.game_field.screen_objects().length).toEqual(0)
+    expect(server.game.game_field.screen_objects_of_type(Ship).length).toEqual(0)
 
   it 'sets ship negative angular_velocity on rotate_left', (done) ->
-    check_angular_velocity "rotate_left", -ship.Ship.rotation_rate, server, this, null, done
+    check_angular_velocity "rotate_left", -Ship.rotation_rate, server, this, null, done
 
   it 'sets ship postive angular_velocity on rotate_right', (done) ->
-    check_angular_velocity "rotate_right", ship.Ship.rotation_rate, server, this, null, done
+    check_angular_velocity "rotate_right", Ship.rotation_rate, server, this, null, done
 
   it 'sets ship no angular_velocity on rotate_stop', (done) ->
     set_angular_velocity = ->
-      server.game.game_field.screen_objects()[0].angular_velocity = 1
+      server.game.game_field.screen_objects_of_type(Ship)[0].angular_velocity = 1
     check_angular_velocity "rotate_stop", 0, server, this, set_angular_velocity, done
 
   it 'sets acceleration on thrust_on', (done) ->
@@ -92,7 +92,7 @@ describe 'the server, when asked for ship data ', ->
 
   it 'sets no acceleration on thrust_off', (done) ->
     set_acceleration= ->
-      server.game.game_field.screen_objects()[0].acceleration= 1
+      server.game.game_field.screen_objects_of_type(Ship)[0].acceleration= 1
     check_acceleration "thrust_off", 0, server, this, set_acceleration, done
 
   it 'fires a bullet on command', (done) ->

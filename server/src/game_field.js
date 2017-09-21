@@ -79,7 +79,9 @@ GameField.prototype.add_bullet= function(parameters) {
 };
 
 GameField.prototype.add_sun= function(parameters) {
-  return this.add_screen_object(new Sun(parameters));
+  var new_sun = new Sun(parameters);
+  new_sun.game_field = this;
+  return this.add_screen_object(new_sun);
 };
 
 
@@ -170,6 +172,12 @@ GameField.prototype.handle_collisions= function() {
         ).bind(this, screen_object));
     }
   }
+};
+
+GameField.prototype.screen_objects_of_type= function(type) {
+  return _(this.screen_objects()).select(function(screen_object) {
+    return screen_object instanceof type;
+  });
 };
 
 exports.GameField= GameField;

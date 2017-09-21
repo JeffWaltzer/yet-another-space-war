@@ -143,6 +143,12 @@ ScreenObject.prototype.score = function() {
   return 0;
 };
 
+ScreenObject.prototype.fire = function() {
+};
+
+ScreenObject.prototype.stop_screen_updates = function (){
+};
+
 ScreenObject.prototype.color = function (new_value) {
   if (new_value) {
     this.shape()[0]._color = new_value;
