@@ -34,7 +34,7 @@ describe "game#tick" , ->
     ships.push server.game.game_field.add_ship({
       angular_velocity: 0,
       heading: 0,
-      position: [10, 10]
+      position: [50, 0]
     })
 
     ships.push server.game.game_field.add_ship({
@@ -92,7 +92,7 @@ describe "game#tick" , ->
     message= JSON.parse(sent_data)
     outlines= message.polygons
 
-    expect(Object.keys(outlines).length).toEqual(6)
+    expect(Object.keys(outlines).length).toEqual(7)
 
   it 'updates bullets', ->
     expect(bullet.life_left).toBeCloseTo(20 - 1/server.tick_rate, 6)

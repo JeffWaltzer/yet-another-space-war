@@ -1,8 +1,8 @@
 underscore = require('underscore')
 yasw = require './../../src/yasw_server'
-ship = require './../../src/ship'
+Ship = require('./../../src/ship').Ship
 Fragment = require( './../../src/fragment').Fragment
-Polygon= require('./../../src/polygon').Polygon;
+Polygon= require('./../../src/polygon').Polygon
 
 describe 'game tick', ->
   game_field = undefined
@@ -19,7 +19,7 @@ describe 'game tick', ->
     game.tick()
 
   it 'does not collide', ->
-    expect(game_field.screen_objects().length).toEqual(2)
+    expect(game_field.screen_objects_of_type(Fragment).length).toEqual(2)
 
 describe "game#tick" , ->
   server= undefined
@@ -36,7 +36,7 @@ describe "game#tick" , ->
       tick_rate: 10                 # ticks/s
       fragment_lifetime: 20
     })
-    heading_change= ship.Ship.rotation_rate/server.tick_rate;
+    heading_change= Ship.rotation_rate/server.tick_rate;
     ships=[]
     ships.push server.game.game_field.add_ship({rotation:  0, heading:          0, points: [[5, 0]], position: [10, 10]})
     ships.push server.game.game_field.add_ship({rotation:  0, heading:  Math.PI/2, points: [[3, 0]], position: [20, 20]})
