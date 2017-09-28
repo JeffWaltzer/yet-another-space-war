@@ -19,7 +19,7 @@ describe 'game tick', ->
     game.tick()
 
   it 'does not collide', ->
-    expect(game_field.screen_objects_of_type(Fragment).length).toEqual(2)
+    expect(game_field.fragments().length).toEqual(2)
 
 describe "game#tick" , ->
   server= undefined

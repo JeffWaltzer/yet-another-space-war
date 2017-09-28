@@ -37,12 +37,12 @@ describe "`sun`#outline", ->
     server= yasw.createServer()
 
   it "shows the sun", ->
-    expect(server.game.game_field.screen_objects()[0].outline()).toAproximatelyEqual([[10, 0]], 1e-6)
+    expect(server.game.game_field.suns()[0].outline()).toAproximatelyEqual([[10, 0]], 1e-6)
 
   it 'does not explode', ->
-    the_sun= server.game.game_field.screen_objects_of_type(Sun)[0]
+    the_sun= server.game.game_field.suns()[0]
     the_sun.explode()
-    expect(server.game.game_field.screen_objects_of_type(Sun).length).toEqual(1)
+    expect(server.game.game_field.suns().length).toEqual(1)
 
   afterEach ->
     server= null

@@ -3,6 +3,7 @@ var _= require('underscore');
 var Bullet=require('./bullet').Bullet;
 var Ship=require('./ship').Ship;
 var Sun=require('./sun').Sun;
+var Fragment=require('./fragment').Fragment;
 var NullPlayer= require('./null_player').NullPlayer;
 
 var MathUtil= require('./math_util');
@@ -172,6 +173,22 @@ GameField.prototype.handle_collisions= function() {
         ).bind(this, screen_object));
     }
   }
+};
+
+GameField.prototype.ships= function() {
+  return this.screen_objects_of_type(Ship);
+};
+
+GameField.prototype.bullets= function() {
+  return this.screen_objects_of_type(Bullet);
+};
+
+GameField.prototype.fragments= function() {
+  return this.screen_objects_of_type(Fragment);
+};
+
+GameField.prototype.suns= function() {
+  return this.screen_objects_of_type(Sun);
 };
 
 GameField.prototype.screen_objects_of_type= function(type) {

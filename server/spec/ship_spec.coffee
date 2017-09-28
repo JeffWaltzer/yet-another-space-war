@@ -33,13 +33,13 @@ describe "ship#outline", ->
     ship.update_outline();
 
   it "updates the ship position for heading -π/2", ->
-    expect(server.game.game_field.screen_objects_of_type(Ship)[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
+    expect(server.game.game_field.ships()[0].outline()).toAproximatelyEqual([[0, -10]], 1e-6)
 
   it "doesn't change the ship position for heading 0", ->
-    expect(server.game.game_field.screen_objects_of_type(Ship)[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
+    expect(server.game.game_field.ships()[1].outline()).toAproximatelyEqual([[5, 0]], 1e-6)
 
   it "doesn't change the ship position for heading π/2", ->
-    expect(server.game.game_field.screen_objects_of_type(Ship)[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
+    expect(server.game.game_field.ships()[2].outline()).toAproximatelyEqual([[0, 3]], 1e-6)
 
   afterEach ->
     server= null
@@ -55,16 +55,16 @@ describe "Ship#gun_point", ->
     server.game.game_field.add_ship({position: [10, 10], heading: Math.PI})
 
   it "expect correct gun_point for unrotated ship", ->
-    expect(server.game.game_field.screen_objects_of_type(Ship)[0].gun_point().x()).toEqual(21)
-    expect(server.game.game_field.screen_objects_of_type(Ship)[0].gun_point().y()).toEqual(0)
+    expect(server.game.game_field.ships()[0].gun_point().x()).toEqual(21)
+    expect(server.game.game_field.ships()[0].gun_point().y()).toEqual(0)
 
   it "expect correct gun_point for rotated ship", ->
-    expect(server.game.game_field.screen_objects_of_type(Ship)[1].gun_point().x()).toBeCloseTo(0, 6)
-    expect(server.game.game_field.screen_objects_of_type(Ship)[1].gun_point().y()).toBeCloseTo(21,  6)
+    expect(server.game.game_field.ships()[1].gun_point().x()).toBeCloseTo(0, 6)
+    expect(server.game.game_field.ships()[1].gun_point().y()).toBeCloseTo(21,  6)
 
   it "expect correct gun_point for rotated and translated ship", ->
-    expect(server.game.game_field.screen_objects_of_type(Ship)[2].gun_point().x()).toBeCloseTo(-11, 6)
-    expect(server.game.game_field.screen_objects_of_type(Ship)[2].gun_point().y()).toBeCloseTo(10, 6)
+    expect(server.game.game_field.ships()[2].gun_point().x()).toBeCloseTo(-11, 6)
+    expect(server.game.game_field.ships()[2].gun_point().y()).toBeCloseTo(10, 6)
 
   afterEach ->
     server= null
@@ -80,7 +80,7 @@ describe "Ship#fire", ->
     the_ship.fire()
 
   it "adds a bullet", ->
-    expect(the_game.game_field.screen_objects_of_type(Bullet).length).toEqual(1)
+    expect(the_game.game_field.bullets().length).toEqual(1)
 
   afterEach ->
     the_game= null
@@ -98,7 +98,7 @@ describe "Ship#clone", ->
     the_ship.clone()
 
   it "adds a ship", ->
-    expect(the_game.game_field.screen_objects_of_type(Ship).length).toEqual(2)
+    expect(the_game.game_field.ships().length).toEqual(2)
 
   afterEach ->
     the_game= null
