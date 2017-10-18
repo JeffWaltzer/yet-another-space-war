@@ -21,7 +21,8 @@ describe "game#tick when ship and bullet collide" , ->
       (screen_object) ->
         screen_object.is_fragment())
 
-    expect(remaining_screen_objects.length).toEqual(0)
+    expect(the_game.game_field.ships().length).toEqual(0)
+    expect(the_game.game_field.bullets().length).toEqual(0)
 
   afterEach ->
     the_game = null

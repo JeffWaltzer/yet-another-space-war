@@ -24,7 +24,11 @@ exports.createServer= function(parameters) {
   yasw_server.field_size= new vector.Vector([right_edge, top_edge]);
 
   yasw_server.game= new game.Game(yasw_server);
-  yasw_server.game.game_field.add_sun({});
+
+  yasw_server.game.game_field.add_sun({
+    position: [yasw_server.field_size.x() / 2, yasw_server.field_size.y() / 2]
+  });
+
   yasw_server.game.start_ticking(yasw_server.tick_rate);
 
   yasw_server.on_new_websocket= function(socket) {
