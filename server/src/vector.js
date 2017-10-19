@@ -23,8 +23,8 @@ function Vector(coordinates) {
     }
     else if (coordinates.magnitude !== undefined  &&  coordinates.heading !== undefined) {
       this.coordinates= [
-	coordinates.magnitude * Math.cos(coordinates.heading),
-	coordinates.magnitude * Math.sin(coordinates.heading)
+        coordinates.magnitude * Math.cos(coordinates.heading),
+        coordinates.magnitude * Math.sin(coordinates.heading)
       ];
     }
     else {

@@ -2,6 +2,7 @@ underscore = require('underscore')
 yasw = require './../../src/yasw_server'
 ship = require './../../src/ship'
 Polygon= require('./../../src/polygon').Polygon
+Vector = require('./../../src/vector').Vector
 
 describe "server initialization", ->
   server= undefined
@@ -20,6 +21,7 @@ describe "game#tick" , ->
   ships = undefined
   bullet = undefined
   dead_bullet = undefined
+  expected_velocity = undefined
 
   beforeEach ->
     server= yasw.createServer({
@@ -74,10 +76,24 @@ describe "game#tick" , ->
 
     player.ship= viewing_ship;
 
+    the_sun = server.game.game_field.suns()[0]
+    the_ship = ships[0]
+
+    delta_x = the_sun.position().x() - the_ship.position().x()
+    delta_y = the_sun.position().y() - the_ship.position().y()
+
+    distance = Math.sqrt(delta_x * delta_x + delta_y * delta_y)
+    delta_v = the_sun.mass() * the_ship.mass() / (distance * distance)
+
+    expected_velocity = new Vector([delta_v * delta_x / distance, delta_v * delta_y / distance])
     server.game.tick()
 
   it "doesn't change the first ship's heading", ->
     expect(ships[0].heading).toBeCloseTo(0, 6)
+
+
+  it "updates the first ship's velocity from the sun's gravity", ->
+    expect(ships[0].velocity).toEqual(expected_velocity)
 
   it "doesn't change the second ship's heading", ->
     expect(ships[1].heading).toBeCloseTo(Math.PI/2, 6)

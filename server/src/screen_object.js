@@ -2,6 +2,7 @@ var _= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 var NullPlayer= require('./null_player').NullPlayer;
+var Vector = require('./vector').Vector;
 
 function ScreenObject(initial_state) {
   this.game_field= initial_state.game_field;
@@ -64,7 +65,24 @@ ScreenObject.prototype.outline= function() {
   return this.outline_cache;
 };
 
+var square = function (x) {
+  return x * x;
+};
+
 ScreenObject.prototype.update= function(tick_rate) {
+  var the_sun = this.game_field.suns()[0];
+
+  if (the_sun && this !== the_sun) {
+    var delta_x = the_sun.position().x() - this.position().x();
+    var delta_y = the_sun.position().y() - this.position().y();
+
+    var distance = Math.sqrt(square(delta_x) + square(delta_y));
+    var delta_v_magnitude = the_sun.mass() * this.mass() / square(distance);
+
+    var delta_v = new Vector([delta_v_magnitude * delta_x / distance, delta_v_magnitude * delta_y / distance]);
+
+    this.velocity.add_to(delta_v);
+  }
   this._position.add_to(this.velocity.divide(tick_rate));
   this._position.clip_to(this.game_field.field_size());
   this.heading += this.angular_velocity / tick_rate;
@@ -110,6 +128,10 @@ ScreenObject.prototype.make_game_piece= function() {
 
 ScreenObject.prototype.point_value= function() {
   return 0;
+};
+
+ScreenObject.prototype.mass = function () {
+  return 100;
 };
 
 ScreenObject.prototype.bump_player_score = function (other_object) {
