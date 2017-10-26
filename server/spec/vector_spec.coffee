@@ -1,10 +1,11 @@
-vector= require '../../src/vector'
+require("./vector_equals")
+Vector= require("./../../src/vector").Vector
 
 describe "Vector creation", ->
   v= undefined
   describe "with no arguments", ->
     beforeEach ->
-      v= new vector.Vector()
+      v= new Vector()
 
     it "has the right x", ->
       expect(v.x()).toEqual(0)
@@ -17,7 +18,7 @@ describe "Vector creation", ->
 
   describe "from a two-element array", ->
     beforeEach ->
-      v= new vector.Vector([10, 20])
+      v= new Vector([10, 20])
 
     it "has the right x", ->
       expect(v.x()).toEqual(10)
@@ -30,7 +31,7 @@ describe "Vector creation", ->
 
   describe "from a three-element array", ->
     beforeEach ->
-      v= new vector.Vector([10, 20, 5])
+      v= new Vector([10, 20, 5])
 
     it "has the right x", ->
       expect(v.x()).toEqual(2)
@@ -43,7 +44,7 @@ describe "Vector creation", ->
 
   describe "from an object", ->
     beforeEach ->
-        v= new vector.Vector({
+        v= new Vector({
           magnitude: 10,
           heading: Math.PI/2
         })
@@ -57,25 +58,38 @@ describe "Vector creation", ->
   describe "Vector creation errors", ->
     it "barfs when handed a non-vector, non-hash", ->
       expect(->
-        new vector.Vector(10)
+        new Vector(10)
       ).toThrow()
 
     it "barfs when handed a short array", ->
       expect(->
-        new vector.Vector([10])
+        new Vector([10])
       ).toThrow()
 
     it "barfs when handed a long array", ->
       expect(->
-        new vector.Vector([15, 25, 35, 42])
+        new Vector([15, 25, 35, 42])
       ).toThrow()
 
     it "barfs when handed an object with no magnitude", ->
       expect(->
-        new vector.Vector({heading: 0})
+        new Vector({heading: 0})
         ).toThrow()
 
     it "barfs when handed an object with no heading", ->
       expect(->
-        new vector.Vector({magnitude: 5})
+        new Vector({magnitude: 5})
         ).toThrow()
+
+  describe "Vector#equal", ->
+    describe "two numerically identical vectors", ->
+      it "are equal", ->
+        expect(new Vector([10, 20])).toEqualVector(new Vector([10, 20]))
+
+    describe "two numerically different vectors", ->
+      it "are not equal", ->
+        expect(new Vector([10, 20])).not.toEqualVector(new Vector([15, 23]))
+
+    describe "a vector and a non-vector", ->
+      it "are not equal", ->
+        expect(new Vector([1, 2])).not.toEqualVector("ferd")

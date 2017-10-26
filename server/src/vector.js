@@ -65,5 +65,12 @@ Vector.prototype.divide= function(s) {
 		     this.y() / s]);
 };
 
+Vector.prototype.equal= function(v) {
+  return this.constructor == Vector &&
+    v.constructor == Vector &&
+    this.x() == v.x() &&
+    this.y() == v.y();
+};
+
 exports.Vector= Vector;
 

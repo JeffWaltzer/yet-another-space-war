@@ -12,6 +12,7 @@ function ScreenObject(initial_state) {
   this._player= initial_state.player || new NullPlayer();
   this.heading = initial_state.heading || 0;
   this.angular_velocity = initial_state.angular_velocity || 0;
+  this._mass= 100;
 
   this.update_outline();
 
@@ -130,8 +131,10 @@ ScreenObject.prototype.point_value= function() {
   return 0;
 };
 
-ScreenObject.prototype.mass = function () {
-  return 100;
+ScreenObject.prototype.mass = function (new_value) {
+  if (new_value)
+    this._mass= new_value;
+  return this._mass;
 };
 
 ScreenObject.prototype.bump_player_score = function (other_object) {
