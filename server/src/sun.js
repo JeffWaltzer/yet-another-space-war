@@ -16,11 +16,13 @@ function Sun(initial_state) {
       [-2, 2]
     ],
     'orange')];
+
+  initial_state.mass = 0.1;
+
   screen_object.ScreenObject.call(this, initial_state);
 }
 
 util.inherits(Sun, screen_object.ScreenObject);
-
 
 Sun.prototype.explode = function() {
 };

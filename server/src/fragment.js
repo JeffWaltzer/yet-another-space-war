@@ -4,6 +4,8 @@ var MortalObject= require('./mortal_object');
 var util = require('util');
 
 function Fragment(initial_state) {
+  initial_state.mass = 0.1;
+
   screen_object.ScreenObject.call(this, initial_state);
 
   this.life_left = initial_state.life_left || 3;

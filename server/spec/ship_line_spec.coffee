@@ -3,11 +3,7 @@ Polygon= require('./../../src/polygon').Polygon;
 
 describe 'a ships lines' , ->
   it 'should have lines', ->
-    the_ship = new ship.Ship(
-      0,
-      0,
-      0,
-    )
+    the_ship = new ship.Ship {}
     the_ship.shape( [new Polygon([[0,0],[1,2],[2,3]])])
     the_ship.update_outline()
 
@@ -20,11 +16,7 @@ describe 'a ships lines' , ->
     )
 
   it 'should have lines for 2 polygons', ->
-    the_ship = new ship.Ship(
-      0,
-      0,
-      0,
-    )
+    the_ship = new ship.Ship {}
     the_ship.shape(  [
       new Polygon([[0,0],[1,2],[2,3]]),
       new Polygon([[3,4],[4,5],[5,6]])
@@ -45,10 +37,7 @@ describe 'a ships lines' , ->
 
   it 'should have lines', ->
     the_ship = new ship.Ship(
-        position: [11,12],
-      0,
-      0,
-      0,
+        position: [11,12]
     )
     the_ship.shape( [new Polygon([[0,0],[1,2],[2,3]])])
     the_ship.update_outline()

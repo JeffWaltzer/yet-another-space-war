@@ -6,6 +6,9 @@ var Polygon= require('./polygon').Polygon;
 
 function Bullet(initial_state) {
   initial_state.shape= [new Polygon([[-1, -1], [-1, 1], [1, 1], [1, -1]])];
+
+  initial_state.mass = 0.1;
+
   ScreenObject.call(this, initial_state);
 
   this.life_left = initial_state.life_left || 0;

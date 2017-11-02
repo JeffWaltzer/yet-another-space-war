@@ -5,6 +5,11 @@ var NullPlayer= require('./null_player').NullPlayer;
 var Vector = require('./vector').Vector;
 
 function ScreenObject(initial_state) {
+
+  if (!initial_state.mass) {
+    throw 'Mass is required';
+  }
+
   this.game_field= initial_state.game_field;
   this.shape(initial_state.shape);
   this._position = new vector.Vector(initial_state.position || [0, 0]);
@@ -12,7 +17,7 @@ function ScreenObject(initial_state) {
   this._player= initial_state.player || new NullPlayer();
   this.heading = initial_state.heading || 0;
   this.angular_velocity = initial_state.angular_velocity || 0;
-  this._mass= 100;
+  this.mass(initial_state.mass);
 
   this.update_outline();
 
