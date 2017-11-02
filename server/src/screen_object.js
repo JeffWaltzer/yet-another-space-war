@@ -78,7 +78,7 @@ ScreenObject.prototype.update= function(tick_rate) {
     var delta_y = the_sun.position().y() - this.position().y();
 
     var distance = Math.sqrt(square(delta_x) + square(delta_y));
-    var delta_v_magnitude = the_sun.mass() * this.mass() / square(distance);
+    var delta_v_magnitude = this.game_field.G() * the_sun.mass() * this.mass() / square(distance);
 
     var delta_v = new Vector([delta_v_magnitude * delta_x / distance, delta_v_magnitude * delta_y / distance]);
 

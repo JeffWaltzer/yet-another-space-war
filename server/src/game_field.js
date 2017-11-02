@@ -13,6 +13,7 @@ var Polygon= require('./polygon').Polygon;
 function GameField(initial_state) {
   this._field_size = initial_state.field_size || new Vector([800,600]);
   this._screen_objects=[];
+  this._G = initial_state.G || 1;
   this.next_id = 0;
 }
 
@@ -195,6 +196,13 @@ GameField.prototype.screen_objects_of_type= function(type) {
   return _(this.screen_objects()).select(function(screen_object) {
     return screen_object instanceof type;
   });
+};
+
+GameField.prototype.G = function (new_value) {
+  if (new_value)
+    this._G = new_value;
+  return this._G;
+
 };
 
 exports.GameField= GameField;
