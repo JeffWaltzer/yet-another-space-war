@@ -27,6 +27,8 @@ describe 'sun', ->
         ],
         'orange')])
 
+  it "has the correct mass", ->
+    expect(the_sun.mass()).toEqual(30000)
 
 describe "`sun`#outline", ->
   server= undefined

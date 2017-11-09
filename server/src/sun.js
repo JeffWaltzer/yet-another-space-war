@@ -17,7 +17,7 @@ function Sun(initial_state) {
     ],
     'orange')];
 
-  initial_state.mass = 0.1;
+  initial_state.mass = 30000;
 
   screen_object.ScreenObject.call(this, initial_state);
 }

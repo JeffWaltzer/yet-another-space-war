@@ -22,6 +22,9 @@ describe "bullet", ->
     expect(the_bullet.velocity.x()).toEqual(0)
     expect(the_bullet.velocity.y()).toEqual(0)
 
+  it 'has the correct mass', ->
+    expect(the_bullet.mass()).toEqual(0.01)
+
 describe "bullet with explicit values", ->
   the_bullet = undefined
   fake_ship = undefined

@@ -29,6 +29,9 @@ describe "fragment", ->
     expect(the_fragment.velocity.x()).toEqual(0)
     expect(the_fragment.velocity.y()).toEqual(0)
 
+  it 'has the correct mass', ->
+    expect(the_fragment.mass()).toEqual(0.2)
+
 
 describe "fragment with explicit values", ->
   the_fragment = undefined

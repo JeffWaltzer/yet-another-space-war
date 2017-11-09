@@ -28,10 +28,10 @@ describe "gravity", ->
     the_game_field.update_screen_objects(1)
     expect(the_ship.position()).toEqualVector(new Vector([2/(100*100), 100]))
 
-  it "gets twice as strong with double the ship mass", ->
+  it "stays the same with double the ship mass", ->
     the_ship.mass(2)
     the_game_field.update_screen_objects(1)
-    expect(the_ship.position()).toEqualVector(new Vector([2/(100*100), 100]))
+    expect(the_ship.position()).toEqualVector(new Vector([1/(100*100), 100]))
 
   it "has twice the effect with twice the time", ->
     the_game_field.update_screen_objects(1/2)

@@ -13,6 +13,9 @@ describe 'ship', ->
   it 'is a ship', ->
     expect(the_ship.is_ship()).toEqual(true)
 
+  it 'has the correct mass', ->
+    expect(the_ship.mass()).toEqual(1.0)
+
 describe "ship#outline", ->
   server= undefined
   beforeEach ->

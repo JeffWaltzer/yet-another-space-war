@@ -83,11 +83,11 @@ ScreenObject.prototype.update= function(tick_rate) {
     var delta_y = the_sun.position().y() - this.position().y();
 
     var distance = Math.sqrt(square(delta_x) + square(delta_y));
-    var delta_v_magnitude = this.game_field.G() * the_sun.mass() * this.mass() / square(distance);
+    var force_magnitude = this.game_field.G() * the_sun.mass() * this.mass() / square(distance);
 
-    var delta_v = new Vector([delta_v_magnitude * delta_x / distance, delta_v_magnitude * delta_y / distance]);
+    var force = new Vector([force_magnitude * delta_x / distance, force_magnitude * delta_y / distance]);
 
-    this.velocity.add_to(delta_v);
+    this.velocity.add_to(force.divide(this.mass()));
   }
   this._position.add_to(this.velocity.divide(tick_rate));
   this._position.clip_to(this.game_field.field_size());

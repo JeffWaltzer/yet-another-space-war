@@ -10,7 +10,7 @@ var Player=require('./player').Player;
 function Ship(initial_state) {
   initial_state.shape = [ new Polygon([[-10, 10], [20, 0], [-10, -10], [0, 0]]) ];
 
-  initial_state.mass = 0.1;
+  initial_state.mass = 1.0;
 
   screen_object.ScreenObject.call(this, initial_state);
 
