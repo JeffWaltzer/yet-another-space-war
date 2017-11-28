@@ -6,6 +6,7 @@ var _= require('underscore');
 var ship= require('./ship');
 var game= require('./game');
 var vector= require('./vector');
+var Polygon= require('./polygon').Polygon;
 
 exports.createServer= function(parameters) {
   var yasw_server= {};
@@ -26,7 +27,43 @@ exports.createServer= function(parameters) {
   yasw_server.game= new game.Game(yasw_server);
 
   yasw_server.game.game_field.add_sun({
-    position: [yasw_server.field_size.x() / 2, yasw_server.field_size.y() / 2]
+    position: [yasw_server.field_size.x() / 2, yasw_server.field_size.y() / 2],
+    shapes: [
+      [new Polygon(
+	  [
+	    [0, 20],
+	    [14, 14],
+	    [20, 0],
+	    [14, -14],
+	    [0, -20],
+	    [-14, -14],
+	    [-20, 0],
+	    [-14, 14]
+	  ],
+	'orange'),
+      ],
+      [new Polygon(
+	[
+	  [0, 20],
+          [0, 40],
+          [0, 20],
+	  [14, 14],
+	  [20, 0],
+	  [40, 0],
+	  [20, 0],
+	  [14, -14],
+	  [0, -20],
+	  [0, -40],
+	  [0, -20],
+	  [-14, -14],
+	  [-20, 0],
+	  [-40, 0],
+	  [-20, 0],
+	  [-14, 14]
+	],
+	'orange'),
+      ],
+    ]
   });
 
   yasw_server.game.start_ticking(yasw_server.tick_rate);

@@ -3,7 +3,6 @@ var screen_object = require('./screen_object');
 var util = require('util');
 
 function Sun(initial_state) {
-
   if (initial_state.shapes) {
     this._shapes = initial_state.shapes;
   }
@@ -48,11 +47,12 @@ Sun.prototype.is_sun = function () {
 };
 
 Sun.prototype.update= function(tick_rate) {
-  this._shape_index= (this._shape_index + tick_rate/this._animation_rate) % this._shapes.length;
+  this._shape_index= (this._shape_index + this._animation_rate/tick_rate) % this._shapes.length;
+  this.update_outline();
 };
 
 exports.Sun = Sun;
 
 Sun.prototype.shape = function () {
-  return this._shapes[this._shape_index];
+  return this._shapes[Math.floor(this._shape_index)];
 };
