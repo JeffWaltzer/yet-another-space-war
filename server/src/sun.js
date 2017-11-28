@@ -7,26 +7,31 @@ function Sun(initial_state) {
   if (initial_state.shapes) {
     this._shapes = initial_state.shapes;
   }
-    else {
-	this._shapes = [
-	    [
-		new Polygon(
-		    [
-			[0, 20],
-			[14, 14],
-			[20, 0],
-			[14, -14],
-			[0, -20],
-			[-14, -14],
-			[-20, 0],
-			[-14, 14]
-		    ],
-		    'orange')
-	    ],
-	];
+  else {
+    this._shapes = [
+      [
+        new Polygon(
+	  [
+	    [0, 20],
+	    [14, 14],
+	    [20, 0],
+	    [14, -14],
+	    [0, -20],
+	    [-14, -14],
+	    [-20, 0],
+	    [-14, 14]
+	  ],
+	  'orange')
+      ],
+    ];
   }
 
   initial_state.mass = 30000;
+
+  if (initial_state.animation_rate)
+    this._animation_rate= initial_state.animation_rate;
+  else
+    this._animation_rate= 10;
 
   this._shape_index= 0;
 
@@ -43,7 +48,7 @@ Sun.prototype.is_sun = function () {
 };
 
 Sun.prototype.update= function(tick_rate) {
-  this._shape_index= (this._shape_index + 1) % this._shapes.length;
+  this._shape_index= (this._shape_index + tick_rate/this._animation_rate) % this._shapes.length;
 };
 
 exports.Sun = Sun;

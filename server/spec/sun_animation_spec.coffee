@@ -25,14 +25,21 @@ describe 'sun', ->
       'blue'
     )
     ]
-    the_sun = new Sun({shapes: [shape1, shape2]})
+    the_sun = new Sun({shapes: [shape1, shape2], animation_rate: 0.5})
 
   it 'starts with first shape', ->
     expect(the_sun.shape()).toEqual(shape1)
 
-  describe 'after one animation-time has passed', ->
+  describe 'before one animation-time has passed', ->
      beforeEach ->
        the_sun.update(1)
+
+     it 'still shows the first shape', ->
+       expect(the_sun.shape()).toEqual(shape1)
+
+  describe 'after one animation-time has passed', ->
+     beforeEach ->
+       the_sun.update(0.5)
 
      it 'shows the second shape', ->
        expect(the_sun.shape()).toEqual(shape2)
