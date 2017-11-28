@@ -6,6 +6,7 @@ Polygon = require('./../../src/polygon').Polygon;
 describe 'sun', ->
   the_sun = undefined
   shape1 = undefined
+  shape2 = undefined
 
   beforeEach ->
     shape1 = [new Polygon(
@@ -16,8 +17,22 @@ describe 'sun', ->
       'orange'
     )
     ]
-    the_sun = new Sun({shapes: [shape1]})
+    shape2 = [new Polygon(
+      [
+        [20, 0],
+        [0, 20],
+      ],
+      'blue'
+    )
+    ]
+    the_sun = new Sun({shapes: [shape1, shape2]})
 
   it 'starts with first shape', ->
-    expect(the_sun).toBeDefined()
     expect(the_sun.shape()).toEqual(shape1)
+
+  describe 'after one animation-time has passed', ->
+     beforeEach ->
+       the_sun.update(1)
+
+     it 'shows the second shape', ->
+       expect(the_sun.shape()).toEqual(shape2)

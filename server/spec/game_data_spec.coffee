@@ -19,7 +19,8 @@ check_request= (page_name, expected_file, expected_content_type) ->
 
     it "should respond with content type #{expected_content_type}", (done) ->
       request "http://localhost:3000#{page_name}", (error, response, body) ->
-        expect(error).toBeNull();
+        expect(error).toBeNull()
+        expect(response).toBeDefined()
         expect(response.headers['content-type']).toEqual(expected_content_type)
         done()
 

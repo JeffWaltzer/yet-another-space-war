@@ -5,24 +5,30 @@ var util = require('util');
 function Sun(initial_state) {
 
   if (initial_state.shapes) {
-    initial_state.shape = initial_state.shapes[0];
-  } else if (!initial_state.shape) {
-    initial_state.shape = [
-      new Polygon(
-        [
-          [0, 20],
-          [14, 14],
-          [20, 0],
-          [14, -14],
-          [0, -20],
-          [-14, -14],
-          [-20, 0],
-          [-14, 14]
-        ],
-        'orange')];
+    this._shapes = initial_state.shapes;
+  }
+    else {
+	this._shapes = [
+	    [
+		new Polygon(
+		    [
+			[0, 20],
+			[14, 14],
+			[20, 0],
+			[14, -14],
+			[0, -20],
+			[-14, -14],
+			[-20, 0],
+			[-14, 14]
+		    ],
+		    'orange')
+	    ],
+	];
   }
 
   initial_state.mass = 30000;
+
+  this._shape_index= 0;
 
   screen_object.ScreenObject.call(this, initial_state);
 }
@@ -36,5 +42,12 @@ Sun.prototype.is_sun = function () {
   return true;
 };
 
+Sun.prototype.update= function(tick_rate) {
+  this._shape_index= (this._shape_index + 1) % this._shapes.length;
+};
 
 exports.Sun = Sun;
+
+Sun.prototype.shape = function () {
+  return this._shapes[this._shape_index];
+};
