@@ -8,7 +8,7 @@ var NullPlayer= require('./null_player').NullPlayer;
 
 var MathUtil= require('./math_util');
 var Vector=require('./vector').Vector;
-var Polygon= require('./polygon').Polygon;
+var physics = require('./physics');
 
 function GameField(initial_state) {
   this._field_size = initial_state.field_size || new Vector([800,600]);
@@ -121,11 +121,7 @@ GameField.prototype.remove_dead_objects = function () {
 };
 
 GameField.prototype.update_screen_objects= function(tick_rate) {
-  this.map_screen_objects(
-    function(screen_object) {
-      screen_object.update(tick_rate);
-    });
-
+  physics.update_screen_objects(this.screen_objects(), tick_rate);
   this.handle_collisions();
   this.remove_dead_objects();
 };

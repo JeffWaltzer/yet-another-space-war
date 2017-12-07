@@ -2,7 +2,8 @@ var _= require('underscore');
 var transforms= require('./transform');
 var vector= require('./vector');
 var NullPlayer= require('./null_player').NullPlayer;
-var Vector = require('./vector').Vector;
+var physics = require('./physics');
+
 
 function ScreenObject(initial_state) {
 
@@ -71,28 +72,12 @@ ScreenObject.prototype.outline= function() {
   return this.outline_cache;
 };
 
-var square = function (x) {
-  return x * x;
-};
+ScreenObject.prototype.update = function(tick_rate) {
+  var screen_object = this;
+  physics.update_screen_object(tick_rate, screen_object, this.game_field.suns());
 
-ScreenObject.prototype.update= function(tick_rate) {
-  var the_sun = this.game_field.suns()[0];
-
-  if (the_sun && this !== the_sun) {
-    var delta_x = the_sun.position().x() - this.position().x();
-    var delta_y = the_sun.position().y() - this.position().y();
-
-    var distance = Math.sqrt(square(delta_x) + square(delta_y));
-    var force_magnitude = this.game_field.G() * the_sun.mass() * this.mass() / square(distance);
-
-    var force = new Vector([force_magnitude * delta_x / distance, force_magnitude * delta_y / distance]);
-
-    this.velocity.add_to(force.divide(this.mass()));
-  }
-  this._position.add_to(this.velocity.divide(tick_rate));
-  this._position.clip_to(this.game_field.field_size());
-  this.heading += this.angular_velocity / tick_rate;
-  this.update_outline();
+  screen_object._position.clip_to(screen_object.game_field.field_size());
+  screen_object.update_outline();
 };
 
 ScreenObject.prototype.lines=function () {
