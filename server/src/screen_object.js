@@ -22,14 +22,15 @@ function ScreenObject(initial_state) {
 
   this.update_outline();
 
-  this.position = function(new_value) {
-    if (typeof new_value !== 'undefined') {
-      this._position = new_value;
-      this.update_outline();
-    }
-    return this._position;
-  };
 }
+
+ScreenObject.prototype.position = function(new_value) {
+  if (typeof new_value !== 'undefined') {
+    this._position = new_value;
+    this.update_outline();
+  }
+  return this._position;
+};
 
 ScreenObject.prototype.shape = function (new_shape) {
   if (new_shape)
