@@ -35,7 +35,7 @@ var update_screen_objects = function (screen_objects, tick_rate) {
 };
 
 var update_state = function (screen_object, tick_rate) {
-  screen_object._position.add_to(screen_object.velocity.divide(tick_rate));
+  screen_object.position().add_to(screen_object.velocity.divide(tick_rate));
   screen_object.heading += screen_object.angular_velocity / tick_rate;
 };
 
