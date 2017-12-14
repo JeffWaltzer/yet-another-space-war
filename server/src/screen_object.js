@@ -41,7 +41,7 @@ ScreenObject.prototype.shape = function (new_shape) {
 ScreenObject.prototype.to_game_space= function() {
   var rotation=            transforms.make_rotation(this.heading);
   var composite_transform= transforms.identity();
-  var scale_and_translate_transform= transforms.make_translation(this._position);
+  var scale_and_translate_transform= transforms.make_translation(this.position());
 
   return transforms.concatenate_transforms(composite_transform,
                                            scale_and_translate_transform,
@@ -77,7 +77,7 @@ ScreenObject.prototype.update = function(tick_rate) {
   var screen_object = this;
   physics.update_screen_object(tick_rate, screen_object, this.game_field.suns());
 
-  screen_object._position.clip_to(screen_object.game_field.field_size());
+  screen_object.position().clip_to(screen_object.game_field.field_size());
   screen_object.update_outline();
 };
 
