@@ -58,7 +58,7 @@ Ship.prototype.on_message = function(json_message) {
 
 Ship.prototype.update= function(tick_rate) {
   Ship.super_.prototype.update.call(this, tick_rate);
-  this.velocity.add_to(new vector.Vector({magnitude: this.acceleration / tick_rate,
+  this.velocity().add_to(new vector.Vector({magnitude: this.acceleration / tick_rate,
                                           heading: this.heading}));
 };
 
@@ -82,7 +82,7 @@ Ship.prototype.explode = function() {
 
   the_player.arrange_for_resurrection(game_field);
 
-  return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity);
+  return fragment_maker.add_fragments(this.game_field, this.position(), this.velocity());
 };
 
 Ship.prototype.fire= function(debug){
@@ -90,8 +90,8 @@ Ship.prototype.fire= function(debug){
     game_field: this.game_field,
     life_left: Ship.bullet_lifetime,
     position: this.gun_point().coordinates,
-    velocity: [this.velocity.x() + Ship.bullet_speed * Math.cos(this.heading),
-               this.velocity.y() + Ship.bullet_speed * Math.sin(this.heading)],
+    velocity: [this.velocity().x() + Ship.bullet_speed * Math.cos(this.heading),
+               this.velocity().y() + Ship.bullet_speed * Math.sin(this.heading)],
     ship: this,
     player: this.player()
   };

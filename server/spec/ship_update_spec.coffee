@@ -21,16 +21,16 @@ describe "Ship#update", ->
       the_ship= the_game.game_field.add_ship({velocity: [1,1], heading: Math.PI/3, acceleration: 0})
       the_ship.update(2);
 
-      expect(the_ship.velocity.x()).toEqual(1)
-      expect(the_ship.velocity.y()).toEqual(1)
+      expect(the_ship.velocity().x()).toEqual(1)
+      expect(the_ship.velocity().y()).toEqual(1)
 
   describe "when there's thrust", ->
     it "updates the velocity", ->
       the_ship= the_game.game_field.add_ship({velocity: [0,0], heading: Math.PI/4, acceleration: 1})
       the_ship.update(2)
 
-      expect(the_ship.velocity.x()).toBeCloseTo(Math.sqrt(2)/4)
-      expect(the_ship.velocity.y()).toBeCloseTo(Math.sqrt(2)/4)
+      expect(the_ship.velocity().x()).toBeCloseTo(Math.sqrt(2)/4)
+      expect(the_ship.velocity().y()).toBeCloseTo(Math.sqrt(2)/4)
 
   describe "when the velocity is zero", ->
     it "doesn't change the position", ->

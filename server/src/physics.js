@@ -24,7 +24,7 @@ var apply_gravity = function (sun, screen_object) {
 
   var force = new Vector([force_magnitude * delta_x / distance, force_magnitude * delta_y / distance]);
 
-  screen_object.velocity.add_to(force.divide(screen_object.mass()));
+  screen_object.velocity().add_to(force.divide(screen_object.mass()));
 };
 
 var update_screen_objects = function (screen_objects, tick_rate) {
@@ -35,7 +35,7 @@ var update_screen_objects = function (screen_objects, tick_rate) {
 };
 
 var update_state = function (screen_object, tick_rate) {
-  screen_object.position().add_to(screen_object.velocity.divide(tick_rate));
+  screen_object.position().add_to(screen_object.velocity().divide(tick_rate));
   screen_object.heading += screen_object.angular_velocity / tick_rate;
 };
 

@@ -20,8 +20,8 @@ describe 'Ship fires a bullet', ->
       })
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
-      expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
+      expect(bullet.velocity().x()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
+      expect(bullet.velocity().y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
       expect(bullet.player()).toEqual(the_player)
 
   describe "bullet fired from stationary ship heading PI/4", ->
@@ -38,8 +38,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/4, player: the_player})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo( 10/Math.sqrt(2), 6)
-      expect(bullet.velocity.y()).toBeCloseTo( 10/Math.sqrt(2), 6)
+      expect(bullet.velocity().x()).toBeCloseTo( 10/Math.sqrt(2), 6)
+      expect(bullet.velocity().y()).toBeCloseTo( 10/Math.sqrt(2), 6)
       expect(bullet.player()).toEqual(the_player)
 
   describe "bullet fired from stationary ship heading PI/2", ->
@@ -56,8 +56,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.game_field.add_ship({velocity: [0, 0], heading: Math.PI/2,  player: the_player})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo( 0, 6)
-      expect(bullet.velocity.y()).toBeCloseTo( 10, 6)
+      expect(bullet.velocity().x()).toBeCloseTo( 0, 6)
+      expect(bullet.velocity().y()).toBeCloseTo( 10, 6)
       expect(bullet.player()).toEqual(the_player)
 
 
@@ -75,8 +75,8 @@ describe 'Ship fires a bullet', ->
       the_ship = the_game.game_field.add_ship({velocity: [50, 50], heading: Math.PI*3/4,  player: the_player})
       bullet = the_ship.fire()
 
-      expect(bullet.velocity.x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
-      expect(bullet.velocity.y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
+      expect(bullet.velocity().x()).toBeCloseTo(50 - 10/Math.sqrt(2), 6)
+      expect(bullet.velocity().y()).toBeCloseTo(50 + 10/Math.sqrt(2), 6)
       expect(bullet.player()).toEqual(the_player)
 
   describe 'with correct position', ->

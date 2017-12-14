@@ -26,8 +26,8 @@ describe "fragment", ->
     expect(the_fragment.life_left).toEqual(3)
 
   it 'has default velocity', ->
-    expect(the_fragment.velocity.x()).toEqual(0)
-    expect(the_fragment.velocity.y()).toEqual(0)
+    expect(the_fragment.velocity().x()).toEqual(0)
+    expect(the_fragment.velocity().y()).toEqual(0)
 
   it 'has the correct mass', ->
     expect(the_fragment.mass()).toEqual(0.2)
@@ -48,5 +48,5 @@ describe "fragment with explicit values", ->
     expect(the_fragment.position().y()).toEqual(4)
 
   it 'has correct velocity' , ->
-    expect(the_fragment.velocity.x()).toEqual(5)
-    expect(the_fragment.velocity.y()).toEqual(6)
+    expect(the_fragment.velocity().x()).toEqual(5)
+    expect(the_fragment.velocity().y()).toEqual(6)

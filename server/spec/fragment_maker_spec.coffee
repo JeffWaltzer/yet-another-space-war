@@ -30,7 +30,7 @@ describe 'fragment making', ->
         0, 0, 0,
       ])
 
-    fragment_maker.add_fragments(the_game.game_field, the_ship.position(), the_ship.velocity);
+    fragment_maker.add_fragments(the_game.game_field, the_ship.position(), the_ship.velocity());
 
 
   describe "the first fragment", ->
@@ -44,10 +44,10 @@ describe 'fragment making', ->
       the_fragment = fragments[0]
 
     it "has an x velocity of 55", ->
-      expect(the_fragment.velocity.x()).toEqual(55)
+      expect(the_fragment.velocity().x()).toEqual(55)
 
     it "has a y velocity of -40", ->
-      expect(the_fragment.velocity.y()).toEqual(-40)
+      expect(the_fragment.velocity().y()).toEqual(-40)
 
     it 'has first fragment shape', ->
       expect(the_fragment.outline()).toEqual([new Polygon(fragment_maker.fragment_shapes[0])])
@@ -63,10 +63,10 @@ describe 'fragment making', ->
       the_fragment = fragments[1]
 
     it "has an x velocity of -45", ->
-      expect(the_fragment.velocity.x()).toEqual(-45)
+      expect(the_fragment.velocity().x()).toEqual(-45)
 
     it "has a y velocity of 60", ->
-      expect(the_fragment.velocity.y()).toEqual(60)
+      expect(the_fragment.velocity().y()).toEqual(60)
 
     it 'has second fragment shape', ->
       expect(the_fragment.outline()).toEqual([new Polygon(fragment_maker.fragment_shapes[1])])
@@ -82,10 +82,10 @@ describe 'fragment making', ->
       the_fragment = fragments[2]
 
     it "has an x velocity of 55", ->
-      expect(the_fragment.velocity.x()).toEqual(55)
+      expect(the_fragment.velocity().x()).toEqual(55)
 
     it "has a y velocity of 40", ->
-      expect(the_fragment.velocity.y()).toEqual(60)
+      expect(the_fragment.velocity().y()).toEqual(60)
 
     it 'has third fragment shape', ->
       expect(the_fragment.outline()).toEqual([new Polygon(fragment_maker.fragment_shapes[2])])

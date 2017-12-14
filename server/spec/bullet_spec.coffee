@@ -19,8 +19,8 @@ describe "bullet", ->
     expect(the_bullet.life_left).toEqual(0)
 
   it 'has default velocity', ->
-    expect(the_bullet.velocity.x()).toEqual(0)
-    expect(the_bullet.velocity.y()).toEqual(0)
+    expect(the_bullet.velocity().x()).toEqual(0)
+    expect(the_bullet.velocity().y()).toEqual(0)
 
   it 'has the correct mass', ->
     expect(the_bullet.mass()).toEqual(0.01)
@@ -46,8 +46,8 @@ describe "bullet with explicit values", ->
     expect(the_bullet.position().y()).toEqual(4)
 
   it 'has correct velocity' , ->
-    expect(the_bullet.velocity.x()).toEqual(5)
-    expect(the_bullet.velocity.y()).toEqual(6)
+    expect(the_bullet.velocity().x()).toEqual(5)
+    expect(the_bullet.velocity().y()).toEqual(6)
 
   it 'has correct player', ->
     expect(the_bullet.player()).toEqual(fake_player)

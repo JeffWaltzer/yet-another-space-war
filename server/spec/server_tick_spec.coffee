@@ -93,7 +93,7 @@ describe "game#tick" , ->
 
 
   it "updates the first ship's velocity from the sun's gravity", ->
-    expect(ships[0].velocity).toEqual(expected_velocity)
+    expect(ships[0].velocity()).toEqual(expected_velocity)
 
   it "doesn't change the second ship's heading", ->
     expect(ships[1].heading).toBeCloseTo(Math.PI/2, 6)

@@ -13,16 +13,22 @@ function ScreenObject(initial_state) {
 
   this.game_field= initial_state.game_field;
   this.shape(initial_state.shape);
-  this.position(new vector.Vector(initial_state.position || [0, 0]));
-  this.velocity= new vector.Vector(initial_state.velocity || [0,0]);
   this._player= initial_state.player || new NullPlayer();
   this.heading = initial_state.heading || 0;
+  this.position(new vector.Vector(initial_state.position || [0, 0]));
+  this.velocity(new vector.Vector(initial_state.velocity || [0,0]));
   this.angular_velocity = initial_state.angular_velocity || 0;
   this.mass(initial_state.mass);
 
   this.update_outline();
 
 }
+
+ScreenObject.prototype.velocity = function (new_velocity) {
+  if (new_velocity)
+    this._velocity = new_velocity;
+  return this._velocity;
+};
 
 ScreenObject.prototype.position = function(new_value) {
   if (typeof new_value !== 'undefined') {
