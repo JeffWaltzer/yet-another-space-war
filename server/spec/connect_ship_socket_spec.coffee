@@ -18,7 +18,7 @@ describe "ship#outline" , ->
     on_callbacks['message'](JSON.stringify({command: 'rotate_left'}));
 
   it 'rotates the correct ship', ->
-    expect(the_ship.angular_velocity).toEqual(-ship.Ship.rotation_rate)
+    expect(the_ship._angular_velocity).toEqual(-ship.Ship.rotation_rate)
 
   afterEach ->
     server= null

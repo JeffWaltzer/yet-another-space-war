@@ -17,7 +17,7 @@ function ScreenObject(initial_state) {
   this.heading = initial_state.heading || 0;
   this.position(new vector.Vector(initial_state.position || [0, 0]));
   this.velocity(new vector.Vector(initial_state.velocity || [0,0]));
-  this.angular_velocity = initial_state.angular_velocity || 0;
+  this._angular_velocity = initial_state.angular_velocity || 0;
   this.mass(initial_state.mass);
 
   this.update_outline();

@@ -26,7 +26,7 @@ describe 'the server, when asked for ship data ', ->
       setup_ship(socket, init_ship, test, done)
       socket.send JSON.stringify({'command': ship_command}) , ->
         setTimeout (->
-          expect(server.game.game_field.ships()[0].angular_velocity).toEqual(expected_angular_velocity)
+          expect(server.game.game_field.ships()[0]._angular_velocity).toEqual(expected_angular_velocity)
           done()
         ),50
 
@@ -84,7 +84,7 @@ describe 'the server, when asked for ship data ', ->
 
   it 'sets ship no angular_velocity on rotate_stop', (done) ->
     set_angular_velocity = ->
-      server.game.game_field.ships()[0].angular_velocity = 1
+      server.game.game_field.ships()[0]._angular_velocity = 1
     check_angular_velocity "rotate_stop", 0, server, this, set_angular_velocity, done
 
   it 'sets acceleration on thrust_on', (done) ->

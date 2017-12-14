@@ -29,13 +29,13 @@ Ship.prototype.on_message = function(json_message) {
 
   switch (message.command) {
   case 'rotate_left':
-    this.angular_velocity= -Ship.rotation_rate;
+    this._angular_velocity= -Ship.rotation_rate;
     break;
   case 'rotate_right':
-    this.angular_velocity= Ship.rotation_rate;
+    this._angular_velocity= Ship.rotation_rate;
     break;
   case 'rotate_stop':
-    this.angular_velocity= 0;
+    this._angular_velocity= 0;
     break;
   case 'thrust_on':
     this.acceleration = 30;
