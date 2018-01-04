@@ -2,6 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     jasmine_node: {
+      useHelpers: true,
       options: {
         forceExit: true,
         match: '.',
