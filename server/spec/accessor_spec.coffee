@@ -1,3 +1,9 @@
+Object.prototype.accessor= (name) ->
+  field_name= "_#{name}"
+  this.prototype[name]= (new_value) ->
+    if (new_value != undefined)
+      this[field_name]= new_value
+    this[field_name]
 
 describe 'accessor class method', ->
   SomeClass = ->
