@@ -23,11 +23,7 @@ util.inherits(Bullet, ScreenObject);
 Bullet.prototype.update= MortalObject.update;
 Bullet.prototype.live = MortalObject.live;
 
-Bullet.prototype.ship= function(new_value) {
-  if(new_value)
-    this._ship = new_value;
-  return this._ship;
-};
+Bullet.accessor('ship');
 
 Bullet.prototype.is_bullet = function() {
   return true;
