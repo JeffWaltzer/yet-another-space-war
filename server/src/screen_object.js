@@ -24,17 +24,13 @@ function ScreenObject(initial_state) {
 
 }
 
-ScreenObject.prototype.angular_velocity = function (new_angular_velocity) {
-  if (new_angular_velocity !== undefined)
-    this._angular_velocity = new_angular_velocity;
-  return this._angular_velocity;
-};
+ScreenObject.accessor('player');
+ScreenObject.accessor('angular_velocity');
+ScreenObject.accessor('velocity');
+ScreenObject.accessor('shape');
+ScreenObject.accessor('outline');
+ScreenObject.accessor('mass');
 
-ScreenObject.prototype.velocity = function (new_velocity) {
-  if (new_velocity)
-    this._velocity = new_velocity;
-  return this._velocity;
-};
 
 ScreenObject.prototype.position = function(new_value) {
   if (typeof new_value !== 'undefined') {
@@ -42,12 +38,6 @@ ScreenObject.prototype.position = function(new_value) {
     this.update_outline();
   }
   return this._position;
-};
-
-ScreenObject.prototype.shape = function (new_shape) {
-  if (new_shape)
-    this._shape = new_shape;
-  return this._shape;
 };
 
 ScreenObject.prototype.to_game_space= function() {
@@ -78,11 +68,7 @@ ScreenObject.prototype.generate_outline = function () {
 };
 
 ScreenObject.prototype.update_outline = function() {
-  this.outline_cache = this.generate_outline();
-};
-
-ScreenObject.prototype.outline= function() {
-  return this.outline_cache;
+  this.outline(this.generate_outline());
 };
 
 ScreenObject.prototype.update = function(tick_rate) {
@@ -107,12 +93,6 @@ ScreenObject.prototype.lines=function () {
     return result;
 };
 
-ScreenObject.prototype.player= function(new_value) {
-  if (new_value !== undefined)
-    this._player= new_value;
-  return this._player;
-};
-
 ScreenObject.prototype.make_game_piece= function() {
   return {
       wireframe: _(this.outline()).map(
@@ -132,12 +112,6 @@ ScreenObject.prototype.make_game_piece= function() {
 
 ScreenObject.prototype.point_value= function() {
   return 0;
-};
-
-ScreenObject.prototype.mass = function (new_value) {
-  if (new_value)
-    this._mass= new_value;
-  return this._mass;
 };
 
 ScreenObject.prototype.bump_player_score = function (other_object) {
