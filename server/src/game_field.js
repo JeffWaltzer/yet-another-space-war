@@ -17,15 +17,11 @@ function GameField(initial_state) {
   this.next_id = 0;
 }
 
-GameField.prototype.field_size = function () {
-  return this._field_size;
-};
 
-GameField.prototype.screen_objects= function(new_value) {
-  if (new_value)
-    this._screen_objects= new_value;
-  return this._screen_objects;
-};
+GameField.accessor('field_size');
+GameField.accessor('screen_objects');
+GameField.accessor('G');
+
 
 GameField.prototype.map_screen_objects= function(callback_function) {
   return _(this.screen_objects()).map(callback_function);
@@ -85,7 +81,6 @@ GameField.prototype.add_sun= function(parameters) {
   new_sun.game_field = this;
   return this.add_screen_object(new_sun);
 };
-
 
 GameField.prototype.add_ship = function(parameters) {
   var defaultState = {
@@ -192,13 +187,6 @@ GameField.prototype.screen_objects_of_type= function(type) {
   return _(this.screen_objects()).select(function(screen_object) {
     return screen_object instanceof type;
   });
-};
-
-GameField.prototype.G = function (new_value) {
-  if (new_value)
-    this._G = new_value;
-  return this._G;
-
 };
 
 exports.GameField= GameField;
