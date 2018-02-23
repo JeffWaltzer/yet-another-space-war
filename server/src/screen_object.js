@@ -21,7 +21,6 @@ function ScreenObject(initial_state) {
   this.mass(initial_state.mass);
 
   this.update_outline();
-
 }
 
 ScreenObject.accessor('player');
@@ -32,13 +31,20 @@ ScreenObject.accessor('outline');
 ScreenObject.accessor('mass');
 
 
-ScreenObject.prototype.position = function(new_value) {
-  if (typeof new_value !== 'undefined') {
-    this._position = new_value;
+ScreenObject.prototype.update_outline = function() {
+  this.outline(this.generate_outline());
+};
+
+ScreenObject.accessor('position', ScreenObject.prototype.update_outline);
+
+ScreenObject.prototype.color = function (new_value) {
+  if (new_value) {
+    this.shape()[0]._color = new_value;
     this.update_outline();
   }
-  return this._position;
+  return this.shape()[0]._color;
 };
+
 
 ScreenObject.prototype.to_game_space= function() {
   var rotation=            transforms.make_rotation(this.heading);
@@ -65,10 +71,6 @@ ScreenObject.prototype.generate_outline = function () {
   });
 
     return transformed_shape;
-};
-
-ScreenObject.prototype.update_outline = function() {
-  this.outline(this.generate_outline());
 };
 
 ScreenObject.prototype.update = function(tick_rate) {
@@ -149,14 +151,6 @@ ScreenObject.prototype.fire = function() {
 };
 
 ScreenObject.prototype.stop_screen_updates = function (){
-};
-
-ScreenObject.prototype.color = function (new_value) {
-  if (new_value) {
-    this.shape()[0]._color = new_value;
-    this.update_outline();
-  }
-  return this.shape()[0]._color;
 };
 
 exports.ScreenObject = ScreenObject;
