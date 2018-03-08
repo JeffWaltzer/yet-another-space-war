@@ -62,49 +62,20 @@ angular.module('YASW').factory(
 	button_bindings= new_value;
       };
       
-      GamepadState.prototype.fire = function (new_value) {
-	/* jshint sub:true */
-        var fire_button = this.buttons[button_bindings[this.id]['fire']];
-	/* jshint sub:false */
+      function command_button(name) {
+	return function(new_value) {
+	  var button= this.buttons[button_bindings[this.id][name]];
+	  if (new_value !== undefined)
+	    button.pressed= new_value;
 
-        if (new_value!==undefined)
-          fire_button.pressed = new_value;
-
-        return fire_button.pressed;
-      };
-
-      GamepadState.prototype.thrust = function (new_value) {
-	/* jshint sub:true */
-        var thrust_button = this.buttons[button_bindings[this.id]['thrust']];
-	/* jshint sub:false */
-
-        if (new_value!==undefined)
-          thrust_button.pressed = new_value;
-
-        return thrust_button.pressed;
-      };
-
-      GamepadState.prototype.left = function (new_value) {
-	/* jshint sub:true */
-        var left_button = this.buttons[button_bindings[this.id]['left']];
-	/* jshint sub:false */
-
-        if (new_value!==undefined)
-          left_button.pressed = new_value;
-
-        return left_button.pressed;
-      };
-
-      GamepadState.prototype.right = function (new_value) {
-	/* jshint sub:true */
-        var right_button = this.buttons[button_bindings[this.id]['right']];
-	/* jshint sub:false */
-
-        if (new_value!==undefined)
-          right_button.pressed = new_value;
-
-        return right_button.pressed;
-      };
+	  return button.pressed;
+	};
+      }
+      
+      GamepadState.prototype.fire = command_button('fire');
+      GamepadState.prototype.thrust = command_button('thrust');
+      GamepadState.prototype.left = command_button('left');
+      GamepadState.prototype.right = command_button('right');
 
       GamepadState.prototype.fire_down_since= function(last_gamepad_state) {
         return this.fire() && !last_gamepad_state.fire();
