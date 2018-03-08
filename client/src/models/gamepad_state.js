@@ -3,7 +3,7 @@ angular.module('YASW').factory(
   [
     function () {
 
-      var button_bindings= {
+      var raw_button_bindings= {
         'default' : {
           fire: 7,
           thrust: 9,
@@ -30,9 +30,28 @@ angular.module('YASW').factory(
         }
       };
 
+      function make_bindings(raw_bindings) {
+	var bindings= [];
+
+	_(raw_bindings).each(function(button_number, command) {
+	  bindings[button_number]= command;
+	});
+
+	return bindings;
+      }
+      
+      function invert_raw_bindings(raw_button_bindings) {
+	var button_bindings= {};
+	_(raw_button_bindings).each(function(raw_binding, id) {
+	  button_bindings[id]= make_bindings(raw_binding);
+	});
+	return button_bindings;
+      }
+
+      var button_bindings= invert_raw_bindings(raw_button_bindings);
 
       var number_of_buttons= function() {
-        return _(_(button_bindings['default']).values()).max() + 1;
+        return _(_(raw_button_bindings['default']).values()).max() + 1;
       };
 
       function fake_buttons() {
@@ -59,12 +78,14 @@ angular.module('YASW').factory(
       }
 
       GamepadState.set_button_bindings= function(new_value) {
-	button_bindings= new_value;
+	button_bindings= invert_raw_bindings(new_value);
       };
       
       function command_button(name) {
 	return function(new_value) {
-	  var button= this.buttons[button_bindings[this.id][name]];
+	  var gamepad_button_bindings= button_bindings[this.id];
+	  var button_index= _(gamepad_button_bindings).indexOf(name);
+	  var button= this.buttons[button_index];
 	  if (new_value !== undefined)
 	    button.pressed= new_value;
 
