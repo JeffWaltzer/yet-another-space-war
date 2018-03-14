@@ -1,3 +1,4 @@
+require('./src/accessor_patch.js');
 yasw= require('./src/yasw_server.js');
 yasw.createServer({
   tick_rate: 20,
