@@ -1,8 +1,9 @@
-{"scripts":
-  {
-    "install":"cd server && npm install && cd ../client && npm install && grunt release",
+{
+  "scripts": {
+    "install": "cd server && npm install && cd ../client && npm install && grunt release",
     "test": "cd server && grunt --stack"
+  },
+  "devDependencies": {
+    "grunt-karma": "^2.0.0"
   }
 }
-
-
