@@ -76,16 +76,16 @@ describe "When we see a new gamepad with a non-default id", ->
     GamepadState.set_button_bindings(
       {
         'default' : {
-          fire: 7,
-          thrust: 9,
-          left: 1,
-          right: 2
+          fire: [7],
+          thrust: [9],
+          left: [1],
+          right: [2]
         },
         'our-binding' : {
-          fire: 1,
-          thrust: 2,
-          left: 3,
-          right: 5,
+          fire: [1],
+          thrust: [2],
+          left: [3],
+          right: [5],
         },
       }
     )

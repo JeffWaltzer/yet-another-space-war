@@ -5,41 +5,41 @@ angular.module('YASW').factory(
 
       var raw_button_bindings= {
         'default' : {
-          fire: 7,
-          thrust: 9,
-          left: 1,
-          right: 2
+          fire: [7],
+          thrust: [9],
+          left: [1],
+          right: [2]
         },
         'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)' : {
-          fire: 6,
-          thrust: 11,
-          left: 3,
-          right: 1,
+          fire: [6],
+          thrust: [11],
+          left: [3],
+          right: [1],
         },
         'THRUSTMASTER FireStorm Dual Power 2  (Vendor: 044f Product: b304)' : {
-          fire: 7,
-          thrust: 9,
-          left: 1,
-          right: 2
+          fire: [7],
+          thrust: [9],
+          left: [1],
+          right: [2]
         },
         'Saitek PLC Cyborg Force Rumble Pad (Vendor: 06a3 Product: ff0c)' : {
-          fire: 6,
-          thrust: 2,
-          left: 1,
-          right: 3
+          fire: [6],
+          thrust: [2],
+          left: [1],
+          right: [3]
         }
       };
 
       function make_bindings(raw_bindings) {
 	var bindings= [];
 
-	_(raw_bindings).each(function(button_number, command) {
-	  bindings[button_number]= command;
+	_(raw_bindings).each(function(button_numbers, command) {
+	  bindings[button_numbers[0]]= command;
 	});
 
 	return bindings;
       }
-      
+
       function invert_raw_bindings(raw_button_bindings) {
 	var button_bindings= {};
 	_(raw_button_bindings).each(function(raw_binding, id) {
@@ -51,7 +51,7 @@ angular.module('YASW').factory(
       var button_bindings= invert_raw_bindings(raw_button_bindings);
 
       var number_of_buttons= function() {
-        return _(_(raw_button_bindings['default']).values()).max() + 1;
+	return button_bindings['default'].length;
       };
 
       function fake_buttons() {
@@ -80,7 +80,7 @@ angular.module('YASW').factory(
       GamepadState.set_button_bindings= function(new_value) {
 	button_bindings= invert_raw_bindings(new_value);
       };
-      
+
       function command_button(name) {
 	return function(new_value) {
 	  var gamepad_button_bindings= button_bindings[this.id];
@@ -92,7 +92,7 @@ angular.module('YASW').factory(
 	  return button.pressed;
 	};
       }
-      
+
       GamepadState.prototype.fire = command_button('fire');
       GamepadState.prototype.thrust = command_button('thrust');
       GamepadState.prototype.left = command_button('left');
