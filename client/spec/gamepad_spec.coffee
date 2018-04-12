@@ -82,33 +82,61 @@ describe "When we see a new gamepad with a non-default id", ->
           right: [2]
         },
         'our-binding' : {
-          fire: [1],
+          fire: [4,1],
           thrust: [2],
           left: [3],
           right: [5],
         },
       }
     )
-
-    Gamepad.dom_gamepads = ->
-      [
-        {
-          id: 'our-binding',
-          buttons: [
-            {pressed: false},
-            {pressed: true},
-            {pressed: false},
-            {pressed: false},
-            {pressed: false},
-            {pressed: false},
-          ]
-        }
-      ]
-
-    Gamepad.poll_gamepads()
-
-    new_gamepad= Gamepad.gamepads[0]
   )
 
-  it "updates the correct gamepad's state", ->
-    expect(new_gamepad.last_gamepad_state.fire()).toBeTruthy()
+  describe 'When Button one is pressed', ->
+    beforeEach inject((_Gamepad_, _GamepadState_) ->
+      Gamepad.dom_gamepads = ->
+        [
+          {
+            id: 'our-binding',
+            buttons: [
+              {pressed: false},
+              {pressed: true},
+              {pressed: false},
+              {pressed: false},
+              {pressed: false},
+              {pressed: false},
+            ]
+          }
+        ]
+
+      Gamepad.poll_gamepads()
+
+      new_gamepad= Gamepad.gamepads[0]
+    )
+
+    it "updates the fire state", ->
+      expect(new_gamepad.last_gamepad_state.fire()).toBeTruthy()
+
+  describe 'When Button four is pressed', ->
+    beforeEach inject((_Gamepad_, _GamepadState_) ->
+      Gamepad.dom_gamepads = ->
+        [
+          {
+            id: 'our-binding',
+            buttons: [
+              {pressed: false},
+              {pressed: false},
+              {pressed: false},
+              {pressed: false},
+              {pressed: true},
+              {pressed: false},
+            ]
+          }
+        ]
+
+      Gamepad.poll_gamepads()
+
+      new_gamepad= Gamepad.gamepads[0]
+    )
+
+    it "updates the fire state", ->
+      expect(new_gamepad.last_gamepad_state.fire()).toBeTruthy()

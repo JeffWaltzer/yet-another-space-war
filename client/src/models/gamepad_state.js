@@ -3,26 +3,26 @@ angular.module('YASW').factory(
   [
     function () {
 
-      var raw_button_bindings= {
-        'default' : {
+      var raw_button_bindings = {
+        'default': {
           fire: [7],
           thrust: [9],
           left: [1],
           right: [2]
         },
-        'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)' : {
+        'DragonRise Inc.   Generic   USB  Joystick   (STANDARD GAMEPAD Vendor: 0079 Product: 0006)': {
           fire: [6],
           thrust: [11],
           left: [3],
           right: [1],
         },
-        'THRUSTMASTER FireStorm Dual Power 2  (Vendor: 044f Product: b304)' : {
+        'THRUSTMASTER FireStorm Dual Power 2  (Vendor: 044f Product: b304)': {
           fire: [7],
           thrust: [9],
           left: [1],
           right: [2]
         },
-        'Saitek PLC Cyborg Force Rumble Pad (Vendor: 06a3 Product: ff0c)' : {
+        'Saitek PLC Cyborg Force Rumble Pad (Vendor: 06a3 Product: ff0c)': {
           fire: [6],
           thrust: [2],
           left: [1],
@@ -31,27 +31,27 @@ angular.module('YASW').factory(
       };
 
       function make_bindings(raw_bindings) {
-	var bindings= [];
+        var bindings = [];
 
-	_(raw_bindings).each(function(button_numbers, command) {
-	  bindings[button_numbers[0]]= command;
-	});
+        _(raw_bindings).each(function (button_numbers, command) {
+          bindings[button_numbers[0]] = command;
+        });
 
-	return bindings;
+        return bindings;
       }
 
       function invert_raw_bindings(raw_button_bindings) {
-	var button_bindings= {};
-	_(raw_button_bindings).each(function(raw_binding, id) {
-	  button_bindings[id]= make_bindings(raw_binding);
-	});
-	return button_bindings;
+        var button_bindings = {};
+        _(raw_button_bindings).each(function (raw_binding, id) {
+          button_bindings[id] = make_bindings(raw_binding);
+        });
+        return button_bindings;
       }
 
-      var button_bindings= invert_raw_bindings(raw_button_bindings);
+      var button_bindings = invert_raw_bindings(raw_button_bindings);
 
-      var number_of_buttons= function() {
-	return button_bindings['default'].length;
+      var number_of_buttons = function () {
+        return button_bindings['default'].length;
       };
 
       function fake_buttons() {
@@ -62,7 +62,7 @@ angular.module('YASW').factory(
       }
 
       function real_buttons(dom_gamepad) {
-        var buttons = _.map(dom_gamepad.buttons, function(a_button){
+        var buttons = _.map(dom_gamepad.buttons, function (a_button) {
           return {pressed: a_button.pressed};
         });
         return buttons;
@@ -70,27 +70,33 @@ angular.module('YASW').factory(
 
       function GamepadState(dom_gamepad) {
         if (dom_gamepad && _(_(button_bindings).keys()).contains(dom_gamepad.id))
-          this.id= dom_gamepad.id;
+          this.id = dom_gamepad.id;
         else
-          this.id= 'default';
+          this.id = 'default';
 
         this.buttons = dom_gamepad ? real_buttons(dom_gamepad) : fake_buttons();
       }
 
-      GamepadState.set_button_bindings= function(new_value) {
-	button_bindings= invert_raw_bindings(new_value);
+      GamepadState.set_button_bindings = function (new_value) {
+        button_bindings = invert_raw_bindings(new_value);
       };
 
       function command_button(name) {
-	return function(new_value) {
-	  var gamepad_button_bindings= button_bindings[this.id];
-	  var button_index= _(gamepad_button_bindings).indexOf(name);
-	  var button= this.buttons[button_index];
-	  if (new_value !== undefined)
-	    button.pressed= new_value;
-
-	  return button.pressed;
-	};
+        return function (new_value) {
+          var gamepad_button_bindings = button_bindings[this.id];
+          var pressed = false;
+          _(gamepad_button_bindings).each(function (binding, button_number) {
+            if (binding === name) {
+              var button = this.buttons[button_number];
+              if (new_value !== undefined)
+                button.pressed = new_value;
+              pressed = pressed || button.pressed;
+            }
+          },
+            this
+          );
+          return pressed;
+        };
       }
 
       GamepadState.prototype.fire = command_button('fire');
@@ -98,35 +104,35 @@ angular.module('YASW').factory(
       GamepadState.prototype.left = command_button('left');
       GamepadState.prototype.right = command_button('right');
 
-      GamepadState.prototype.fire_down_since= function(last_gamepad_state) {
+      GamepadState.prototype.fire_down_since = function (last_gamepad_state) {
         return this.fire() && !last_gamepad_state.fire();
       };
 
-      GamepadState.prototype.thrust_down_since= function(last_gamepad_state) {
+      GamepadState.prototype.thrust_down_since = function (last_gamepad_state) {
         return this.thrust() && !last_gamepad_state.thrust();
       };
 
-      GamepadState.prototype.thrust_up_since= function(last_gamepad_state) {
+      GamepadState.prototype.thrust_up_since = function (last_gamepad_state) {
         return !this.thrust() && last_gamepad_state.thrust();
       };
 
-      GamepadState.prototype.rotating= function() {
+      GamepadState.prototype.rotating = function () {
         return this.rotating_left() || this.rotating_right();
       };
 
-      GamepadState.prototype.rotating_left= function() {
-        return this.left()  &&  !this.right();
+      GamepadState.prototype.rotating_left = function () {
+        return this.left() && !this.right();
       };
 
-      GamepadState.prototype.rotating_right= function() {
+      GamepadState.prototype.rotating_right = function () {
         return !this.left() && this.right();
       };
 
-      GamepadState.prototype.both_up= function() {
+      GamepadState.prototype.both_up = function () {
         return !this.left() && !this.right();
       };
 
-      GamepadState.prototype.both_down= function() {
+      GamepadState.prototype.both_down = function () {
         return this.left() && this.right();
       };
 
