@@ -1,6 +1,8 @@
 angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_server', 'keyboard', 'Gamepad',
   function ($scope, game_server, keyboard, Gamepad) {
 
+  $scope.gamepad_editor_visible= false;
+
   $scope.polygons = function () {
     return game_server.polygons;
   };
@@ -17,6 +19,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
   var KEY_RIGHT_ARROW = 39;
   var KEY_DOWN_ARROW = 40;
   var KEY_SPACE = 32;
+  var KEY_G= 71;
   var KEY_R = 82;
   var KEY_S = 83;
 
@@ -36,6 +39,9 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
         break;
       case KEY_S:
         keyboard.on_clone_down();
+        break;
+      case KEY_G:
+        $scope.gamepad_editor_visible = !$scope.gamepad_editor_visible;
         break;
     }
   };
