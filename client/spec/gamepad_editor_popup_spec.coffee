@@ -1,31 +1,48 @@
-describe "The  gamepad editor default state", ->
-  it " is not shown", ->
-    expect(scope.gamepad_editor_visible).toBeFalse()
+describe "The gamepad editor", ->
+  beforeEach module("YASW")
 
-describe "When the gamepad editor is not shown", ->
-  describe " and the gampad editor hotkey is up", ->
-    controller= undefined
+  scope= undefined
+  keyboard= undefined
+  createController = undefined
+
+  beforeEach inject(($rootScope, $controller, _keyboard_)->
+    keyboard= _keyboard_
+    scope= $rootScope.$new()
+    createController = ->
+      $controller "ShipCommandController",
+        $scope: scope
+  )
+
+  describe "The  gamepad editor default state", ->
     beforeEach ->
-      controller = createController()
-      keyboard.gampad_editor_hotkey= "up"
+      createController()
 
-    describe " and we receive down", ->
+    it " is not shown", ->
+      expect(scope.gamepad_editor_visible).toBe(false)
+
+  describe "When the gamepad editor is not shown", ->
+    describe " and the gampad editor hotkey is up", ->
       beforeEach ->
-        scope.onKeyUp {keyCode: 42} # fix the keycode
+        createController()
+        keyboard.gampad_editor_hotkey= "up"
 
-      it "shows the gamepad editor", ->
-        expect(scope.gamepad_editor_visible).toBeTrue()
+      describe " and we receive down", ->
+        beforeEach ->
+          scope.onKeyDown {keyCode: 71}
 
-describe "When the gamepad editor is shown", ->
-  describe " and the gampad editor hotkey is up", ->
-    controller= undefined
-    beforeEach ->
-      controller = createController()
-      keyboard.gampad_editor_hotkey= "up"
+        it "shows the gamepad editor", ->
+          expect(scope.gamepad_editor_visible).toBe(true)
 
-    describe " and we receive down", ->
+  describe "When the gamepad editor is shown", ->
+    describe " and the gampad editor hotkey is up", ->
       beforeEach ->
-        scope.onKeyUp {keyCode: 42} # fix the keycode
+        createController()
+        scope.gamepad_editor_visible= true
+        keyboard.gampad_editor_hotkey= "up"
 
-      it "hides the gamepad editor", ->
-        expect(scope.gamepad_editor_visible).toBeFalse()
+      describe " and we receive down", ->
+        beforeEach ->
+          scope.onKeyDown {keyCode: 71}
+
+        it "hides the gamepad editor", ->
+          expect(scope.gamepad_editor_visible).toBe(false)
