@@ -15,6 +15,7 @@ angular.module('YASW').factory('keyboard', [
     service.right_key = "up";
     service.thrust_key = "up";
     service.fire_key = "up";
+    service.gamepad_editor_hotkey= "up";
 
     service.on_fire_down = function () {
       if (key_in_state('fire', 'up'))
