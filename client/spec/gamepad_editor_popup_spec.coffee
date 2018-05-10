@@ -27,9 +27,9 @@ describe "The gamepad editor", ->
     beforeEach ->
       scope.gamepad_editor_visible= false
 
-    describe " and the gampad editor hotkey is up", ->
+    describe " and the gamepad editor hotkey is up", ->
       beforeEach ->
-        keyboard.gampad_editor_hotkey= "up"
+        keyboard.gamepad_editor_hotkey= "up"
 
       describe " and we receive down", ->
         beforeEach ->
@@ -38,24 +38,24 @@ describe "The gamepad editor", ->
         it "shows the gamepad editor", ->
           expect(scope.gamepad_editor_visible).toBe(true)
 
-    describe " and the gampad editor hotkey is down", ->
+    describe " and the gamepad editor hotkey is down", ->
       beforeEach ->
-        keyboard.gampad_editor_hotkey= "down"
+        keyboard.gamepad_editor_hotkey= "down"
 
       describe " and we receive down", ->
         beforeEach ->
           scope.onKeyDown {keyCode: 71}
 
-        it "shows the gamepad editor", ->
+        it "doesn't show the gamepad editor", ->
           expect(scope.gamepad_editor_visible).toBe(false)
 
   describe "When the gamepad editor is shown", ->
     beforeEach ->
       scope.gamepad_editor_visible= true
 
-    describe " and the gampad editor hotkey is up", ->
+    describe " and the gamepad editor hotkey is up", ->
       beforeEach ->
-        keyboard.gampad_editor_hotkey= "up"
+        keyboard.gamepad_editor_hotkey= "up"
 
       describe " and we receive down", ->
         beforeEach ->
@@ -64,13 +64,13 @@ describe "The gamepad editor", ->
         it "hides the gamepad editor", ->
           expect(scope.gamepad_editor_visible).toBe(false)
 
-    describe " and the gampad editor hotkey is down", ->
+    describe " and the gamepad editor hotkey is down", ->
       beforeEach ->
-        keyboard.gampad_editor_hotkey= "down"
+        keyboard.gamepad_editor_hotkey= "down"
 
       describe " and we receive down", ->
         beforeEach ->
           scope.onKeyDown {keyCode: 71}
 
-        it "hides the gamepad editor", ->
+        it "shows the gamepad editor", ->
           expect(scope.gamepad_editor_visible).toBe(true)

@@ -41,7 +41,7 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
         keyboard.on_clone_down();
         break;
       case KEY_G:
-        $scope.gamepad_editor_visible = !$scope.gamepad_editor_visible;
+        keyboard.on_gamepad_editor_hotkey_down($scope);
         break;
     }
   };
@@ -60,6 +60,9 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
       case KEY_SPACE:
         keyboard.on_fire_up();
         break;
+      case KEY_G:
+        keyboard.on_gamepad_editor_hotkey_up();
+      break;
     }
   };
 
