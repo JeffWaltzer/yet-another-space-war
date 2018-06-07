@@ -1,4 +1,4 @@
-describe "The gamepad editor", ->
+describe "The gamepad editor hotkey", ->
   beforeEach module("YASW")
 
   scope= undefined
