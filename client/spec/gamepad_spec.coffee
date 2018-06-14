@@ -59,8 +59,6 @@ describe "When we have a gamepad and see a new one with the same id", ->
   it 'updates the new gamepad', ->
     expect(new_gamepad.last_gamepad_state.buttons[1].pressed).toBeTruthy()
 
-  xit 'tests the default bindings'
-
 
 describe "When we see a new gamepad with a non-default id", ->
   beforeEach module("YASW")
