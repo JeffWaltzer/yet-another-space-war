@@ -11,8 +11,8 @@ describe "the game display", ->
     )
 
     scope.polygon= 
-      color: "some color"
-      polygon_string: "a polygon string"
+      color: "green"
+      polygon_string: "1,2 1,3 3,1"
       score: null
       position: [0,0]
 
@@ -20,6 +20,8 @@ describe "the game display", ->
     scope.$digest()
 
 
-  # Continue Here
   it "has the right color", ->
-    expect(game_display.find('polygon')[0].attributes.getNamedItem('stroke').value).toEqual("some color")
+    expect(game_display.find('polygon')[0].attributes.getNamedItem('stroke').value).toEqual("green")
+
+  it "has the right polygon string", ->
+    expect(game_display.find('polygon')[0].attributes.getNamedItem('points').value).toEqual("1,2 1,3 3,1")
