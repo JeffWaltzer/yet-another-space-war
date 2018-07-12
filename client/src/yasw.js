@@ -27,5 +27,11 @@ angular.module('YASW', [])
         '  </text>' +
         '</g>'
     };
+  })
+  .directive('gamepadEditor', function() {
+    return {
+      restrict: 'E',
+      replace: true,
+      template: '<div></div>'
+    };
   });
-
