@@ -7,5 +7,6 @@
     margin-left: -200px; /* negative half of width above */
     margin-top: -200px; /* negative half of height above */
     color: white;
-    background: grey;
+    background:darkgrey;
+    opacity: 50%;
 }
