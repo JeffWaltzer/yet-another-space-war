@@ -16,11 +16,11 @@ describe "the gamepad editor display", ->
     #   score: null
     #   position: [0,0]
 
-    gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)
+    gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)[0]
     scope.$digest()
 
   it "exists", ->
-    expect(gamepad_editor[0].nodeName).toEqual('DIV')
+    expect(gamepad_editor.nodeName).toEqual('DIV')
 
   it "has 'no gamepads' displayed", ->
-    expect(gamepad_editor[0].text).toEqual("No Gamepads")
+    expect(gamepad_editor.textContent).toEqual("No Gamepads")
