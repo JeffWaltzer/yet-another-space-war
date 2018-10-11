@@ -9,3 +9,10 @@
     color: white;
     background: grey;
 }
+
+#no-gamepads-text {
+    margin-top: 50%;
+    margin-bottom: 50%;
+    text-align: center;
+    vertical-align: middle;
+}
