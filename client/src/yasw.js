@@ -32,6 +32,10 @@ angular.module('YASW', [])
     return {
       restrict: 'E',
       replace: true,
-      template: '<div id="gamepad-editor">No Gamepads</div>'
+      template: '<div id="gamepad-editor">' +
+		  '<div id="no-gamepads-text">' +
+		    'No Gamepads' +
+		  '</div>' +
+	       '</div>'
     };
   });
