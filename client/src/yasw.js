@@ -33,9 +33,28 @@ angular.module('YASW', [])
       restrict: 'E',
       replace: true,
       template: '<div id="gamepad-editor">' +
-		  '<div id="no-gamepads-text">' +
-		    'No Gamepads' +
-		  '</div>' +
-	       '</div>'
+          '<h3 id="gamepad-title">YASW Gamepad Configuration' +
+          '</h3>' +
+          '<table id="gamepad-table">' +
+          '<tr>' +
+           '<th>Controller</th>' +
+           '<th>Thrust</th>' +
+           '<th>Fire</th>' +
+           '<th>Left</th>' +
+           '<th>Right</th>' +
+          '</tr>' +
+          '<tr>' +
+          '<td>blah1</td>' +
+          '<td>blah2</td>' +
+          '<td>blah3</td>' +
+          '<td>blah4</td>' +
+          '<td>blah5</td>' +
+          '</tr>' +
+          '</table>' +
+          '</div>'
+
+        // '<div id="no-gamepads-text">' +
+        //   'No Gamepads' +
+        // '</div>' +
     };
   });
