@@ -6,9 +6,9 @@
     height: 400px; /* adjust as per your needs */
     margin-left: -200px; /* negative half of width above */
     margin-top: -200px; /* negative half of height above */
-    color: white;
-    background:darkgrey;
-    opacity: 50%;
+    color: blue;
+    background: #e0e0e0;
+    opacity: 0.8;
 }
 
 #no-gamepads-text {
@@ -32,4 +32,9 @@
 #gamepad-title {
     text-align: center;
     font-family: sans-serif;
+}
+
+.selected-button-binding {
+    background: white;
+    color: black;
 }

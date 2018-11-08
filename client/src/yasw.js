@@ -47,7 +47,7 @@ angular.module('YASW', [])
           '<td>blah1</td>' +
           '<td>blah2</td>' +
           '<td>blah3</td>' +
-          '<td>blah4</td>' +
+          '<td class="selected-button-binding">blah4</td>' +
           '<td>blah5</td>' +
           '</tr>' +
           '</table>' +
