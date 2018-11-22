@@ -10,8 +10,8 @@ describe "the gamepad editor display without any gamepads", ->
       scope= $rootScope.$new()
     )
 
-    spyOn(navigator, 'getGamepads').and.returnValue([])
-
+    scope.gamepads= []
+    scope.gamepad_editor_visible= true;
     gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)[0]
     scope.$digest()
 
@@ -34,8 +34,22 @@ describe "the gamepad editor display with a gamepad", ->
       scope= $rootScope.$new()
     )
 
-    spyOn(navigator, 'getGamepads').and.returnValue('{"hi there": "ferd"}')
-    
+    scope.gamepads= [
+        {
+            id: "Fake Gamepad #1"
+            buttons: [ 
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+             ]
+        }
+    ]
+    scope.gamepad_editor_visible= true;
     gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)[0]
     scope.$digest()
 
