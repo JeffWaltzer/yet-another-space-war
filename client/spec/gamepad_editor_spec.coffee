@@ -53,5 +53,8 @@ describe "the gamepad editor display with a gamepad", ->
     gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)[0]
     scope.$digest()
 
-  it "has one gamepad displayed", ->
+  it "doesn't have the 'no gamepads' message", ->
     expect(gamepad_editor.textContent).not.toEqual("No Gamepads")
+
+  it "has the gamepad displayed", ->
+    expect(gamepad_editor.textContent).toEqual("Fake Gamepad #1")
