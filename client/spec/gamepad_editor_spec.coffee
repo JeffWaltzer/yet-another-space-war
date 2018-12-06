@@ -1,4 +1,4 @@
-describe "the gamepad editor display", ->
+describe "the gamepad editor display without any gamepads", ->
   scope= null
   compile= null
   gamepad_editor= null
@@ -10,12 +10,8 @@ describe "the gamepad editor display", ->
       scope= $rootScope.$new()
     )
 
-    # scope.polygon= 
-    #   color: "green"
-    #   polygon_string: "1,2 1,3 3,1"
-    #   score: null
-    #   position: [0,0]
-
+    scope.gamepads= []
+    scope.gamepad_editor_visible= true;
     gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)[0]
     scope.$digest()
 
@@ -24,3 +20,41 @@ describe "the gamepad editor display", ->
 
   it "has 'no gamepads' displayed", ->
     expect(gamepad_editor.textContent).toEqual("No Gamepads")
+
+
+describe "the gamepad editor display with a gamepad", ->
+  scope= null
+  compile= null
+  gamepad_editor= null
+
+  beforeEach ->
+    module("YASW")
+    inject(($compile, $rootScope) ->
+      compile= $compile
+      scope= $rootScope.$new()
+    )
+
+    scope.gamepads= [
+        {
+            id: "Fake Gamepad #1"
+            buttons: [ 
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+                {pressed: false},
+             ]
+        }
+    ]
+    scope.gamepad_editor_visible= true;
+    gamepad_editor= compile(angular.element("<gamepad-editor/>"))(scope)[0]
+    scope.$digest()
+
+  it "doesn't have the 'no gamepads' message", ->
+    expect(gamepad_editor.textContent).not.toEqual("No Gamepads")
+
+  it "has the gamepad displayed", ->
+    expect(gamepad_editor.textContent).toEqual("Fake Gamepad #1")

@@ -79,7 +79,7 @@ angular.module('YASW').factory('keyboard', [
 
     service.on_gamepad_editor_hotkey_down= function(scope) {
       if (service.gamepad_editor_hotkey === 'up') {
-	scope.gamepad_editor_visible= !scope.gamepad_editor_visible;
+		  scope.gamepad_editor_visible= !scope.gamepad_editor_visible;
       }
       service.gamepad_editor_hotkey= 'down';
     };
