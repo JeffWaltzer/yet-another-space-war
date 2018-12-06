@@ -36,6 +36,9 @@ angular.module('YASW', [])
 					  '<div ng-if="gamepads.length <= 0" id="no-gamepads-text">' +
 						  'No Gamepads' +
 					  '</div>' +
+					  '<div ng-repeat="gamepad in gamepads">' +
+                        '{{gamepad.id}}' +
+                        '</div>' +
 				  '</div>'
     };
   });

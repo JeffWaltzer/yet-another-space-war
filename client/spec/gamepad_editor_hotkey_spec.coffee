@@ -33,10 +33,20 @@ describe "The gamepad editor hotkey", ->
 
       describe " and we receive down", ->
         beforeEach ->
+          spyOn( navigator, "getGamepads").and.returnValue([
+            {id: 'fake gamepad1'},
+            {id: 'fake gamepad2'},
+          ])
           scope.onKeyDown {keyCode: 71}
 
         it "shows the gamepad editor", ->
           expect(scope.gamepad_editor_visible).toBe(true)
+
+        it "populates list of gamepads", ->
+          expect(scope.gamepads).toEqual [
+            {id: 'fake gamepad1'}
+            {id: 'fake gamepad2'}
+          ]
 
     describe " and the gamepad editor hotkey is down", ->
       beforeEach ->

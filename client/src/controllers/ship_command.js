@@ -40,7 +40,8 @@ angular.module('YASW').controller('ShipCommandController', ['$scope', 'game_serv
         keyboard.on_clone_down();
         break;
       case KEY_G:
-        keyboard.on_gamepad_editor_hotkey_down($scope);
+          $scope.gamepads = _.compact( Gamepad.dom_gamepads());
+          keyboard.on_gamepad_editor_hotkey_down($scope);
         break;
     }
   };
