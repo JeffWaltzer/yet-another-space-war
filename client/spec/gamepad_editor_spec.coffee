@@ -56,9 +56,17 @@ describe "the gamepad editor display with a gamepad", ->
   it "doesn't have the 'no gamepads' message", ->
     expect(gamepad_editor.textContent).not.toEqual("No Gamepads")
 
-  it "has the gamepad displayed", ->
-    expect(gamepad_editor.textContent).toEqual("Fake Gamepad #1")
+  it "has the gamepad name displayed", ->
+    expect(gamepad_editor.getElementsByClassName('gamepad-name')[0].textContent).toEqual("Fake Gamepad #1")
 
+  it "has the gamepad thrust button binding displayed", ->
+    expect(gamepad_editor.getElementsByClassName('gamepad-thrust-button')[0].textContent).toEqual("3")
+
+  it "has the gamepad fire button binding displayed"
+
+  it "has the gamepad left button binding displayed"
+
+  it "has the gamepad right button binding displayed"
 
 
 describe "the gamepad editor display with two gamepads", ->
