@@ -28,7 +28,7 @@ describe 'the server, when asked for ship data ', ->
         setTimeout (->
           expect(server.game.game_field.ships()[0].angular_velocity()).toEqual(expected_angular_velocity)
           done()
-        ),50
+        ),100
 
   check_acceleration = (ship_command, expected_acceleration, server, test, init_ship, done) ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
@@ -38,7 +38,7 @@ describe 'the server, when asked for ship data ', ->
         setTimeout (->
           expect(server.game.game_field.ships()[0].acceleration).toEqual(expected_acceleration)
           done()
-        ),50
+        ),100
 
   check_fire = (ship_command,  server, test, init_ship, done) ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
@@ -49,7 +49,7 @@ describe 'the server, when asked for ship data ', ->
         setTimeout (->
           expect(server.game.game_field.ships()[0].fire).toHaveBeenCalled()
           done()
-        ),50
+        ),100
 
   check_clone = (server, test, done) ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
@@ -59,7 +59,7 @@ describe 'the server, when asked for ship data ', ->
         setTimeout (->
           expect(server.game.game_field.ships().length).toEqual(2)
           done()
-        ),50
+        ),100
 
   check_stop_screen_updates = (server, test, done) ->
     socket = engine_client('ws://localhost:3000', transports: ['websocket'])
@@ -71,7 +71,7 @@ describe 'the server, when asked for ship data ', ->
         setTimeout (->
           expect(the_ship.stop_screen_updates).toHaveBeenCalled()
           done()
-        ), 50
+        ),100
 
   it 'starts with no ships', () ->
     expect(server.game.game_field.ships().length).toEqual(0)
