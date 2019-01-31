@@ -1,12 +1,12 @@
 angular.module('YASW', [])
-  .directive('initialFocus', function() {
+  .directive('initialFocus', function () {
     return {
-      link: function(scope, element) {
+      link: function (scope, element) {
         element[0].focus();
       }
     };
   })
-  .directive('gamePolygon', function() {
+  .directive('gamePolygon', function () {
     return {
       restrict: 'E',
       replace: true,
@@ -28,17 +28,23 @@ angular.module('YASW', [])
         '</g>'
     };
   })
-  .directive('gamepadEditor', function() {
+  .directive('gamepadEditor', function () {
     return {
       restrict: 'E',
       replace: true,
-		template: '<div id="gamepad-editor">' +
-					  '<div ng-if="gamepads.length <= 0" id="no-gamepads-text">' +
-						  'No Gamepads' +
-					  '</div>' +
-					  '<div class="gamepad-name" ng-repeat="gamepad in gamepads">' +
-                        '{{gamepad.id}}' +
-                        '</div>' +
-				  '</div>'
+      template:
+        '<div id="gamepad-editor">' +
+          '<div ng-if="gamepads.length <= 0" id="no-gamepads-text">' +
+            'No Gamepads' +
+          '</div>' +
+          '<div ng-repeat="gamepad in gamepads">' +
+            '<div class="gamepad-name" >' +
+              '{{gamepad.id}}' +
+            '</div>' +
+            '<div class="gamepad-thrust-button" >' +
+              '3' +
+            '</div>' +
+          '</div>' +
+        '</div>'
     };
   });
