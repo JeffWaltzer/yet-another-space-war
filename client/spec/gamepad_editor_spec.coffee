@@ -1,7 +1,7 @@
 describe "the gamepad editor display without any gamepads", ->
-  scope= null
-  compile= null
-  gamepad_editor= null
+  scope = null
+  compile = null
+  gamepad_editor = null
 
   beforeEach ->
     module("YASW")
@@ -26,14 +26,22 @@ describe "the gamepad editor display with a gamepad", ->
   scope= null
   compile= null
   gamepad_editor= null
+  GamepadState= null
 
   beforeEach ->
     module("YASW")
-    inject(($compile, $rootScope) ->
+    inject(($compile, $rootScope, _GamepadState_) ->
       compile= $compile
       scope= $rootScope.$new()
+      GamepadState= _GamepadState_
     )
-
+    button_bindings =
+      "Fake Gamepad #1":
+        fire: [7]
+        thrust: [9]
+        left: [1]
+        right: [2]
+    GamepadState.set_button_bindings(button_bindings)
     scope.gamepads= [
       {
         id: "Fake Gamepad #1"
@@ -60,7 +68,7 @@ describe "the gamepad editor display with a gamepad", ->
     expect(gamepad_editor.getElementsByClassName('gamepad-name')[0].textContent).toEqual("Fake Gamepad #1")
 
   it "has the gamepad thrust button binding displayed", ->
-    expect(gamepad_editor.getElementsByClassName('gamepad-thrust-button')[0].textContent).toEqual("3")
+    expect(gamepad_editor.getElementsByClassName('gamepad-thrust-button')[0].textContent).toEqual("9")
 
   it "has the gamepad fire button binding displayed"
 
