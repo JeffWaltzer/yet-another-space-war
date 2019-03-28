@@ -121,6 +121,8 @@ exports.createServer= function(parameters) {
     read_stream.on('open', function() {
       if (file_extension === "js")
 	      response.setHeader("Content-Type", "text/javascript");
+      else if (file_extension === "css")
+        response.setHeader("Content-Type", "text/css");
       else
 	      response.setHeader("Content-Type", "text/html");
       response.statusCode= status;
