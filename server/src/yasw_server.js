@@ -102,7 +102,7 @@ exports.createServer= function(parameters) {
     http_server= http.createServer(yasw_server.on_request);
     
     var listener = http_server.listen(port, function() {if (done) done();});
-    var engine_server = engine_io.attach(listener);
+    var engine_server = engine_io.attach(listener, {allowEIO3: true});
     engine_server.on('connection', yasw_server.on_new_websocket);
   };
 
